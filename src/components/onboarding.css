@@ -15,7 +15,7 @@
     border-radius: 20px;
     min-height: 500px;
     margin-right: 10px;
-    width: calc(25% - 80px);
+    width: calc(100% - 80px);
     padding: 10px;
     box-shadow: 0 0 10px #464040;
     background-color: white;

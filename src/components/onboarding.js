@@ -27,6 +27,7 @@ import Chef from '../assets/png_icons/Chef.png'
 import Shop from '../assets/png_icons/Shop.png'
 import Star from '../assets/png_icons/Star.png'
 import Settings from '../assets/png_icons/Settings.png'
+import Carousel from 'react-elastic-carousel';
 
 const users = [
   {
@@ -82,6 +83,13 @@ const chef = [
   },
 ];
 
+const breakPoints = [
+  { width: 1, itemsToShow: 1 },
+  { width: 550, itemsToShow: 2, itemsToScroll: 2 },
+  { width: 768, itemsToShow: 3, itemsToScroll: 4 },
+  { width: 1200, itemsToShow: 4, itemsToScroll: 2 }
+];
+
 export default function Onboarding() {
   function _renderSkipButton() {
     return (
@@ -113,7 +121,8 @@ export default function Onboarding() {
           <User />
         </div>
       </div>
-      <div className="onboarding-portal">
+
+      <Carousel className="onboarding-portal" breakPoints={breakPoints} showArrows={false}>
         <div className="chef-portal">
           <OnboardingChef1 />
           <div className="content">
@@ -153,8 +162,50 @@ export default function Onboarding() {
               }
           })}
           </div>
+        </div>  
+
+        <div className="chef-portal">
+          <OnboardingChef1 />
+          <div className="content">
+          {chef.map(function(item) {
+              if (item.title == "Title 1"){
+              return <strong>{item.text}</strong>;
+              }
+          })}
+          </div>
         </div>
-      </div>
+        <div className="chef-portal">
+          <OnboardingChef2 />
+          <div className="content">
+          {chef.map(function(item) {
+              if (item.title == "Title 2"){
+              return <strong>{item.text}</strong>;
+              }
+          })}
+          </div>
+        </div>
+        <div className="chef-portal">
+          <OnboardingChef3 />
+          <div className="content">
+          {chef.map(function(item) {
+              if (item.title == "Title 3"){
+              return <strong>{item.text}</strong>;
+              }
+          })}
+          </div>
+        </div>
+        <div className="chef-portal">
+          <OnboardingChef4 />
+          <div className="content">
+          {chef.map(function(item) {
+              if (item.title == "Title 4"){
+              return <strong>{item.text}</strong>;
+              }
+          })}
+          </div>
+        </div>
+      </Carousel>
+
       <div className="bottom-bar">
         <div>
           <img src={Home} height="28" onClick={abc}></img>
