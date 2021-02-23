@@ -22,7 +22,6 @@ function App() {
         </a>
       </header> */}
       <div className="wrapper">
-        <h1>onboarding page</h1>
         <Onboarding />
       </div>
     </div>
