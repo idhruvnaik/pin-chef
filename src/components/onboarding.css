@@ -1,43 +1,40 @@
 .onboarding-portal {
     display: flex;
-    padding: 20px;
-    flex-wrap: inherit;
+    padding: 55px 20px 20px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
 }
 .outer-layout {
     background: linear-gradient( 184deg, white,#464040 92%);
     height: 100%;
+    position: relative;
 }
 .chef-portal {
     border: 1px solid #0370a7;
-    border-radius: 20.3px;
-    height: 20%;
+    border-radius: 20px;
     min-height: 500px;
     margin-right: 10px;
-    margin-top: 40px;
-    width: 20%;
-    padding: 25px;
+    width: calc(25% - 80px);
+    padding: 10px;
     box-shadow: 0 0 10px #464040;
     background-color: white;
-    /* background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAyCAYAAAB70nrOAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAENJREFUeNpiZGBgMGdAAixA/J90gX9U0PKPCloGrQA1vE+NUKe9ADMQMyILMDGgAeJUMOBVgSFAH8D4//9//O4ACDAAvp8loaZ6QxkAAAAASUVORK5CYII=);
-    background-repeat: repeat-x; */
 }
 .content {
     margin-top: 30px;
 }
-.chef-portal:nth-child(1){
-    margin-left: 30px;
-}
-.chef-portal:nth-child(1),.chef-portal:nth-child(4) {
-    height: 15%;
+.chef-portal:first-child, .chef-portal:last-child {
     min-height: 450px;
-    margin-top: 65px;
 }
 .bottom-bar {
     height: 60px;
     background-color: #464040;
     display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    top: 100%;
+    bottom: 0;
+    position: absolute;
     box-shadow: 0 1px 3px rgb(0 0 0 / 50%);
 }
 .upper-bar {
@@ -45,15 +42,28 @@
     top: 0px;
     height: 80px;
     width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    padding: 25px;
+}
+.upper-bar .top-r{
+    display: flex;
+    align-items: center;
+}
+.upper-bar .top-r select{
+    margin-right: 15px;
 }
 .bottom-bar div{
-    margin-right: 3%;
-    margin-top: 10px;
+   margin-right: 120px;
 }
-.bottom-bar div:nth-child(1){
-    padding-left: 39%;
+.bottom-bar div:last-child{
+    margin-right: 0px;
+}
+.bottom-bar div:hover{
+    cursor: pointer;
 }
 .upper-bar img:nth-child(1){
-    position: relative;
-    right: calc(28%);
+    position: absolute;
+    left: calc(3%);
 }

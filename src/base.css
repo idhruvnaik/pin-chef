@@ -1,0 +1,12 @@
+html,
+body, #root, .wrapper {
+  height: 100%;
+  width: 100%;
+}
+
+select.form-control{
+    border: 1px solid #707070;
+    border-radius: 10px;
+    background: transparent;
+    padding: 5px 10px;
+}
