@@ -1,0 +1,15 @@
+.onboarding-portal {
+    display: flex;
+    padding: 20px;
+}
+.chef-portal {
+    border: 1px solid #0370a7;
+    border-radius: 20.3px;
+    height: 20%;
+    min-height: 500px;
+    margin-right: 10px;
+    width: 22%;
+    padding: 15px;
+    /* background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAyCAYAAAB70nrOAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAENJREFUeNpiZGBgMGdAAixA/J90gX9U0PKPCloGrQA1vE+NUKe9ADMQMyILMDGgAeJUMOBVgSFAH8D4//9//O4ACDAAvp8loaZ6QxkAAAAASUVORK5CYII=);
+    background-repeat: repeat-x; */
+}
