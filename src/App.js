@@ -1,8 +1,7 @@
 // import logo from './logo.svg';
 import './App.css';
-// import onboarding from './screens/authscreens/onboarding';
-import Onboarding from './components/onboarding'
-// import Onboarding from "./components/OnboardingChef"
+// import Onboarding from './components/onboarding'
+import UserFeeds from './components/userFeeds'
 
 function App() {
   return (
@@ -22,7 +21,7 @@ function App() {
         </a>
       </header> */}
       <div className="wrapper">
-        <Onboarding />
+        <UserFeeds />
       </div>
     </div>
   );

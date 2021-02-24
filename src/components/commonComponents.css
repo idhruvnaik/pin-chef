@@ -1,0 +1,53 @@
+.outer-layout {
+    height: 100%;
+    position: relative;
+}
+.bottom-bar {
+    height: 60px;
+    background-color: #464040;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    bottom: 0;
+    position: absolute;
+    box-shadow: 0 1px 3px rgb(0 0 0 / 50%);
+}
+.upper-bar {
+    box-shadow: 0 1px 3px rgb(0 0 0 / 50%);
+    top: 0px;
+    height: 80px;
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    padding: 25px;
+    background-color: #d4d4d4;
+}
+.top-r {
+    right: 10%;
+    position: relative;
+}
+.form-control{
+    box-shadow: 0 1px 3px rgb(0 0 0 / 50%);
+}
+.upper-bar .top-r{
+    display: flex;
+    align-items: center;
+}
+.upper-bar .top-r select{
+    margin-right: 15px;
+}
+.bottom-bar div{
+   margin-right: 120px;
+}
+.bottom-bar div:last-child{
+    margin-right: 0px;
+}
+.bottom-bar div:hover{
+    cursor: pointer;
+}
+.upper-bar img:nth-child(1){
+    position: absolute;
+    left: calc(3%);
+}

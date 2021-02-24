@@ -14,8 +14,9 @@ import OnboardingChef2 from '../assets/svg/OnboardingChef2';
 import OnboardingChef3 from '../assets/svg/OnboardingChef3';
 import OnboardingChef1 from '../assets/svg/OnboardingChef1'
 import OnboardingChef4 from '../assets/svg/OnboardingChef4';
+import CommonComponents from './commonComponents'
 import User from '../assets/svg/User';
-// import OnboardingUser1 from '../../assets/svg/OnboardingUser1';
+import OnboardingUser1 from '../assets/svg/OnboardingUser1';
 // import OnboardingUser2 from '../../assets/svg/OnboardingUser2';
 // import OnboardingUser3 from '../../assets/svg/OnboardingUser3';
 // import OnboardingUser4 from '../../assets/svg/OnboardingUser4';
@@ -23,6 +24,7 @@ import GlobalStyles from '../styles/GlobalStyles';
 import './onboarding.css'
 import FinalLogo from '../assets/images/Logo-small.png'
 import Home from '../assets/png_icons/Home.png'
+import Home_selected from '../assets/png_icons/Home_selected.png'
 import Chef from '../assets/png_icons/Chef.png'
 import Shop from '../assets/png_icons/Shop.png'
 import Star from '../assets/png_icons/Star.png'
@@ -105,30 +107,16 @@ export default function Onboarding() {
       </text>
     );
   };
-
-  function abc() {
-    console.log(window.innerWidth);
-  }
   
   return (
-    <div className="outer-layout">
-      <div className="upper-bar">
-        <img src={FinalLogo}></img>
-        <div className="top-r">
-          <select className="form-control">
-              <option>Eng</option>
-          </select>
-          <User />
-        </div>
-      </div>
-
+    <CommonComponents>
       <Carousel className="onboarding-portal" breakPoints={breakPoints} showArrows={false}>
         <div className="chef-portal">
           <OnboardingChef1 />
           <div className="content">
           {users.map(function(item) {
               if (item.title == "Title 1"){
-              return <strong>{item.text}</strong>;
+                return <strong>{item.text}</strong>;
               }
           })}
           </div>
@@ -138,7 +126,7 @@ export default function Onboarding() {
           <div className="content">
           {users.map(function(item) {
               if (item.title == "Title 2"){
-              return <strong>{item.text}</strong>;
+                return <strong>{item.text}</strong>;
               }
           })}
           </div>
@@ -148,7 +136,7 @@ export default function Onboarding() {
           <div className="content">
           {users.map(function(item) {
               if (item.title == "Title 3"){
-              return <strong>{item.text}</strong>;
+                return <strong>{item.text}</strong>;
               }
           })}
           </div>
@@ -158,18 +146,18 @@ export default function Onboarding() {
           <div className="content">
           {users.map(function(item) {
               if (item.title == "Title 4"){
-              return <strong>{item.text}</strong>;
+                return <strong>{item.text}</strong>;
               }
           })}
           </div>
         </div>  
 
         <div className="chef-portal">
-          <OnboardingChef1 />
+          <OnboardingUser1 />
           <div className="content">
           {chef.map(function(item) {
               if (item.title == "Title 1"){
-              return <strong>{item.text}</strong>;
+                return <strong>{item.text}</strong>;
               }
           })}
           </div>
@@ -179,7 +167,7 @@ export default function Onboarding() {
           <div className="content">
           {chef.map(function(item) {
               if (item.title == "Title 2"){
-              return <strong>{item.text}</strong>;
+                return <strong>{item.text}</strong>;
               }
           })}
           </div>
@@ -189,7 +177,7 @@ export default function Onboarding() {
           <div className="content">
           {chef.map(function(item) {
               if (item.title == "Title 3"){
-              return <strong>{item.text}</strong>;
+                return <strong>{item.text}</strong>;
               }
           })}
           </div>
@@ -199,31 +187,12 @@ export default function Onboarding() {
           <div className="content">
           {chef.map(function(item) {
               if (item.title == "Title 4"){
-              return <strong>{item.text}</strong>;
+                return <strong>{item.text}</strong>;
               }
           })}
           </div>
         </div>
       </Carousel>
-
-      <div className="bottom-bar">
-        <div>
-          <img src={Home} height="28" onClick={abc}></img>
-        </div>
-        <div>
-          <img src={Chef} height="28"></img>
-        </div>
-        <div>
-          <img src={Shop} height="28"></img>
-        </div>
-        <div>
-          <img src={Star} height="28"></img>
-        </div>
-        <div>
-          <img src={Settings} height="28"></img>
-        </div>
-      </div>
-    </div>
-
+    </CommonComponents>
   );
 }
