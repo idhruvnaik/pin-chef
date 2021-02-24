@@ -1,6 +1,8 @@
 .outer-layout {
     height: 100%;
     position: relative;
+    display: flex;
+    flex-direction: column;
 }
 .bottom-bar {
     height: 60px;
@@ -39,7 +41,7 @@
     margin-right: 15px;
 }
 .bottom-bar div{
-   margin-right: 120px;
+   margin-right: 10%;
 }
 .bottom-bar div:last-child{
     margin-right: 0px;

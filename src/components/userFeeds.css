@@ -20,27 +20,39 @@
 }
 .user-pallet{
     display: flex;
-    margin-left: 15%;
-    margin-right: 15%;
-    height: inherit;
+    width: 60%;
+    height: calc(100% - 180px);
+    margin: 0 auto;
 }
-.filters{
-    height: 80%;
-    padding: 10px;
-    padding-left: 0px;
+.filter-div{
+    height: 100%;
+    padding: 15px;
+    width: 20%;
+    overflow: auto;
     box-shadow: 0 1px 3px rgb(0 0 0 / 50%);
     border: 1px solid #d4d4d4;
-    border-radius: 20px;
+    border-radius: 10px;
+}
+.filter-div .reset-btn{
+    text-align: right;
+    margin-bottom: 10px;
+    color: #469A09;
+    cursor: pointer;
 }
 .user-content{
-    background-color:blue;
+    width: 60%;
 }
 .pinchef-content{
-    background-color: red;
+    padding: 15px;
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.pinchef-content img{
+    height: 50px;
+    width: auto;
 }
 ul{
     list-style-type: none;
-}
-table{
-    text-align: justify;
 }

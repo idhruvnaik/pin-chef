@@ -19,6 +19,7 @@ import Star from '../assets/png_icons/Star.png'
 import Star_selected from '../assets/png_icons/Star_selected.png'
 import Settings from '../assets/png_icons/Settings.png'
 import Settings_selected from '../assets/png_icons/Settings_selected.png'
+import PinChefPng from '../assets/png_icons/PinchefBlog.png'
 
 const bar_icons = {
     "Home": Home,
@@ -80,117 +81,50 @@ export default function UserFeeds() {
             </div>
         </div>
         <div className="user-pallet">
-            <div className="filters">
-                <table>
-                    <tr>
-                        <td></td>
-                        <td><b>RESET</b></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <b>Dates</b>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="radio" onchange="mark_active_question_on_section3(this)" name="question-21" value="Today"></input>
-                            <span>Today</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="radio" onchange="mark_active_question_on_section3(this)" name="question-21" value="Yesterday"></input>
-                            <span>Yesterday</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="radio" onchange="mark_active_question_on_section3(this)" name="question-21" value="This week"></input>
-                            <span>This week</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="radio" onchange="mark_active_question_on_section3(this)" name="question-21" value="Custom"></input>
-                            <span>Custom</span>
-                        </td>
-                    </tr>
-                    <tr></tr>
-                    <tr>
-                        <td>
-                            <b>Dietary</b>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="radio" onchange="mark_active_question_on_section3(this)" name="question-21" value="Vegan"></input>
-                            <span>Vegan</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="radio" onchange="mark_active_question_on_section3(this)" name="question-21" value="Vegetarian"></input>
-                            <span>Vegetarian</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="radio" onchange="mark_active_question_on_section3(this)" name="question-21" value="Halal"></input>
-                            <span>Halal</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="radio" onchange="mark_active_question_on_section3(this)" name="question-21" value="Kosher"></input>
-                            <span>Kosher</span>
-                        </td>
-                    </tr>
-                    <tr></tr>
-                    <tr>
-                        <td>
-                            <b>Cusines</b>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="radio" onchange="mark_active_question_on_section3(this)" name="question-21" value="European"></input>
-                            <span>European</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="radio" onchange="mark_active_question_on_section3(this)" name="question-21" value="Cuban"></input>
-                            <span>Cuban</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="radio" onchange="mark_active_question_on_section3(this)" name="question-21" value="Russian"></input>
-                            <span>Russian</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="radio" onchange="mark_active_question_on_section3(this)" name="question-21" value="Turkish"></input>
-                            <span>Turkish</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="radio" onchange="mark_active_question_on_section3(this)" name="question-21" value="Vegan"></input>
-                            <span>Vegan</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="radio" onchange="mark_active_question_on_section3(this)" name="question-21" value="Vegeterian"></input>
-                            <span>Vegeterian</span>
-                        </td>
-                    </tr>
-                </table>
+            <div className="filter-div">
+                <h4 className="reset-btn">RESET</h4>
+                <div class="radio-list-container">
+                    <div class="radio-group">
+                        <label>Dates</label>
+                        <ul>
+                            <li><input type="radio" name="date"/> Today</li>
+                            <li><input type="radio" name="date"/> Yesterday</li>
+                            <li><input type="radio" name="date"/> This week</li>
+                            <li><input type="radio" name="date"/> Custom</li>
+                        </ul>
+                    </div>
+                    <div class="radio-group">
+                        <label>Dietary</label>
+                        <ul>
+                            <li><input type="radio" name="date"/> Vegan</li>
+                            <li><input type="radio" name="date"/> Vegetarian</li>
+                            <li><input type="radio" name="date"/> Halal</li>
+                            <li><input type="radio" name="date"/> Kosher</li>
+                        </ul>
+                    </div>
+                    <div class="radio-group">
+                    <label>Cusines</label>
+                    <ul>
+                        <li><input type="radio" name="date"/> European</li>
+                        <li><input type="radio" name="date"/> Cuban</li>
+                        <li><input type="radio" name="date"/> Russian</li>
+                        <li><input type="radio" name="date"/> Turkish</li>
+                        <li><input type="radio" name="date"/> Vegan</li>
+                        <li><input type="radio" name="date"/> Vegetarian</li>
+                    </ul>
+                </div>
+                </div>
             </div>
             <div className="user-content"></div>
-            <div className="pinchef-content"></div>
+            <div className="pinchef-content">
+                <div className="pin-chef-btn-container">
+                    <img src={PinChefPng}></img>
+                    <img src={PinChefPng}></img>
+                    <img src={PinChefPng}></img>
+                    <img src={PinChefPng}></img>
+                    <img src={PinChefPng}></img>
+                </div>              
+            </div>
         </div>
         <div className="bottom-bar">
             <div>
