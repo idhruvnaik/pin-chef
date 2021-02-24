@@ -1,0 +1,46 @@
+.upper-bar img:nth-child(2){
+    position: absolute;
+    right: calc(100% - 190px);
+    top: calc(44%);
+}
+.upper-bar img:nth-child(3){
+    position: absolute;
+    right: calc(58%);
+    top: calc(44%);
+}
+.upper-bar span{
+    position: absolute;
+    right: calc(52%);
+    top: calc(42%);
+}
+.upper-bar img:nth-child(5){
+    position: absolute;
+    right: calc(40%);
+    top: calc(42%);
+}
+.user-pallet{
+    display: flex;
+    margin-left: 15%;
+    margin-right: 15%;
+    height: inherit;
+}
+.filters{
+    height: 80%;
+    padding: 10px;
+    padding-left: 0px;
+    box-shadow: 0 1px 3px rgb(0 0 0 / 50%);
+    border: 1px solid #d4d4d4;
+    border-radius: 20px;
+}
+.user-content{
+    background-color:blue;
+}
+.pinchef-content{
+    background-color: red;
+}
+ul{
+    list-style-type: none;
+}
+table{
+    text-align: justify;
+}

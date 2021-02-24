@@ -4,7 +4,11 @@ import CommonComponents from './commonComponents'
 import User from '../assets/svg/User';
 import GlobalStyles from '../styles/GlobalStyles';
 import './commonComponents.css'
+import './userFeeds.css'
 import FinalLogo from '../assets/images/Logo-small.png'
+import Filter from '../assets/images/filter.png'
+import LocationIcon from '../assets/png_icons/Login_Sign up, Splash/Location icon black.png'
+import SearchIcon from '../assets/png_icons/Login_Sign up, Splash/search icon.png'
 import Home from '../assets/png_icons/Home.png'
 import Home_selected from '../assets/png_icons/Home_selected.png'
 import Chef from '../assets/png_icons/Chef.png'
@@ -62,33 +66,149 @@ export default function UserFeeds() {
   
   return (
     <div className="outer-layout">
-      <div className="upper-bar">
-        <img src={FinalLogo}></img>
-        <div className="top-r">
-          <select className="form-control">
-              <option>EN</option>
-          </select>
-          <User />
+        <div className="upper-bar">
+            <img src={FinalLogo}></img>
+            <img src={Filter}></img>
+            <img src={LocationIcon}></img>
+            <span><b>All</b></span>
+            <img src={SearchIcon}></img>
+            <div className="top-r">
+                <select className="form-control">
+                    <option>EN</option>
+                </select>
+            <User />
+            </div>
         </div>
-      </div>
-
-      <div className="bottom-bar">
-        <div>
-          <img src={Home} id="Home" height="28" onClick={mark_active}></img>
+        <div className="user-pallet">
+            <div className="filters">
+                <table>
+                    <tr>
+                        <td></td>
+                        <td><b>RESET</b></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Dates</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="radio" onchange="mark_active_question_on_section3(this)" name="question-21" value="Today"></input>
+                            <span>Today</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="radio" onchange="mark_active_question_on_section3(this)" name="question-21" value="Yesterday"></input>
+                            <span>Yesterday</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="radio" onchange="mark_active_question_on_section3(this)" name="question-21" value="This week"></input>
+                            <span>This week</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="radio" onchange="mark_active_question_on_section3(this)" name="question-21" value="Custom"></input>
+                            <span>Custom</span>
+                        </td>
+                    </tr>
+                    <tr></tr>
+                    <tr>
+                        <td>
+                            <b>Dietary</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="radio" onchange="mark_active_question_on_section3(this)" name="question-21" value="Vegan"></input>
+                            <span>Vegan</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="radio" onchange="mark_active_question_on_section3(this)" name="question-21" value="Vegetarian"></input>
+                            <span>Vegetarian</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="radio" onchange="mark_active_question_on_section3(this)" name="question-21" value="Halal"></input>
+                            <span>Halal</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="radio" onchange="mark_active_question_on_section3(this)" name="question-21" value="Kosher"></input>
+                            <span>Kosher</span>
+                        </td>
+                    </tr>
+                    <tr></tr>
+                    <tr>
+                        <td>
+                            <b>Cusines</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="radio" onchange="mark_active_question_on_section3(this)" name="question-21" value="European"></input>
+                            <span>European</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="radio" onchange="mark_active_question_on_section3(this)" name="question-21" value="Cuban"></input>
+                            <span>Cuban</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="radio" onchange="mark_active_question_on_section3(this)" name="question-21" value="Russian"></input>
+                            <span>Russian</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="radio" onchange="mark_active_question_on_section3(this)" name="question-21" value="Turkish"></input>
+                            <span>Turkish</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="radio" onchange="mark_active_question_on_section3(this)" name="question-21" value="Vegan"></input>
+                            <span>Vegan</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="radio" onchange="mark_active_question_on_section3(this)" name="question-21" value="Vegeterian"></input>
+                            <span>Vegeterian</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div className="user-content"></div>
+            <div className="pinchef-content"></div>
         </div>
-        <div>
-          <img src={Chef} id="Chef" height="28" onClick={mark_active}></img>
+        <div className="bottom-bar">
+            <div>
+                <img src={Home} id="Home" height="28" onClick={mark_active}></img>
+            </div>
+            <div>
+                <img src={Chef} id="Chef" height="28" onClick={mark_active}></img>
+            </div>
+            <div>
+                <img src={Shop} id="Shop" height="28" onClick={mark_active}></img>
+            </div>
+            <div>
+                <img src={Star} id="Star" height="28" onClick={mark_active}></img>
+            </div>
+            <div>
+                <img src={Settings} id="Settings" height="28" onClick={mark_active}></img>
+            </div>
         </div>
-        <div>
-          <img src={Shop} id="Shop" height="28" onClick={mark_active}></img>
-        </div>
-        <div>
-          <img src={Star} id="Star" height="28" onClick={mark_active}></img>
-        </div>
-        <div>
-          <img src={Settings} id="Settings" height="28" onClick={mark_active}></img>
-        </div>
-      </div>
     </div>
   );
 }
