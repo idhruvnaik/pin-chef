@@ -15,6 +15,8 @@ import OnboardingChef3 from '../assets/svg/OnboardingChef3';
 import OnboardingChef1 from '../assets/svg/OnboardingChef1'
 import OnboardingChef4 from '../assets/svg/OnboardingChef4';
 import CommonComponents from './commonComponents'
+import CommonHeader from './commonHeader'
+import CommonFooter from './commonFooter'
 import User from '../assets/svg/User';
 import OnboardingUser1 from '../assets/svg/OnboardingUser1';
 // import OnboardingUser2 from '../../assets/svg/OnboardingUser2';
@@ -29,7 +31,12 @@ import Chef from '../assets/png_icons/Chef.png'
 import Shop from '../assets/png_icons/Shop.png'
 import Star from '../assets/png_icons/Star.png'
 import Settings from '../assets/png_icons/Settings.png'
+import User1 from '../assets/png_icons/User onbaording 1 image.png'
+import User2 from '../assets/png_icons/user Onboarding 2 image.png'
+import User3 from '../assets/png_icons/user Onboarding 3 image.png'
+import User4 from '../assets/png_icons/User Onboarding 4 image.png'
 import Carousel from 'react-elastic-carousel';
+
 
 const users = [
   {
@@ -109,10 +116,11 @@ export default function Onboarding() {
   };
   
   return (
-    <CommonComponents>
+    <div className="outer-layout">
+      <CommonHeader />
       <Carousel className="onboarding-portal" breakPoints={breakPoints} showArrows={false}>
         <div className="chef-portal">
-          <OnboardingChef1 />
+          <img src={User1}></img>
           <div className="content">
           {users.map(function(item) {
               if (item.title == "Title 1"){
@@ -122,7 +130,7 @@ export default function Onboarding() {
           </div>
         </div>
         <div className="chef-portal">
-          <OnboardingChef2 />
+          <img src={User2}></img>
           <div className="content">
           {users.map(function(item) {
               if (item.title == "Title 2"){
@@ -132,7 +140,7 @@ export default function Onboarding() {
           </div>
         </div>
         <div className="chef-portal">
-          <OnboardingChef3 />
+          <img src={User3}></img>
           <div className="content">
           {users.map(function(item) {
               if (item.title == "Title 3"){
@@ -142,7 +150,7 @@ export default function Onboarding() {
           </div>
         </div>
         <div className="chef-portal">
-          <OnboardingChef4 />
+          <img src={User4}></img>
           <div className="content">
           {users.map(function(item) {
               if (item.title == "Title 4"){
@@ -153,7 +161,7 @@ export default function Onboarding() {
         </div>  
 
         <div className="chef-portal">
-          <OnboardingUser1 />
+          <img src={User1}></img>
           <div className="content">
           {chef.map(function(item) {
               if (item.title == "Title 1"){
@@ -163,7 +171,7 @@ export default function Onboarding() {
           </div>
         </div>
         <div className="chef-portal">
-          <OnboardingChef2 />
+          <img src={User2}></img>
           <div className="content">
           {chef.map(function(item) {
               if (item.title == "Title 2"){
@@ -173,7 +181,7 @@ export default function Onboarding() {
           </div>
         </div>
         <div className="chef-portal">
-          <OnboardingChef3 />
+          <img src={User3}></img>
           <div className="content">
           {chef.map(function(item) {
               if (item.title == "Title 3"){
@@ -183,7 +191,7 @@ export default function Onboarding() {
           </div>
         </div>
         <div className="chef-portal">
-          <OnboardingChef4 />
+          <img src={User4}></img>
           <div className="content">
           {chef.map(function(item) {
               if (item.title == "Title 4"){
@@ -193,6 +201,7 @@ export default function Onboarding() {
           </div>
         </div>
       </Carousel>
-    </CommonComponents>
+      <CommonFooter />
+    </div>
   );
 }

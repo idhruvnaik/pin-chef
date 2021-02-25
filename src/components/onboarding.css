@@ -26,3 +26,6 @@
 .chef-portal:first-child, .chef-portal:last-child {
     min-height: 450px;
 }
+.chef-portal img{
+    height: 40%;
+}

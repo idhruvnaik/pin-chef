@@ -20,14 +20,14 @@
 }
 .user-pallet{
     display: flex;
-    width: 60%;
+    width: 72%;
     height: calc(100% - 180px);
     margin: 0 auto;
 }
 .filter-div{
-    height: 100%;
+    height: 97%;
     padding: 15px;
-    width: 20%;
+    width: 22%;
     overflow: auto;
     box-shadow: 0 1px 3px rgb(0 0 0 / 50%);
     border: 1px solid #d4d4d4;
@@ -41,18 +41,137 @@
 }
 .user-content{
     width: 60%;
-}
-.pinchef-content{
-    padding: 15px;
-    width: 20%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.pinchef-content img{
-    height: 50px;
-    width: auto;
+    margin-left: 15px;
+    margin-right: 15px;
 }
 ul{
     list-style-type: none;
+}
+.pin-chef-ads {
+    padding: 50px;
+    border: 1px solid #d4d4d4;
+    border-radius: 10px;
+    margin: 10px;
+}
+ul.switch-content {
+    text-align: left;
+    padding-left: 8px;
+}
+ul.switch-content li {
+    margin-bottom: -1px;
+    margin-right: 9%;
+    list-style-type: none;
+    display: inline-block;
+    font-size: 20px;
+    font-weight: 700;
+    color: #7d7d7e;
+    cursor: pointer;
+    min-width: 20%;
+    text-align: center;
+    padding: 5px;
+}
+/* ul.switch-content li:nth-child(1){
+    border-bottom: 1px solid #7d7d7e;
+} */
+.feeds{
+    width: 100%;
+    overflow: auto;
+    height: 97%;
+}
+.recipes{
+    width: 100%;
+    overflow: auto;
+    height: 94%;
+    position: relative;
+    bottom: 95%;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    border-radius: 10px;
+    border: 1px solid black;
+}
+::-webkit-scrollbar-thumb {
+    background: black; 
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: darkgray; 
+}
+
+.feed{
+    width: 97%;
+}
+.recipe{
+    width: 97%;
+    border: 1px solid #d4d4d4;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+.primary-details{
+    width: 100%;
+    display: flex;
+}
+.primary-details img:nth-child(1){
+    border-radius: 50%;
+    height: 55px;
+    margin: 20px;
+}
+.primary-details img:last-child{
+    height: 10px;
+    margin-top: 5%;
+    margin-left: 15%;
+}
+.userpost{
+    width: 100%;
+}
+.username{
+    text-align: left;
+    margin-top: 5px;
+}
+.username p:nth-child(1){
+    margin-bottom: 0px;
+}
+.username p:nth-child(2){
+    margin-top: 5px;
+}
+.post-activity{
+    width: 100%;
+    display: flex;
+}
+.post-activity img{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.activity p{
+    margin-top: 0px;
+    font-size: small;
+}
+.activity img{
+    height: 30px;
+}
+.post-content{
+    text-align: left;
+    margin: 10px;
+    font-family: PT Sans Caption;
+}
+.post-content p{
+    margin: 0px;
+}
+.activity:last-child{
+    display: flex;
+}
+.activity:last-child p{
+    margin-top: 2px;
+    font-size: large;
+    font-family: Montserrat;
+    color: #707070;
+}
+
+
+.e-masterclass{
+    width: 100%;
 }
