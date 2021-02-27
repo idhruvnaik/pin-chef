@@ -40,7 +40,7 @@
     cursor: pointer;
 }
 .user-content{
-    width: 60%;
+    width: 55%;
     margin-left: 15px;
     margin-right: 15px;
 }
@@ -111,6 +111,22 @@ ul.switch-content li {
     border-radius: 10px;
     margin-bottom: 10px;
 }
+.recipe .time{
+    display: flex;
+    
+}
+.recipe .time p{
+    margin-left: 20px;
+    margin-top: 2px;
+    font-size: large;
+    font-family: Montserrat;
+    color: #707070;
+}
+.recipe .time img{
+    margin-left: 30px;
+    height: 10%;
+    margin-top: 5px;
+}
 .primary-details{
     width: 100%;
     display: flex;
@@ -153,25 +169,144 @@ ul.switch-content li {
 .activity img{
     height: 30px;
 }
+.post-content h4{
+    color: green;
+    font-family: PT Sans Caption;
+}
 .post-content{
     text-align: left;
-    margin: 10px;
+    margin: 25px;
+    margin-top: 0px;
     font-family: PT Sans Caption;
 }
 .post-content p{
     margin: 0px;
 }
-.activity:last-child{
+.feed .activity:last-child{
     display: flex;
 }
-.activity:last-child p{
+.feed .activity:last-child p{
     margin-top: 2px;
     font-size: large;
     font-family: Montserrat;
     color: #707070;
 }
+.recipe .post-activity .activities{
+    display: flex;
+    flex-direction: row-reverse;
+}
+.recipe_details{
+    width: 50%;
+    text-align: left;
+    margin-left: 25px;
+    margin-top: 5px;
+}
+.activities{
+    width: 50%;
+}
+
 
 
 .e-masterclass{
     width: 100%;
+    overflow: auto;
+    height: 93%;
+    position: relative;
+    bottom: 189%;
+}
+.order{
+    width: 97%;
+    display: flex;
+    height: 70%
+}
+.order_details{
+    width: 34%;
+    height: 100%;
+}
+.order_content{
+    margin-left: 20px;
+    width: 58%;
+    height: 100%;
+    padding-top: 5px;
+}
+.order_content .order_description{
+    height: 35%;
+}
+.order_details div img:last-child{
+    position: absolute;
+    left: -2%;
+    top: 4%;
+    width: 14%;
+}
+.order_details div img:nth-child(2){
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgb(0 0 0 / 50%);
+    margin-top: 10px;
+}
+.order_details p:last-child{
+    margin-top: 0px;
+}
+.order_details p:last-child span{
+    margin-top: 0px;
+    border-top: 2px solid green;
+}
+.order_content .user_details{
+    display: flex;
+    flex-direction: row-reverse;
+}
+.order_content .user_details h4{
+    margin-right: 12%;
+    margin-left: 5%;
+}
+.order_content .user_details img{
+    border-radius: 50%;
+    height: 55px;
+}
+.order_content div p{
+    padding: 10px;
+    text-align: left;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: pre;
+}
+.other_details{
+    display: flex;
+    margin-left: 10px;
+}
+.price{
+    color: lightgray;
+}
+.class_date_time{
+    margin-left: 20px;
+    padding-left: 8px;
+    border-left: 1px solid lightsalmon;
+    display: flex;
+    color: grey;
+}
+.class_date_time img{
+    height: 30px;
+}
+.class_date_time span{
+    margin-left: 10px;
+}
+.class_date_time .time{
+    color: grey;
+    text-align: right;
+}
+.remaining_time{
+    border-left: 1px solid lightsalmon;
+    padding-left: 8px;
+    color: grey;
+    margin-left: 10%;
+    display: flex;
+}
+.remaining_time img{
+    height: 30px;
+}
+.ticket_status{
+    text-align: right;
+}
+.e-masterclass .order{
+    border-bottom: 2px solid lightgrey;
 }
