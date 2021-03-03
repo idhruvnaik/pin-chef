@@ -1,112 +1,107 @@
-.upper-bar img:nth-child(2){
-    position: absolute;
-    right: calc(100% - 190px);
-    top: calc(44%);
+.upper-bar img:nth-child(2) {
+  position: absolute;
+  right: calc(100% - 190px);
+  top: calc(44%);
 }
-.upper-bar img:nth-child(3){
-    position: absolute;
-    right: calc(58%);
-    top: calc(44%);
+.upper-bar img:nth-child(3) {
+  position: absolute;
+  right: calc(58%);
+  top: calc(44%);
 }
-.upper-bar span{
-    position: absolute;
-    right: calc(52%);
-    top: calc(42%);
+.upper-bar span {
+  position: absolute;
+  right: calc(52%);
+  top: calc(42%);
 }
-.upper-bar img:nth-child(5){
-    position: absolute;
-    right: calc(40%);
-    top: calc(42%);
+.upper-bar img:nth-child(5) {
+  position: absolute;
+  right: calc(40%);
+  top: calc(42%);
 }
-.user-pallet{
-    display: flex;
-    width: 72%;
-    height: calc(100% - 180px);
-    margin: 0 auto;
+.user-pallet {
+  display: flex;
+  width: 72%;
+  height: calc(100% - 180px);
+  margin: 0 auto;
 }
-.filter-div{
-    height: 97%;
-    padding: 15px;
-    width: 22%;
-    overflow: auto;
-    box-shadow: 0 1px 3px rgb(0 0 0 / 50%);
-    border: 1px solid #d4d4d4;
-    border-radius: 10px;
+.filter-div {
+  height: 97%;
+  padding: 15px;
+  width: 22%;
+  overflow: auto;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 50%);
+  border: 1px solid #d4d4d4;
+  border-radius: 10px;
 }
-.filter-div .reset-btn{
-    text-align: right;
-    margin-bottom: 10px;
-    color: #469A09;
-    cursor: pointer;
+.filter-div .reset-btn {
+  text-align: right;
+  margin-bottom: 10px;
+  color: #469a09;
+  cursor: pointer;
 }
 /* .home-content{
     width: 55%;
     margin-left: 15px;
     margin-right: 15px;
 } */
-.home-content{
-    width: 100%;
-    height: 100%;
+.home-content {
+  width: 100%;
+  height: 100%;
 }
-.chef-content{
-    width: 100%;
-    height: 100%;
-    position: relative;
-    bottom: 100%;
-    visibility: hidden;
+.chef-content {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  bottom: 100%;
+  visibility: hidden;
 }
-.shop-content{
-    width: 100%;
-    height: 100%;
-    position: relative;
-    bottom: 200%;
-    visibility: hidden;
+.shop-content {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  bottom: 200%;
+  visibility: hidden;
 }
-.star-content{
-    width: 100%;
-    height: 100%;
-    position: relative;
-    bottom: 300%;
-    visibility: hidden;
+.star-content {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  bottom: 300%;
+  visibility: hidden;
 }
-.settings-content{
-    width: 100%;
-    height: 100%;
-    position: relative;
-    bottom: 400%;
-    visibility: hidden;
+.settings-content {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  bottom: 400%;
+  visibility: hidden;
 }
-.menu-bar{
-    width: 55%;
-    margin-left: 15px;
-    margin-right: 15px;
-    height: 100%;
+.menu-bar {
+  width: 55%;
+  margin-left: 15px;
+  margin-right: 15px;
+  height: 100%;
 }
-ul{
-    list-style-type: none;
+ul {
+  list-style-type: none;
 }
 .pin-chef-ads {
-    padding: 50px;
-    border: 1px solid #d4d4d4;
-    border-radius: 10px;
-    margin: 10px;
+  padding: 50px;
+  border: 1px solid #d4d4d4;
+  border-radius: 10px;
+  margin: 10px;
 }
 ul.switch-content {
-    text-align: left;
-    padding-left: 8px;
+  justify-content: space-around;
+  display: flex;
+  padding: 5px;
+  align-items: center;
 }
 ul.switch-content li {
-    margin-bottom: -1px;
-    margin-right: 9%;
-    list-style-type: none;
-    display: inline-block;
-    font-size: 20px;
-    font-weight: 700;
-    color: #7d7d7e;
-    cursor: pointer;
-    min-width: 20%;
-    text-align: center;
-    padding: 5px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #7d7d7e;
+  cursor: pointer;
 }
 /* ul.switch-content-1 {
     text-align: left;
@@ -128,317 +123,365 @@ ul.switch-content-1 li {
 /* ul.switch-content li:nth-child(1){
     border-bottom: 1px solid #7d7d7e;
 } */
-.active{
-    border-bottom: 2px solid #7d7d7e;
+.active {
+  border-bottom: 2px solid #7d7d7e;
 }
-.food{
-    visibility: hidden;
+.food {
+  visibility: hidden;
 }
-.feeds, .food, .feeds_2{
-    width: 100%;
-    overflow: auto;
-    height: 97%;
+.feeds,
+.food,
+.feeds_2 {
+  width: 100%;
+  overflow: auto;
+  height: 97%;
 }
-.recipes, .recipes_2{
-    width: 100%;
-    overflow: auto;
-    height: 94%;
-    position: relative;
-    bottom: 95%;
-    visibility: hidden;
+.recipes,
+.recipes_2 {
+  width: 100%;
+  overflow: auto;
+  height: 94%;
+  position: relative;
+  bottom: 95%;
+  visibility: hidden;
 }
 
 ::-webkit-scrollbar {
-    width: 10px;
+  width: 10px;
 }
 ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px grey; 
-    border-radius: 10px;
-    border: 1px solid black;
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+  border: 1px solid black;
 }
 ::-webkit-scrollbar-thumb {
-    background: black; 
-    border-radius: 10px;
+  background: black;
+  border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: darkgray; 
+  background: darkgray;
 }
 
-.feed, .each_food{
-    width: 97%;
+.feed,
+.each_food {
+  width: calc(100% - 20px);
+  margin-bottom: 20px;
+  padding: 0px 10px;
 }
-.each_food .primary-details div:last-child img{
-    height: 10px;
-    margin: 0px;
+.each_food .primary-details div:last-child img {
+  height: 10px;
+  margin: 0px;
 }
-.each_food .primary-details div:last-child{
-    text-align-last: end;
-    width: 50%;
+.each_food .primary-details div:last-child {
+  text-align-last: end;
+  width: 50%;
 }
-.recipe{
-    width: 97%;
-    border: 1px solid #d4d4d4;
-    border-radius: 10px;
-    margin-bottom: 10px;
+.recipe {
+  width: 97%;
+  border: 1px solid #d4d4d4;
+  border-radius: 10px;
+  margin-bottom: 10px;
 }
-.recipe .time{
-    display: flex;
-    
+.recipe .time {
+  display: flex;
 }
-.rattings p{
-    margin-bottom: 2px;
-    margin-top: 5px;
+.rattings p {
+  margin-bottom: 2px;
+  margin-top: 5px;
 }
-.recipe .time p{
-    margin-left: 20px;
-    margin-top: 2px;
-    font-size: large;
-    font-family: Montserrat;
-    color: #707070;
+.recipe .time p {
+  margin-left: 20px;
+  margin-top: 2px;
+  font-size: large;
+  font-family: Montserrat;
+  color: #707070;
 }
-.recipe .time img{
-    margin-left: 30px;
-    height: 10%;
-    margin-top: 5px;
+.recipe .time img {
+  margin-left: 30px;
+  height: 10%;
+  margin-top: 5px;
 }
-.primary-details{
-    width: 100%;
-    display: flex;
+.primary-details {
+  width: 100%;
+  display: flex;
+  margin-bottom: 10px;
+  align-items: flex-start;
+  justify-content: space-between;
 }
-.primary-details img:nth-child(1){
-    border-radius: 50%;
-    height: 55px;
-    margin: 20px;
+.user-feed-page .user-pallet .menu-bar .home-content .primary-details .l-div {
+  display: flex;
+  align-items: center;
 }
-.primary-details img:last-child{
-    height: 10px;
-    margin-top: 5%;
-    margin-left: 15%;
+.user-feed-page .user-pallet .menu-bar .home-content .primary-details .profile-img-container {
+  max-height: 50px;
+  max-width: 50px;
+  display: flex;
+  margin-right: 10px;
 }
-.userpost{
-    width: 100%;
+.user-feed-page .user-pallet .menu-bar .home-content .primary-details .profile-img-container img {
+  object-fit: contain;
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
 }
-.username{
-    text-align: left;
-    margin-top: 5px;
-    width: 55%;
+.user-feed-page .user-pallet .menu-bar .home-content .primary-details .user-detail-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
-.username p:nth-child(1){
-    margin-bottom: 0px;
-}
-.username p:nth-child(2){
-    margin-top: 5px;
-}
-.post-activity{
-    width: 100%;
-    display: flex;
-}
-.post-activity img{
-    margin-left: 20px;
-    margin-right: 20px;
-}
-.activity p{
-    margin-top: 0px;
-    font-size: small;
-}
-.activity img{
-    height: 30px;
-}
-.post-content h4{
-    color: green;
-    font-family: PT Sans Caption;
-}
-.post-content{
-    text-align: left;
-    margin: 25px;
-    margin-top: 0px;
-    font-family: PT Sans Caption;
-}
-.post-content p{
-    margin: 0px;
-}
-.feed .activity:last-child, .each_food .activity:last-child{
-    display: flex;
-}
-.feed .activity:last-child p, .each_food .activity:last-child p{
-    margin-top: 2px;
-    font-size: large;
-    font-family: Montserrat;
-    color: #707070;
-}
-.recipe .post-activity .activities{
-    display: flex;
-    flex-direction: row-reverse;
-}
-.recipe_details{
-    width: 50%;
-    text-align: left;
-    margin-left: 25px;
-    margin-top: 5px;
-}
-.activities{
-    width: 50%;
+.user-feed-page .user-pallet .menu-bar .home-content .primary-details .user-detail-container h5 {
+  color: #707070;
+  margin-top: 5px;
 }
 
+.user-feed-page .user-pallet .menu-bar .home-content .feeds .post-image {
+  margin-bottom: 15px;
+}
+.user-feed-page .user-pallet .menu-bar .home-content .feeds .post-image img {
+  object-fit: contain;
+}
 
+.user-feed-page .user-pallet .menu-bar .home-content .feeds .post-activity {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
 
-.e-masterclass{
-    width: 100%;
-    overflow: auto;
-    height: 93%;
-    position: relative;
-    bottom: 189%;
-    visibility: hidden;
+.user-feed-page .user-pallet .menu-bar .home-content .feeds .post-activity .l-div,
+.user-feed-page .user-pallet .menu-bar .home-content .feeds .post-activity .r-div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
-.order{
-    width: 97%;
-    display: flex;
-    height: 70%
+
+.user-feed-page .user-pallet .menu-bar .home-content .feeds .post-activity .activity {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-right: 10px;
 }
-.order_details{
-    width: 34%;
-    height: 100%;
+
+.user-feed-page .user-pallet .menu-bar .home-content .feeds .post-activity .activity img {
+  margin-bottom: 5px;
 }
-.order_content{
-    margin-left: 20px;
-    width: 58%;
-    height: 100%;
-    padding-top: 5px;
+
+.user-feed-page .user-pallet .menu-bar .home-content .feeds .post-content {
+  text-align: left;
+  font-size: 14px;
+  line-height: 21px;
 }
-.order_content .order_description{
-    height: 35%;
+
+.userpost {
+  width: 100%;
 }
-.order_details div img:last-child{
-    position: absolute;
-    left: -2%;
-    top: 4%;
-    width: 14%;
+.username {
+  text-align: left;
+  margin-top: 5px;
+  width: 55%;
 }
-.order_details div img:nth-child(2){
-    width: 100%;
-    border-radius: 10px;
-    box-shadow: 0 1px 3px rgb(0 0 0 / 50%);
-    margin-top: 10px;
+.username p:nth-child(1) {
+  margin-bottom: 0px;
 }
-.order_details p:last-child{
-    margin-top: 0px;
+.username p:nth-child(2) {
+  margin-top: 5px;
 }
-.order_details p:last-child span{
-    margin-top: 0px;
-    border-top: 2px solid green;
+
+.feed .activity:last-child,
+.each_food .activity:last-child {
+  display: flex;
 }
-.order_content .user_details{
-    display: flex;
-    flex-direction: row-reverse;
+.feed .activity:last-child p,
+.each_food .activity:last-child p {
+  margin-top: 2px;
+  font-size: large;
+  font-family: Montserrat;
+  color: #707070;
 }
-.order_content .user_details h4{
-    margin-right: 12%;
-    margin-left: 5%;
+.recipe .post-activity .activities {
+  display: flex;
+  flex-direction: row-reverse;
 }
-.order_content .user_details img{
-    border-radius: 50%;
-    height: 55px;
+.recipe_details {
+  width: 50%;
+  text-align: left;
+  margin-left: 25px;
+  margin-top: 5px;
 }
-.order_content div p{
-    padding: 10px;
-    text-align: left;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: pre;
+.activities {
+  width: 50%;
 }
-.other_details{
-    display: flex;
-    margin-left: 10px;
+
+.e-masterclass {
+  width: 100%;
+  overflow: auto;
+  height: 93%;
+  position: relative;
+  bottom: 189%;
+  visibility: hidden;
 }
-.price{
-    color: lightgray;
+.order {
+  width: 97%;
+  display: flex;
+  height: 70%;
 }
-.class_date_time{
-    margin-left: 20px;
-    padding-left: 8px;
-    border-left: 1px solid lightsalmon;
-    display: flex;
-    color: grey;
+.order_details {
+  width: 34%;
+  height: 100%;
 }
-.class_date_time img{
-    height: 30px;
+.order_content {
+  margin-left: 20px;
+  width: 58%;
+  height: 100%;
+  padding-top: 5px;
 }
-.class_date_time span{
-    margin-left: 10px;
+.order_content .order_description {
+  height: 35%;
 }
-.class_date_time .time{
-    color: grey;
-    text-align: right;
+.order_details div img:last-child {
+  position: absolute;
+  left: -2%;
+  top: 4%;
+  width: 14%;
 }
-.remaining_time{
-    border-left: 1px solid lightsalmon;
-    padding-left: 8px;
-    color: grey;
-    margin-left: 10%;
-    display: flex;
+.order_details div img:nth-child(2) {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 50%);
+  margin-top: 10px;
 }
-.remaining_time img{
-    height: 30px;
+.order_details p:last-child {
+  margin-top: 0px;
 }
-.ticket_status{
-    text-align: right;
+.order_details p:last-child span {
+  margin-top: 0px;
+  border-top: 2px solid green;
 }
-.e-masterclass .order{
-    border-bottom: 2px solid lightgrey;
+.order_content .user_details {
+  display: flex;
+  flex-direction: row-reverse;
 }
-.all_chefs, .following_chefs{
-    width: 100%;
-    overflow: auto;
-    height: 94%;
-    visibility: hidden;
+.order_content .user_details h4 {
+  margin-right: 12%;
+  margin-left: 5%;
 }
-.following_chefs{
-    bottom: 94%;
-    position: relative;
+.order_content .user_details img {
+  border-radius: 50%;
+  height: 55px;
 }
-.all_chefs .chef, .following_chefs .chef{
-    display: flex;
-    border-bottom: 2px solid lightgrey;
-    width: 97%;
+.order_content div p {
+  padding: 10px;
+  text-align: left;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: pre;
 }
-.all_chefs .chef .chef_details, .following_chefs .chef .chef_details{
-    width: 25%;
+.other_details {
+  display: flex;
+  margin-left: 10px;
 }
-.all_chefs .chef .chef_details img, .following_chefs .chef .chef_details img{
-    border-radius: 50%;
-    height: 100px;
-    margin-top: 46%;
+.price {
+  color: lightgray;
 }
-.all_chefs .chef .chef_content, .following_chefs .chef .chef_content{
-    text-align: left;
-    margin-left: 5%;
-    width: 70%;
+.class_date_time {
+  margin-left: 20px;
+  padding-left: 8px;
+  border-left: 1px solid lightsalmon;
+  display: flex;
+  color: grey;
 }
-.all_chefs .chef .chef_content .location, .all_chefs .chef .chef_content .followers, .following_chefs .chef .chef_content .location, .following_chefs .chef .chef_content .followers {
-    display: flex;
-    font-weight: 700;
-    width: 100%;
+.class_date_time img {
+  height: 30px;
 }
-.all_chefs .chef .chef_content .location, .following_chefs .chef .chef_content .location{
-    margin-bottom: 20px;
+.class_date_time span {
+  margin-left: 10px;
 }
-.all_chefs .chef .chef_content .followers div:nth-child(1), .following_chefs .chef .chef_content .followers div:nth-child(1){
-    width: 50%;
+.class_date_time .time {
+  color: grey;
+  text-align: right;
 }
-.all_chefs .chef .chef_content .followers div:last-child, .following_chefs .chef .chef_content .followers div:last-child{
-    width: 50%;
-    text-align-last: end;
+.remaining_time {
+  border-left: 1px solid lightsalmon;
+  padding-left: 8px;
+  color: grey;
+  margin-left: 10%;
+  display: flex;
+}
+.remaining_time img {
+  height: 30px;
+}
+.ticket_status {
+  text-align: right;
+}
+.e-masterclass .order {
+  border-bottom: 2px solid lightgrey;
+}
+.all_chefs,
+.following_chefs {
+  width: 100%;
+  overflow: auto;
+  height: 94%;
+  visibility: hidden;
+}
+.following_chefs {
+  bottom: 94%;
+  position: relative;
+}
+.all_chefs .chef,
+.following_chefs .chef {
+  display: flex;
+  border-bottom: 2px solid lightgrey;
+  width: 97%;
+}
+.all_chefs .chef .chef_details,
+.following_chefs .chef .chef_details {
+  width: 25%;
+}
+.all_chefs .chef .chef_details img,
+.following_chefs .chef .chef_details img {
+  border-radius: 50%;
+  height: 100px;
+  margin-top: 46%;
+}
+.all_chefs .chef .chef_content,
+.following_chefs .chef .chef_content {
+  text-align: left;
+  margin-left: 5%;
+  width: 70%;
+}
+.all_chefs .chef .chef_content .location,
+.all_chefs .chef .chef_content .followers,
+.following_chefs .chef .chef_content .location,
+.following_chefs .chef .chef_content .followers {
+  display: flex;
+  font-weight: 700;
+  width: 100%;
+}
+.all_chefs .chef .chef_content .location,
+.following_chefs .chef .chef_content .location {
+  margin-bottom: 20px;
+}
+.all_chefs .chef .chef_content .followers div:nth-child(1),
+.following_chefs .chef .chef_content .followers div:nth-child(1) {
+  width: 50%;
+}
+.all_chefs .chef .chef_content .followers div:last-child,
+.following_chefs .chef .chef_content .followers div:last-child {
+  width: 50%;
+  text-align-last: end;
 }
 /* .all_chefs .chef .chef_content div:nth-child(1){
     width: 150px;
 } */
-.all_chefs .chef .chef_content .followers div:last-child button, .following_chefs .chef .chef_content .followers div:last-child button{
-    background-color: transparent;
-    color: #469A09;
-    font-weight: 800;
-    font-size: large;
-    border: none;
+.all_chefs .chef .chef_content .followers div:last-child button,
+.following_chefs .chef .chef_content .followers div:last-child button {
+  background-color: transparent;
+  color: #469a09;
+  font-weight: 800;
+  font-size: large;
+  border: none;
 }
-.all_chefs .chef .chef_content .followers div:last-child p, .following_chefs .chef .chef_content .followers div:last-child p{
-    margin-bottom: 0px;
+.all_chefs .chef .chef_content .followers div:last-child p,
+.following_chefs .chef .chef_content .followers div:last-child p {
+  margin-bottom: 0px;
 }

@@ -3,6 +3,21 @@
   .onboarding-portal .chef-portal {
     max-height: 300px;
   }
+  .user-feed-page .user-pallet .filter-div,
+  .user-feed-page .user-pallet .pinchef-content {
+    display: none;
+  }
+  .user-feed-page .user-pallet {
+    width: 100%;
+  }
+  .user-feed-page .user-pallet .menu-bar {
+    width: calc(100% - 10px);
+    margin: 0;
+    padding: 0px 5px;
+  }
+  .user-feed-page .user-pallet .menu-bar ul.switch-content li {
+    font-size: 16px;
+  }
 }
 
 @media (max-width: 481px) {
@@ -20,10 +35,10 @@
 }
 
 @media (max-width: 280px) {
-    /* Folding Phones */
-    .outer-layout .upper-bar img{
-        height: 90px;
-        width: 90px;
-        object-fit: contain;
-    }
+  /* Folding Phones */
+  .outer-layout .upper-bar img {
+    height: 90px;
+    width: 90px;
+    object-fit: contain;
+  }
 }
