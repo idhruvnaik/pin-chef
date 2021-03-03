@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM, { render } from 'react-dom';
 import User from '../assets/svg/User';
 import GlobalStyles from '../styles/GlobalStyles';
 import './commonComponents.css'
@@ -33,6 +33,8 @@ import MasterShare from '../assets/png_icons/Masterclass Share btn@2x.png'
 import BookClass from '../assets/png_icons/Book Masterclass icon.png'
 import MasterclassTime from '../assets/png_icons/Masterclass Time icon.png'
 import MasterclassClockIcon from '../assets/png_icons/Masterclass clock icon.png'
+import {getSettingsAuth} from '../services/apiOperations';
+import FollowersIcon from '../assets/png_icons/followers icon.png'
 
 const bar_icons = {
     "Home": Home,
@@ -142,18 +144,74 @@ const emaster_classes = [
     }
 ]
 
+const chefs = [
+    {
+        id: 1,
+        desktop_icon: UserPhoto,
+        ratting: "5.6",
+        user_name: "Matt Wilson",
+        no_of_followers: "25",
+        designation: "Executive chef",
+        specialization: "French, Italian, Caucasian",
+        address: "Come to address",
+        location: "Miami, FL"
+    },
+    {
+        id: 2,
+        desktop_icon: UserPhoto,
+        ratting: "5.6",
+        user_name: "Matt Wilson",
+        no_of_followers: "25",
+        designation: "Executive chef",
+        specialization: "French, Italian, Caucasian",
+        address: "Come to address",
+        location: "Miami, FL"
+    },
+    {
+        id: 3,
+        desktop_icon: UserPhoto,
+        ratting: "5.6",
+        user_name: "Matt Wilson",
+        no_of_followers: "25",
+        designation: "Executive chef",
+        specialization: "French, Italian, Caucasian",
+        address: "Come to address",
+        location: "Miami, FL"
+    },
+    {
+        id: 4,
+        desktop_icon: UserPhoto,
+        ratting: "5.6",
+        user_name: "Matt Wilson",
+        no_of_followers: "25",
+        designation: "Executive chef",
+        specialization: "French, Italian, Caucasian",
+        address: "Come to address",
+        location: "Miami, FL"
+    }
+]
 export default function UserFeeds() {
+
+    // function render() {
+    //     console.log("user feed loaded")
+    // }
     window.onload = function (){
         var intian_content = document.getElementsByClassName('switch-content');
-        intian_content[0].children[0].style.borderBottom = "2px solid #7d7d7e";
-        intian_content[0].children[0].classList.add("active");
-        document.getElementsByClassName("user-content")[0].style.visibility = "visible";
+        // intian_content[0].children[0].style.borderBottom = "2px solid #7d7d7e";
+        //  intian_content[0].children[0].classList.add("active");
+        document.getElementsByClassName("home-content")[0].style.visibility = "visible";
         // document.getElementsByClassName('feeds')[0].style.visibility = "visible";
         document.getElementsByClassName('recipes')[0].style.visibility = "hidden";
         document.getElementsByClassName('e-masterclass')[0].style.visibility = "hidden";
     };
 
     function mark_active(e) {
+        if (document.querySelector('.' + e.target.id.toLowerCase() + '-content .switch-content')) {
+            if (document.querySelector('.' + e.target.id.toLowerCase() + '-content .switch-content .active')){
+                document.querySelector('.' + e.target.id.toLowerCase() + '-content .switch-content .active').classList.remove("active");
+            }
+            document.querySelector('.' + e.target.id.toLowerCase() + '-content .switch-content li:nth-child(1)').classList.add("active");
+        }
         var current_class = document.getElementsByClassName('current');
         if (current_class.length > 0){
             var current_id = current_class[0].id;
@@ -167,19 +225,56 @@ export default function UserFeeds() {
         current_element.classList.add("current");
         var final_current = document.getElementsByClassName("current")[0].id;
         if (final_current == "Home"){
-            document.getElementsByClassName("user-content")[0].style.visibility = "visible";
-        } else{
-            document.getElementsByClassName("user-content")[0].style.visibility = "hidden";
+            document.getElementsByClassName("home-content")[0].style.visibility = "visible";
+            document.getElementsByClassName("chef-content")[0].style.visibility = "hidden";
+            document.getElementsByClassName("star-content")[0].style.visibility = "hidden";
+            document.getElementsByClassName("shop-content")[0].style.visibility = "hidden";
+            document.getElementsByClassName("settings-content")[0].style.visibility = "hidden";
+            document.getElementsByClassName('feeds')[0].style.visibility = "hidden";
+            document.getElementsByClassName('recipes')[0].style.visibility = "hidden";
+            document.getElementsByClassName('e-masterclass')[0].style.visibility = "hidden";
+        } else if (final_current == "Chef"){
+            document.getElementsByClassName("home-content")[0].style.visibility = "hidden";
+            document.getElementsByClassName("chef-content")[0].style.visibility = "visible";
+            document.getElementsByClassName("star-content")[0].style.visibility = "hidden";
+            document.getElementsByClassName("shop-content")[0].style.visibility = "hidden";
+            document.getElementsByClassName("settings-content")[0].style.visibility = "hidden";
+        } else if (final_current == "Star") {
+            document.getElementsByClassName("home-content")[0].style.visibility = "hidden";
+            document.getElementsByClassName("chef-content")[0].style.visibility = "hidden";
+            document.getElementsByClassName("star-content")[0].style.visibility = "visible";
+            document.getElementsByClassName("shop-content")[0].style.visibility = "hidden";
+            document.getElementsByClassName("settings-content")[0].style.visibility = "hidden";
+        }  else if (final_current == "Shop") {
+            document.getElementsByClassName("home-content")[0].style.visibility = "hidden";
+            document.getElementsByClassName("chef-content")[0].style.visibility = "hidden";
+            document.getElementsByClassName("star-content")[0].style.visibility = "hidden";
+            document.getElementsByClassName("shop-content")[0].style.visibility = "visible";
+            document.getElementsByClassName("settings-content")[0].style.visibility = "hidden";
+        } else {
+            document.getElementsByClassName("home-content")[0].style.visibility = "hidden";
+            document.getElementsByClassName("chef-content")[0].style.visibility = "hidden";
+            document.getElementsByClassName("star-content")[0].style.visibility = "hidden";
+            document.getElementsByClassName("shop-content")[0].style.visibility = "hidden";
+            document.getElementsByClassName("settings-content")[0].style.visibility = "visible";
         }
     };
 
     function make_active(e) {
-        var active_class = document.getElementsByClassName('active');
-        if (active_class.length > 0){
-            active_class[0].style.borderBottom = "none";
-            active_class[0].classList.remove("active");
+        // getSettingsAuth()
+        //     .then(res => {
+        //         console.log("resp");
+        //         console.log(res)
+        //         if(res.status===200){
+        //             console.log("success");
+        //         }
+        //     })
+        var current_class = document.getElementsByClassName('current')[0].id.toLowerCase();
+        var active_class = document.querySelector('.' + current_class + '-content .active');
+        if (active_class){
+            active_class.classList.remove("active");
         }
-        document.getSelection(e.target).baseNode.parentElement.style.borderBottom = "2px solid #7d7d7e";
+        // document.getSelection(e.target).baseNode.parentElement.style.borderBottom = "2px solid #7d7d7e";
         document.getSelection(e.target).baseNode.parentElement.classList.add("active");
         if (e.target.innerHTML == "Feeds"){
             document.getElementsByClassName('feeds')[0].style.visibility = "visible";
@@ -189,15 +284,47 @@ export default function UserFeeds() {
             document.getElementsByClassName('recipes')[0].style.visibility = "visible";
             document.getElementsByClassName('feeds')[0].style.visibility = "hidden";
             document.getElementsByClassName('e-masterclass')[0].style.visibility = "hidden";
-        }else {
+        }else if (e.target.innerHTML == "e-Masterclass"){
             document.getElementsByClassName('recipes')[0].style.visibility = "hidden";
             document.getElementsByClassName('feeds')[0].style.visibility = "hidden";
             document.getElementsByClassName('e-masterclass')[0].style.visibility = "visible";
+        }else if (e.target.innerHTML == "All Chefs"){
+            document.getElementsByClassName('all_chefs')[0].style.visibility = "visible";
+            document.getElementsByClassName('following_chefs')[0].style.visibility = "hidden";
+        }else if (e.target.innerHTML == "Following Chefs"){
+            document.getElementsByClassName('all_chefs')[0].style.visibility = "hidden";
+            document.getElementsByClassName('following_chefs')[0].style.visibility = "visible";
+        }else if (e.target.innerHTML == "Food"){
+            document.getElementsByClassName('food')[0].style.visibility = "hidden";
+            document.getElementsByClassName('services')[0].style.visibility = "hidden";
+        }else if (e.target.innerHTML == "Services"){
+            document.getElementsByClassName('food')[0].style.visibility = "hidden";
+            document.getElementsByClassName('services')[0].style.visibility = "hidden";
+        }else if (e.target.innerHTML == "Feeds"){
+            document.getElementsByClassName('feeds')[0].style.visibility = "visible";
+            document.getElementsByClassName('recipes')[0].style.visibility = "hidden";
+            document.getElementsByClassName('foodservices')[0].style.visibility = "hidden";
+            document.getElementsByClassName('my_purchases')[0].style.visibility = "hidden";
+        }else if (e.target.innerHTML == "Recipes"){
+            document.getElementsByClassName('feeds')[0].style.visibility = "hidden";
+            document.getElementsByClassName('recipes')[0].style.visibility = "visible";
+            document.getElementsByClassName('foodservices')[0].style.visibility = "hidden";
+            document.getElementsByClassName('my_purchases')[0].style.visibility = "hidden";
+        }else if (e.target.innerHTML == "FoodsServices"){
+            document.getElementsByClassName('feeds')[0].style.visibility = "hidden";
+            document.getElementsByClassName('recipes')[0].style.visibility = "hidden";
+            document.getElementsByClassName('foodservices')[0].style.visibility = "visible";
+            document.getElementsByClassName('my_purchases')[0].style.visibility = "hidden";
+        }else if (e.target.innerHTML == "My Purchases"){
+            document.getElementsByClassName('feeds')[0].style.visibility = "hidden";
+            document.getElementsByClassName('recipes')[0].style.visibility = "hidden";
+            document.getElementsByClassName('foodservices')[0].style.visibility = "hidden";
+            document.getElementsByClassName('my_purchases')[0].style.visibility = "visible";
         }
     };
   
     return (
-        <div className="outer-layout">
+        <div className="outer-layout" style={{background: "none"}}>
             <div className="upper-bar">
                 <img src={FinalLogo}></img>
                 <img src={Filter}></img>
@@ -250,59 +377,18 @@ export default function UserFeeds() {
                         </div>
                     </div>
                 </div>
-                <div className="user-content">
-                    <ul className="switch-content">
-                    <li onClick={make_active} className="">Feeds</li>
-                    <li onClick={make_active} className="">Recipes</li>
-                    <li onClick={make_active} className="">e-Masterclass</li>
-                </ul>
-                    <div className="feeds">
-                    {feeds.map(function(item) {
-                        return (
-                            <div className="feed">
-                                <div className="primary-details">
-                                <img src={item.desktop_icon}></img>
-                                <div className="username">
-                                    <p><b>{item.user_name}</b></p>
-                                    <p>{item.user_description}</p>
-                                </div>
-                                <img src={PostMenu}></img>
-                            </div>
-                                <img className="userpost" src={item.post}></img>
-                                <div className="post-activity">
-                                <div className="activity">
-                                    <img src={EmptyHeart}></img>
-                                    <p>{item.likes}</p>
-                                </div>
-                                <div className="activity">
-                                    <img src={CommentIcon}></img>
-                                    <p>{item.comments}</p>
-                                </div>
-                                <div className="activity">
-                                    <img src={PostShare}></img>
-                                    <p>{item.share}</p>
-                                </div>
-                                <div className="activity">
-                                    <img src={Location}></img>
-                                    <p>{item.location}</p>
-                                </div>
-                                <div className="activity">
-                                    <img src={Time}></img>
-                                    <p>{item.time}</p>
-                                </div>
-                            </div>
-                                <div className="post-content">
-                                    <p>{item.post_content}</p>
-                                </div>
-                            </div>
-                        )
-                    })}
-                    </div>
-                    <div className="recipes">
-                    {recipes.map(function(item) {
-                        return (
-                            <div className="recipe">
-                                <div className="primary-details">
+                <div className="menu-bar">
+                    <div className="home-content">
+                        <ul className="switch-content">
+                            <li onClick={make_active} className="">Feeds</li>
+                            <li onClick={make_active} className="">Recipes</li>
+                            <li onClick={make_active} className="">e-Masterclass</li>
+                        </ul>
+                        <div className="feeds">
+                        {feeds.map(function(item) {
+                            return (
+                                <div className="feed">
+                                    <div className="primary-details">
                                     <img src={item.desktop_icon}></img>
                                     <div className="username">
                                         <p><b>{item.user_name}</b></p>
@@ -310,88 +396,223 @@ export default function UserFeeds() {
                                     </div>
                                     <img src={PostMenu}></img>
                                 </div>
-                                <img className="userpost" src={item.post}></img>
-                                <div className="post-activity">
-                                    <div className="recipe_details">
-                                        <h4>{item.recipe_name}&nbsp;&nbsp;&nbsp;&nbsp;({item.recipe_type})</h4>
+                                    <img className="userpost" src={item.post}></img>
+                                    <div className="post-activity">
+                                    <div className="activity">
+                                        <img src={EmptyHeart}></img>
+                                        <p>{item.likes}</p>
                                     </div>
-                                    <div className="activities">
-                                        <div className="activity">
-                                            <img src={PostShare}></img>
-                                            <p>{item.share}</p>
+                                    <div className="activity">
+                                        <img src={CommentIcon}></img>
+                                        <p>{item.comments}</p>
+                                    </div>
+                                    <div className="activity">
+                                        <img src={PostShare}></img>
+                                        <p>{item.share}</p>
+                                    </div>
+                                    <div className="activity">
+                                        <img src={Location}></img>
+                                        <p>{item.location}</p>
+                                    </div>
+                                    <div className="activity">
+                                        <img src={Time}></img>
+                                        <p>{item.time}</p>
+                                    </div>
+                                </div>
+                                    <div className="post-content">
+                                        <p>{item.post_content}</p>
+                                    </div>
+                                </div>
+                            )
+                        })}
+                        </div>
+                        <div className="recipes">
+                        {recipes.map(function(item) {
+                            return (
+                                <div className="recipe">
+                                    <div className="primary-details">
+                                        <img src={item.desktop_icon}></img>
+                                        <div className="username">
+                                            <p><b>{item.user_name}</b></p>
+                                            <p>{item.user_description}</p>
                                         </div>
-                                        <div className="activity">
-                                            <img src={CommentIcon}></img>
-                                            <p>{item.comments}</p>
+                                        <img src={PostMenu}></img>
+                                    </div>
+                                    <img className="userpost" src={item.post}></img>
+                                    <div className="post-activity">
+                                        <div className="recipe_details">
+                                            <h4>{item.recipe_name}&nbsp;&nbsp;&nbsp;&nbsp;({item.recipe_type})</h4>
                                         </div>
-                                        <div className="activity">
-                                            <img src={EmptyHeart}></img>
-                                            <p>{item.likes}</p>
+                                        <div className="activities">
+                                            <div className="activity">
+                                                <img src={PostShare}></img>
+                                                <p>{item.share}</p>
+                                            </div>
+                                            <div className="activity">
+                                                <img src={CommentIcon}></img>
+                                                <p>{item.comments}</p>
+                                            </div>
+                                            <div className="activity">
+                                                <img src={EmptyHeart}></img>
+                                                <p>{item.likes}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="time">
+                                        <img src={Recipe_time}></img>
+                                        <p>{item.time}</p>
+                                    </div>
+                                    <div className="post-content">
+                                        <h4>Ingredients</h4>
+                                        <p>{item.post_content}</p>
+                                    </div>
+                                </div>
+                            )
+                        })}
+                        </div>
+                        <div className="e-masterclass">
+                        {emaster_classes.map(function(item) {
+                            return (
+                                <div className="order">
+                                    <div className="order_details">
+                                        <div style={{width:"100%"}}>
+                                            <center><h3>{item.recipe_name}</h3></center>
+                                            <img src={item.recipe_image}></img>
+                                            <img className="share" src={MasterShare}></img>
+                                        </div>
+                                        <p><span><b>{item.recipe_type}</b></span></p>
+                                        <p><span><b>{item.recipe_diet}</b></span></p>
+                                    </div>
+                                    <div className="order_content">
+                                        <div className="user_details">
+                                            <img src={item.chef_desktop_icon}></img>
+                                            <h4>{item.chef_name}</h4>
+                                            <img src={BookClass}></img>
+                                        </div>
+                                        <div className="order_description">
+                                            <p>{item.recipe_description}</p>
+                                            <p><b>Ingredients:</b> {item.ingredients}</p>
+                                        </div>
+                                        <div className="other_details">
+                                            <div><b>$ <span className="price">{item.price}</span></b></div>
+                                            <div className="class_date_time">
+                                                <img src={MasterclassTime}></img>
+                                                <span>{item.date} -</span>
+                                                <div className="time">{item.time}</div>
+                                            </div>
+                                            <div className="remaining_time">
+                                                <img src={MasterclassClockIcon}></img>
+                                                <div>{item.remaining_time}</div>
+                                            </div>
+                                        </div>
+                                        <div className="ticket_status">
+                                            Available Tickets <b>{item.available_tickets}</b>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="time">
-                                    <img src={Recipe_time}></img>
-                                    <p>{item.time}</p>
-                                </div>
-                                <div className="post-content">
-                                    <h4>Ingredients</h4>
-                                    <p>{item.post_content}</p>
-                                </div>
-                            </div>
-                        )
-                    })}
+                            )
+                        })}
+                        </div>
                     </div>
-                    <div className="e-masterclass">
-                    {emaster_classes.map(function(item) {
-                        return (
-                            <div className="order">
-                                <div className="order_details">
-                                    <div style={{width:"100%"}}>
-                                        <center><h3>{item.recipe_name}</h3></center>
-                                        <img src={item.recipe_image}></img>
-                                        <img className="share" src={MasterShare}></img>
+                    <div className="chef-content">
+                        <ul className="switch-content">
+                            <li onClick={make_active} className="">All Chefs</li>
+                            <li onClick={make_active} className="">Following Chefs</li>
+                        </ul>
+                        <div className="all_chefs">
+                        {chefs.map(function(item) {
+                            return (
+                                <div className="chef">
+                                    <div className="chef_details">
+                                        <img src={item.desktop_icon}></img>
+                                        <p><b>{item.ratting}/10</b></p>
                                     </div>
-                                    <p><span><b>{item.recipe_type}</b></span></p>
-                                    <p><span><b>{item.recipe_diet}</b></span></p>
-                                </div>
-                                <div className="order_content">
-                                    <div className="user_details">
-                                        <img src={item.chef_desktop_icon}></img>
-                                        <h4>{item.chef_name}</h4>
-                                        <img src={BookClass}></img>
-                                    </div>
-                                    <div className="order_description">
-                                        <p>{item.recipe_description}</p>
-                                        <p><b>Ingredients:</b> {item.ingredients}</p>
-                                    </div>
-                                    <div className="other_details">
-                                        <div><b>$ <span className="price">{item.price}</span></b></div>
-                                        <div className="class_date_time">
-                                            <img src={MasterclassTime}></img>
-                                            <span>{item.date} -</span>
-                                            <div className="time">{item.time}</div>
+                                    <div className="chef_content">
+                                        <div className="followers">
+                                            <div>
+                                                <p>
+                                                    <b>{item.user_name}</b>
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <p>
+                                                    <img src={FollowersIcon}></img>
+                                                    <b>&nbsp;&nbsp;{item.no_of_followers} Followers</b>
+                                                </p>
+                                                <button type="button">Follow</button>
+                                            </div>
                                         </div>
-                                        <div className="remaining_time">
-                                            <img src={MasterclassClockIcon}></img>
-                                            <div>{item.remaining_time}</div>
+                                        <p>{item.designation}</p>
+                                        <p>{item.specialization}</p>
+                                        <p>{item.address}</p>
+                                        <div className="location">
+                                            <img src={Location}></img>
+                                            &nbsp;&nbsp;{item.location}
                                         </div>
-                                    </div>
-                                    <div className="ticket_status">
-                                        Available Tickets <b>{item.available_tickets}</b>
                                     </div>
                                 </div>
-                            </div>
-                        )
-                    })}
+                            )
+                        })}
+                        </div>
+                        <div className="following_chefs">
+                        {chefs.map(function(item) {
+                            return (
+                                <div className="chef">
+                                    <div className="chef_details">
+                                        <img src={item.desktop_icon}></img>
+                                        <p><b>{item.ratting}/10</b></p>
+                                    </div>
+                                    <div className="chef_content">
+                                        <div className="followers">
+                                            <div>
+                                                <p>
+                                                    <b>{item.user_name}</b>
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <p>
+                                                    <img src={FollowersIcon}></img>
+                                                    <b>&nbsp;&nbsp;{item.no_of_followers} Followers</b>
+                                                </p>
+                                                <button type="button">Unfollow</button>
+                                            </div>
+                                        </div>
+                                        <p>{item.designation}</p>
+                                        <p>{item.specialization}</p>
+                                        <p>{item.address}</p>
+                                        <div className="location">
+                                            <img src={Location}></img>
+                                            &nbsp;&nbsp;{item.location}
+                                        </div>
+                                    </div>
+                                </div>
+                            )
+                        })}
+                        </div>
                     </div>
+                    <div className="shop-content">
+                        <ul className="switch-content">
+                            <li onClick={make_active} className="">Food</li>
+                            <li onClick={make_active} className="">Services</li>
+                        </ul>
+                        <div className="food"></div>
+                        <div className="services"></div>
+                    </div>
+                    <div className="star-content">
+                        <ul className="switch-content">
+                            <li onClick={make_active} className="">Feeds</li>
+                            <li onClick={make_active} className="">Recipes</li>
+                            <li onClick={make_active} className="">FoodsServices</li>
+                            <li onClick={make_active} className="">My Purchases</li>
+                        </ul>
+                        <div className="feeds"></div>
+                        <div className="recipes"></div>
+                        <div className="foodservices"></div>
+                        <div className="my_purchases"></div>
+                    </div>
+                    <div className="settings-content">
+                    </div>             
                 </div>
-                {/* <div className="chef-content">
-                    <ul className="switch-content">
-                        <li onClick={make_active} className="">All Chefs</li>
-                        <li onClick={make_active} className="">Following Chefs</li>
-                    </ul>
-                </div> */}
                 <Ads />
             </div>
             <div className="bottom-bar">

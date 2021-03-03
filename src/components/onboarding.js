@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 // import 'owl.carousel/dist/assets/owl.carousel.css';
 // import 'owl.carousel/dist/assets/owl.theme.default.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { BrowserRouter as Router, Switch, Route, /*Link*/ } from 'react-router-dom';
 // import {Platform} from '../../node_modules/react-native';
 // import AppIntroSlider from 'react-native-app-intro-slider';
 // import LinearGradient from 'react-native-linear-gradient';
@@ -99,7 +100,7 @@ const breakPoints = [
   { width: 1200, itemsToShow: 4, itemsToScroll: 2 }
 ];
 
-export default function Onboarding() {
+export default function Onboarding(props) {
   function _renderSkipButton() {
     return (
       <text
@@ -115,10 +116,25 @@ export default function Onboarding() {
     );
   };
   
+  function start_flow() {
+    console.log("to shuru kare");
+    console.log(props);
+    // return (
+    //   <Router>
+    //     <Switch>
+    //       <Route path='/Homepage' component={()=><UserFeeds/>} />
+    //     </Switch>
+    //   </Router>
+    // );
+    props.history.push({
+      pathname:"/Homepage",
+    });
+  };
+
   return (
-    <div className="outer-layout">
+    <div className="outer-layout" style={{background: "linear-gradient( 184deg, white,#464040 92%)"}}>
       <CommonHeader />
-      <Carousel className="onboarding-portal" breakPoints={breakPoints} showArrows={false}>
+      <Carousel className="onboarding-portal" breakPoints={breakPoints} showArrows={false} style={{width: "95%"}}>
         <div className="chef-portal">
           <img src={User1}></img>
           <div className="content">
@@ -201,6 +217,9 @@ export default function Onboarding() {
           </div>
         </div>
       </Carousel>
+      <div className="start">
+        <button type="button" onClick={start_flow}>START</button>
+      </div>
       <CommonFooter />
     </div>
   );

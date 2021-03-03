@@ -13,7 +13,7 @@
 .chef-portal {
     border: 1px solid #0370a7;
     border-radius: 20px;
-    min-height: 500px;
+    height: 380px;
     margin-right: 10px;
     width: calc(100% - 80px);
     padding: 10px;
@@ -23,9 +23,25 @@
 .content {
     margin-top: 30px;
 }
-.chef-portal:first-child, .chef-portal:last-child {
+/* .chef-portal:first-child, .chef-portal:last-child {
     min-height: 450px;
-}
+} */
 .chef-portal img{
     height: 40%;
+}
+.start button{
+    background-color: transparent;
+    color: lightgreen;
+    font-weight: 800;
+    font-size: large;
+    border: none;
+    text-shadow: 2px 2px    black;
+}
+.start{
+    margin-right: 5%;
+    display: flex;
+    flex-direction: row-reverse;
+}
+.ewJlEB {
+    width: 95%;
 }

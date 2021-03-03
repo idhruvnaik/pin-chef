@@ -1,6 +1,7 @@
 // import logo from './logo.svg';
 import './App.css';
-// import Onboarding from './components/onboarding'
+import Onboarding from './components/onboarding'
+import { BrowserRouter as Router, Switch, Route, /*Link*/ } from 'react-router-dom';
 import UserFeeds from './components/userFeeds'
 // import CommonComponents from './components/commonComponents'
 
@@ -21,9 +22,15 @@ function App() {
           Learn React
         </a>
       </header> */}
-      <div className="wrapper">
-        <UserFeeds />
-      </div>
+      {/* <div className="wrapper">
+        <Onboarding />
+      </div> */}
+      <Router>
+          <Switch>
+              <Route path='/Homepage' component={UserFeeds} />
+              <Route path='/' component={Onboarding} />
+          </Switch>
+      </Router>
     </div>
   );
 }
