@@ -236,7 +236,26 @@ export default function UserFeeds() {
         document.getElementsByClassName('recipes')[0].style.visibility = "hidden";
         document.getElementsByClassName('e-masterclass')[0].style.visibility = "hidden";
     };
+    function visible_div(class_to_make_visible){
+        document.getElementsByClassName('feeds')[0].style.visibility = "hidden";
+        document.getElementsByClassName('recipes')[0].style.visibility = "hidden";
+        document.getElementsByClassName('e-masterclass')[0].style.visibility = "hidden";
 
+        document.getElementsByClassName('all_chefs')[0].style.visibility = "hidden";
+        document.getElementsByClassName('following_chefs')[0].style.visibility = "hidden";
+
+        document.getElementsByClassName('food')[0].style.visibility = "hidden";
+        document.getElementsByClassName('services')[0].style.visibility = "hidden";
+
+        document.getElementsByClassName('feeds_2')[0].style.visibility = "hidden";
+        document.getElementsByClassName('recipes_2')[0].style.visibility = "hidden";
+        document.getElementsByClassName('foodservices')[0].style.visibility = "hidden";
+        document.getElementsByClassName('my_purchases')[0].style.visibility = "hidden";
+
+        if (class_to_make_visible){
+            document.getElementsByClassName(class_to_make_visible)[0].style.visibility = "visible";
+        }
+    }
     function mark_active(e) {
         if (document.querySelector('.' + e.target.id.toLowerCase() + '-content .switch-content')) {
             if (document.querySelector('.' + e.target.id.toLowerCase() + '-content .switch-content .active')){
@@ -262,33 +281,35 @@ export default function UserFeeds() {
             document.getElementsByClassName("star-content")[0].style.visibility = "hidden";
             document.getElementsByClassName("shop-content")[0].style.visibility = "hidden";
             document.getElementsByClassName("settings-content")[0].style.visibility = "hidden";
-            document.getElementsByClassName('feeds')[0].style.visibility = "hidden";
-            document.getElementsByClassName('recipes')[0].style.visibility = "hidden";
-            document.getElementsByClassName('e-masterclass')[0].style.visibility = "hidden";
+            visible_div('feeds');
         } else if (final_current == "Chef"){
             document.getElementsByClassName("home-content")[0].style.visibility = "hidden";
             document.getElementsByClassName("chef-content")[0].style.visibility = "visible";
             document.getElementsByClassName("star-content")[0].style.visibility = "hidden";
             document.getElementsByClassName("shop-content")[0].style.visibility = "hidden";
             document.getElementsByClassName("settings-content")[0].style.visibility = "hidden";
+            visible_div('all_chefs');
         } else if (final_current == "Star") {
             document.getElementsByClassName("home-content")[0].style.visibility = "hidden";
             document.getElementsByClassName("chef-content")[0].style.visibility = "hidden";
             document.getElementsByClassName("star-content")[0].style.visibility = "visible";
             document.getElementsByClassName("shop-content")[0].style.visibility = "hidden";
             document.getElementsByClassName("settings-content")[0].style.visibility = "hidden";
+            visible_div('food');
         }  else if (final_current == "Shop") {
             document.getElementsByClassName("home-content")[0].style.visibility = "hidden";
             document.getElementsByClassName("chef-content")[0].style.visibility = "hidden";
             document.getElementsByClassName("star-content")[0].style.visibility = "hidden";
             document.getElementsByClassName("shop-content")[0].style.visibility = "visible";
             document.getElementsByClassName("settings-content")[0].style.visibility = "hidden";
+            visible_div('feeds_2');
         } else {
             document.getElementsByClassName("home-content")[0].style.visibility = "hidden";
             document.getElementsByClassName("chef-content")[0].style.visibility = "hidden";
             document.getElementsByClassName("star-content")[0].style.visibility = "hidden";
             document.getElementsByClassName("shop-content")[0].style.visibility = "hidden";
             document.getElementsByClassName("settings-content")[0].style.visibility = "visible";
+            visible_div('');
         }
     };
 
@@ -333,23 +354,23 @@ export default function UserFeeds() {
             document.getElementsByClassName('food')[0].style.visibility = "hidden";
             document.getElementsByClassName('services')[0].style.visibility = "hidden";
         }else if (e.target.innerHTML == "Feeds"){
-            document.getElementsByClassName('feeds')[0].style.visibility = "visible";
-            document.getElementsByClassName('recipes')[0].style.visibility = "hidden";
+            document.getElementsByClassName('feeds_2')[0].style.visibility = "visible";
+            document.getElementsByClassName('recipes_2')[0].style.visibility = "hidden";
             document.getElementsByClassName('foodservices')[0].style.visibility = "hidden";
             document.getElementsByClassName('my_purchases')[0].style.visibility = "hidden";
         }else if (e.target.innerHTML == "Recipes"){
-            document.getElementsByClassName('feeds')[0].style.visibility = "hidden";
-            document.getElementsByClassName('recipes')[0].style.visibility = "visible";
+            document.getElementsByClassName('feeds_2')[0].style.visibility = "hidden";
+            document.getElementsByClassName('recipes_2')[0].style.visibility = "visible";
             document.getElementsByClassName('foodservices')[0].style.visibility = "hidden";
             document.getElementsByClassName('my_purchases')[0].style.visibility = "hidden";
         }else if (e.target.innerHTML == "FoodsServices"){
-            document.getElementsByClassName('feeds')[0].style.visibility = "hidden";
-            document.getElementsByClassName('recipes')[0].style.visibility = "hidden";
+            document.getElementsByClassName('feeds_2')[0].style.visibility = "hidden";
+            document.getElementsByClassName('recipes_2')[0].style.visibility = "hidden";
             document.getElementsByClassName('foodservices')[0].style.visibility = "visible";
             document.getElementsByClassName('my_purchases')[0].style.visibility = "hidden";
         }else if (e.target.innerHTML == "My Purchases"){
-            document.getElementsByClassName('feeds')[0].style.visibility = "hidden";
-            document.getElementsByClassName('recipes')[0].style.visibility = "hidden";
+            document.getElementsByClassName('feeds_2')[0].style.visibility = "hidden";
+            document.getElementsByClassName('recipes_2')[0].style.visibility = "hidden";
             document.getElementsByClassName('foodservices')[0].style.visibility = "hidden";
             document.getElementsByClassName('my_purchases')[0].style.visibility = "visible";
         }
@@ -412,7 +433,7 @@ export default function UserFeeds() {
                 <div className="menu-bar">
                     <div className="home-content">
                         <ul className="switch-content">
-                            <li onClick={make_active} className="">Feeds</li>
+                            <li onClick={make_active} className="active">Feeds</li>
                             <li onClick={make_active} className="">Recipes</li>
                             <li onClick={make_active} className="">e-Masterclass</li>
                         </ul>
@@ -687,8 +708,8 @@ export default function UserFeeds() {
                             <li onClick={make_active} className="">FoodsServices</li>
                             <li onClick={make_active} className="">My Purchases</li>
                         </ul>
-                        <div className="feeds"></div>
-                        <div className="recipes"></div>
+                        <div className="feeds_2"></div>
+                        <div className="recipes_2"></div>
                         <div className="foodservices"></div>
                         <div className="my_purchases"></div>
                     </div>
@@ -699,7 +720,7 @@ export default function UserFeeds() {
             </div>
             <div className="bottom-bar">
                 <div>
-                    <img src={Home} id="Home" height="28" onClick={mark_active}></img>
+                    <img src={Home_selected} id="Home" className="current" height="28" onClick={mark_active}></img>
                 </div>
                 <div>
                     <img src={Chef} id="Chef" height="28" onClick={mark_active}></img>

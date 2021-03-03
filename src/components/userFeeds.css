@@ -53,28 +53,28 @@
     height: 100%;
     position: relative;
     bottom: 100%;
-    /* visibility: hidden; */
+    visibility: hidden;
 }
 .shop-content{
     width: 100%;
     height: 100%;
     position: relative;
     bottom: 200%;
-    /* visibility: hidden; */
+    visibility: hidden;
 }
 .star-content{
     width: 100%;
     height: 100%;
     position: relative;
     bottom: 300%;
-    /* visibility: hidden; */
+    visibility: hidden;
 }
 .settings-content{
     width: 100%;
     height: 100%;
     position: relative;
     bottom: 400%;
-    /* visibility: hidden; */
+    visibility: hidden;
 }
 .menu-bar{
     width: 55%;
@@ -131,17 +131,21 @@ ul.switch-content-1 li {
 .active{
     border-bottom: 2px solid #7d7d7e;
 }
-.feeds, .food{
+.food{
+    visibility: hidden;
+}
+.feeds, .food, .feeds_2{
     width: 100%;
     overflow: auto;
     height: 97%;
 }
-.recipes{
+.recipes, .recipes_2{
     width: 100%;
     overflow: auto;
     height: 94%;
     position: relative;
     bottom: 95%;
+    visibility: hidden;
 }
 
 ::-webkit-scrollbar {
@@ -284,6 +288,7 @@ ul.switch-content-1 li {
     height: 93%;
     position: relative;
     bottom: 189%;
+    visibility: hidden;
 }
 .order{
     width: 97%;
@@ -385,6 +390,7 @@ ul.switch-content-1 li {
     width: 100%;
     overflow: auto;
     height: 94%;
+    visibility: hidden;
 }
 .following_chefs{
     bottom: 94%;
