@@ -131,7 +131,7 @@ ul.switch-content-1 li {
 .active{
     border-bottom: 2px solid #7d7d7e;
 }
-.feeds{
+.feeds, .food{
     width: 100%;
     overflow: auto;
     height: 97%;
@@ -160,8 +160,16 @@ ul.switch-content-1 li {
     background: darkgray; 
 }
 
-.feed{
+.feed, .each_food{
     width: 97%;
+}
+.each_food .primary-details div:last-child img{
+    height: 10px;
+    margin: 0px;
+}
+.each_food .primary-details div:last-child{
+    text-align-last: end;
+    width: 50%;
 }
 .recipe{
     width: 97%;
@@ -172,6 +180,10 @@ ul.switch-content-1 li {
 .recipe .time{
     display: flex;
     
+}
+.rattings p{
+    margin-bottom: 2px;
+    margin-top: 5px;
 }
 .recipe .time p{
     margin-left: 20px;
@@ -205,6 +217,7 @@ ul.switch-content-1 li {
 .username{
     text-align: left;
     margin-top: 5px;
+    width: 55%;
 }
 .username p:nth-child(1){
     margin-bottom: 0px;
@@ -240,10 +253,10 @@ ul.switch-content-1 li {
 .post-content p{
     margin: 0px;
 }
-.feed .activity:last-child{
+.feed .activity:last-child, .each_food .activity:last-child{
     display: flex;
 }
-.feed .activity:last-child p{
+.feed .activity:last-child p, .each_food .activity:last-child p{
     margin-top: 2px;
     font-size: large;
     font-family: Montserrat;
