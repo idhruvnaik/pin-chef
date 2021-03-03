@@ -7,6 +7,7 @@ import jquery from '../node_modules/jquery'
 import './base.css'
 import './form.css'
 import './reset.css'
+import './media.css'
 
 ReactDOM.render(
   <React.StrictMode>

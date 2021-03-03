@@ -1,0 +1,29 @@
+@media (max-width: 641px) {
+  /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
+  .onboarding-portal .chef-portal {
+    max-height: 300px;
+  }
+}
+
+@media (max-width: 481px) {
+  /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+}
+
+@media (max-width: 320px) {
+  /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
+  .onboarding-portal .chef-portal {
+    max-height: 200px;
+  }
+  .onboarding-portal .chef-portal .content strong {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 280px) {
+    /* Folding Phones */
+    .outer-layout .upper-bar img{
+        height: 90px;
+        width: 90px;
+        object-fit: contain;
+    }
+}

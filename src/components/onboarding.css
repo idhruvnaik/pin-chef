@@ -43,5 +43,5 @@
     flex-direction: row-reverse;
 }
 .ewJlEB {
-    width: 95%;
+    width: calc(100% - 50px) !important;
 }

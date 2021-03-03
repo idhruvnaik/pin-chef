@@ -134,7 +134,7 @@ export default function Onboarding(props) {
   return (
     <div className="outer-layout" style={{background: "linear-gradient( 184deg, white,#464040 92%)"}}>
       <CommonHeader />
-      <Carousel className="onboarding-portal" breakPoints={breakPoints} showArrows={false} style={{width: "95%"}}>
+      <Carousel className="onboarding-portal" breakPoints={breakPoints} showArrows={false}>
         <div className="chef-portal">
           <img src={User1}></img>
           <div className="content">
