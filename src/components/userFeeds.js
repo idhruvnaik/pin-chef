@@ -664,7 +664,9 @@ export default function UserFeeds() {
                                 return (
                                     <div className="each_food">
                                         <div className="primary-details">
-                                            <img src={item.desktop_icon}></img>
+                                            <div className="profile-img-container">
+                                                <img src={item.desktop_icon}></img>
+                                            </div>
                                             <div className="username">
                                                 <p><b>{item.user_name}</b></p>
                                                 <p>{item.user_description}</p>
@@ -682,26 +684,29 @@ export default function UserFeeds() {
                                         </div>
                                         <img className="userpost" src={item.post}></img>
                                         <div className="post-activity">
-                                            <div className="activity">
-                                                <img src={EmptyHeart}></img>
-                                                <p>{item.likes}</p>
+                                            <div className="l-div">
+                                                <div className="activity">
+                                                    <img style={{marginRight: "5px"}} src={Location}></img>
+                                                    <p>{item.location}</p>
+                                                </div>
+                                                <div className="activity">
+                                                    <p>2 Miles Away</p>
+                                                </div>
                                             </div>
-                                            <div className="activity">
-                                                <img src={CommentIcon}></img>
-                                                <p>{item.comments}</p>
-                                            </div>
-                                            <div className="activity">
-                                                <img src={PostShare}></img>
-                                                <p>{item.share}</p>
-                                            </div>
-                                            <div className="activity">
-                                                <img src={Location}></img>
-                                                <p>{item.location}</p>
-                                            </div>
-                                            <div className="activity">
-                                                <img src={Time}></img>
-                                                <p>{item.time}</p>
-                                            </div>
+                                            <div className="r-div">
+                                                <div className="activity">
+                                                    <img src={EmptyHeart}></img>
+                                                    <p>{item.likes}</p>
+                                                </div>
+                                                <div className="activity">
+                                                    <img src={CommentIcon}></img>
+                                                    <p>{item.comments}</p>
+                                                </div>
+                                                <div className="activity" style={{marginRight:"0px"}}>
+                                                    <img src={PostShare}></img>
+                                                    <p>{item.share}</p>
+                                                </div>
+                                            </div>                                            
                                         </div>
                                         <div className="post-content">
                                             <p>{item.post_content}</p>
