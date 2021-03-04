@@ -253,7 +253,10 @@ export default function UserFeeds() {
         document.getElementsByClassName('my_purchases')[0].style.visibility = "hidden";
 
         if (class_to_make_visible) {
+            console.log("inside iffff");
+            console.log(class_to_make_visible);
             document.getElementsByClassName(class_to_make_visible)[0].style.visibility = "visible";
+            console.log("after issss");
         }
     }
     function mark_active(e) {
@@ -295,14 +298,14 @@ export default function UserFeeds() {
             document.getElementsByClassName("star-content")[0].style.visibility = "visible";
             document.getElementsByClassName("shop-content")[0].style.visibility = "hidden";
             document.getElementsByClassName("settings-content")[0].style.visibility = "hidden";
-            visible_div('food');
+            visible_div('feeds_2');
         } else if (final_current == "Shop") {
             document.getElementsByClassName("home-content")[0].style.visibility = "hidden";
             document.getElementsByClassName("chef-content")[0].style.visibility = "hidden";
             document.getElementsByClassName("star-content")[0].style.visibility = "hidden";
             document.getElementsByClassName("shop-content")[0].style.visibility = "visible";
             document.getElementsByClassName("settings-content")[0].style.visibility = "hidden";
-            visible_div('feeds_2');
+            visible_div('food');
         } else {
             document.getElementsByClassName("home-content")[0].style.visibility = "hidden";
             document.getElementsByClassName("chef-content")[0].style.visibility = "hidden";
@@ -348,11 +351,11 @@ export default function UserFeeds() {
             document.getElementsByClassName('all_chefs')[0].style.visibility = "hidden";
             document.getElementsByClassName('following_chefs')[0].style.visibility = "visible";
         } else if (e.target.innerHTML == "Food") {
-            document.getElementsByClassName('food')[0].style.visibility = "hidden";
+            document.getElementsByClassName('food')[0].style.visibility = "visible";
             document.getElementsByClassName('services')[0].style.visibility = "hidden";
         } else if (e.target.innerHTML == "Services") {
             document.getElementsByClassName('food')[0].style.visibility = "hidden";
-            document.getElementsByClassName('services')[0].style.visibility = "hidden";
+            document.getElementsByClassName('services')[0].style.visibility = "visible";
         } else if (e.target.innerHTML == "Feeds") {
             document.getElementsByClassName('feeds_2')[0].style.visibility = "visible";
             document.getElementsByClassName('recipes_2')[0].style.visibility = "hidden";
@@ -671,7 +674,9 @@ export default function UserFeeds() {
                                 return (
                                     <div className="each_food">
                                         <div className="primary-details">
-                                            <img src={item.desktop_icon}></img>
+                                            <div className="profile-img-container">
+                                                <img src={item.desktop_icon}></img>
+                                            </div>
                                             <div className="username">
                                                 <p><b>{item.user_name}</b></p>
                                                 <p>{item.user_description}</p>
@@ -689,26 +694,29 @@ export default function UserFeeds() {
                                         </div>
                                         <img className="userpost" src={item.post}></img>
                                         <div className="post-activity">
-                                            <div className="activity">
-                                                <img src={EmptyHeart}></img>
-                                                <p>{item.likes}</p>
+                                            <div className="l-div">
+                                                <div className="activity">
+                                                    <img style={{marginRight: "5px"}} src={Location}></img>
+                                                    <p>{item.location}</p>
+                                                </div>
+                                                <div className="activity">
+                                                    <p>2 Miles Away</p>
+                                                </div>
                                             </div>
-                                            <div className="activity">
-                                                <img src={CommentIcon}></img>
-                                                <p>{item.comments}</p>
-                                            </div>
-                                            <div className="activity">
-                                                <img src={PostShare}></img>
-                                                <p>{item.share}</p>
-                                            </div>
-                                            <div className="activity">
-                                                <img src={Location}></img>
-                                                <p>{item.location}</p>
-                                            </div>
-                                            <div className="activity">
-                                                <img src={Time}></img>
-                                                <p>{item.time}</p>
-                                            </div>
+                                            <div className="r-div">
+                                                <div className="activity">
+                                                    <img src={EmptyHeart}></img>
+                                                    <p>{item.likes}</p>
+                                                </div>
+                                                <div className="activity">
+                                                    <img src={CommentIcon}></img>
+                                                    <p>{item.comments}</p>
+                                                </div>
+                                                <div className="activity" style={{marginRight:"0px"}}>
+                                                    <img src={PostShare}></img>
+                                                    <p>{item.share}</p>
+                                                </div>
+                                            </div>                                            
                                         </div>
                                         <div className="post-content">
                                             <p>{item.post_content}</p>
