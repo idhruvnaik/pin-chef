@@ -22,8 +22,18 @@
 
 @media (max-width: 481px) {
   /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+  .all_chefs .chef, .following_chefs .chef{
+    height: 45%;
+  }
+  b, .all_chefs .chef .chef_content .followers div:last-child button, .following_chefs .chef .chef_content .followers div:last-child button{
+    font-size: smaller;
+  }
 }
-
+@media (max-height: 570px) {
+  .all_chefs .chef, .following_chefs .chef{
+    height: 55%;
+  }
+}
 @media (max-width: 320px) {
   /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
   .onboarding-portal .chef-portal {
@@ -31,6 +41,9 @@
   }
   .onboarding-portal .chef-portal .content strong {
     font-size: 10px;
+  }
+  b, .all_chefs .chef .chef_content .followers div:last-child button, .following_chefs .chef .chef_content .followers div:last-child button{
+    font-size: smaller;
   }
 }
 
@@ -40,5 +53,8 @@
     height: 90px;
     width: 90px;
     object-fit: contain;
+  }
+  b, .all_chefs .chef , .following_chefs .chef {
+    font-size: x-small;
   }
 }

@@ -432,6 +432,8 @@ ul.switch-content-1 li {
   display: flex;
   border-bottom: 2px solid lightgrey;
   width: 97%;
+  height: 60%;
+  padding-top: 15px;
 }
 .all_chefs .chef .chef_details,
 .following_chefs .chef .chef_details {
@@ -440,7 +442,7 @@ ul.switch-content-1 li {
 .all_chefs .chef .chef_details img,
 .following_chefs .chef .chef_details img {
   border-radius: 50%;
-  height: 100px;
+  height: 35%;
   margin-top: 46%;
 }
 .all_chefs .chef .chef_content,
@@ -484,4 +486,8 @@ ul.switch-content-1 li {
 .all_chefs .chef .chef_content .followers div:last-child p,
 .following_chefs .chef .chef_content .followers div:last-child p {
   margin-bottom: 0px;
+}
+
+.chef_content p{
+  margin-bottom: 15px;
 }
