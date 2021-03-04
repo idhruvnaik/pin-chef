@@ -253,7 +253,10 @@ export default function UserFeeds() {
         document.getElementsByClassName('my_purchases')[0].style.visibility = "hidden";
 
         if (class_to_make_visible) {
+            console.log("inside iffff");
+            console.log(class_to_make_visible);
             document.getElementsByClassName(class_to_make_visible)[0].style.visibility = "visible";
+            console.log("after issss");
         }
     }
     function mark_active(e) {
@@ -295,14 +298,14 @@ export default function UserFeeds() {
             document.getElementsByClassName("star-content")[0].style.visibility = "visible";
             document.getElementsByClassName("shop-content")[0].style.visibility = "hidden";
             document.getElementsByClassName("settings-content")[0].style.visibility = "hidden";
-            visible_div('food');
+            visible_div('feeds_2');
         } else if (final_current == "Shop") {
             document.getElementsByClassName("home-content")[0].style.visibility = "hidden";
             document.getElementsByClassName("chef-content")[0].style.visibility = "hidden";
             document.getElementsByClassName("star-content")[0].style.visibility = "hidden";
             document.getElementsByClassName("shop-content")[0].style.visibility = "visible";
             document.getElementsByClassName("settings-content")[0].style.visibility = "hidden";
-            visible_div('feeds_2');
+            visible_div('food');
         } else {
             document.getElementsByClassName("home-content")[0].style.visibility = "hidden";
             document.getElementsByClassName("chef-content")[0].style.visibility = "hidden";
@@ -348,11 +351,11 @@ export default function UserFeeds() {
             document.getElementsByClassName('all_chefs')[0].style.visibility = "hidden";
             document.getElementsByClassName('following_chefs')[0].style.visibility = "visible";
         } else if (e.target.innerHTML == "Food") {
-            document.getElementsByClassName('food')[0].style.visibility = "hidden";
+            document.getElementsByClassName('food')[0].style.visibility = "visible";
             document.getElementsByClassName('services')[0].style.visibility = "hidden";
         } else if (e.target.innerHTML == "Services") {
             document.getElementsByClassName('food')[0].style.visibility = "hidden";
-            document.getElementsByClassName('services')[0].style.visibility = "hidden";
+            document.getElementsByClassName('services')[0].style.visibility = "visible";
         } else if (e.target.innerHTML == "Feeds") {
             document.getElementsByClassName('feeds_2')[0].style.visibility = "visible";
             document.getElementsByClassName('recipes_2')[0].style.visibility = "hidden";
