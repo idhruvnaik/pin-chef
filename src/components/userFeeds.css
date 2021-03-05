@@ -529,3 +529,10 @@ ul.switch-content-1 li {
   text-align: justify;
   margin-left: 3%;
 }
+.each_food .food-price{
+  width: 60%;
+  position: relative;
+  bottom: 25px;
+  background-color: white;
+  border-top-right-radius: 10px;
+}

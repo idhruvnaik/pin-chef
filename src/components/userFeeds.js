@@ -683,6 +683,9 @@ export default function UserFeeds() {
                                             </div>
                                         </div>
                                         <img className="userpost" src={item.post}></img>
+                                        <div className="food-price">
+                                            <b>Vegan Soft Tacos - $25</b>
+                                        </div>
                                         <div className="post-activity">
                                             <div className="l-div">
                                                 <div className="activity">

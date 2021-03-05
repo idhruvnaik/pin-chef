@@ -57,4 +57,7 @@
   b, .all_chefs .chef , .following_chefs .chef, .each_food, .each_food .activity:last-child p {
     font-size: x-small;
   }
+  .each_food .food-price{
+    bottom: 15px;
+  }
 }
