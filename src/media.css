@@ -1,4 +1,4 @@
-@media (max-width: 641px) {
+@media (max-width: 1024px) {
   /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
   .onboarding-portal .chef-portal {
     max-height: 300px;
@@ -17,6 +17,19 @@
   }
   .user-feed-page .user-pallet .menu-bar ul.switch-content li {
     font-size: 16px;
+  }
+  .upper-bar{
+    padding: 10px;
+  }
+  .upper-bar .pin-chef-logo{
+    height: 50px;
+    object-fit: contain;
+  }
+  .upper-bar .search-div input{
+    display: none;
+  }
+  .upper-bar .r-div svg{
+    height: 30px;
   }
 }
 

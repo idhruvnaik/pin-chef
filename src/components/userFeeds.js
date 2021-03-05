@@ -382,14 +382,24 @@ export default function UserFeeds() {
     return (
         <div className="outer-layout user-feed-page" style={{ background: "none" }}>
             <div className="upper-bar">
-                <img src={FinalLogo}></img>
-                <img src={Filter}></img>
-                <img src={LocationIcon}></img>
-                <span><b>All</b></span>
-                <img src={SearchIcon}></img>
-                <div className="top-r">
+                <div className="l-div">
+                    <img src={FinalLogo} className="pin-chef-logo"></img>
+                </div>
+                <div className="m-div">
+                    <div className="location-div">
+                        <img src={LocationIcon}></img>
+                        <span>All</span>
+                    </div> 
+                    <div className="search-div">
+                        <input placeholder="Search here.." type="text" className="search-box"/>
+                        <img src={SearchIcon}></img>
+                    </div>   
+                </div>        
+                <div className="r-div">
                     <select className="form-control">
                         <option>EN</option>
+                        <option>FR</option>
+                        <option>EU</option>
                     </select>
                     <User />
                 </div>

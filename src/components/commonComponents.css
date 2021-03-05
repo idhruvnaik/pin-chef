@@ -19,26 +19,49 @@
 .upper-bar {
     box-shadow: 0 1px 3px rgb(0 0 0 / 50%);
     top: 0px;
-    height: 60px;
     position: relative;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     padding: 25px;
     background-color: #d4d4d4;
 }
-.top-r {
-    right: 10%;
-    position: relative;
+.upper-bar .l-div{
+    position: absolute;
+    left: 5%;
 }
-.form-control{
-    box-shadow: 0 1px 3px rgb(0 0 0 / 50%);
+.upper-bar .l-div .filter-img{
+    position: absolute;
+    bottom: 15px;
 }
-.upper-bar .top-r{
+.upper-bar .m-div{
+    margin-left: 25%;
     display: flex;
     align-items: center;
 }
-.upper-bar .top-r select{
-    margin-right: 15px;
+.upper-bar .location-div{
+    display: flex;
+    align-items: center;
+    margin-right: 40px;
+}
+.upper-bar .location-div img{
+    margin-right: 5px;
+}
+.upper-bar .search-div{
+    display: flex;
+    align-items: center;
+}
+.upper-bar .search-div input{
+    margin-right: 10px;
+}
+.upper-bar .r-div{
+    display: flex;
+    align-items: center;
+}
+.upper-bar .r-div select{
+    margin-right: 20px;
+}
+.form-control{
+    box-shadow: 0 1px 3px rgb(0 0 0 / 50%);
 }
 .bottom-bar div{
    margin-right: 10%;
@@ -48,8 +71,4 @@
 }
 .bottom-bar div:hover{
     cursor: pointer;
-}
-.upper-bar img:nth-child(1){
-    position: absolute;
-    left: calc(3%);
 }
