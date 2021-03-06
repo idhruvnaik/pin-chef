@@ -58,7 +58,10 @@ export const getSettingsAuth=()=>{
     return axios({
             url:apiURL,
             method:'post',
-            headers: {Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRoYXZhbF8xMjM0IiwiaWF0IjoxNjE0NjY3NDg0LCJleHAiOjE2NDYyMDM0ODR9.AQhnN3Nwr_Qy9u683w2YYdo1aeAxh3zCcbBDZZOyNwc'},
+            headers: {
+                Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJkaGF2YWxfMTIzIiwiaWF0IjoxNjE1MDI2MDk5LCJleHAiOjE2NDY1NjIwOTl9.yNES4EIwDDiexyspU6nbkEZ5cpMKEi_QLHy2EZZcxPI',
+                "Access-Control-Allow-Origin": "*"
+            },
             data: {
                 "password": "12345678",
                 "user_name":"dhaval_123"

@@ -15,9 +15,6 @@
     margin: 0;
     padding: 0px 5px;
   }
-  .user-feed-page .user-pallet .menu-bar ul.switch-content li {
-    font-size: 16px;
-  }
   .upper-bar{
     padding: 10px;
   }
@@ -35,8 +32,23 @@
 
 @media (max-width: 481px) {
   /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+  .react-stars-wrapper{
+    width: 100px;
+  }
+  .recipe, .recipe_2{
+    font-size: small;
+  }
+  .user-feed-page .user-pallet .menu-bar ul.switch-content li {
+    font-size: 12px;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
   .all_chefs .chef, .following_chefs .chef{
     height: 45%;
+  }
+  .recipe .post-activity .activities .activity img{
+    width: 22px;
+    margin-top: 2px;
   }
   b, .all_chefs .chef .chef_content .followers div:last-child button, .following_chefs .chef .chef_content .followers div:last-child button{
     font-size: smaller;
@@ -55,7 +67,7 @@
   .onboarding-portal .chef-portal .content strong {
     font-size: 10px;
   }
-  b, .all_chefs .chef .chef_content .followers div:last-child button, .following_chefs .chef .chef_content .followers div:last-child button{
+  b, .all_chefs .chef .chef_content .followers div:last-child button, .following_chefs .chef .chef_content .followers div:last-child button, .switch-content {
     font-size: smaller;
   }
 }
@@ -67,10 +79,15 @@
     width: 90px;
     object-fit: contain;
   }
-  b, .all_chefs .chef , .following_chefs .chef, .each_food, .each_food .activity:last-child p {
+  b, .all_chefs .chef , .following_chefs .chef, .each_food, .each_food .activity:last-child p, .each_service, .each_service .activity:last-child p, .recipe, .recipe_2{
     font-size: x-small;
   }
-  .each_food .food-price{
+  .each_food .food-price, .each_service .food-price{
     bottom: 15px;
+  }
+  .user-feed-page .user-pallet .menu-bar ul.switch-content li {
+    font-size: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
   }
 }

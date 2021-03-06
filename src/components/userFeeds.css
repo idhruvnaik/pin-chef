@@ -24,6 +24,13 @@
     margin-left: 15px;
     margin-right: 15px;
 } */
+.my_purchases {
+  position: relative;
+  bottom: 287%;
+  overflow: auto;
+  height: 95%;
+  width: 100%;
+}
 .home-content {
   width: 100%;
   height: 100%;
@@ -106,15 +113,21 @@ ul.switch-content-1 li {
 .active {
   border-bottom: 2px solid #7d7d7e;
 }
-.food {
+.food, .services, .foodservices, .my_purchases {
   visibility: hidden;
 }
 .feeds,
 .food,
-.feeds_2 {
+.feeds_2, 
+.services,
+.foodservices {
   width: 100%;
   overflow: auto;
   height: 97%;
+}
+.services{
+  position: relative;
+  bottom: 97%;
 }
 .recipes,
 .recipes_2 {
@@ -125,7 +138,14 @@ ul.switch-content-1 li {
   bottom: 95%;
   visibility: hidden;
 }
-
+.recipe .primary-details {
+  padding: 5px;
+  width: 98%;
+}
+.foodservices {
+  position: relative;
+  bottom: 190%;
+}
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -143,24 +163,29 @@ ul.switch-content-1 li {
 }
 
 .feed,
-.each_food {
+.each_food,
+.each_service {
   width: calc(100% - 20px);
   margin-bottom: 20px;
   padding: 0px 10px;
 }
-.each_food .primary-details div:last-child img {
+.each_food .primary-details div:last-child img, .each_service .primary-details div:last-child img {
   height: 10px;
   margin: 0px;
 }
-.each_food .primary-details div:last-child {
+.each_food .primary-details div:last-child, .each_service .primary-details div:last-child {
   text-align-last: end;
   width: 65%;
 }
-.recipe {
+.recipe, .item {
   width: 97%;
   border: 1px solid #d4d4d4;
   border-radius: 10px;
   margin-bottom: 10px;
+}
+.item{
+  padding: 10px;
+  width: 92%;
 }
 .recipe .time {
   display: flex;
@@ -188,40 +213,61 @@ ul.switch-content-1 li {
   align-items: flex-start;
   justify-content: space-between;
 }
-.user-feed-page .user-pallet .menu-bar .home-content .primary-details .l-div {
+.recipe_rattings{
+  align-self: center;
+  margin-right: 10px;
+  font-weight: 500;
+}
+.recipe .post-activity .activities .activity {
+  margin-right: 10px;
+}
+.recipe .post-content {
+  text-align: left;
+  padding: 20px;
+}
+.user-feed-page .user-pallet .menu-bar .home-content .primary-details .l-div,
+.user-feed-page .user-pallet .menu-bar .star-content .primary-details .l-div {
   display: flex;
   align-items: center;
 }
-.user-feed-page .user-pallet .menu-bar .home-content .primary-details .profile-img-container {
+.user-feed-page .user-pallet .menu-bar .home-content .primary-details .profile-img-container,
+.user-feed-page .user-pallet .menu-bar .star-content .primary-details .profile-img-container {
   max-height: 50px;
   max-width: 50px;
   display: flex;
   margin-right: 10px;
 }
-.user-feed-page .user-pallet .menu-bar .home-content .primary-details .profile-img-container img {
+.user-feed-page .user-pallet .menu-bar .home-content .primary-details .profile-img-container img,
+.user-feed-page .user-pallet .menu-bar .star-content .primary-details .profile-img-container img {
   object-fit: contain;
   border-radius: 50%;
   width: 100%;
   height: 100%;
 }
-.user-feed-page .user-pallet .menu-bar .home-content .primary-details .user-detail-container {
+.user-feed-page .user-pallet .menu-bar .home-content .primary-details .user-detail-container,
+.user-feed-page .user-pallet .menu-bar .star-content .primary-details .user-detail-container {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  text-align: left;
 }
-.user-feed-page .user-pallet .menu-bar .home-content .primary-details .user-detail-container h5 {
+.user-feed-page .user-pallet .menu-bar .home-content .primary-details .user-detail-container h5,
+.user-feed-page .user-pallet .menu-bar .star-content .primary-details .user-detail-container h5 {
   color: #707070;
   margin-top: 5px;
 }
 
-.user-feed-page .user-pallet .menu-bar .home-content .feeds .post-image {
+.user-feed-page .user-pallet .menu-bar .home-content .feeds .post-image,
+.user-feed-page .user-pallet .menu-bar .star-content .feeds_2 .post-image {
   margin-bottom: 15px;
 }
-.user-feed-page .user-pallet .menu-bar .home-content .feeds .post-image img {
+.user-feed-page .user-pallet .menu-bar .home-content .feeds .post-image img,
+.user-feed-page .user-pallet .menu-bar .star-content .feeds_2 .post-image img {
   object-fit: contain;
 }
 
-.user-feed-page .user-pallet .menu-bar .home-content .feeds .post-activity {
+.user-feed-page .user-pallet .menu-bar .home-content .feeds .post-activity,
+.user-feed-page .user-pallet .menu-bar .star-content .feeds_2 .post-activity {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -229,24 +275,29 @@ ul.switch-content-1 li {
 }
 
 .user-feed-page .user-pallet .menu-bar .home-content .feeds .post-activity .l-div,
-.user-feed-page .user-pallet .menu-bar .home-content .feeds .post-activity .r-div {
+.user-feed-page .user-pallet .menu-bar .home-content .feeds .post-activity .r-div,
+.user-feed-page .user-pallet .menu-bar .star-content .feeds_2 .post-activity .l-div,
+.user-feed-page .user-pallet .menu-bar .star-content .feeds_2 .post-activity .r-div {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.user-feed-page .user-pallet .menu-bar .home-content .feeds .post-activity .activity {
+.user-feed-page .user-pallet .menu-bar .home-content .feeds .post-activity .activity,
+.user-feed-page .user-pallet .menu-bar .star-content .feeds_2 .post-activity .activity {
   display: flex;
   align-items: center;
   flex-direction: column;
   margin-right: 10px;
 }
 
-.user-feed-page .user-pallet .menu-bar .home-content .feeds .post-activity .activity img {
+.user-feed-page .user-pallet .menu-bar .home-content .feeds .post-activity .activity img,
+.user-feed-page .user-pallet .menu-bar .star-content .feeds_2 .post-activity .activity img {
   margin-bottom: 5px;
 }
 
-.user-feed-page .user-pallet .menu-bar .home-content .feeds .post-content {
+.user-feed-page .user-pallet .menu-bar .home-content .feeds .post-content,
+.user-feed-page .user-pallet .menu-bar .star-content .feeds_2 .post-content {
   text-align: left;
   font-size: 14px;
   line-height: 21px;
@@ -271,7 +322,8 @@ ul.switch-content-1 li {
   display: flex;
 }
 .feed .activity:last-child p,
-.each_food .activity:last-child p {
+.each_food .activity:last-child p,
+.each_service .activity:last-child p {
   margin-top: 2px;
   font-size: large;
   font-family: Montserrat;
@@ -471,45 +523,45 @@ ul.switch-content-1 li {
   margin-bottom: 15px;
 }
 
-.each_food .primary-details .profile-img-container{
+.each_food .primary-details .profile-img-container, .each_service .primary-details .profile-img-container {
   width: 80px;
-  height: 60px;
+  height: 54px;
   display: flex;
   margin-right: 10px;
 }
-.each_food .primary-details .profile-img-container img{
+.each_food .primary-details .profile-img-container img, .each_service .primary-details .profile-img-container img{
   width: 100%;
   height: 100%;
   border-radius: 50%;
 }
-.each_food .post-activity {
+.each_food .post-activity, .each_service .post-activity {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
 }
-.each_food .post-activity .l-div{
+.each_food .post-activity .l-div, .each_service .post-activity .l-div{
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.each_food .post-activity .l-div div:nth-child(1){
+.each_food .post-activity .l-div div:nth-child(1), .each_service .post-activity .l-div div:nth-child(1){
   display: flex;
 }
-.each_food .post-activity .r-div{
+.each_food .post-activity .r-div, .each_service .post-activity .r-div{
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.each_food .post-activity .activity {
+.each_food .post-activity .activity, .each_service .post-activity .activity {
   margin-right: 10px;
 }
-.each_food .post-content{
+.each_food .post-content, .each_service .post-content{
   width: 80%;
   text-align: justify;
   margin-left: 3%;
 }
-.each_food .food-price{
+.each_food .food-price, .each_service .food-price{
   width: 60%;
   position: relative;
   bottom: 25px;
