@@ -1022,12 +1022,14 @@ export default function UserFeeds() {
                                 return (
                                     <div className="each_food">
                                         <div className="primary-details">
-                                            <div className="profile-img-container">
-                                                <img src={item.desktop_icon}></img>
-                                            </div>
-                                            <div className="user-detail-container">
-                                                <h3>{item.user_name}</h3>
-                                                <h5>{item.user_description}</h5>
+                                            <div className="l-div">
+                                                <div className="profile-img-container">
+                                                    <img src={item.desktop_icon}></img>
+                                                </div>
+                                                <div className="user-detail-container">
+                                                    <h3>{item.user_name}</h3>
+                                                    <h5>{item.user_description}</h5>
+                                                </div>
                                             </div>
                                             <div style={{ paddingRight: "4px" }}>
                                                 <div style={{ textAlignLast: "right" }} className="post-option">
@@ -1041,9 +1043,6 @@ export default function UserFeeds() {
                                                         isHalf={true}
                                                         activeColor="#ffd700"
                                                     />
-                                                </div>
-                                                <div className="delivery">
-
                                                 </div>
                                             </div>
                                         </div>

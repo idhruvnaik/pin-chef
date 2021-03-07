@@ -79,7 +79,7 @@ ul {
   margin: 10px;
 }
 ul.switch-content {
-  justify-content: space-around;
+  justify-content: space-between;
   display: flex;
   padding: 5px;
   align-items: center;
