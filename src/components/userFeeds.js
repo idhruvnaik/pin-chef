@@ -458,12 +458,12 @@ export default function UserFeeds() {
                     <div className="location-div">
                         <img src={LocationIcon}></img>
                         <span>All</span>
-                    </div> 
+                    </div>
                     <div className="search-div">
-                        <input placeholder="Search here.." type="text" className="search-box"/>
+                        <input placeholder="Search here.." type="text" className="search-box" />
                         <img src={SearchIcon}></img>
-                    </div>   
-                </div>        
+                    </div>
+                </div>
                 <div className="r-div">
                     <select className="form-control">
                         <option>EN</option>
@@ -583,16 +583,15 @@ export default function UserFeeds() {
                                                     <h5>{item.user_description}</h5>
                                                 </div>
                                             </div>
-                                            <div style={{paddingRight:"4px"}}>
-                                                <div style={{textAlignLast: "right"}}>
+                                            <div style={{ paddingRight: "4px" }}>
+                                                <div style={{ textAlignLast: "right" }} className="post-option">
                                                     <img src={PostMenu}></img>
                                                 </div>
-                                                <div style={{display:"flex"}}>
+                                                <div style={{ display: "flex" }}>
                                                     <div className="recipe_rattings">5</div>
                                                     <ReactStars
                                                         count={5}
                                                         onChange={ratingChanged}
-                                                        size={24}
                                                         isHalf={true}
                                                         activeColor="#ffd700"
                                                     />
@@ -600,9 +599,16 @@ export default function UserFeeds() {
                                             </div>
                                         </div>
                                         <img className="userpost" src={item.post}></img>
-                                        <div className="post-activity" style={{display:"flex"}}>
+                                        <div className="post-activity">
                                             <div className="recipe_details">
-                                                <h4>{item.recipe_name}&nbsp;&nbsp;&nbsp;&nbsp;({item.recipe_type})</h4>
+                                                <div>
+                                                    <h4>{item.recipe_name}</h4>
+                                                    <h5>({item.recipe_type})</h5>
+                                                </div>
+                                                <div className="time">
+                                                    <img src={Recipe_time}></img>
+                                                    <span>{item.time}</span>
+                                                </div>
                                             </div>
                                             <div className="activities">
                                                 <div className="activity">
@@ -619,12 +625,8 @@ export default function UserFeeds() {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="time">
-                                            <img src={Recipe_time}></img>
-                                            <p>{item.time}</p>
-                                        </div>
                                         <div className="post-content">
-                                            <h4 style={{color:"green"}}>Ingredients</h4>
+                                            <h4 style={{ color: "green" }}>Ingredients</h4>
                                             <p>{item.post_content}</p>
                                         </div>
                                     </div>
@@ -690,11 +692,10 @@ export default function UserFeeds() {
                                                 <ReactStars
                                                     count={5}
                                                     onChange={ratingChanged}
-                                                    size={24}
                                                     isHalf={true}
                                                     activeColor="#ffd700"
                                                 />
-                                            </div>  
+                                            </div>
                                             <p><b>{item.ratting}/10</b></p>
                                         </div>
                                         <div className="chef_content">
@@ -715,7 +716,7 @@ export default function UserFeeds() {
                                             <p>{item.designation}</p>
                                             <p>{item.specialization}</p>
                                             <p>{item.address}</p>
-                                            <div className="location" style={{color:"green"}}>
+                                            <div className="location" style={{ color: "green" }}>
                                                 <img src={Location}></img>
                                                 &nbsp;&nbsp;{item.location}
                                             </div>
@@ -750,7 +751,7 @@ export default function UserFeeds() {
                                             <p>{item.designation}</p>
                                             <p>{item.specialization}</p>
                                             <p>{item.address}</p>
-                                            <div className="location" style={{color:"green"}}>
+                                            <div className="location" style={{ color: "green" }}>
                                                 <img src={Location}></img>
                                                 &nbsp;&nbsp;{item.location}
                                             </div>
@@ -795,7 +796,7 @@ export default function UserFeeds() {
                                         <div className="post-activity">
                                             <div className="l-div">
                                                 <div className="activity">
-                                                    <img style={{marginRight: "5px"}} src={Location}></img>
+                                                    <img style={{ marginRight: "5px" }} src={Location}></img>
                                                     <p>{item.location}</p>
                                                 </div>
                                                 <div className="activity">
@@ -811,11 +812,11 @@ export default function UserFeeds() {
                                                     <img src={CommentIcon}></img>
                                                     <p>{item.comments}</p>
                                                 </div>
-                                                <div className="activity" style={{marginRight:"0px"}}>
+                                                <div className="activity" style={{ marginRight: "0px" }}>
                                                     <img src={PostShare}></img>
                                                     <p>{item.share}</p>
                                                 </div>
-                                            </div>                                            
+                                            </div>
                                         </div>
                                         <div className="post-content">
                                             <p>{item.post_content}</p>
@@ -842,7 +843,6 @@ export default function UserFeeds() {
                                                     <ReactStars
                                                         count={5}
                                                         onChange={ratingChanged}
-                                                        size={24}
                                                         isHalf={true}
                                                         activeColor="#ffd700"
                                                     />
@@ -861,7 +861,7 @@ export default function UserFeeds() {
                                         <div className="post-activity">
                                             <div className="l-div">
                                                 <div className="activity">
-                                                    <img style={{marginRight: "5px"}} src={Location}></img>
+                                                    <img style={{ marginRight: "5px" }} src={Location}></img>
                                                     <p>{item.location}</p>
                                                 </div>
                                                 <div className="activity">
@@ -877,11 +877,11 @@ export default function UserFeeds() {
                                                     <img src={CommentIcon}></img>
                                                     <p>{item.comments}</p>
                                                 </div>
-                                                <div className="activity" style={{marginRight:"0px"}}>
+                                                <div className="activity" style={{ marginRight: "0px" }}>
                                                     <img src={PostShare}></img>
                                                     <p>{item.share}</p>
                                                 </div>
-                                            </div>                                            
+                                            </div>
                                         </div>
                                         <div className="post-content">
                                             <p>{item.post_content}</p>
@@ -962,16 +962,15 @@ export default function UserFeeds() {
                                                     <h5>{item.user_description}</h5>
                                                 </div>
                                             </div>
-                                            <div style={{paddingRight:"4px"}}>
-                                                <div style={{textAlignLast: "right"}}>
+                                            <div style={{ paddingRight: "4px" }}>
+                                                <div style={{ textAlignLast: "right" }} className="post-option">
                                                     <img src={PostMenu}></img>
                                                 </div>
-                                                <div style={{display:"flex"}}>
+                                                <div style={{ display: "flex" }}>
                                                     <div className="recipe_rattings">5</div>
                                                     <ReactStars
                                                         count={5}
                                                         onChange={ratingChanged}
-                                                        size={24}
                                                         isHalf={true}
                                                         activeColor="#ffd700"
                                                     />
@@ -979,9 +978,16 @@ export default function UserFeeds() {
                                             </div>
                                         </div>
                                         <img className="userpost" src={item.post}></img>
-                                        <div className="post-activity" style={{display:"flex"}}>
+                                        <div className="post-activity" style={{ display: "flex" }}>
                                             <div className="recipe_details">
-                                                <h4>{item.recipe_name}&nbsp;&nbsp;&nbsp;&nbsp;({item.recipe_type})</h4>
+                                                <div>
+                                                    <h4>{item.recipe_name}</h4>
+                                                    <h5>({item.recipe_type})</h5>
+                                                </div>
+                                                <div className="time">
+                                                    <img src={Recipe_time}></img>
+                                                    <span>{item.time}</span>
+                                                </div>
                                             </div>
                                             <div className="activities">
                                                 <div className="activity">
@@ -998,12 +1004,8 @@ export default function UserFeeds() {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="time">
-                                            <img src={Recipe_time}></img>
-                                            <p>{item.time}</p>
-                                        </div>
                                         <div className="post-content">
-                                            <h4 style={{color:"green"}}>Ingredients</h4>
+                                            <h4 style={{ color: "green" }}>Ingredients</h4>
                                             <p>{item.post_content}</p>
                                         </div>
                                     </div>
@@ -1018,15 +1020,22 @@ export default function UserFeeds() {
                                             <div className="profile-img-container">
                                                 <img src={item.desktop_icon}></img>
                                             </div>
-                                            <div className="username">
-                                                <p><b>{item.user_name}</b></p>
-                                                <p>{item.user_description}</p>
+                                            <div className="user-detail-container">
+                                                <h3>{item.user_name}</h3>
+                                                <h5>{item.user_description}</h5>
                                             </div>
-                                            <div>
-                                                <img src={PostMenu}></img>
-                                                <div className="rattings">
-                                                    <p>Ratting = {item.rattings}/10</p>
-                                                    <p><i>{item.delivery_status}</i></p>
+                                            <div style={{ paddingRight: "4px" }}>
+                                                <div style={{ textAlignLast: "right" }} className="post-option">
+                                                    <img src={PostMenu}></img>
+                                                </div>
+                                                <div style={{ display: "flex" }}>
+                                                    <div className="recipe_rattings">5</div>
+                                                    <ReactStars
+                                                        count={5}
+                                                        onChange={ratingChanged}
+                                                        isHalf={true}
+                                                        activeColor="#ffd700"
+                                                    />
                                                 </div>
                                                 <div className="delivery">
 
@@ -1040,7 +1049,7 @@ export default function UserFeeds() {
                                         <div className="post-activity">
                                             <div className="l-div">
                                                 <div className="activity">
-                                                    <img style={{marginRight: "5px"}} src={Location}></img>
+                                                    <img style={{ marginRight: "5px" }} src={Location}></img>
                                                     <p>{item.location}</p>
                                                 </div>
                                                 <div className="activity">
@@ -1056,11 +1065,11 @@ export default function UserFeeds() {
                                                     <img src={CommentIcon}></img>
                                                     <p>{item.comments}</p>
                                                 </div>
-                                                <div className="activity" style={{marginRight:"0px"}}>
+                                                <div className="activity" style={{ marginRight: "0px" }}>
                                                     <img src={PostShare}></img>
                                                     <p>{item.share}</p>
                                                 </div>
-                                            </div>                                            
+                                            </div>
                                         </div>
                                         <div className="post-content">
                                             <p>{item.post_content}</p>
@@ -1083,16 +1092,15 @@ export default function UserFeeds() {
                                                     <h5>{item.user_description}</h5>
                                                 </div>
                                             </div>
-                                            <div style={{paddingRight:"4px"}}>
-                                                <div style={{textAlignLast: "right"}}>
+                                            <div style={{ paddingRight: "4px" }}>
+                                                <div style={{ textAlignLast: "right" }}>
                                                     <img src={PostMenu}></img>
                                                 </div>
-                                                <div style={{display:"flex"}}>
+                                                <div style={{ display: "flex" }}>
                                                     <div className="recipe_rattings">5</div>
                                                     <ReactStars
                                                         count={5}
                                                         onChange={ratingChanged}
-                                                        size={24}
                                                         isHalf={true}
                                                         activeColor="#ffd700"
                                                     />

@@ -46,12 +46,18 @@
   .all_chefs .chef, .following_chefs .chef{
     height: 45%;
   }
-  .recipe .post-activity .activities .activity img{
+  .activity img{
     width: 22px;
     margin-top: 2px;
   }
+  .activity span{
+    font-size: small;
+  }
   b, .all_chefs .chef .chef_content .followers div:last-child button, .following_chefs .chef .chef_content .followers div:last-child button{
     font-size: smaller;
+  }
+  .post-option img{
+    height: 5px;
   }
 }
 @media (max-height: 570px) {
@@ -69,6 +75,9 @@
   }
   b, .all_chefs .chef .chef_content .followers div:last-child button, .following_chefs .chef .chef_content .followers div:last-child button, .switch-content {
     font-size: smaller;
+  }
+  .feed .primary-details .user-detail-container h3, .feed_2 .primary-details .user-detail-container h3, .recipe .primary-details .user-detail-container h3, .recipe_2 .primary-details .user-detail-container h3{
+    font-size: x-small;
   }
 }
 
