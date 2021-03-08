@@ -76,7 +76,7 @@
   b, .all_chefs .chef .chef_content .followers div:last-child button, .following_chefs .chef .chef_content .followers div:last-child button, .switch-content {
     font-size: smaller;
   }
-  .feed .primary-details .user-detail-container h3, .feed_2 .primary-details .user-detail-container h3, .recipe .primary-details .user-detail-container h3, .recipe_2 .primary-details .user-detail-container h3{
+  .feed .primary-details .user-detail-container h3, .feed_2 .primary-details .user-detail-container h3, .recipe .primary-details .user-detail-container h3, .recipe_2 .primary-details .user-detail-container h3, .foodservices .primary-details .user-detail-container h3{
     font-size: x-small;
   }
 }

@@ -121,7 +121,7 @@ const emaster_classes = [
         chef_name: "Jenah Stephanson",
         chef_desktop_icon: UserPhoto,
         ingredients: "pepper, flour, orange juice",
-        recipe_description: "Come and enjoy cooking the yummiest Pizza you have ever seen.Come and enjoy cooking the yummiest Pizza you have ever seen.Come and enjoy cooking the yummiest Pizza you have ever seen.Come and enjoy cooking the yummiest Pizza you have ever seen.Come and enjoy cooking the yummiest Pizza you have ever seen.Come and enjoy cooking the yummiest Pizza you have ever seen.Come and enjoy cooking the yummiest Pizza you have ever seen.Come and enjoy cooking the yummiest Pizza you have ever seen.Come and enjoy cooking the yummiest Pizza you have ever seen.Come and enjoy cooking the yummiest Pizza you have ever seen.Come and enjoy cooking the yummiest Pizza you have ever seen.Come and enjoy cooking the yummiest Pizza you have ever seen.Come and enjoy cooking the yummiest Pizza you have ever seen.Come and enjoy cooking the yummiest Pizza you have ever seen.Come and enjoy cooking the yummiest Pizza you have ever seen.Come and enjoy cooking the yummiest Pizza you have ever seen.Come and enjoy cooking the yummiest Pizza you have ever seen.Come and enjoy cooking the yummiest Pizza you have ever seen.Come and enjoy cooking the yummiest Pizza you have ever seen.Come and enjoy cooking the yummiest Pizza you have ever seen.Come and enjoy cooking the yummiest Pizza you have ever seen.Come and enjoy cooking the yummiest Pizza you have ever seen.Come and enjoy cooking the yummiest Pizza you have ever seen.Come and enjoy cooking the yummiest Pizza you have ever seen.",
+        recipe_description: "Come and enjoy cooking the yummiest Pizza you have ever seen.",
         price: "25",
         date: "Feb 20 - UTC",
         time: "12:30",
@@ -136,7 +136,7 @@ const emaster_classes = [
         chef_name: "Jenah Stephanson",
         chef_desktop_icon: UserPhoto,
         ingredients: "pepper, flour, orange juice",
-        recipe_description: "Come and enjoy cooking the yummiest Pizza you have ever seen.Come and enjoy cooking the yummiest Pizza you have ever seen.Come and enjoy cooking the yummiest Pizza you have ever seen.Come and enjoy cooking the yummiest Pizza you have ever seen.Come and enjoy cooking the yummiest Pizza you have ever seen.Come and enjoy cooking the yummiest Pizza you have ever seen.Come and enjoy cooking the yummiest Pizza you have ever seen.Come and enjoy cooking the yummiest Pizza you have ever seen.Come and enjoy cooking the yummiest Pizza you have ever seen.Come and enjoy cooking the yummiest Pizza you have ever seen.Come and enjoy cooking the yummiest Pizza you have ever seen.Come and enjoy cooking the yummiest Pizza you have ever seen.Come and enjoy cooking the yummiest Pizza you have ever seen.Come and enjoy cooking the yummiest Pizza you have ever seen.Come and enjoy cooking the yummiest Pizza you have ever seen.Come and enjoy cooking the yummiest Pizza you have ever seen.Come and enjoy cooking the yummiest Pizza you have ever seen.Come and enjoy cooking the yummiest Pizza you have ever seen.Come and enjoy cooking the yummiest Pizza you have ever seen.Come and enjoy cooking the yummiest Pizza you have ever seen.Come and enjoy cooking the yummiest Pizza you have ever seen.Come and enjoy cooking the yummiest Pizza you have ever seen.Come and enjoy cooking the yummiest Pizza you have ever seen.Come and enjoy cooking the yummiest Pizza you have ever seen.",
+        recipe_description: "Come and enjoy cooking the yummiest Pizza you have ever seen.",
         price: "25",
         date: "Feb 20 - UTC",
         time: "12:30",
@@ -637,27 +637,32 @@ export default function UserFeeds() {
                             {emaster_classes.map(function (item) {
                                 return (
                                     <div className="order">
-                                        <div className="order_details">
-                                            <div style={{ width: "100%" }}>
-                                                <center><h3>{item.recipe_name}</h3></center>
-                                                <img src={item.recipe_image}></img>
-                                                <img className="share" src={MasterShare}></img>
+                                        <div className="order-details">
+                                            <h3>{item.recipe_name}</h3>
+                                            <div className="img-container">
+                                                <img className="recipe-image" src={item.recipe_image}></img>
+                                                <img className="share-btn" src={MasterShare}></img>
                                             </div>
-                                            <p><span><b>{item.recipe_type}</b></span></p>
-                                            <p><span><b>{item.recipe_diet}</b></span></p>
+                                            <div className="recipe-type">
+                                                <span className="cuisine-name">{item.recipe_type}</span>
+                                                <span>{item.recipe_diet}</span>
+                                            </div>
                                         </div>
                                         <div className="order_content">
                                             <div className="user_details">
-                                                <img src={item.chef_desktop_icon}></img>
-                                                <h4>{item.chef_name}</h4>
                                                 <img src={BookClass}></img>
+                                                <h4>{item.chef_name}</h4>
+                                                <img src={item.chef_desktop_icon}></img>
                                             </div>
                                             <div className="order_description">
                                                 <p>{item.recipe_description}</p>
                                                 <p><b>Ingredients:</b> {item.ingredients}</p>
                                             </div>
                                             <div className="other_details">
-                                                <div><b>$ <span className="price">{item.price}</span></b></div>
+                                                <div className="price-detail">
+                                                    <span>$ </span>
+                                                    <span className="price">{item.price}</span>
+                                                </div>
                                                 <div className="class_date_time">
                                                     <img src={MasterclassTime}></img>
                                                     <span>{item.date} -</span>
@@ -1017,12 +1022,14 @@ export default function UserFeeds() {
                                 return (
                                     <div className="each_food">
                                         <div className="primary-details">
-                                            <div className="profile-img-container">
-                                                <img src={item.desktop_icon}></img>
-                                            </div>
-                                            <div className="user-detail-container">
-                                                <h3>{item.user_name}</h3>
-                                                <h5>{item.user_description}</h5>
+                                            <div className="l-div">
+                                                <div className="profile-img-container">
+                                                    <img src={item.desktop_icon}></img>
+                                                </div>
+                                                <div className="user-detail-container">
+                                                    <h3>{item.user_name}</h3>
+                                                    <h5>{item.user_description}</h5>
+                                                </div>
                                             </div>
                                             <div style={{ paddingRight: "4px" }}>
                                                 <div style={{ textAlignLast: "right" }} className="post-option">
@@ -1036,9 +1043,6 @@ export default function UserFeeds() {
                                                         isHalf={true}
                                                         activeColor="#ffd700"
                                                     />
-                                                </div>
-                                                <div className="delivery">
-
                                                 </div>
                                             </div>
                                         </div>
