@@ -3,6 +3,7 @@ import './App.css';
 import Onboarding from './components/onboarding'
 import { BrowserRouter as Router, Switch, Route, /*Link*/ } from 'react-router-dom';
 import UserFeeds from './components/userFeeds'
+import UserReg from './components/userReg'
 // import CommonComponents from './components/commonComponents'
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
       </div> */}
       <Router>
           <Switch>
+              <Route path='/User' component={UserReg} />
               <Route path='/Homepage' component={UserFeeds} />
               <Route path='/' component={Onboarding} />
           </Switch>

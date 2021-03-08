@@ -7,6 +7,7 @@
  */
 
 import axios from 'axios';
+import {reactLocalStorage} from 'reactjs-localstorage';
 // import {
 //     moduleType,
 //     startLoader, 
@@ -53,21 +54,40 @@ import axios from 'axios';
 //  * @param  {string} referrer
 //  * @param  {string} queryFilterString=""
 //  */
-export const getSettingsAuth=()=>{
-    let apiURL="http://52.87.176.237:8080/api/auth/login"
-    return axios({
+async function make_rest_call(apiURL, method, body, headers){
+    return await axios(
+        {
             url:apiURL,
-            method:'post',
-            headers: {
-                Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJkaGF2YWxfMTIzIiwiaWF0IjoxNjE1MDI2MDk5LCJleHAiOjE2NDY1NjIwOTl9.yNES4EIwDDiexyspU6nbkEZ5cpMKEi_QLHy2EZZcxPI',
-                "Access-Control-Allow-Origin": "*"
-            },
-            data: {
-                "password": "12345678",
-                "user_name":"dhaval_123"
+            method:method,
+            headers: headers,
+            data: body
+        }
+    )
+        .then(res => {
+            if(res.status===200){
+
+                return res.data;
             }
         })
 }
+
+// function validate_response(response){
+//     if(response.status == 200){
+//         return response.data;
+//     }
+
+// }
+const apiHost = "http://52.87.176.237:8080/api"
+export const getSettingsAuth=(endpoint, method, body, headers)=>{
+    let apiURL= apiHost + endpoint;
+    let response = await make_rest_call(apiURL, method, body, headers);
+    // response.resolve('Success').then(function(value){
+    //     console.log(value);
+    // })
+    console.log(response);
+}
+
+
 // export const getSettingsAuth=(referrer,queryFilterString="")=>{
 //     let apiURL=queryFilterString!==""?`${apiHost}/settings/${queryFilterString}`:`${apiHost}/settings/`
 //     return axios({
