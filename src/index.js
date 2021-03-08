@@ -8,11 +8,16 @@ import './base.css'
 import './form.css'
 import './reset.css'
 import './media.css'
+import { Provider } from "react-redux";
+
+import configureStore from "./store/store";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Provider store={configureStore()}>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </Provider>,
   document.getElementById('root')
 );
 

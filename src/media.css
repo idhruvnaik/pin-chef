@@ -28,6 +28,9 @@
   .upper-bar .r-div svg{
     height: 30px;
   }
+  .login-register{
+    width: 95%;
+  }
 }
 
 @media (max-width: 481px) {
@@ -59,10 +62,16 @@
   .post-option img{
     height: 5px;
   }
+  .login-register{
+    width: 95%;
+  }
 }
 @media (max-height: 570px) {
   .all_chefs .chef, .following_chefs .chef{
     height: 55%;
+  }
+  .login-register{
+    width: 95%;
   }
 }
 @media (max-width: 320px) {
