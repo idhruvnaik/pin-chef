@@ -693,37 +693,31 @@ export default function UserFeeds() {
                                     <div className="chef">
                                         <div className="chef_details">
                                             <img src={item.desktop_icon}></img>
-                                            <div>
-                                                <ReactStars
-                                                    count={5}
-                                                    onChange={ratingChanged}
-                                                    isHalf={true}
-                                                    activeColor="#ffd700"
-                                                />
-                                            </div>
-                                            <p><b>{item.ratting}/10</b></p>
+                                            <ReactStars
+                                                count={5}
+                                                onChange={ratingChanged}
+                                                isHalf={true}
+                                                activeColor="#ffd700"
+                                            />
+                                            <span><b>{item.ratting}/10</b></span>
                                         </div>
                                         <div className="chef_content">
                                             <div className="followers">
-                                                <div>
-                                                    <p>
-                                                        <b>{item.user_name}</b>
-                                                    </p>
-                                                </div>
-                                                <div>
-                                                    <p>
+                                                <h4>{item.user_name}</h4>
+                                                <div className="follower-count">
+                                                    <div>
                                                         <img src={FollowersIcon}></img>
-                                                        <b>&nbsp;&nbsp;{item.no_of_followers} Followers</b>
-                                                    </p>
+                                                        <span>{item.no_of_followers} Followers</span>
+                                                    </div>
                                                     <button type="button">Follow</button>
                                                 </div>
                                             </div>
-                                            <p>{item.designation}</p>
-                                            <p>{item.specialization}</p>
+                                            <h5>{item.designation}</h5>
+                                            <h5>{item.specialization}</h5>
                                             <p>{item.address}</p>
                                             <div className="location" style={{ color: "green" }}>
                                                 <img src={Location}></img>
-                                                &nbsp;&nbsp;{item.location}
+                                                <span>{item.location}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -740,17 +734,13 @@ export default function UserFeeds() {
                                         </div>
                                         <div className="chef_content">
                                             <div className="followers">
-                                                <div>
-                                                    <p>
-                                                        <b>{item.user_name}</b>
-                                                    </p>
-                                                </div>
-                                                <div>
-                                                    <p>
+                                                <h4>{item.user_name}</h4>
+                                                <div className="follower-count">
+                                                    <div>
                                                         <img src={FollowersIcon}></img>
-                                                        <b>&nbsp;&nbsp;{item.no_of_followers} Followers</b>
-                                                    </p>
-                                                    <button type="button">Unfollow</button>
+                                                        <span>{item.no_of_followers} Followers</span>
+                                                    </div>
+                                                    <button type="button">Follow</button>
                                                 </div>
                                             </div>
                                             <p>{item.designation}</p>
