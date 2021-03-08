@@ -228,11 +228,6 @@ ul.switch-content-1 li {
   text-align: left;
   padding: 20px;
 }
-.user-feed-page .user-pallet .menu-bar .home-content .primary-details .l-div,
-.user-feed-page .user-pallet .menu-bar .star-content .primary-details .l-div {
-  display: flex;
-  align-items: center;
-}
 .user-feed-page .user-pallet .menu-bar .home-content .primary-details .profile-img-container,
 .user-feed-page .user-pallet .menu-bar .star-content .primary-details .profile-img-container {
   max-height: 50px;
