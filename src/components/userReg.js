@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useSpring, animated } from "react-spring";
 import { getSettingsAuth } from '../services/apiOperations';
 import { connect } from "react-redux";
 import { addToken, donotAddToken } from "../services/actions";
+import Popup from 'reactjs-popup';
+import './userReg.css'
+// import 'reactjs-popup/dist/index.css';
 
 
 const mapStateToProps = state => ({
@@ -14,7 +18,39 @@ const mapDispatchToProps = dispatch => ({
 });
 
 function UserReg(props) {
-  
+    function registration() {
+        var loginBtn = document.getElementById("loginBtn");
+        var registerBtn = document.getElementById("registerBtn");
+        var loginform = document.getElementById("loginform");
+        var registerform = document.getElementById("registerform");
+        var forgot = document.getElementById("forgot");
+        registerform.style.left='0px';
+        registerform.style.opacity='1';
+        loginform.style.left='-500px';
+        loginform.style.opacity='0';
+        forgot.style.left='-500px';
+        forgot.style.opacity='0';
+        registerBtn.classList.add('active');
+        loginBtn.classList.remove('active');
+
+    }
+
+    function login() {
+        var loginBtn = document.getElementById("loginBtn");
+        var registerBtn = document.getElementById("registerBtn");
+        var loginform = document.getElementById("loginform");
+        var registerform = document.getElementById("registerform");
+        var forgot = document.getElementById("forgot");
+        loginform.style.left='0px';
+        loginform.style.opacity='1';
+        forgot.style.left='0px';
+        forgot.style.opacity='1';
+        registerform.style='500px';
+        loginBtn.classList.add('active');
+        registerBtn.classList.remove('active');
+        registerform.style.opacity='0';
+    }
+
   function start_flow() {
     console.log("to shuru kare");
     console.log(props);
@@ -51,31 +87,37 @@ function UserReg(props) {
         <div className="start">
             <button type="button" onClick={start_flow}>START</button>
         </div>
-        {/* <div class="confirm-container">
-            <h1>Help<button class="close" onclick="close_help_dialogue_box()"></button></h1>
-            <div class="content">
-                <ul class="switch-content">
-                    <li onclick="make_active(this)" class="active">Information</li>
-                    <li onclick="make_active(this)" class="">Test help</li>
-                    <li onclick="make_active(this)" class="">Task help</li>
-                </ul>
-                <div class="info-container" style="visibility: visible;">
-                    <p><b>INSTRUCTIONS TO CANDIDATES</b></p>
-                    <ul>
-                        <li>Answer <b>all</b> the questions.</li>
-                        <li>You can change your answers at any time during the test.</li>
-                    </ul>
-                    <p><b>INFORMATION FOR CANDIDATES</b></p>
-                    <ul>
-                        <li>There are 40 questions in this test.</li>
-                        <li>Each question carries one mark.</li>
-                        <li>There are four parts to the test.</li>
-                        <li>Please note you will only hear each part once in your actual test. However for familiarisation and practice purposes, this familiarisation test will allow you to listen to each recording multiple times.</li><li>For each part of the test there will be time for you to look through the questions and time for you to check your answers.</li>
-                    </ul>
+        <div class="container">
+            <div class="login-register">
+                <div class="nav-buttons">
+                    <button id="loginBtn" class='active' onClick={login} >SIGN IN </button>
+                    <button id="registerBtn" onClick={registration}>SIGN UP</button>
                 </div>
-                <button class="close_help_box" onclick="close_help_dialogue_box()">OK</button>
+                <div class="form-group">
+                    <form action="" id="loginform">
+                        <label for="username">email/id</label>
+                        <input type="text" id="username"></input>
+                        <label for="password">password</label>
+                        <input type="text" id="password"></input>
+                        <input type="submit" value="Continue" class="submit"></input>
+                    </form>
+                    <form action="" id="registerform">
+                        <label for="fullname">fullname</label>
+                        <input type="text" id="fullname"></input>
+                        <label for="email">email</label>
+                        <input type="text" id="email"></input>
+                        <label for="passwword">password</label>
+                        <input type="text" id="password"></input>
+                        <label for="confirmpassword">confirm password</label>
+                        <input type="text" id="confirmpassword"></input>
+                        <input type="submit" value="Continue" class="submit"></input>
+                    </form>
+                </div>
+                <div id="forgot">
+                    <a href="" style={{color:"#FFD54F"}}>FORGOT PASSWORD</a>
+                </div>
             </div>
-        </div> */}
+        </div>
     </div>
   );
 }

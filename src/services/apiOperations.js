@@ -54,8 +54,8 @@ import {reactLocalStorage} from 'reactjs-localstorage';
 //  * @param  {string} referrer
 //  * @param  {string} queryFilterString=""
 //  */
-async function make_rest_call(apiURL, method, body, headers){
-    return await axios(
+function make_rest_call(apiURL, method, body, headers){
+    return axios(
         {
             url:apiURL,
             method:method,
@@ -63,28 +63,27 @@ async function make_rest_call(apiURL, method, body, headers){
             data: body
         }
     )
-        .then(res => {
-            if(res.status===200){
-
-                return res.data;
-            }
-        })
 }
 
-// function validate_response(response){
-//     if(response.status == 200){
-//         return response.data;
-//     }
+function validate_response(response){
+    if(response.status == 200){
+        return response.data;
+    }
 
-// }
+}
 const apiHost = "http://52.87.176.237:8080/api"
 export const getSettingsAuth=(endpoint, method, body, headers)=>{
     let apiURL= apiHost + endpoint;
-    let response = await make_rest_call(apiURL, method, body, headers);
-    // response.resolve('Success').then(function(value){
-    //     console.log(value);
-    // })
-    console.log(response);
+    make_rest_call(apiURL, method, body, headers)
+        .then(res => {
+            let resp = validate_response(res);
+            if (resp.auth_token){
+                reactLocalStorage.setObject(
+                    'token_details', 
+                    {'user': resp.user_name, 'token': resp.auth_token}
+                );
+            }
+        })
 }
 
 
