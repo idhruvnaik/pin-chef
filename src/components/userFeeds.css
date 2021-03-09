@@ -177,11 +177,6 @@ ul.switch-content-1 li {
   height: 10px;
   margin: 0px;
 } */
-.each_food .primary-details div:last-child,
-.each_service .primary-details div:last-child {
-  text-align-last: end;
-  width: 65%;
-}
 .recipe,
 .item {
   width: 97%;
@@ -650,7 +645,7 @@ ul.switch-content-1 li {
 .each_service .food-price {
   width: 60%;
   position: relative;
-  bottom: 25px;
+  bottom: 20px;
   background-color: white;
   border-top-right-radius: 10px;
 }

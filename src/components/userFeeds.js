@@ -7,6 +7,7 @@ import './commonComponents.css'
 import Ads from './advertises'
 import './userFeeds.css'
 import './user-feeds.scss'
+import './media.scss'
 import FinalLogo from '../assets/images/Logo-small.png'
 import Filter from '../assets/images/filter.png'
 import LocationIcon from '../assets/png_icons/Login_Sign up, Splash/Location icon black.png'
@@ -767,21 +768,27 @@ export default function UserFeeds() {
                                 return (
                                     <div className="each_food">
                                         <div className="primary-details">
-                                            <div className="profile-img-container">
-                                                <img src={item.desktop_icon}></img>
-                                            </div>
-                                            <div className="username">
-                                                <p><b>{item.user_name}</b></p>
-                                                <p>{item.user_description}</p>
-                                            </div>
-                                            <div>
-                                                <img src={PostMenu}></img>
-                                                <div className="rattings">
-                                                    <p>Ratting = {item.rattings}/10</p>
-                                                    <p><i>{item.delivery_status}</i></p>
+                                            <div className="l-div">
+                                                <div className="profile-img-container">
+                                                    <img src={item.desktop_icon}></img>
                                                 </div>
-                                                <div className="delivery">
-
+                                                <div className="user-detail-container">
+                                                    <h3>{item.user_name}</h3>
+                                                    <h5>{item.user_description}</h5>
+                                                </div>
+                                            </div>
+                                            <div style={{ paddingRight: "4px" }}>
+                                                <div style={{ textAlignLast: "right" }} className="post-option">
+                                                    <img src={PostMenu}></img>
+                                                </div>
+                                                <div style={{ display: "flex" }}>
+                                                    <div className="recipe_rattings">5</div>
+                                                    <ReactStars
+                                                        count={5}
+                                                        onChange={ratingChanged}
+                                                        isHalf={true}
+                                                        activeColor="#ffd700"
+                                                    />
                                                 </div>
                                             </div>
                                         </div>
@@ -826,27 +833,27 @@ export default function UserFeeds() {
                                 return (
                                     <div className="each_service">
                                         <div className="primary-details">
-                                            <div className="profile-img-container">
-                                                <img src={item.desktop_icon}></img>
+                                            <div className="l-div">
+                                                <div className="profile-img-container">
+                                                    <img src={item.desktop_icon}></img>
+                                                </div>
+                                                <div className="user-detail-container">
+                                                    <h3>{item.user_name}</h3>
+                                                    <h5>{item.user_description}</h5>
+                                                </div>
                                             </div>
-                                            <div className="username">
-                                                <p><b>{item.user_name}</b></p>
-                                                <p>{item.user_description}</p>
-                                            </div>
-                                            <div>
-                                                <img src={PostMenu}></img>
-                                                <div className="rattings">
+                                            <div style={{ paddingRight: "4px" }}>
+                                                <div style={{ textAlignLast: "right" }} className="post-option">
+                                                    <img src={PostMenu}></img>
+                                                </div>
+                                                <div style={{ display: "flex" }}>
+                                                    <div className="recipe_rattings">5</div>
                                                     <ReactStars
                                                         count={5}
                                                         onChange={ratingChanged}
                                                         isHalf={true}
                                                         activeColor="#ffd700"
                                                     />
-                                                    <p>Ratting = <span className="given_rattings"></span>/5</p>
-                                                    <p><i>{item.delivery_status}</i></p>
-                                                </div>
-                                                <div className="delivery">
-
                                                 </div>
                                             </div>
                                         </div>
