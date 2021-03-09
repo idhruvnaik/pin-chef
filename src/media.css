@@ -65,6 +65,12 @@
   .login-register{
     width: 95%;
   }
+  .verify_otp button{
+    font-size: 10px;
+  }
+  .each_otp_container div input{
+    width: 1.5em;
+  }
 }
 @media (max-height: 570px) {
   .all_chefs .chef, .following_chefs .chef{
@@ -107,5 +113,20 @@
     font-size: 10px;
     margin-left: 5px;
     margin-right: 5px;
+  }
+  .container * { 
+    font-size: small;
+  }
+  .otp-container * { 
+    font-size: small;
+  }
+  .otp-container .login-register{
+    padding: 0px;
+  }
+  .actual_otp{
+    display: block;
+  }
+  .each_otp_container{
+    margin-left: 4px;
   }
 }

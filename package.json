@@ -49,6 +49,7 @@
     "react-native-tab-view": "^2.15.2",
     "react-native-tab-view-viewpager-adapter": "^1.1.0",
     "react-native-vector-icons": "^7.1.0",
+    "react-otp-input": "^2.3.0",
     "react-owl-carousel": "^2.3.3",
     "react-rating-stars-component": "^2.2.0",
     "react-redux": "^7.2.2",

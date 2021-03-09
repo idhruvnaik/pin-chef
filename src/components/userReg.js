@@ -50,38 +50,45 @@ function UserReg(props) {
         registerBtn.classList.remove('active');
         registerform.style.opacity='0';
     }
-
-  function start_flow() {
-    console.log("to shuru kare");
-    console.log(props);
-    
-    getSettingsAuth(
-        "/auth/login", 
-        'post', 
-        {"password": "12345678","user_name":"dhaval_123"},
-        {
-            "Authorization": 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJkaGF2YWxfMTIzIiwiaWF0IjoxNjE1MDI2MDk5LCJleHAiOjE2NDY1NjIwOTl9.yNES4EIwDDiexyspU6nbkEZ5cpMKEi_QLHy2EZZcxPI',
-            "Access-Control-Allow-Origin": "*"
+    function change_user(){
+        var user = document.querySelector('#user_choice span').innerHTML;
+        if (user.startsWith('I AM A CHEF')){
+            document.querySelector('#user_choice span').innerHTML = "LOOKING FOR CHEF >"
+        } else{
+            document.querySelector('#user_choice span').innerHTML = "I AM A CHEF >"
         }
-    )
-        // .then(res => {
-        //     console.log("resp");
-        //     console.log(res)
-        //     if(res.status===200){
-        //         console.log(res.data);
-        //     }
-        // })
-    // return (
-    //   <Router>
-    //     <Switch>
-    //       <Route path='/Homepage' component={()=><UserFeeds/>} />
-    //     </Switch>
-    //   </Router>
-    // );
-    // props.history.push({
-    //   pathname:"/Homepage",
-    // });
-  };
+    }
+    function start_flow() {
+        console.log("to shuru kare");
+        console.log(props);
+        
+        getSettingsAuth(
+            "/auth/login", 
+            'post', 
+            {"password": "12345678","user_name":"dhaval_123"},
+            {
+                "Authorization": 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJkaGF2YWxfMTIzIiwiaWF0IjoxNjE1MDI2MDk5LCJleHAiOjE2NDY1NjIwOTl9.yNES4EIwDDiexyspU6nbkEZ5cpMKEi_QLHy2EZZcxPI',
+                "Access-Control-Allow-Origin": "*"
+            }
+        )
+            // .then(res => {
+            //     console.log("resp");
+            //     console.log(res)
+            //     if(res.status===200){
+            //         console.log(res.data);
+            //     }
+            // })
+        // return (
+        //   <Router>
+        //     <Switch>
+        //       <Route path='/Homepage' component={()=><UserFeeds/>} />
+        //     </Switch>
+        //   </Router>
+        // );
+        // props.history.push({
+        //   pathname:"/Homepage",
+        // });
+    };
   return (
     <div className="outer-layout" style={{backgroundColor: "#555", backgroundImage: "none" }}>
         <div className="start">
@@ -93,12 +100,15 @@ function UserReg(props) {
                     <button id="loginBtn" class='active' onClick={login} >SIGN IN </button>
                     <button id="registerBtn" onClick={registration}>SIGN UP</button>
                 </div>
+                <div id="user_choice">
+                    <span onClick={change_user}>I AM A CHEF &gt;</span>
+                </div>
                 <div class="form-group">
                     <form action="" id="loginform">
                         <label for="username">email/id</label>
-                        <input type="text" id="username"></input>
+                        <input type="text" id="username" placeholder="ex: johndoe@pinchef.io"></input>
                         <label for="password">password</label>
-                        <input type="text" id="password"></input>
+                        <input type="text" id="password" placeholder="ex: PinChefisthebest!"></input>
                         <input type="submit" value="Continue" class="submit"></input>
                     </form>
                     <form action="" id="registerform">
@@ -114,6 +124,9 @@ function UserReg(props) {
                     </form>
                 </div>
                 <div id="forgot">
+                    <div id="signin_storage">
+                        <input type="radio" name="date"></input>Keep me signed in
+                    </div>
                     <a href="" style={{color:"#FFD54F"}}>FORGOT PASSWORD</a>
                 </div>
             </div>

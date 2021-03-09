@@ -1,0 +1,93 @@
+/* .registration{
+background-image: url('../assets/png_icons/Background.png');
+height: 50%;
+} */
+form, #forgot-panel { 
+    transition: all .5s ease;
+}
+
+.otp-container * { 
+    box-sizing: border-box; 
+    font-family: Montserrat; 
+    margin:0;
+    padding:0;
+    color:black;
+    font-weight: 600;
+    background-color:inherit;
+}
+/* body {
+    background-image: url(../assets/png_icons/Background.png);
+    background-size:  cover;
+    background-position:center center;
+
+} */
+.otp-container {
+    width: 90%;
+    margin-top: 10%;
+    margin-bottom: 7%;
+    margin-left: 5%;
+    height: 96%;
+}
+
+.otp-container .login-register {
+    height: 90%;
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+    padding:0 2em;
+    border-radius: 50px;
+    box-shadow: 0px 2px 7px rgba(0,0,0,0.2);
+    overflow: hidden; 
+    background: linear-gradient(180deg, rgba(65,4,119,1) 0%, rgba(22,147,198,1) 58%, rgba(255,255,255,0.1407913507199755) 82%);
+    background-image: url(../assets/png_icons/Background.png);
+    background-size:  cover;
+    background-position:center center;
+    color:#ffffff;
+}
+
+.heading{
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.user_mail{
+    color: white;
+    margin-bottom: 40px;
+
+}
+
+.tooltip{
+    margin-bottom: 40px;
+}
+.actual_otp{
+    justify-content: center;
+    display: flex;
+}
+.actual_otp input {
+    height: 50px;
+    border: none;
+    margin-bottom: 20px;
+    background-color: white;
+}
+.each_otp_container div:last-child input{
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+.each_otp_container div:first-child input{
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+.verify_otp button{
+    width: 3.5em;
+    height: 50px;
+    background-color: #469A21;
+    border-radius: 30px;
+    color: white;
+    font-family: Montserrat;
+    font-size: 16px;
+}
+.resend_email{
+    margin-top: 20%;
+    color: #FFD54F;
+    text-shadow: 1px 1px black;
+}
