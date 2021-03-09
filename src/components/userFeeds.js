@@ -6,6 +6,7 @@ import ReactStars from "react-rating-stars-component";
 import './commonComponents.css'
 import Ads from './advertises'
 import './userFeeds.css'
+import './user-feeds.scss'
 import FinalLogo from '../assets/images/Logo-small.png'
 import Filter from '../assets/images/filter.png'
 import LocationIcon from '../assets/png_icons/Login_Sign up, Splash/Location icon black.png'
