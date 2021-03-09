@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useLocation } from "react-router-dom";
 import { useSpring, animated } from "react-spring";
 import { getSettingsAuth } from '../services/apiOperations';
 import { connect } from "react-redux";
@@ -6,31 +7,33 @@ import { addToken, donotAddToken } from "../services/actions";
 import Popup from 'reactjs-popup';
 import './otpVerify.css'
 import OtpInput from 'react-otp-input';
+import OTP from './otpFields'
 // import 'reactjs-popup/dist/index.css';
 
-const state = { otp: '' };
 export default function VerifyOTP() {
+    const location = useLocation();
+    var external_otp = '';
+    console.log(location.email);
+    function handleChange(otp){
+        console.log(otp);
+        console.log(typeof(external_otp));
+        external_otp = otp;
+        console.log(typeof(external_otp));
+        console.log(external_otp);
+    }
     function saveotp(otp){
         console.log(otp);
         console.log("otp aayu");
-        console.log(state);
     }
     return (
         <div className="outer-layout" style={{backgroundColor: "#555", backgroundImage: "none" }}>
-            <div class="otp-container">
-                <div class="login-register">
+            <div className="otp-container">
+                <div className="login-register">
                     <div className="heading">VERIFY</div>
                     <div className="user_mail">marry@yahoo.com</div>
                     <div className="tooltip">Enter 6 digits OTP</div>
                     <div className="actual_otp">
-                        <OtpInput
-                            onChange={otp => console.log(otp)}
-                            numInputs={6}
-                            isInputSecure={true}
-                            containerStyle={"each_otp_container"}
-                            inputStyle={{width: "3em"}}
-                            placeholder={"______"}
-                        />
+                        <OTP/>
                         <div className="verify_otp">
                             <button type="button">OK</button>
                         </div>

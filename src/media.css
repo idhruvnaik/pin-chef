@@ -28,7 +28,7 @@
   .upper-bar .r-div svg{
     height: 30px;
   }
-  .login-register{
+  .login-register, .otp-container .login-register{
     width: 95%;
   }
 }
@@ -62,7 +62,7 @@
   .post-option img{
     height: 5px;
   }
-  .login-register{
+  .login-register, .otp-container .login-register{
     width: 95%;
   }
   .verify_otp button{
@@ -76,7 +76,7 @@
   .all_chefs .chef, .following_chefs .chef{
     height: 55%;
   }
-  .login-register{
+  .login-register, .otp-container .login-register{
     width: 95%;
   }
 }

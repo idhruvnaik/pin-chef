@@ -58,6 +58,19 @@ function UserReg(props) {
             document.querySelector('#user_choice span').innerHTML = "I AM A CHEF >"
         }
     }
+    function login_user(event){
+        console.log(event);
+        event.preventDefault();
+        // props.history.push({
+        //     pathname:"/Verifyotp",
+        // });
+        props.history.push(
+            {            
+                pathname: '/Verifyotp',
+                email: "abc"
+            }
+        );
+    }
     function start_flow() {
         console.log("to shuru kare");
         console.log(props);
@@ -94,33 +107,33 @@ function UserReg(props) {
         <div className="start">
             <button type="button" onClick={start_flow}>START</button>
         </div>
-        <div class="container">
-            <div class="login-register">
-                <div class="nav-buttons">
-                    <button id="loginBtn" class='active' onClick={login} >SIGN IN </button>
+        <div className="container">
+            <div className="login-register">
+                <div className="nav-buttons">
+                    <button id="loginBtn" className='active' onClick={login} >SIGN IN </button>
                     <button id="registerBtn" onClick={registration}>SIGN UP</button>
                 </div>
                 <div id="user_choice">
                     <span onClick={change_user}>I AM A CHEF &gt;</span>
                 </div>
-                <div class="form-group">
-                    <form action="" id="loginform">
-                        <label for="username">email/id</label>
+                <div className="form-group">
+                    <form action='' id="loginform" onSubmit={login_user}>
+                        <label htmlFor="username">email/id</label>
                         <input type="text" id="username" placeholder="ex: johndoe@pinchef.io"></input>
-                        <label for="password">password</label>
+                        <label htmlFor="password">password</label>
                         <input type="text" id="password" placeholder="ex: PinChefisthebest!"></input>
-                        <input type="submit" value="Continue" class="submit"></input>
+                        <input type="submit" value="Continue" className="submit"></input>
                     </form>
                     <form action="" id="registerform">
-                        <label for="fullname">fullname</label>
+                        <label htmlFor="fullname">fullname</label>
                         <input type="text" id="fullname"></input>
-                        <label for="email">email</label>
+                        <label htmlFor="email">email</label>
                         <input type="text" id="email"></input>
-                        <label for="passwword">password</label>
+                        <label htmlFor="passwword">password</label>
                         <input type="text" id="password"></input>
-                        <label for="confirmpassword">confirm password</label>
+                        <label htmlFor="confirmpassword">confirm password</label>
                         <input type="text" id="confirmpassword"></input>
-                        <input type="submit" value="Continue" class="submit"></input>
+                        <input type="submit" value="Continue" className="submit"></input>
                     </form>
                 </div>
                 <div id="forgot">
