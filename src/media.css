@@ -92,7 +92,7 @@
     font-size: smaller;
   }
   .feed .primary-details .user-detail-container h3, .feed_2 .primary-details .user-detail-container h3, .recipe .primary-details .user-detail-container h3, .recipe_2 .primary-details .user-detail-container h3, .foodservices .primary-details .user-detail-container h3{
-    font-size: x-small;
+    font-size: x-small !important;
   }
 }
 
