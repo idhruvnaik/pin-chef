@@ -30,7 +30,6 @@ const bar_icons = {
 export default function CommonComponents() {
 
   function mark_active(e) {
-    console.log(window.innerWidth);
     var current_class = document.getElementsByClassName('current');
     if (current_class.length > 0){
         var current_id = current_class[0].id;
