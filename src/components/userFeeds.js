@@ -1,16 +1,25 @@
 import React from 'react';
 import ReactDOM, { render } from 'react-dom';
-import User from '../assets/svg/User';
-import './commonComponents.css'
+import $ from 'jquery';
+
+
 import Ads from './advertises'
 import FilterDiv from './filter'
+import HomeSection from './home';
+import ChefSection from './chef';
+import ShopSection from './shop';
+import StarSection from './star';
+
+import './commonComponents.css'
 import './userFeeds.css'
 import './user-feeds.scss'
+import './common.scss'
 import './media.scss'
+
+import User from '../assets/svg/User';
 import FinalLogo from '../assets/images/Logo-small.png'
 import LocationIcon from '../assets/png_icons/Login_Sign up, Splash/Location icon black.png'
 import SearchIcon from '../assets/png_icons/Login_Sign up, Splash/search icon.png'
-
 import Home from '../assets/png_icons/Home.png'
 import Home_selected from '../assets/png_icons/Home_selected.png'
 import Chef from '../assets/png_icons/Chef.png'
@@ -21,13 +30,6 @@ import Star from '../assets/png_icons/Star.png'
 import Star_selected from '../assets/png_icons/Star_selected.png'
 import Settings from '../assets/png_icons/Settings.png'
 import Settings_selected from '../assets/png_icons/Settings_selected.png'
-
-import HomeSection from './home';
-import ChefSection from './chef';
-import ShopSection from './shop';
-import StarSection from './star';
-
-import $ from 'jquery';
 
 const bar_icons = {
     "home": Home,
@@ -94,20 +96,20 @@ export default function UserFeeds() {
                 <Ads />
             </div>
 
-            <div className="bottom-bar">
-                <div>
+            <div className="footer">
+                <div className="nav-item">
                     <img src={Home} className="active" id="home" height="28" onClick={() => showSection('home')}></img>
                 </div>
-                <div>
+                <div className="nav-item">
                     <img src={Chef} id="chef" className="" height="28" onClick={() => showSection('chef')}></img>
                 </div>
-                <div>
+                <div className="nav-item">
                     <img src={Shop} id="shop" className="" height="28" onClick={() => showSection('shop')}></img>
                 </div>
-                <div>
+                <div className="nav-item">
                     <img src={Star} id="star" className="" height="28" onClick={() => showSection('star')}></img>
                 </div>
-                <div>
+                <div className="nav-item">
                     <img src={Settings} id="settings" className="" height="28" onClick={() => showSection('setting')}></img>
                 </div>
             </div>

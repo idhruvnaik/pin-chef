@@ -1,13 +1,14 @@
 .user-pallet {
   display: flex;
-  width: 72%;
+  width: 80%;
   height: calc(100% - 180px);
   margin: 0 auto;
+  padding: 10px 0;
 }
 .filter-div {
-  height: 97%;
+  height: calc(100% - 30px);
   padding: 15px;
-  width: 22%;
+  width: calc(20% - 30px);
   overflow: auto;
   box-shadow: 0 1px 3px rgb(0 0 0 / 50%);
   border: 1px solid #d4d4d4;
@@ -60,12 +61,6 @@
 ul {
   list-style-type: none;
 }
-.pin-chef-ads {
-  padding: 50px;
-  border: 1px solid #d4d4d4;
-  border-radius: 10px;
-  margin: 10px;
-}
 ul.switch-content {
   justify-content: space-between;
   display: flex;
@@ -99,7 +94,7 @@ ul.switch-content-1 li {
 /* ul.switch-content li:nth-child(1){
     border-bottom: 1px solid #7d7d7e;
 } */
-.active {
+.nav-active {
   border-bottom: 2px solid #7d7d7e;
 }
 .feeds,
@@ -121,21 +116,7 @@ ul.switch-content-1 li {
   padding: 5px;
   width: 98%;
 }
-::-webkit-scrollbar {
-  width: 10px;
-}
-::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px grey;
-  border-radius: 10px;
-  border: 1px solid black;
-}
-::-webkit-scrollbar-thumb {
-  background: black;
-  border-radius: 10px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: darkgray;
-}
+
 
 .feed,
 .each_food,

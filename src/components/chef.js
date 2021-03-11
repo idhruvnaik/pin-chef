@@ -61,8 +61,8 @@ export default class chef extends Component {
             var element = e.target.id;
             $(".sec").hide();
             $("#" + element + "-sec").show();
-            $('.active').removeClass('active');
-            e.target.classList.add('active');
+            $('.nav-active').removeClass('nav-active');
+            e.target.classList.add('nav-active');
         }
     }
 

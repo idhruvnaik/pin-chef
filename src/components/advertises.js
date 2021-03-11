@@ -1,5 +1,5 @@
 import React from 'react';
-import './advertises.css'
+import './advertises.scss'
 import PinChefTv from '../assets/png_icons/Pinchef TV.png'
 import PinchefNews from '../assets/png_icons/Pinchef News.png'
 import PinchefTravel from '../assets/png_icons/Pinchef Travel.png'

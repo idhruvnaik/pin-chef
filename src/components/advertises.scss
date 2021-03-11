@@ -1,0 +1,25 @@
+.pinchef-content {
+  padding: 15px;
+  width: calc(20% - 30px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  img {
+    height: 40px;
+    width: 140px;
+    margin-bottom: 5px;
+  }
+  .pin-chef-ads {
+    height: 100px;
+    width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #d4d4d4;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    &:last-child{
+        margin-bottom: 0px;
+    }
+  }
+}

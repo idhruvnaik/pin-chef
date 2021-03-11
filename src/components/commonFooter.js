@@ -33,20 +33,20 @@ export default function CommonFooter() {
     }
 
     return (
-        <div className="bottom-bar">
-            <div>
+        <div className="fotter">
+            <div className="nav-item">
                 <img src={Home} id="Home" height="28" onClick={() => show(HomeSection)}></img>
             </div>
-            <div>
+            <div className="nav-item">
                 <img src={Chef} id="Chef" height="28" onClick={show(HomeSection)}></img>
             </div>
-            <div>
+            <div className="nav-item">
                 <img src={Shop} id="Shop" height="28" onClick={show(HomeSection)}></img>
             </div>
-            <div>
+            <div className="nav-item">
                 <img src={Star} id="Star" height="28" onClick={show(HomeSection)}></img>
             </div>
-            <div>
+            <div className="nav-item">
                 <img src={Settings} id="Settings" height="28" onClick={show(HomeSection)}></img>
             </div>
         </div>

@@ -55,20 +55,20 @@ export default function CommonComponents() {
         </div>
       </div>
 
-      <div className="bottom-bar">
-        <div>
+      <div className="footer">
+        <div className="nav-item">
           <img src={Home} id="Home" height="28" onClick={mark_active}></img>
         </div>
-        <div>
+        <div className="nav-item">
           <img src={Chef} id="Chef" height="28" onClick={mark_active}></img>
         </div>
-        <div>
+        <div className="nav-item">
           <img src={Shop} id="Shop" height="28" onClick={mark_active}></img>
         </div>
-        <div>
+        <div className="nav-item">
           <img src={Star} id="Star" height="28" onClick={mark_active}></img>
         </div>
-        <div>
+        <div className="nav-item">
           <img src={Settings} id="Settings" height="28" onClick={mark_active}></img>
         </div>
       </div>
