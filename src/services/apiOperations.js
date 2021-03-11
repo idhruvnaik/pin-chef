@@ -1,61 +1,13 @@
-/**
- * @author Kashyap Ashara
- * @email kashyap.ashara@crestdatasys.com
- * @create date 06-02-2020 12:27
- * @modify date 06-02-2020 12:27
- * @description This file contains the all apiOperation list which is used in the application. Redux store dispatch function is also added to trigger Redux actions.
- */
-
 import axios from 'axios';
 import {reactLocalStorage} from 'reactjs-localstorage';
-// import {
-//     moduleType,
-//     startLoader, 
-//     stopLoader,
-//     setResponseTime,
-//     setSaveSettingsResponseMessage, 
-//     getCurrentSettingResponse, 
-//     getCurrentSettingErrorResponse,
-//     setTenantList,  
-//     setEndpointList,
-//     setAssetList,
-//     setAlertList,
-//     clearSettingsResponse,
-//     clearEndpoints,
-//     clearAlerts,
-//     clearResponseTime,
-//     clearTenantErrorResponse,
-//     clearTenants,
-//     setDashboardAlertData,
-//     setDashboardEndpointData,
-//     clearDashboardAlert,
-//     clearDashboardEndpoint,
-//     setTenantListErrorResponse,
-//     clearEndpointErrorResponse,
-//     setEndpointListErrorResponse,
-//     setAlertListErrorResponse,
-//     clearAlertsErrorResponse,
-//     setDashboardAlertErrorResponse,
-//     setDashboardEndpointErrorResponse,
-//     clearDashboardAlertErrorResponse,
-//     clearDashboardEndpointErrorResponse,
-//     clearAssets,
-//     setAssetListErrorResponse,
-//     clearAssetErrorResponse,
-//     clearAuditLogData,
-//     setAuditLogData,
-//     setAuditLogErrorResponse,
-//     clearAuditLogErrorResponse
-// } from './actions'
 
-// const apiHost=process.env.REACT_APP_API_URL
+const apiHost = "http://52.87.176.237:8080/api"
+const registration_endpoint = "/auth/user"
+const login_endpoint = "/auth/login"
+const otp_endpoint = "/account/verify-otp"
 
-// /**
-//  * @param  {string} referrer
-//  * @param  {string} queryFilterString=""
-//  */
-function make_rest_call(apiURL, method, body, headers){
-    return axios(
+async function make_rest_call(apiURL, method, body, headers){
+    let res = await axios(
         {
             url:apiURL,
             method:method,
@@ -63,16 +15,55 @@ function make_rest_call(apiURL, method, body, headers){
             data: body
         }
     )
+    if(res.status == 200){
+        return res.data;
+    }else{
+        return false;
+    }
 }
 
 function validate_response(response){
     if(response.status == 200){
         return response.data;
+    }else{
+        return false;
     }
-
 }
-const apiHost = "http://52.87.176.237:8080/api"
-export const getSettingsAuth=(endpoint, method, body, headers)=>{
+async function actual_login(username, password, remember){
+    let apiURL= apiHost + login_endpoint;
+    var token_details = reactLocalStorage.getObject('token_details');
+    if (token_details){
+        console.log("token details");
+        console.log(token_details);
+        if (token_details.user == username){
+            var headers = {
+                "Authorization": "Bearer " + token_details.token
+            }
+            var data = {
+                "password": password,
+                "user_name": username
+            }
+            await make_rest_call(apiURL, 'POST', data, headers)
+                .then(resp => {
+                    console.log(resp);
+                    if (resp.auth_token){
+                        reactLocalStorage.setObject(
+                            'token_details', 
+                            {'user': resp.user_name, 'token': resp.auth_token, remember: remember }
+                        );
+                        return true;
+                    }else{
+                        return false;
+                    }
+                })
+        } else{
+            return false;
+        }
+    }else{
+        return false;
+    }
+}
+export const getSettingsAuth=(endpoint, method, body, headers, remember)=>{
     let apiURL= apiHost + endpoint;
     make_rest_call(apiURL, method, body, headers)
         .then(res => {
@@ -80,13 +71,75 @@ export const getSettingsAuth=(endpoint, method, body, headers)=>{
             if (resp.auth_token){
                 reactLocalStorage.setObject(
                     'token_details', 
-                    {'user': resp.user_name, 'token': resp.auth_token}
+                    {'user': resp.user_name, 'token': resp.auth_token, 'remember':remember }
                 );
             }
         })
 }
 
+export const verifyLogin= async(username, password, remember)=>{
+    let apiURL= apiHost + login_endpoint;
+    var token_details = reactLocalStorage.getObject('token_details');
+    if (token_details && token_details.user == username){
+        var headers = {
+            "Authorization": "Bearer " + token_details.token
+        };
+        var data = {
+            "password": password,
+            "user_name": username
+        };
+        let resp = await make_rest_call(apiURL, 'POST', data, headers);
+        return resp;
+    } else{
+        return {
+            status: false,
+            message: "User is not registered."
+        };
+    }
+}
 
+// export const registerUser=(data)=>{
+//     let apiURL= apiHost + registration_endpoint;
+//     make_rest_call(apiURL, 'POST', data, {})
+//         .then(res => {
+//             let resp = validate_response(res);
+//             if (resp.auth_token){
+//                 reactLocalStorage.setObject(
+//                     'token_details', 
+//                     {'user': resp.user_name, 'token': resp.auth_token }
+//                 );
+//             }
+//         })
+// }
+
+export const verifyOtp= async(username, otp)=>{
+    let apiURL= apiHost + otp_endpoint;
+    var token_details = reactLocalStorage.getObject('token_details');
+    if (token_details && token_details.user == username){
+        var headers = {
+            "Authorization": "Bearer " + token_details.token
+        };
+        var data = {
+            "otp": otp,
+            "user_name": username
+        };
+        try{
+            let resp = await make_rest_call(apiURL, 'POST', data, headers);
+            return resp;
+        }
+        catch(err){
+            return {
+                status: false,
+                message: err.message
+            }
+        }
+    } else{
+        return {
+            status: false,
+            message: "User is not registered."
+        };
+    }
+}
 // export const getSettingsAuth=(referrer,queryFilterString="")=>{
 //     let apiURL=queryFilterString!==""?`${apiHost}/settings/${queryFilterString}`:`${apiHost}/settings/`
 //     return axios({

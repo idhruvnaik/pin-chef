@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { useSpring, animated } from "react-spring";
-import { getSettingsAuth } from '../services/apiOperations';
+import { getSettingsAuth, verifyLogin } from '../services/apiOperations';
 import { connect } from "react-redux";
 import { addToken, donotAddToken } from "../services/actions";
 import Popup from 'reactjs-popup';
+import {reactLocalStorage} from 'reactjs-localstorage';
 import './userReg.css'
 // import 'reactjs-popup/dist/index.css';
 
-
+var user_role = 2;
 const mapStateToProps = state => ({
     ...state
 });
@@ -53,23 +54,56 @@ function UserReg(props) {
     function change_user(){
         var user = document.querySelector('#user_choice span').innerHTML;
         if (user.startsWith('I AM A CHEF')){
-            document.querySelector('#user_choice span').innerHTML = "LOOKING FOR CHEF >"
+            document.querySelector('#user_choice span').innerHTML = "LOOKING FOR CHEF >";
+            user_role = 1;
         } else{
-            document.querySelector('#user_choice span').innerHTML = "I AM A CHEF >"
+            document.querySelector('#user_choice span').innerHTML = "I AM A CHEF >";
+            user_role = 2;
         }
     }
     function login_user(event){
-        console.log(event);
         event.preventDefault();
-        // props.history.push({
-        //     pathname:"/Verifyotp",
-        // });
+        let username = document.querySelector('#loginform #username').value;
+        let password = document.querySelector('#loginform #password').value;
+        let remember = document.querySelector('#forgot #signin_storage #storeToken').checked;
+        verifyLogin(username, password, remember).then(function(result){
+            if (result){
+                if (result.auth_token){
+                    if(result.roleID == user_role){
+                        reactLocalStorage.setObject(
+                            'token_details', 
+                            {'user': result.user_name, 'token': result.auth_token, remember: remember }
+                        );
+                        props.history.push(
+                            {            
+                                pathname: '/Verifyotp',
+                                email: document.querySelector('#loginform #username').value
+                            }
+                        );  
+                    }else{
+                        if(result.roleID == 2){
+                            console.log("User is not Chef");
+                        }else{
+                            console.log("User is not user");
+                        }
+                    }
+                }else{
+                    console.log(result.message);
+                }
+            }
+        })
+    }
+    function register_user(event){
+        event.preventDefault();
         props.history.push(
             {            
                 pathname: '/Verifyotp',
-                email: "abc"
+                email: document.querySelector('#registerform #email').value
             }
         );
+    }
+    function save_token(){
+        console.log("checkbox badalyu");
     }
     function start_flow() {
         console.log("to shuru kare");
@@ -104,9 +138,6 @@ function UserReg(props) {
     };
   return (
     <div className="outer-layout" style={{backgroundColor: "#555", backgroundImage: "none" }}>
-        <div className="start">
-            <button type="button" onClick={start_flow}>START</button>
-        </div>
         <div className="container">
             <div className="login-register">
                 <div className="nav-buttons">
@@ -124,21 +155,21 @@ function UserReg(props) {
                         <input type="text" id="password" placeholder="ex: PinChefisthebest!"></input>
                         <input type="submit" value="Continue" className="submit"></input>
                     </form>
-                    <form action="" id="registerform">
-                        <label htmlFor="fullname">fullname</label>
-                        <input type="text" id="fullname"></input>
-                        <label htmlFor="email">email</label>
-                        <input type="text" id="email"></input>
-                        <label htmlFor="passwword">password</label>
-                        <input type="text" id="password"></input>
-                        <label htmlFor="confirmpassword">confirm password</label>
-                        <input type="text" id="confirmpassword"></input>
+                    <form action="" id="registerform" onSubmit={register_user}>
+                        <label htmlFor="email">Email</label>
+                        <input type="text" id="email" placeholder="Enter email address"></input>
+                        <label htmlFor="user_id">User ID-Nickname</label>
+                        <input type="text" id="user_id" placeholder="ex: JohnDoe23"></input>
+                        <label htmlFor="password">Password</label>
+                        <input type="text" id="password" placeholder="Enter Password"></input>
+                        <label htmlFor="confirmpassword">Confirm Password</label>
+                        <input type="text" id="confirmpassword" placeholder="Re-enter Password"></input>
                         <input type="submit" value="Continue" className="submit"></input>
                     </form>
                 </div>
                 <div id="forgot">
                     <div id="signin_storage">
-                        <input type="radio" name="date"></input>Keep me signed in
+                        <input type="radio" name="user_sign_in" id="storeToken" onChange={save_token}></input>Keep me signed in
                     </div>
                     <a href="" style={{color:"#FFD54F"}}>FORGOT PASSWORD</a>
                 </div>
