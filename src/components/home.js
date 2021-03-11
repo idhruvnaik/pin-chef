@@ -15,7 +15,7 @@ import BookClass from '../assets/png_icons/Book Masterclass icon.png'
 import MasterclassTime from '../assets/png_icons/Masterclass Time icon.png'
 import MasterclassClockIcon from '../assets/png_icons/Masterclass clock icon.png'
 
-import $ from 'jquery'
+import $ from 'jquery';
 
 export default class home extends Component {
 
@@ -139,7 +139,7 @@ export default class home extends Component {
                     <li onClick={this.active} className="" id="recipe">Recipes</li>
                     <li onClick={this.active} className="" id="e-master-class">e-Masterclass</li>
                 </ul>
-                <div className="feeds sec" id="feed-sec">
+                <div className="feeds sec active" id="feed-sec">
                     {this.feeds.map(function (item) {
                         return (
                             <div className="feed">

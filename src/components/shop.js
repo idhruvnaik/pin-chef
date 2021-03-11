@@ -7,6 +7,8 @@ import CommentIcon from '../assets/png_icons/Comment icon@2x.png';
 import EmptyHeart from '../assets/png_icons/Empty heart@2x.png';
 import PostShare from '../assets/png_icons/Post Share count@2x.png';
 
+import $ from 'jquery';
+
 export default class home extends Component {
 
     constructor(props) {
@@ -83,6 +85,10 @@ export default class home extends Component {
         };
 
         this.active = (e) => {
+            var element = e.target.id;
+            $(".sec").hide();
+            $("#" + element + "-sec").show();
+            $('.active').removeClass('active');
             e.target.classList.add('active');
         }
 
@@ -92,10 +98,10 @@ export default class home extends Component {
         return (
             <div className="shop-content">
                 <ul className="switch-content">
-                    <li onClick={this.active} className="">Food</li>
-                    <li onClick={this.active} className="">Services</li>
+                    <li onClick={this.active} className="" id="food">Food</li>
+                    <li onClick={this.active} className="" id="service">Services</li>
                 </ul>
-                <div className="food">
+                <div className="food sec active" id="food-sec">
                     {this.foods.map(function (item) {
                         return (
                             <div className="each_food">
@@ -160,7 +166,7 @@ export default class home extends Component {
                         )
                     })}
                 </div>
-                <div className="services">
+                <div className="services sec" id="service-sec">
                     {this.services.map(function (item) {
                         return (
                             <div className="each_service">

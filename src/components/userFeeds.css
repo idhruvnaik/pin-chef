@@ -25,8 +25,6 @@
     margin-right: 15px;
 } */
 .my_purchases {
-  position: relative;
-  bottom: 287%;
   overflow: auto;
   height: 95%;
   width: 100%;
@@ -104,12 +102,6 @@ ul.switch-content-1 li {
 .active {
   border-bottom: 2px solid #7d7d7e;
 }
-.food,
-.services,
-.foodservices,
-.my_purchases {
-  visibility: hidden;
-}
 .feeds,
 .food,
 .feeds_2,
@@ -118,10 +110,6 @@ ul.switch-content-1 li {
   width: 100%;
   overflow: auto;
   height: 97%;
-}
-.services {
-  position: relative;
-  bottom: 97%;
 }
 .recipes,
 .recipes_2 {
@@ -132,10 +120,6 @@ ul.switch-content-1 li {
 .recipe .primary-details {
   padding: 5px;
   width: 98%;
-}
-.foodservices {
-  position: relative;
-  bottom: 190%;
 }
 ::-webkit-scrollbar {
   width: 10px;
@@ -479,11 +463,9 @@ ul.switch-content-1 li {
   width: 100%;
   overflow: auto;
   height: 94%;
-  visibility: hidden;
 }
 .following_chefs {
   bottom: 94%;
-  position: relative;
 }
 .all_chefs .chef,
 .following_chefs .chef {

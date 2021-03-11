@@ -3,6 +3,8 @@ import ReactStars from "react-rating-stars-component";
 import UserPhoto from '../assets/images/photo2.png';
 import FollowersIcon from '../assets/png_icons/followers icon.png'
 
+import $ from 'jquery';
+
 export default class chef extends Component {
 
     constructor(props) {
@@ -56,6 +58,10 @@ export default class chef extends Component {
         ]
 
         this.active = (e) => {
+            var element = e.target.id;
+            $(".sec").hide();
+            $("#" + element + "-sec").show();
+            $('.active').removeClass('active');
             e.target.classList.add('active');
         }
     }
@@ -64,10 +70,10 @@ export default class chef extends Component {
         return (
             <div className="chef-content">
                 <ul className="switch-content">
-                    <li onClick={this.active} className="">All Chefs</li>
-                    <li onClick={this.active} className="">Following Chefs</li>
+                    <li onClick={this.active} className="" id="all-chef">All Chefs</li>
+                    <li onClick={this.active} className="" id="following-chef">Following Chefs</li>
                 </ul>
-                <div className="all_chefs">
+                <div className="all_chefs sec active" id="all-chef-sec">
                     {this.chefs.map(function (item) {
                         return (
                             <div className="chef">
@@ -104,7 +110,7 @@ export default class chef extends Component {
                         )
                     })}
                 </div>
-                <div className="following_chefs">
+                <div className="following_chefs sec" id="following-chef-sec">
                     {this.chefs.map(function (item) {
                         return (
                             <div className="chef">

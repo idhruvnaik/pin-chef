@@ -9,6 +9,8 @@ import PostShare from '../assets/png_icons/Post Share count@2x.png';
 import Time from '../assets/png_icons/time recipe@2x.png';
 import Recipe_time from '../assets/png_icons/time recipe.png';
 
+import $ from 'jquery';
+
 export default class home extends Component {
 
     constructor(props) {
@@ -147,6 +149,10 @@ export default class home extends Component {
         };
 
         this.active = (e) => {
+            var element = e.target.id;
+            $(".sec").hide();
+            $("#" + element + "-sec").show();
+            $('.active').removeClass('active');
             e.target.classList.add('active');
         }
 
@@ -156,12 +162,12 @@ export default class home extends Component {
         return (
             <div className="star-content">
                 <ul className="switch-content">
-                    <li onClick={this.active} className="">Feeds</li>
-                    <li onClick={this.active} className="">Recipes</li>
-                    <li onClick={this.active} className="">Foods&amp;Services</li>
-                    <li onClick={this.active} className="">My Purchases</li>
+                    <li onClick={this.active} className="" id="star-feed">Feeds</li>
+                    <li onClick={this.active} className="" id="star-recipe">Recipes</li>
+                    <li onClick={this.active} className="" id="food-service">Foods & Services</li>
+                    <li onClick={this.active} className="" id="my-purchase">My Purchases</li>
                 </ul>
-                <div className="feeds_2">
+                <div className="feeds_2 sec active" id="star-feed-sec">
                     {this.feeds.map(function (item) {
                         return (
                             <div className="feed">
@@ -211,7 +217,7 @@ export default class home extends Component {
                         )
                     })}
                 </div>
-                <div className="recipes_2">
+                <div className="recipes_2 sec" id="star-recipe-sec">
                     {this.recipes.map(function (item) {
                         return (
                             <div className="recipe">
@@ -275,7 +281,7 @@ export default class home extends Component {
                         )
                     })}
                 </div>
-                <div className="foodservices">
+                <div className="foodservices sec" id="food-service-sec">
                     {this.foods.map(function (item) {
                         return (
                             <div className="each_food">
@@ -340,7 +346,7 @@ export default class home extends Component {
                         )
                     })}
                 </div>
-                <div className="my_purchases">
+                <div className="my_purchases sec" id="my-purchase-sec">
                     {this.purchases.map(function (item) {
                         return (
                             <div className="item">
