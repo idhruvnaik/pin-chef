@@ -135,7 +135,7 @@ export default class home extends Component {
         return (
             <div className="home-content" >
                 <ul className="switch-content">
-                    <li onClick={this.active} className="active" id="feed">Feeds</li>
+                    <li onClick={this.active} className="nav-active" id="feed">Feeds</li>
                     <li onClick={this.active} className="" id="recipe">Recipes</li>
                     <li onClick={this.active} className="" id="e-master-class">e-Masterclass</li>
                 </ul>

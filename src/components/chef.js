@@ -70,7 +70,7 @@ export default class chef extends Component {
         return (
             <div className="chef-content">
                 <ul className="switch-content">
-                    <li onClick={this.active} className="" id="all-chef">All Chefs</li>
+                    <li onClick={this.active} className="nav-active" id="all-chef">All Chefs</li>
                     <li onClick={this.active} className="" id="following-chef">Following Chefs</li>
                 </ul>
                 <div className="all_chefs sec active" id="all-chef-sec">

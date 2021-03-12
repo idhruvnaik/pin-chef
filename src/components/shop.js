@@ -98,7 +98,7 @@ export default class home extends Component {
         return (
             <div className="shop-content">
                 <ul className="switch-content">
-                    <li onClick={this.active} className="" id="food">Food</li>
+                    <li onClick={this.active} className="nav-active" id="food">Food</li>
                     <li onClick={this.active} className="" id="service">Services</li>
                 </ul>
                 <div className="food sec active" id="food-sec">

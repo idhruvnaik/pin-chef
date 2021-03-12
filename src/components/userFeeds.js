@@ -48,10 +48,19 @@ const bar_icons = {
 export default function UserFeeds() {
 
     function showSection(element) {
-        $(".active").attr('src', bar_icons[$(".active")[0].id]);
-        $(".active").removeClass('active');
-        $("#" + element).addClass('active');
-        $(".active").attr('src', bar_icons[element + '_selected']);
+        console.log(element);
+        if ($('.current').length > 0){
+            console.log("inside if");
+            console.log($(".current")[0].id);
+            $(".current")[0].src = bar_icons[$('.current')[0].id];
+            $(".current").removeClass('current');
+        }
+        $("#"+element).addClass('current');
+        $("#"+element)[0].src = bar_icons[element + '_selected'];
+        console.log($("#"+element)[0]);
+        // $(".active").attr('src', bar_icons[$(".active")[0].id]);
+        // $(".active").removeClass('active');
+        // $(".active").attr('src', bar_icons[element + '_selected']);
 
         if (element == 'home') {
             ReactDOM.render(<HomeSection />, document.getElementById('menu-bar'));
@@ -92,13 +101,15 @@ export default function UserFeeds() {
             
             <div className="user-pallet">
                 <FilterDiv />
-                <div className="menu-bar" id="menu-bar"></div>
+                <div className="menu-bar" id="menu-bar">
+                    <HomeSection />
+                </div>
                 <Ads />
             </div>
 
             <div className="footer">
                 <div className="nav-item">
-                    <img src={Home} className="active" id="home" height="28" onClick={() => showSection('home')}></img>
+                    <img src={Home_selected} className="current" id="home" height="28" onClick={() => showSection('home')}></img>
                 </div>
                 <div className="nav-item">
                     <img src={Chef} id="chef" className="" height="28" onClick={() => showSection('chef')}></img>
@@ -110,7 +121,7 @@ export default function UserFeeds() {
                     <img src={Star} id="star" className="" height="28" onClick={() => showSection('star')}></img>
                 </div>
                 <div className="nav-item">
-                    <img src={Settings} id="settings" className="" height="28" onClick={() => showSection('setting')}></img>
+                    <img src={Settings} id="settings" className="" height="28" onClick={() => showSection('settings')}></img>
                 </div>
             </div>
         </div>

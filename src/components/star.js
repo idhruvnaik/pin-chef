@@ -162,7 +162,7 @@ export default class home extends Component {
         return (
             <div className="star-content">
                 <ul className="switch-content">
-                    <li onClick={this.active} className="" id="star-feed">Feeds</li>
+                    <li onClick={this.active} className="nav-active" id="star-feed">Feeds</li>
                     <li onClick={this.active} className="" id="star-recipe">Recipes</li>
                     <li onClick={this.active} className="" id="food-service">Foods & Services</li>
                     <li onClick={this.active} className="" id="my-purchase">My Purchases</li>
