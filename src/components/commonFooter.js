@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM, { render } from 'react-dom';
 import './commonComponents.css'
+import './common.scss'
 import Home from '../assets/png_icons/Home.png'
 import Home_selected from '../assets/png_icons/Home_selected.png'
 import Chef from '../assets/png_icons/Chef.png'
@@ -33,7 +34,7 @@ export default function CommonFooter() {
     }
 
     return (
-        <div className="fotter">
+        <div className="footer">
             <div className="nav-item">
                 <img src={Home} id="Home" height="28" onClick={() => show(HomeSection)}></img>
             </div>
