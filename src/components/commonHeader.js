@@ -7,9 +7,9 @@ import FinalLogo from '../assets/images/Logo-small.png'
 export default function CommonHeader() {
   
   return (
-    <div className="upper-bar">
-    <img src={FinalLogo}></img>
-    <div className="top-r">
+    <div className="header">
+    <div className="l-div"><img src={FinalLogo}></img></div>
+    <div className="r-div">
         <select className="form-control">
             <option>EN</option>
         </select>
