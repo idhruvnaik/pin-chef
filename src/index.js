@@ -9,14 +9,33 @@ import './form.css'
 import './reset.css'
 import './media.css'
 import { Provider } from "react-redux";
+import configureStore from "./store";
 
-import configureStore from "./store/store";
+// ACTION
+
+
+// REDUCER
+
+
+// STORE
+
+// store.subscribe(() => console.log(store.getState()));
+
+// DISPATCH
+// store.dispatch(addToken());
+// store.dispatch(removeToken());
+// store.dispatch(signIn());
+
+// console.log("after dispatch")
+// DISPLAY
+// store.subscribe(() => console.log(store.getState()));
+
 
 ReactDOM.render(
-  <Provider store={configureStore()}>
+  <Provider store={configureStore}>
     <React.StrictMode>
       <App />
-    </React.StrictMode>
+    </React.StrictMode>,
   </Provider>,
   document.getElementById('root')
 );

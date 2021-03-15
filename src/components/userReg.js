@@ -1,25 +1,50 @@
 import React, { useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import { useSpring, animated } from "react-spring";
-import { getSettingsAuth, verifyLogin } from '../services/apiOperations';
+import { verifyLogin, registerUser, addTokenToState } from '../services/apiOperations';
 import { connect } from "react-redux";
-import { addToken, donotAddToken } from "../services/actions";
+import { addToken } from "../services/actions";
 import Popup from 'reactjs-popup';
 import {reactLocalStorage} from 'reactjs-localstorage';
-import './userReg.css'
+import './userReg.css';
+import Email from '../assets/png_icons/Email icon.png';
+import showPassword from '../assets/png_icons/Show password icon.png';
+import HidePassword from '../assets/png_icons/Hide password icon.png';
+import Password from '../assets/png_icons/Password icon.png'
+import $ from 'jquery';
 // import 'reactjs-popup/dist/index.css';
 
 var user_role = 2;
+// const mapStateToProps = state => ({
+//     ...state
+// });
+  
+// const mapDispatchToProps = dispatch => ({
+//     addToken: () => dispatch(addToken),
+//     donotAddToken: () => dispatch(donotAddToken)
+// });
+
 const mapStateToProps = state => ({
     ...state
-});
-  
-const mapDispatchToProps = dispatch => ({
-    addToken: () => dispatch(addToken),
-    donotAddToken: () => dispatch(donotAddToken)
-});
+})
 
-function UserReg(props) {
-    function registration() {
+const mapDispatchToProps = dispatch => ({
+    addTokenToState:(token_details) => dispatch(addTokenToState(token_details))
+})
+
+class UserReg extends React.Component {
+    constructor(props){
+        super(props);
+        this.register_user = this.register_user.bind(this);
+        this.registration = this.registration.bind(this);
+        this.login = this.login.bind(this);
+        this.change_user = this.change_user.bind(this);
+        this.login_user = this.login_user.bind(this);
+        this.ShowPassword = this.ShowPassword.bind(this);
+    }
+    registration(){
+        $('#loginform').css('display', 'none');
+        $('#registerform').css('display', 'block');
         var loginBtn = document.getElementById("loginBtn");
         var registerBtn = document.getElementById("registerBtn");
         var loginform = document.getElementById("loginform");
@@ -34,9 +59,11 @@ function UserReg(props) {
         registerBtn.classList.add('active');
         loginBtn.classList.remove('active');
 
-    }
+    };
 
-    function login() {
+    login() {
+        $('#registerform').css('display', 'none');
+        $('#loginform').css('display', 'block');
         var loginBtn = document.getElementById("loginBtn");
         var registerBtn = document.getElementById("registerBtn");
         var loginform = document.getElementById("loginform");
@@ -50,8 +77,8 @@ function UserReg(props) {
         loginBtn.classList.add('active');
         registerBtn.classList.remove('active');
         registerform.style.opacity='0';
-    }
-    function change_user(){
+    };
+    change_user(){
         var user = document.querySelector('#user_choice span').innerHTML;
         if (user.startsWith('I AM A CHEF')){
             document.querySelector('#user_choice span').innerHTML = "LOOKING FOR CHEF >";
@@ -61,122 +88,149 @@ function UserReg(props) {
             user_role = 2;
         }
     }
-    function login_user(event){
+
+    async login_user(event){
         event.preventDefault();
         let username = document.querySelector('#loginform #username').value;
         let password = document.querySelector('#loginform #password').value;
         let remember = document.querySelector('#forgot #signin_storage #storeToken').checked;
-        verifyLogin(username, password, remember).then(function(result){
-            if (result){
-                if (result.auth_token){
-                    if(result.roleID == user_role){
-                        reactLocalStorage.setObject(
-                            'token_details', 
-                            {'user': result.user_name, 'token': result.auth_token, remember: remember }
-                        );
-                        props.history.push(
-                            {            
-                                pathname: '/Verifyotp',
-                                email: document.querySelector('#loginform #username').value
-                            }
-                        );  
-                    }else{
-                        if(result.roleID == 2){
-                            console.log("User is not Chef");
-                        }else{
-                            console.log("User is not user");
+        console.log(this);
+        let result = await verifyLogin(username, password, remember)
+        if (result){
+            if (result.auth_token){
+                if(result.roleID == user_role){
+                    // reactLocalStorage.setObject(
+                    //     'token_details', 
+                    //     {'user': result.user_name, 'token': result.auth_token, remember: remember }
+                    // );
+                    console.log(result);
+                    console.log(this);
+                    this.props.addTokenToState(result);
+                    this.props.history.push(
+                        {            
+                            pathname: '/Verifyotp',
+                            email: document.querySelector('#loginform #username').value
                         }
-                    }
+                    );  
                 }else{
-                    console.log(result.message);
+                    if(result.roleID == 2){
+                        $('#errorMessage')[0].innerHTML = "User is not Chef";
+                    }else{
+                        $('#errorMessage')[0].innerHTML = "User is not user";
+                    }
                 }
+            }else{
+                $('#errorMessage')[0].innerHTML = result.message;
+                console.log(result.message);
             }
-        })
+        }
     }
-    function register_user(event){
+
+    async register_user(event){
         event.preventDefault();
-        props.history.push(
+        var data = {
+            "email": document.querySelector('#registerform #email').value,
+            "user_name":document.querySelector('#registerform #user_id').value,
+            "password": document.querySelector('#registerform #password').value,
+            "roleID": user_role,
+            "default_sub_type":"basic"
+        }
+        console.log(data);
+        let resp = await registerUser(data);
+        console.group("from register_user");
+        console.log(resp);
+        console.log(this);
+        this.props.addTokenToState(resp);
+        // const dispatch = useDispatch(() => dispatch(addToken()));
+        this.props.history.push(
             {            
                 pathname: '/Verifyotp',
                 email: document.querySelector('#registerform #email').value
             }
         );
-    }
-    function save_token(){
-        console.log("checkbox badalyu");
-    }
-    function start_flow() {
-        console.log("to shuru kare");
-        console.log(props);
-        
-        getSettingsAuth(
-            "/auth/login", 
-            'post', 
-            {"password": "12345678","user_name":"dhaval_123"},
-            {
-                "Authorization": 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJkaGF2YWxfMTIzIiwiaWF0IjoxNjE1MDI2MDk5LCJleHAiOjE2NDY1NjIwOTl9.yNES4EIwDDiexyspU6nbkEZ5cpMKEi_QLHy2EZZcxPI',
-                "Access-Control-Allow-Origin": "*"
-            }
-        )
-            // .then(res => {
-            //     console.log("resp");
-            //     console.log(res)
-            //     if(res.status===200){
-            //         console.log(res.data);
-            //     }
-            // })
-        // return (
-        //   <Router>
-        //     <Switch>
-        //       <Route path='/Homepage' component={()=><UserFeeds/>} />
-        //     </Switch>
-        //   </Router>
-        // );
-        // props.history.push({
-        //   pathname:"/Homepage",
-        // });
     };
-  return (
-    <div className="outer-layout" style={{backgroundColor: "#555", backgroundImage: "none" }}>
-        <div className="container">
-            <div className="login-register">
-                <div className="nav-buttons">
-                    <button id="loginBtn" className='active' onClick={login} >SIGN IN </button>
-                    <button id="registerBtn" onClick={registration}>SIGN UP</button>
-                </div>
-                <div id="user_choice">
-                    <span onClick={change_user}>I AM A CHEF &gt;</span>
-                </div>
-                <div className="form-group">
-                    <form action='' id="loginform" onSubmit={login_user}>
-                        <label htmlFor="username">email/id</label>
-                        <input type="text" id="username" placeholder="ex: johndoe@pinchef.io"></input>
-                        <label htmlFor="password">password</label>
-                        <input type="text" id="password" placeholder="ex: PinChefisthebest!"></input>
-                        <input type="submit" value="Continue" className="submit"></input>
-                    </form>
-                    <form action="" id="registerform" onSubmit={register_user}>
-                        <label htmlFor="email">Email</label>
-                        <input type="text" id="email" placeholder="Enter email address"></input>
-                        <label htmlFor="user_id">User ID-Nickname</label>
-                        <input type="text" id="user_id" placeholder="ex: JohnDoe23"></input>
-                        <label htmlFor="password">Password</label>
-                        <input type="text" id="password" placeholder="Enter Password"></input>
-                        <label htmlFor="confirmpassword">Confirm Password</label>
-                        <input type="text" id="confirmpassword" placeholder="Re-enter Password"></input>
-                        <input type="submit" value="Continue" className="submit"></input>
-                    </form>
-                </div>
-                <div id="forgot">
-                    <div id="signin_storage">
-                        <input type="radio" name="user_sign_in" id="storeToken" onChange={save_token}></input>Keep me signed in
+    save_token(){
+        console.log("checkbox badalyu");
+    };
+    ShowPassword(){
+        console.log("show password");
+        if($('.active_password').length > 0){
+            $('.active_password')[0].src = showPassword;
+            $('.active_password').removeClass('active_password');
+            $('#loginform #password')[0].type = "text";
+        }else{
+            $('#loginform #password')[0].type = "password";
+            $('#active_password').addClass('active_password');
+            $('.active_password')[0].src = HidePassword;
+        }
+    };
+
+    render(){
+        return (
+            <div className="outer-layout" style={{backgroundColor: "#555", backgroundImage: "none" }}>
+                <div className="container">
+                    <div className="login-register">
+                        <div className="nav-buttons">
+                            <button id="loginBtn" className='active' onClick={this.login} >SIGN IN </button>
+                            <button id="registerBtn" onClick={this.registration}>SIGN UP</button>
+                        </div>
+                        <div id="user_choice">
+                            <span onClick={this.change_user}>I AM A CHEF &gt;</span>
+                        </div>
+                        <div className="form-group">
+                            <form action='' id="loginform" onSubmit={this.login_user}>
+                                <label htmlFor="username">email/id</label>
+                                <div className="user_input">
+                                    <div className="symbol">
+                                        <img src={Email}></img>
+                                    </div>
+                                    <div>
+                                        <div id="errorMessage"></div>
+                                        <input type="text" id="username" placeholder="ex: johndoe@pinchef.io"></input>
+                                    </div>
+                                </div>
+                                <label htmlFor="password">password</label>
+                                <div className="password_input">
+                                    <div>
+                                        <img src={Password}></img>
+                                    </div>
+                                    <input type="password" id="password" placeholder="ex: PinChefisthebest!"></input>
+                                    <div className="symbol">
+                                        <img src={HidePassword} id="active_password" className="active_password" onClick={this.ShowPassword}></img>
+                                    </div>
+                                </div>
+                                <input type="submit" value="Continue" className="submit"></input>
+                            </form>
+                            <form action="" id="registerform" onSubmit={this.register_user}>
+                                <label htmlFor="email">Email</label>
+                                <div className="email_input">
+                                    <input type="text" id="email" placeholder="Enter email address" required></input>
+                                </div>
+                                <label htmlFor="password">Password</label>
+                                <div className="reg_password_input">
+                                    <input type="password" id="password" placeholder="Enter Password"></input>
+                                </div>
+                                <label htmlFor="user_id">User ID-Nickname</label>
+                                <div className="reg_user_input">
+                                    <input type="text" id="user_id" placeholder="ex: JohnDoe23"></input>
+                                </div> 
+                                <input type="submit" value="Continue" className="submit"></input>
+                            </form>
+                        </div>
+                        <div id="forgot">
+                            <div id="signin_storage">
+                                <input type="radio" name="user_sign_in" id="storeToken" onChange={this.save_token}></input>Keep me signed in
+                            </div>
+                            <a href="" style={{color:"#FFD54F"}}>FORGOT PASSWORD</a>
+                        </div>
                     </div>
-                    <a href="" style={{color:"#FFD54F"}}>FORGOT PASSWORD</a>
                 </div>
             </div>
-        </div>
-    </div>
-  );
+        );
+    }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserReg)
+export default withRouter(connect(
+    mapStateToProps, 
+    mapDispatchToProps
+)(UserReg));

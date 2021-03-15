@@ -34,7 +34,7 @@ form, #forgot-panel {
     width: 50%;
     margin-left: auto;
     margin-right: auto;
-    padding:0 2em;
+    /* padding:0 2em; */
     border-radius: 50px;
     box-shadow: 0px 2px 7px rgba(0,0,0,0.2);
     overflow: hidden; 
@@ -73,20 +73,22 @@ button.active {
     margin-left: auto;
     margin-right: auto;
     text-align: right;
-    /* padding-top: 24px; */
+    padding-top: 10%;
     margin-top: -300px;
     display: flex;
     justify-content: space-between;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 /* form styling */
 .form-group input {
     width: 100%;
     height: 40px;
-    padding-left: 15px;
+    /* padding-left: 15px; */
     border: none;
-    border-radius: 30px;
-    margin-bottom: 20px;
+    /* border-radius: 30px; */
+    /* margin-bottom: 20px; */
     /* background: rgba(255,255,255,.2); */
     background-color: white;
     text-align: center;
@@ -126,7 +128,6 @@ left:0px;
 
 form#registerform {
 left:500px;
-top:-230px;
 opacity: 0;;
 } 
 
@@ -145,6 +146,7 @@ opacity: 0;;
     color: #FFCF54;
     text-align: right;
     text-decoration: underline;
+    margin-right: 20px;
 }
 #user_choice span{
     color: #FFCF54;
@@ -154,5 +156,85 @@ opacity: 0;;
     font-size: 16px;
     font-family: Montserrat;
     font-weight: 100;
-    text-align: center;
+    /* text-align: center; */
+}
+.user_input{
+    display: flex;
+    padding-left: 50px;
+    margin-bottom: 20px;
+}
+.user_input .symbol{
+    width: 50px;
+    background-color: white;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+}
+.user_input .symbol img{
+    margin-top: 25px;
+}
+.user_input div:nth-child(2){
+    width: 100%;
+}
+.user_input div:nth-child(2) div{
+    text-align: right;
+    padding-right: 15%;
+    color: red;
+    font-size: 12px;
+    padding-top: 3px;
+    text-transform: uppercase;
+    background-color: white;
+    height: 20px;
+    width: 100%;
+}
+.user_input input {
+    text-align: left;
+    padding-left: 20px;
+}
+
+.password_input{
+    display: flex;
+    padding-right: 50px;
+    margin-bottom: 20px;
+    height: 100%;
+}
+.password_input div{
+    width: 50px;
+    background-color: white;
+}
+.password_input input{
+    text-align: left;
+    padding-left: 20px;
+    height: 55px;
+}
+.password_input .symbol{
+    padding-top: 15px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+.password_input div:first-child{
+    padding-top: 13px;
+}
+
+input:focus {
+    border:0px;
+    outline:0px;
+}
+
+#registerform input{
+    margin-bottom: 20px;
+    box-shadow: 1px 1px black;
+}
+.email_input, .reg_user_input{
+    padding-left: 50px;
+}
+.reg_password_input{
+    padding-right: 50px;
+}
+.email_input input, .reg_user_input input{
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+}
+#registerform #password{
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
 }
