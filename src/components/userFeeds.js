@@ -75,7 +75,7 @@ export default function UserFeeds() {
 
     return (
         <div className="outer-layout user-feed-page" style={{ background: "none" }}>
-            <div className="upper-bar">
+            <div className="header">
                 <div className="l-div">
                     <img src={FinalLogo} className="pin-chef-logo"></img>
                 </div>

@@ -1,3 +1,45 @@
+.header {
+  box-shadow: 0 1px 3px #000000;
+  top: 0px;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  background-color: #d4d4d4;
+  .l-div {
+    img {
+      height: 80px;
+      object-fit: contain;
+    }
+  }
+  .m-div {
+    display: flex;
+    align-items: center;
+    .location-div {
+      display: flex;
+      align-items: center;
+      margin-right: 40px;
+      img {
+        margin-right: 5px;
+      }
+    }
+    .search-div {
+      display: flex;
+      align-items: center;
+      input {
+        margin-right: 10px;
+      }
+    }
+  }
+  .r-div {
+    display: flex;
+    align-items: center;
+    select {
+      margin-right: 10px;
+    }
+  }
+}
+
 .footer {
   padding: 10px;
   background-color: #464040;
