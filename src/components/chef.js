@@ -2,14 +2,27 @@ import React, { Component } from 'react';
 import ReactStars from "react-rating-stars-component";
 import UserPhoto from '../assets/images/photo2.png';
 import FollowersIcon from '../assets/png_icons/followers icon.png'
+import { addTokenToState, getAllChef } from '../services/apiOperations';
+import { connect } from "react-redux";
 
 import $ from 'jquery';
 
-export default class chef extends Component {
+const mapStateToProps = state => ({
+    ...state
+})
+
+const mapDispatchToProps = dispatch => ({
+    addTokenToState: (token_details) => dispatch(addTokenToState(token_details))
+})
+
+class chef extends React.Component {
 
     constructor(props) {
         super(props);
+        console.log(this.props);
 
+        this.getAllChefAPI = this.getAllChefAPI.bind(this);
+        
         this.chefs = [
             {
                 id: 1,
@@ -66,7 +79,19 @@ export default class chef extends Component {
         }
     }
 
+    async getAllChefAPI() {
+        let result = await getAllChef('/chef/getAll', this.props.token_details.token.auth_token);
+        if (result) {
+            if (result.status == false) {
+                  
+            } else {
+                
+            }
+        }
+    }
+
     render() {
+        this.getAllChefAPI();
         return (
             <div className="chef-content">
                 <ul className="switch-content">
@@ -145,3 +170,4 @@ export default class chef extends Component {
         );
     }
 }
+export default connect(mapStateToProps, mapDispatchToProps)(chef)

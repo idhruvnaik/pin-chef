@@ -92,3 +92,22 @@ export const verifyOtp= async(username, otp, token)=>{
         }
     }
 }
+
+export const getAllChef = async(url, token)=>{
+    let apiURL = apiHost + url;
+    var headers = {
+        "Authorization": "Bearer " + token
+    };
+    var data = {
+        
+    };
+    try{
+        return await make_rest_call(apiURL, 'POST', data, headers);
+    }
+    catch(err){
+        return {
+            status: false,
+            message: err.message
+        }
+    }
+}
