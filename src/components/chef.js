@@ -4,25 +4,32 @@ import UserPhoto from '../assets/images/photo2.png';
 import FollowersIcon from '../assets/png_icons/followers icon.png'
 import { addTokenToState, getAllChef } from '../services/apiOperations';
 import { connect } from "react-redux";
+// import { useHistory  } from 'react-router-dom';
 
 import $ from 'jquery';
 
-const mapStateToProps = state => ({
-    ...state
-})
-
-const mapDispatchToProps = dispatch => ({
-    addTokenToState: (token_details) => dispatch(addTokenToState(token_details))
-})
-
 class chef extends React.Component {
-
     constructor(props) {
         super(props);
+        console.log("chef class");
         console.log(this.props);
+        console.log(this);
 
         this.getAllChefAPI = this.getAllChefAPI.bind(this);
         
+        // if (this.props.token_details.token){
+        //     this.token = this.props.token_details.token.auth_token;
+        // } else{
+        //     // this.history = useHistory();
+        //     // this.history.push("/User");
+        //     // hashHistory.push('/User');
+        //     // this.props.history.push(
+        //     //     {            
+        //     //         pathname: '/User'
+        //     //     }
+        //     // );
+        // }
+
         this.chefs = [
             {
                 id: 1,
@@ -80,7 +87,7 @@ class chef extends React.Component {
     }
 
     async getAllChefAPI() {
-        let result = await getAllChef('/chef/getAll', this.props.token_details.token.auth_token);
+        var result = await getAllChef('/chef/getAll', this.token);
         if (result) {
             if (result.status == false) {
                   
@@ -91,7 +98,6 @@ class chef extends React.Component {
     }
 
     render() {
-        this.getAllChefAPI();
         return (
             <div className="chef-content">
                 <ul className="switch-content">
@@ -170,4 +176,4 @@ class chef extends React.Component {
         );
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(chef)
+export default chef
