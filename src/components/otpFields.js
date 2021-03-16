@@ -10,9 +10,10 @@ export default class otps extends Component {
     
         this.handleChange = otp => {
             this.setState({ otp });
+            this.props.onOtpChange(otp);
         };
     }
- 
+
     render() {
         return (
             <OtpInput

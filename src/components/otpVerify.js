@@ -7,6 +7,7 @@ import './otpVerify.css'
 import OtpInput from 'react-otp-input';
 import IncorrectPin from '../assets/png_icons/incorrect pin icon.png'
 import OTP from './otpFields'
+// import ade from './getToken'
 
 const mapStateToProps = state => ({
     ...state
@@ -23,15 +24,29 @@ class VerifyOTP extends React.Component {
     constructor(props){
         super(props);
         // const location = useLocation();
-        console.log(this.props);
-        this.email = this.props.token_details.token.user_name;
+        if (this.props.token_details.token){
+            this.email = this.props.token_details.token.user_name;
+        } else{
+            this.props.history.push(
+                {            
+                    pathname: '/User'
+                }
+            );
+        }
         this.saveotp = this.saveotp.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.state = {
+            otp: '' 
+        };
     }
+
+    handleChange(otp){
+        this.setState({ otp });
+    };
 
     async saveotp(){
         var username = this.email;
-        var otp = "152523";
-        let result = await verifyOtp(username, otp, this.props.token_details.token.auth_token);
+        let result = await verifyOtp(username, this.state.otp, this.props.token_details.token.auth_token);
         if (result){
             console.log(result);
             console.log(this.props);
@@ -61,7 +76,7 @@ class VerifyOTP extends React.Component {
                         <div className="user_mail">{this.email}</div>
                         <div className="tooltip">Enter 6 digits OTP</div>
                         <div className="actual_otp">
-                            <OTP/>
+                            <OTP onOtpChange={this.handleChange}/>
                             <div className="verify_otp">
                                 <button type="button" onClick={this.saveotp} style={{backgroundImage: "url(IncorrectPin)", backgroundSize: "cover", backgroundPosition: "center center"}}>OK</button>
                             </div>
