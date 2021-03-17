@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route, /*Link*/ } from 'react-router-d
 import UserFeeds from './components/userFeeds'
 import UserReg from './components/userReg'
 import VerifyOtp from './components/otpVerify'
+import ChefComponents from './components/chefComponents/chefHome'
 import $ from 'jquery';
 // import CommonComponents from './components/commonComponents'
 
@@ -30,6 +31,7 @@ function App() {
       </div> */}
       <Router>
           <Switch>
+              <Route path='/Chef/Home' component={ChefComponents} />
               <Route path='/VerifyOTP' component={VerifyOtp} />
               <Route path='/User' component={UserReg} />
               <Route path='/Homepage' component={UserFeeds} />
