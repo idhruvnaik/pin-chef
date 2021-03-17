@@ -64,15 +64,15 @@ class UserFeeds extends React.Component {
         this.state = {
             token: ''
         }
-        if (this.props.token_details.token){
-            this.state.token = this.props.token_details.token.auth_token;
-        } else{
-            this.props.history.push(
-                {            
-                    pathname: '/User'
-                }
-            );
-        }
+        // if (this.props.token_details.token){
+        //     this.state.token = this.props.token_details.token.auth_token;
+        // } else{
+        //     this.props.history.push(
+        //         {            
+        //             pathname: '/User'
+        //         }
+        //     );
+        // }
     }
 
     showSection(element) {

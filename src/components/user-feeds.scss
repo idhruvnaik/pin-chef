@@ -76,6 +76,134 @@
             display: block;
           }
         }
+        .my_purchases {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          .item {
+            box-shadow: 5px 5px 5px#8080808c;
+            padding: 15px;
+          }
+          .head-container {
+            display: flex;
+            justify-content: space-between;
+            .l-div {
+              display: flex;
+              .profile-img-container {
+                height: 50px;
+                width: 50px;
+                object-fit: contain;
+                margin-right: 10px;
+                img {
+                  width: 100%;
+                  height: 100%;
+                  border-radius: 50%;
+                }
+              }
+              .user-detail-container {
+                text-align: left;
+                margin-right: 15px;
+                h3 {
+                  font-size: 16px;
+                  color: #000000;
+                  font-weight: bold;
+                  margin-bottom: 7px;
+                }
+                h5 {
+                  font-size: 12px;
+                  color: #707070;
+                  font-weight: normal;
+                }
+              }
+              .star-rating {
+                height: 20px;
+              }
+            }
+            .r-div {
+              display: flex;
+              flex-direction: column;
+              align-items: flex-end;
+              h3 {
+                color: #469a09;
+                font-size: 16px;
+                margin-bottom: 10px;
+                cursor: pointer;
+              }
+              img {
+                height: 20px;
+              }
+            }
+          }
+          .content {
+            margin-bottom: 20px;
+            .price-block {
+              padding: 0px 10px;
+              margin-bottom: 25px;
+              .price-detail {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 10px;
+                h4 {
+                  margin-right: 50%;
+                  font-weight: 300;
+                }
+                .r-div {
+                  display: flex;
+                  justify-content: space-between;
+                  flex: 1;
+                  h5 {
+                    font-weight: 300;
+                  }
+                }
+              }
+              .total-price {
+                text-align: right;
+                h3 {
+                  span {
+                    color: #464040;
+                  }
+                }
+              }
+            }
+            .ticket-block {
+              .url-block {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 10px;
+                h5 {
+                  font-weight: 300;
+                }
+              }
+              .ticket-detail {
+                display: flex;
+                align-items: center;
+                h5 {
+                  margin-right: 10px;
+                  font-weight: 300;
+                }
+                img {
+                  height: 20px;
+                }
+              }
+            }
+          }
+          .bottom-block {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            h4 {
+              color: #707070;
+            }
+            .details-block {
+              display: flex;
+              align-items: center;
+              h4 {
+                color: #707070;
+                margin-right: 10px;
+              }
+            }
+          }
+        }
       }
     }
   }

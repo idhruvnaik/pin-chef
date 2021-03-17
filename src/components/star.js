@@ -8,6 +8,10 @@ import EmptyHeart from '../assets/png_icons/Empty heart@2x.png';
 import PostShare from '../assets/png_icons/Post Share count@2x.png';
 import Time from '../assets/png_icons/time recipe@2x.png';
 import Recipe_time from '../assets/png_icons/time recipe.png';
+import RefreshIcon from '../assets/png_icons/refresh-icon.png';
+import RightArrowIcon from '../assets/png_icons/right-arrow-icon.png';
+import DownArrowIcon from '../assets/png_icons/down-arrow-icon.png';
+import CopyIcon from '../assets/png_icons/copy-icon.png';
 
 import $ from 'jquery';
 
@@ -350,7 +354,7 @@ export default class home extends Component {
                     {this.purchases.map(function (item) {
                         return (
                             <div className="item">
-                                <div className="primary-details">
+                                <div className="head-container">
                                     <div className="l-div">
                                         <div className="profile-img-container">
                                             <img src={item.desktop_icon}></img>
@@ -359,20 +363,49 @@ export default class home extends Component {
                                             <h3>{item.user_name}</h3>
                                             <h5>{item.user_description}</h5>
                                         </div>
+                                        <ReactStars
+                                            count={5}
+                                            onChange={null}
+                                            isHalf={true}
+                                            activeColor="#ffd700"
+                                            classNames = "star-rating"
+                                        />
                                     </div>
-                                    <div style={{ paddingRight: "4px" }}>
-                                        <div style={{ textAlignLast: "right" }}>
-                                            <img src={PostMenu}></img>
+                                    <div className="r-div">
+                                        <h3>Food and Services</h3>
+                                        <img src={RefreshIcon}></img>
+                                    </div>
+                                </div>
+                                <div className="content">
+                                    <div className="price-block">
+                                        <div className="price-detail">
+                                            <h4>Cuban Tacos</h4>
+                                            <div className="r-div">
+                                                <h5>1</h5>
+                                                <h5>$23.80</h5>
+                                                <h5>$23.80</h5>
+                                            </div>
                                         </div>
-                                        <div style={{ display: "flex" }}>
-                                            <div className="recipe_rattings">5</div>
-                                            <ReactStars
-                                                count={5}
-                                                onChange={null}
-                                                isHalf={true}
-                                                activeColor="#ffd700"
-                                            />
+                                        <div className="total-price">
+                                            <h3><span>Total </span>$ 39.84</h3>
                                         </div>
+                                    </div>
+                                    <div className="ticket-block">
+                                        <div className="url-block">
+                                            <h5>Class Link: www.pinchef.io/dough</h5>
+                                            <img src={RightArrowIcon}></img>
+                                        </div>
+                                        <div className="ticket-detail">
+                                            <h5>Ticket number: 38Kzw23</h5>
+                                            <img src={CopyIcon}></img>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="bottom-block">
+                                    <h4>2 days</h4>
+                                    <div className="details-block">
+                                        <h4>Details</h4>
+                                        <img src={DownArrowIcon}></img>
                                     </div>
                                 </div>
                             </div>
