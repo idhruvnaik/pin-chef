@@ -12,6 +12,7 @@ import HomeSection from './home';
 import ChefSection from './chef';
 import ShopSection from './shop';
 import StarSection from './star';
+import SettingsSection from './settings';
 
 import './commonComponents.css'
 import './userFeeds.css'
@@ -64,15 +65,15 @@ class UserFeeds extends React.Component {
         this.state = {
             token: ''
         }
-        if (this.props.token_details.token){
-            this.state.token = this.props.token_details.token.auth_token;
-        } else{
-            this.props.history.push(
-                {            
-                    pathname: '/User'
-                }
-            );
-        }
+        // if (this.props.token_details.token){
+        //     this.state.token = this.props.token_details.token.auth_token;
+        // } else{
+        //     this.props.history.push(
+        //         {            
+        //             pathname: '/User'
+        //         }
+        //     );
+        // }
     }
 
     showSection(element) {
@@ -109,6 +110,11 @@ class UserFeeds extends React.Component {
             ReactDOM.render(
                 <Provider store={configureStore}>
                     <StarSection {...this.state}/>
+                </Provider>, document.getElementById('menu-bar'));
+        } else{
+            ReactDOM.render(
+                <Provider store={configureStore}>
+                    <SettingsSection {...this.state}/>
                 </Provider>, document.getElementById('menu-bar'));
         }
     }

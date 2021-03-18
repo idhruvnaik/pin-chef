@@ -58,11 +58,22 @@ class VerifyOTP extends React.Component {
                 submit_otp.style.backgroundImage = IncorrectPin;
                 // submit_otp.style.width = "1.5em";   
             }else {
-                this.props.history.push(
-                    {            
-                        pathname: '/Homepage'
-                    }
-                );
+                console.log("in otpverify else");
+                console.log("roleid");
+                console.log(this.props.token_details.token.roleID);
+                if (this.props.token_details.token.roleID == 2){
+                    this.props.history.push(
+                        {            
+                            pathname: '/Chef/Home'
+                        }
+                    );
+                } else{
+                    this.props.history.push(
+                        {            
+                            pathname: '/Homepage'
+                        }
+                    );
+                }
             }
         }        
     }

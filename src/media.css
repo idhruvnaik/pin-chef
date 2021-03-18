@@ -71,6 +71,12 @@
   .each_otp_container div input{
     width: 1.5em;
   }
+  .settings-content .profile .setting_activity .menu_details .menu_name h3{
+    font-size: 16px;
+  }
+  .settings-content .profile .setting_activity .menu_details .menu_icon img{
+    height: 65%;
+  }
 }
 @media (max-height: 570px) {
   .all_chefs .chef, .following_chefs .chef{
