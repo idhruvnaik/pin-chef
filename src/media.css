@@ -100,6 +100,12 @@
   .feed .primary-details .user-detail-container h3, .feed_2 .primary-details .user-detail-container h3, .recipe .primary-details .user-detail-container h3, .recipe_2 .primary-details .user-detail-container h3, .foodservices .primary-details .user-detail-container h3{
     font-size: x-small !important;
   }
+  .help_activity .menu_name{
+    font-size: 12px;
+  }
+  .help_activity .menu_icon img{
+    width: 35px;
+  }
 }
 
 @media (max-width: 280px) {
@@ -134,5 +140,8 @@
   }
   .each_otp_container{
     margin-left: 4px;
+  }
+  .help_activity .menu_name{
+    font-size: 10px;
   }
 }

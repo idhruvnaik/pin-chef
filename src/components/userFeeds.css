@@ -595,6 +595,7 @@ ul.switch-content-1 li {
   border-top-right-radius: 10px;
 }
 
+
 .settings-content .profile .primary-details{
   justify-content: space-around;
   margin-bottom: 10px;
@@ -614,7 +615,7 @@ ul.switch-content-1 li {
   height: 100%;
   border-radius: 50%;
 }
-.settings-content .profile .setting_activity{
+.settings-content .profile .setting_activity, .settings-content .help .help_activity{
   display: flex;
   justify-content: space-between;
   margin-bottom: 30px;
@@ -624,14 +625,20 @@ ul.switch-content-1 li {
   padding-right: 5%;
   cursor: pointer;
 }
-.settings-content .profile .setting_activity .menu_details .menu_name{
+.settings-content .profile .setting_activity .menu_details .menu_name,
+.settings-content .help .help_activity .menu_details .menu_name{
   text-transform: uppercase;
 }
 .settings-content .profile .setting_activity .menu_details .menu_icon{
+  margin-right: 30px;
+  height: 100%;
+}
+.settings-content .help .help_activity .menu_details .menu_icon{
   margin-right: 20px;
   height: 100%;
 }
-.settings-content .profile .setting_activity .menu_details{
+.settings-content .profile .setting_activity .menu_details,
+.settings-content .help .help_activity .menu_details{
   display: flex;
   width: 70%;
 }
@@ -639,10 +646,109 @@ ul.switch-content-1 li {
 
 .settings-content .help{
   width: 100%;
+  height: 90%;
+  display: none;
+}
+.settings-content .faq{
+  width: 100%;
+  height: 90%;
+  display: none;
+}
+.settings-content .terms_privacy_policy{
+  width: 100%;
+  height: 90%;
+  display: none;
+}
+.settings-content .contact_us{
+  width: 100%;
+  height: 90%;
   display: none;
 }
 
 .profile .setting_activity:hover{
   /* box-shadow: 1px 1px; */
   -webkit-box-shadow: 6px 8px 6px -6px black;
+}
+
+.help .help_activity:hover{
+  /* box-shadow: 1px 1px; */
+  -webkit-box-shadow: 6px 8px 6px -6px black;
+}
+
+.settings-content div .switch-content{
+  justify-content: center;
+  color: green;
+  display: flex;
+  margin-bottom: 20px;
+}
+.settings-content div .switch-content div:first-child{
+  text-align-last: left;
+  width: 10%;
+}
+.settings-content div .switch-content div:first-child img{
+  cursor: pointer;
+}
+.settings-content div .switch-content div:last-child{
+  width: 90%;
+  display: flex;
+  justify-content: center;
+}
+
+.terms_privacy_policy .policies{
+  height: 100%;
+  overflow: auto;
+}
+.terms_privacy_policy .policies .policy{
+  display: flex;
+}
+.terms_privacy_policy .policies .policy div:first-child{
+  width: 10%;
+}
+.terms_privacy_policy .policies .policy div:last-child{
+  width: 85%;
+  margin-left: 10px;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+.contact_us .instruction{
+  display: flex;
+  padding: 5px;
+}
+.contact_us .instruction div:first-child{
+  width: 10%;
+}
+.contact_us .instruction div:last-child{
+  width: 85%;
+  margin-left: 10px;
+  text-align: left;
+  margin-bottom: 10px;
+}
+.contact_us .feedback #feedbackform{
+  width: 90%;
+  height: 100%;
+  padding-right: 15px;
+  padding-left: 20px;
+  overflow: auto;
+}
+.contact_us .feedback #feedbackform h3{
+  text-align: left;
+  margin-bottom: 5px;
+}
+.contact_us .feedback #feedbackform input{
+  width: 100%;
+  height: 40px;
+  padding: 10px;
+  border-radius: 15px;
+}
+.contact_us .feedback #feedbackform div {
+  width: 85%;
+  padding: 5px;
+}
+.contact_us .feedback #feedbackform div:last-child input {
+  height: fit-content;
+  min-height: 100px;
+}
+.contact_us .feedback{
+  height: 90%;
 }
