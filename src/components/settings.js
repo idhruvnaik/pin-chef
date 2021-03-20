@@ -259,7 +259,7 @@ export default class settings extends Component {
                                 <img src={LargeTerms}></img>
                             </div>
                             <div className="menu_name">
-                                <h3>terms &nbsp; privacy policy</h3>
+                                <h3>terms &amp; privacy policy</h3>
                             </div>
                         </div>
                         <div className="other_things">

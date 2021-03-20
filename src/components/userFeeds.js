@@ -60,20 +60,21 @@ class UserFeeds extends React.Component {
     constructor(props){
         super(props);
         this.showSection = this.showSection.bind(this);
-        console.log("from user feeds");
-        console.log(this);
+        this.like_post = this.like_post.bind(this);
         this.state = {
             token: ''
         }
-        // if (this.props.token_details.token){
-        //     this.state.token = this.props.token_details.token.auth_token;
-        // } else{
-        //     this.props.history.push(
-        //         {            
-        //             pathname: '/User'
-        //         }
-        //     );
-        // }
+        this.state.like_post = this.like_post
+        if (this.props.token_details.token){
+            this.state.token = this.props.token_details.token.auth_token;
+            console.log(this, "from user feeds");
+        } else{
+            this.props.history.push(
+                {            
+                    pathname: '/User'
+                }
+            );
+        }
     }
 
     showSection(element) {
@@ -118,7 +119,9 @@ class UserFeeds extends React.Component {
                 </Provider>, document.getElementById('menu-bar'));
         }
     }
-
+    like_post(e){
+        console.log(e);
+    }
     render(){
         return (
             <div className="outer-layout user-feed-page" style={{ background: "none" }}>

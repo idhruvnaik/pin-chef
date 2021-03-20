@@ -14,7 +14,7 @@ import Password from '../assets/png_icons/Password icon.png'
 import $ from 'jquery';
 // import 'reactjs-popup/dist/index.css';
 
-var user_role = 2;
+var user_role = 1;
 // const mapStateToProps = state => ({
 //     ...state
 // });
@@ -82,10 +82,10 @@ class UserReg extends React.Component {
         var user = document.querySelector('#user_choice span').innerHTML;
         if (user.startsWith('I AM A CHEF')){
             document.querySelector('#user_choice span').innerHTML = "LOOKING FOR CHEF >";
-            user_role = 1;
+            user_role = 2;
         } else{
             document.querySelector('#user_choice span').innerHTML = "I AM A CHEF >";
-            user_role = 2;
+            user_role = 1;
         }
     }
 
@@ -106,10 +106,15 @@ class UserReg extends React.Component {
                     console.log(result);
                     console.log(this);
                     this.props.addTokenToState(result);
+                    // this.props.history.push(
+                    //     {            
+                    //         pathname: '/Verifyotp',
+                    //         email: document.querySelector('#loginform #username').value
+                    //     }
+                    // );
                     this.props.history.push(
                         {            
-                            pathname: '/Verifyotp',
-                            email: document.querySelector('#loginform #username').value
+                            pathname: '/Homepage'
                         }
                     );  
                 }else{
@@ -149,8 +154,11 @@ class UserReg extends React.Component {
             }
         );
     };
-    save_token(){
-        console.log("checkbox badalyu");
+    save_token(a){
+        if(a.ctrlKey || a.metaKey) {
+            console.log("inside if");
+            document.getElementById('storeToken').checked = false;
+        }
     };
     ShowPassword(){
         console.log("show password");
@@ -219,7 +227,7 @@ class UserReg extends React.Component {
                         </div>
                         <div id="forgot">
                             <div id="signin_storage">
-                                <input type="radio" name="user_sign_in" id="storeToken" onChange={this.save_token}></input>Keep me signed in
+                                <input type="radio" name="user_sign_in" id="storeToken" onClick={this.save_token.bind(this)}></input>Keep me signed in
                             </div>
                             <a href="" style={{color:"#FFD54F"}}>FORGOT PASSWORD</a>
                         </div>

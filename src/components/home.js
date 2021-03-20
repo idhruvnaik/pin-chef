@@ -5,6 +5,7 @@ import UserPost from '../assets/images/bannerFeed2.png';
 import PostMenu from '../assets/png_icons/Post menu icon@2x.png';
 import CommentIcon from '../assets/png_icons/Comment icon@2x.png';
 import EmptyHeart from '../assets/png_icons/Empty heart@2x.png';
+import FullHeart from '../assets/png_icons/likeIcon.png'
 import PostShare from '../assets/png_icons/Post Share count@2x.png';
 import Time from '../assets/png_icons/time recipe@2x.png';
 import Recipe_time from '../assets/png_icons/time recipe.png';
@@ -15,13 +16,19 @@ import BookClass from '../assets/png_icons/Book Masterclass icon.png'
 import MasterclassTime from '../assets/png_icons/Masterclass Time icon.png'
 import MasterclassClockIcon from '../assets/png_icons/Masterclass clock icon.png'
 
+import { getAllChef, getAllPosts, likePost, getAllRecipes, getAllMasterClasses } from '../services/apiOperations';
+
 import $ from 'jquery';
 
 export default class home extends Component {
 
     constructor(props) {
         super(props);
-
+        this.token = this.props.token;
+        this.initialize_feeds = this.initialize_feeds.bind(this);
+        this.initialize_recipes = this.initialize_recipes.bind(this);
+        this.like_post = this.like_post.bind(this);
+        this.render = this.render.bind(this);
         this.feeds = [
             {
                 id: 1,
@@ -48,8 +55,26 @@ export default class home extends Component {
                 location: "Miami, FL",
                 time: "45 min ago",
                 post_content: "It was great night as we were at catering for a wedding. Thank you all of the staff that helped us to make event such a wonderful and delicious."
+            },
+            {
+                images: [
+                    "http://52.87.176.237:8080/public?path=C:/Users/Administrator/Desktop/pinChef_Backend/uploads/6052f02cf58dd11d9c888c8b/images/post/6052f524f58dd11d9c888c8f-1616049452640.png"
+                ],
+                likes: 4,
+                _id: "6052f524f58dd11d9c888c8f",
+                chef_id: "6052f02cf58dd11d9c888c8b",
+                description: "hello 123",
+                location: "surat",
+                createdAt: "2021-03-18T06:37:24.989Z",
+                updatedAt: "2021-03-18T06:38:54.166Z",
+                __v: 1
             }
         ]
+        this.state = {
+            feeds: [],
+            recipes: []
+        }
+        
 
         this.recipes = [
             {
@@ -128,9 +153,86 @@ export default class home extends Component {
             $('.nav-active').removeClass('nav-active');
             e.target.classList.add('nav-active');
         }
-
+        
     }
 
+    async initialize_feeds(){
+        let post_result = await getAllPosts(this.token);
+        let chef_result = await getAllChef(this.token);
+        if(chef_result){
+            if(chef_result.status == false){
+                console.log(chef_result.message);
+            }
+        }
+        if(post_result){
+            if(post_result.status == false){
+                console.log(post_result.message);
+            }else{
+                post_result.map(function (item) {
+                    let chef_details = chef_result.find(chef => chef._id == item.chef_id);
+                    item.chef = chef_details;
+                })
+            }
+        }
+        // this.feede = post_result;
+        console.log(post_result);
+        this.setState({
+            feeds: [post_result[13]]});
+    }
+
+    async initialize_recipes(){
+        let recipe_result = await getAllRecipes(this.token);
+        let chef_result = await getAllChef(this.token);
+        if(chef_result){
+            if(chef_result.status == false){
+                console.log(chef_result.message);
+            }
+        }
+        if(recipe_result){
+            if(recipe_result.status == false){
+                console.log(recipe_result.message);
+            }else{
+                recipe_result.map(function (item) {
+                    let chef_details = chef_result.find(chef => chef._id == item.chef_id);
+                    item.chef = chef_details;
+                })
+            }
+        }
+        this.setState({
+            recipes: [recipe_result[13]]});
+    }
+
+    async initialize_e_master_class(){
+        let master_class_result = await getAllMasterClasses(this.token);
+        let chef_result = await getAllChef(this.token);
+        if(chef_result){
+            if(chef_result.status == false){
+                console.log(chef_result.message);
+            }
+        }
+        if(master_class_result){
+            if(master_class_result.status == false){
+                console.log(master_class_result.message);
+            }else{
+                master_class_result.map(function (item) {
+                    let chef_details = chef_result.find(chef => chef._id == item.chef_id);
+                    item.chef = chef_details;
+                })
+            }
+        }
+        this.setState({
+            recipes: [master_class_result[13]]});
+    }
+
+    componentDidMount() {
+        this.initialize_feeds();
+        this.initialize_recipes();
+    }
+    like_post(e){
+        console.log(e.target.id);
+        likePost(e.target.id, this.token);
+        this.initialize_feeds();
+    }
     render() {
         return (
             <div className="home-content" >
@@ -140,28 +242,30 @@ export default class home extends Component {
                     <li onClick={this.active} className="" id="e-master-class">e-Masterclass</li>
                 </ul>
                 <div className="feeds sec active" id="feed-sec">
-                    {this.feeds.map(function (item) {
+                    {console.log(this.state.feeds, "in render return")}
+                    {console.log(this)}
+                    {this.state.feeds.map((item) => {
                         return (
-                            <div className="feed">
+                            <div className="feed" id={item._id}>
                                 <div className="primary-details">
                                     <div className="l-div">
                                         <div className="profile-img-container">
-                                            <img src={item.desktop_icon}></img>
+                                            <img src={item.chef.profile_image}></img>
                                         </div>
                                         <div className="user-detail-container">
-                                            <h3>{item.user_name}</h3>
-                                            <h5>{item.user_description}</h5>
+                                            <h3>{item.chef.user_name && item.chef.user_name}</h3>
+                                            <h5>{item.chef.chef_details.position}</h5>
                                         </div>
                                     </div>
                                     <div className="post-option"><img src={PostMenu}></img></div>
                                 </div>
                                 <div className="post-image">
-                                    <img className="userpost" src={item.post}></img>
+                                    <img className="userpost" src={item.images[0]}></img>
                                 </div>
                                 <div className="post-activity">
                                     <div className="l-div">
                                         <div className="activity">
-                                            <img src={EmptyHeart}></img>
+                                            <img src={FullHeart} id={item._id} onClick={this.like_post.bind(this)}></img>
                                             <span>{item.likes}</span>
                                         </div>
                                         <div className="activity">
@@ -180,11 +284,11 @@ export default class home extends Component {
                                         </div>
                                         <div className="activity">
                                             <img src={Time}></img>
-                                            <span>{item.time}</span>
+                                            <span>{item.createdAt}</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="post-content">{item.post_content}</div>
+                                <div className="post-content">{item.description}</div>
                             </div>
                         )
                     })}
