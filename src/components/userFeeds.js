@@ -3,8 +3,9 @@ import ReactDOM, { render } from 'react-dom';
 import $ from 'jquery';
 import { Provider } from "react-redux";
 import configureStore from "../store";
-import { addTokenToState } from '../services/apiOperations';
+import { addTokenToState, getAllChef } from '../services/apiOperations';
 import { connect } from "react-redux";
+import {reactLocalStorage} from 'reactjs-localstorage';
 
 import Ads from './advertises'
 import FilterDiv from './filter'
@@ -61,19 +62,46 @@ class UserFeeds extends React.Component {
         super(props);
         this.showSection = this.showSection.bind(this);
         this.like_post = this.like_post.bind(this);
+        // this.initialize_chefs = this.initialize_chefs.bind(this);
         this.state = {
             token: ''
         }
-        this.state.like_post = this.like_post
+        this.state.like_post = this.like_post;
+
+        console.log("setting session variable");
+    
         if (this.props.token_details.token){
+            console.log("jo token male to");
             this.state.token = this.props.token_details.token.auth_token;
             console.log(this, "from user feeds");
         } else{
-            this.props.history.push(
-                {            
-                    pathname: '/User'
-                }
+            console.log("token na male to local storage ni value");
+            var token_details = reactLocalStorage.getObject(
+                'token_details'
             );
+            console.log(token_details);
+            if(window.sessionStorage.getItem("userFeeds")){
+                console.log("jo reload thjayu hoy to");
+                this.props.addTokenToState(token_details);
+                this.state.token = token_details.auth_token;
+                console.log(this, "token added to redux");
+            } else{
+                window.sessionStorage.setItem("userFeeds", true);
+                if (token_details.remember){
+                    console.log("jo reload na thayu hoy peli j vaar homepage par aave to checking remember value")
+                    console.log(token_details.remember);
+                    this.props.addTokenToState(token_details);
+                    this.state.token = token_details.auth_token;
+                    console.log("added token to redux");
+                } else{
+                    console.log("redirecting to login case in last scenario.");
+                    this.props.history.push(
+                        {            
+                            pathname: '/User'
+                        }
+                    );
+                }
+            }
         }
     }
 
@@ -119,10 +147,34 @@ class UserFeeds extends React.Component {
                 </Provider>, document.getElementById('menu-bar'));
         }
     }
+
     like_post(e){
         console.log(e);
     }
+
+    // async initialize_chefs(){
+    //     let chef_result = await getAllChef(this.state.token);
+    //     console.log(chef_result, "chef_result from userFeeds");
+    //     if(chef_result.length > 0){
+    //         if(chef_result.status == false){
+    //             this.setState({
+    //                 chefs: []});
+    //         } else{
+    //             this.setState({
+    //                 chefs: chef_result});
+    //         }
+    //     }  else{
+    //         this.setState({
+    //             chefs: []});
+    //     }
+    // }
+
+    // componentDidMount() {
+    //     this.initialize_chefs();
+    // }
+
     render(){
+        console.log(window.sessionStorage.getItem("userFeeds"));
         return (
             <div className="outer-layout user-feed-page" style={{ background: "none" }}>
                 <div className="header">

@@ -33,6 +33,7 @@ export default class settings extends Component {
 
         this.state = { checked: false };
         this.handleChange = this.handleChange.bind(this);
+        this.token = this.props.token;
 
         this.foods = [
             {
