@@ -64,15 +64,18 @@ class UserFeeds extends React.Component {
         this.like_post = this.like_post.bind(this);
         // this.initialize_chefs = this.initialize_chefs.bind(this);
         this.state = {
-            token: ''
+            token: '',
+            user_id: ''
         }
         this.state.like_post = this.like_post;
 
         console.log("setting session variable");
+        console.log(this, "from userrrrrrrrrrrfeeds");
     
         if (this.props.token_details.token){
             console.log("jo token male to");
             this.state.token = this.props.token_details.token.auth_token;
+            this.state.user_id = this.props.token_details.token.id;
             console.log(this, "from user feeds");
         } else{
             console.log("token na male to local storage ni value");
@@ -84,6 +87,7 @@ class UserFeeds extends React.Component {
                 console.log("jo reload thjayu hoy to");
                 this.props.addTokenToState(token_details);
                 this.state.token = token_details.auth_token;
+                this.state.user_id = token_details.id;
                 console.log(this, "token added to redux");
             } else{
                 window.sessionStorage.setItem("userFeeds", true);
@@ -92,6 +96,7 @@ class UserFeeds extends React.Component {
                     console.log(token_details.remember);
                     this.props.addTokenToState(token_details);
                     this.state.token = token_details.auth_token;
+                    this.state.user_id = token_details.id;
                     console.log("added token to redux");
                 } else{
                     console.log("redirecting to login case in last scenario.");

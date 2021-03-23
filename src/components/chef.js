@@ -126,7 +126,7 @@ class chef extends React.Component {
                                                 <img src={FollowersIcon}></img>
                                                 <span>{item.followerCount} Followers</span>
                                             </div>
-                                            <button type="button">Follow</button>
+                                            <button type="button">{item.is_follow ? "Follow": "Unfollow"}</button>
                                         </div>
                                     </div>
                                     <h5>{item.chef_details.position}</h5>

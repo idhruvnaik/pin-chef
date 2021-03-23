@@ -300,7 +300,7 @@ export default class home extends Component {
                     <li onClick={this.active} className="" id="e-master-class">e-Masterclass</li>
                 </ul>
                 <div className="feeds sec active" id="feed-sec">
-                    {this.feeds.length > 0 && this.state.feeds.map((item) => {
+                    {this.state.feeds.length > 0 && this.state.feeds.map((item) => {
                         return (
                             <div className="feed" id={item._id}>
                                 <div className="primary-details">

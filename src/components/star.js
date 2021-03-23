@@ -12,12 +12,14 @@ import RefreshIcon from "../assets/png_icons/refresh-icon.png";
 import RightArrowIcon from "../assets/png_icons/right-arrow-icon.png";
 import DownArrowIcon from "../assets/png_icons/down-arrow-icon.png";
 import CopyIcon from "../assets/png_icons/copy-icon.png";
+import LeftBack from '../assets/png_icons/Green back arrow.png';
 
 import $ from "jquery";
 
 export default class home extends Component {
   constructor(props) {
     super(props);
+    this.open_purchase_details = this.open_purchase_details.bind(this);
 
     this.feeds = [
       {
@@ -170,6 +172,18 @@ export default class home extends Component {
     };
   }
 
+  open_purchase_details(item) {
+    console.log("opened purchase details");
+    console.log(item);
+    var item_siblings = $('.'+item).siblings();
+    console.log(item_siblings);
+    item_siblings.each(function(){
+        $( this ).css('display', 'none');
+    })
+    $('.'+item).css("display", "block");
+    // $('.item').css("display", "none");
+  }
+
   render() {
     return (
       <div className="star-content">
@@ -181,7 +195,7 @@ export default class home extends Component {
             Recipes
           </li>
           <li onClick={this.active} className="" id="food-service">
-            Foods & Services
+            Foods &amp; Services
           </li>
           <li onClick={this.active} className="" id="my-purchase">
             My Purchases
@@ -375,67 +389,75 @@ export default class home extends Component {
           })}
         </div>
         <div className="my_purchases sec" id="my-purchase-sec">
-          {/* {this.purchases.map(function (item) {
-                        return (
-                            <div className="item">
-                                <div className="head-container">
-                                    <div className="l-div">
-                                        <div className="profile-img-container">
-                                            <img src={item.desktop_icon}></img>
-                                        </div>
-                                        <div className="user-detail-container">
-                                            <h3>{item.user_name}</h3>
-                                            <h5>{item.user_description}</h5>
-                                        </div>
-                                        <ReactStars
-                                            count={5}
-                                            onChange={null}
-                                            isHalf={true}
-                                            activeColor="#ffd700"
-                                            classNames = "star-rating"
-                                        />
-                                    </div>
-                                    <div className="r-div">
-                                        <h3>Food and Services</h3>
-                                        <img src={RefreshIcon}></img>
-                                    </div>
-                                </div>
-                                <div className="content">
-                                    <div className="price-block">
-                                        <div className="price-detail">
-                                            <h4>Cuban Tacos</h4>
-                                            <div className="r-div">
-                                                <h5>1</h5>
-                                                <h5>$23.80</h5>
-                                                <h5>$23.80</h5>
-                                            </div>
-                                        </div>
-                                        <div className="total-price">
-                                            <h3><span>Total </span>$ 39.84</h3>
-                                        </div>
-                                    </div>
-                                    <div className="ticket-block">
-                                        <div className="url-block">
-                                            <h5>Class Link: www.pinchef.io/dough</h5>
-                                            <img src={RightArrowIcon}></img>
-                                        </div>
-                                        <div className="ticket-detail">
-                                            <h5>Ticket number: 38Kzw23</h5>
-                                            <img src={CopyIcon}></img>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="bottom-block">
-                                    <h4>2 days</h4>
-                                    <div className="details-block">
-                                        <h4>Details</h4>
-                                        <img src={DownArrowIcon}></img>
-                                    </div>
-                                </div>
-                            </div>
-                        )
-                    })} */}
+          {this.purchases.map((item) => {
+            return (
+              <div className="item">
+                <div className="head-container">
+                  <div className="l-div">
+                    <div className="profile-img-container">
+                      <img src={item.desktop_icon}></img>
+                    </div>
+                    <div className="user-detail-container">
+                      <h3>{item.user_name}</h3>
+                      <h5>{item.user_description}</h5>
+                    </div>
+                    <ReactStars
+                      count={5}
+                      onChange={null}
+                      isHalf={true}
+                      activeColor="#ffd700"
+                      classNames="star-rating"
+                    />
+                  </div>
+                  <div className="r-div">
+                    <h3 onClick={() => this.open_purchase_details("purchase-detail")}>Food and Services</h3>
+                    <img src={RefreshIcon}></img>
+                  </div>
+                </div>
+                <div className="content">
+                  <div className="price-block">
+                    <div className="price-detail">
+                      <h4>Cuban Tacos</h4>
+                      <div className="r-div">
+                        <h5>1</h5>
+                        <h5>$23.80</h5>
+                        <h5>$23.80</h5>
+                      </div>
+                    </div>
+                    <div className="total-price">
+                      <h3><span>Total </span>$ 39.84</h3>
+                    </div>
+                  </div>
+                  <div className="ticket-block">
+                    <div className="url-block">
+                      <h5>Class Link: www.pinchef.io/dough</h5>
+                      <img src={RightArrowIcon}></img>
+                    </div>
+                    <div className="ticket-detail">
+                      <h5>Ticket number: 38Kzw23</h5>
+                      <img src={CopyIcon}></img>
+                    </div>
+                  </div>
+                </div>
+                <div className="bottom-block">
+                  <h4>2 days</h4>
+                  <div className="details-block">
+                    <h4>Details</h4>
+                    <img src={DownArrowIcon}></img>
+                  </div>
+                </div>
+              </div>
+            )
+          })}
           <div className="purchase-detail">
+            <div className="switch-content">
+              <div>
+                <img src={LeftBack} onClick={() => this.open_purchase_details('item')}></img>
+              </div>
+              <div>
+                <h2>PURCHASE DETAILS</h2>
+              </div>
+            </div>
             <div className="head-container">
               <h5 className="date">13 October, 2020- 1:24 PM</h5>
               <div className="l-div">
@@ -449,37 +471,37 @@ export default class home extends Component {
               </div>
               <div className="content">
                 <table>
-                    <thead>
-                        <th>Item</th>
-                        <th>QTY</th>
-                        <th>Price</th>
-                        <th>Amount</th>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Cook and Deliver</td>
-                            <td>1 <span className="plus-icon">+</span></td>
-                            <td>$23.80</td>
-                            <td>$23.80</td>
-                        </tr>
-                    </tbody>
+                  <thead>
+                    <th>Item</th>
+                    <th>QTY</th>
+                    <th>Price</th>
+                    <th>Amount</th>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Cook and Deliver</td>
+                      <td>1 <span className="plus-icon">+</span></td>
+                      <td>$23.80</td>
+                      <td>$23.80</td>
+                    </tr>
+                  </tbody>
                 </table>
                 <div className="total-detail">
-                    <h4>Sub total <span>$ 23.00</span></h4>
-                    <h4>Tax: <span>% 8</span></h4>
-                    <h3>Total: $ 39.84</h3>
+                  <h4>Sub total <span>$ 23.00</span></h4>
+                  <h4>Tax: <span>% 8</span></h4>
+                  <h3>Total: $ 39.84</h3>
                 </div>
                 <div className="youtube-link">
-                    <h5>Live Stream Link: www.youtube.com/pinchef</h5>
-                    <img src={RightArrowIcon}></img>
+                  <h5>Live Stream Link: www.youtube.com/pinchef</h5>
+                  <img src={RightArrowIcon}></img>
                 </div>
                 <div className="details-section">
-                   <h3>Instructions & Details</h3>
-                   <textarea placeholder="Masterclass instructions autofilled"></textarea>
+                  <h3>Instructions & Details</h3>
+                  <textarea placeholder="Masterclass instructions autofilled"></textarea>
                 </div>
                 <div className="details-section">
-                   <h3>Needed Ingredients</h3>
-                   <textarea placeholder="Masterclass instructions autofilled"></textarea>
+                  <h3>Needed Ingredients</h3>
+                  <textarea placeholder="Masterclass instructions autofilled"></textarea>
                 </div>
               </div>
             </div>

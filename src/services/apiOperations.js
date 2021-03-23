@@ -239,20 +239,3 @@ export const likePost = async(post_id, token)=>{
         }
     }
 }
-
-export const getUserData = async(token)=>{
-    let apiURL = apiHost + '/chef/getChefById/';
-    var headers = {
-        "Authorization": "Bearer " + token
-    };
-    try{
-        let resp = await make_rest_call(apiURL, 'GET', {}, headers);
-        return resp;
-    }
-    catch(err){
-        return {
-            status: false,
-            message: err.message
-        }
-    }
-}

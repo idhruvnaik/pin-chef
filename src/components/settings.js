@@ -19,11 +19,23 @@ import ContactUs from '../assets/png_icons/contact-us icon on menu.png'
 import LargeFAQ from '../assets/png_icons/Faq icon on menu@2x.png'
 import LargeTerms from '../assets/png_icons/terms icon on menu@2x.png'
 import LargeContactUs from '../assets/png_icons/contact-us icon on menu@2x.png'
+import LargeDeleteAccount from '../assets/png_icons/Delete settings@2x.png'
+import LargeLogout from '../assets/png_icons/Logout@2x.png'
+import LargeLocationSettings from '../assets/png_icons/Location settings@2x.png'
+import LargeEmailSettings from '../assets/png_icons/email settings@2x.png'
+import LargePhone from '../assets/png_icons/phone icon@2x.png'
+import LargeName from '../assets/png_icons/name icon@2x.png'
 import TermsLogo from '../assets/png_icons/terms and privacy bullet icon@2x.png'
 import Home from './home'
 
 import Switch from "react-switch";
 import { PushMenu } from 'react-push-menu';
+import Popup from 'reactjs-popup';
+import ReactDOM, { render } from 'react-dom';
+import { Provider } from "react-redux";
+import configureStore from "../store";
+import { getChefById } from '../services/apiOperations';
+import { reactLocalStorage } from 'reactjs-localstorage';
 import $ from 'jquery';
 
 import { getUserData } from '../services/apiOperations';
@@ -33,75 +45,15 @@ export default class settings extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { checked: false };
+        this.state = {
+            checked: false,
+            user_details: null
+        };
         this.handleChange = this.handleChange.bind(this);
+        this.logout = this.logout.bind(this);
+        this.getUserData = this.getUserData.bind(this);
         this.token = this.props.token;
-
-        this.foods = [
-            {
-                id: 1,
-                desktop_icon: UserPhoto,
-                user_name: "Jenah Stephonson",
-                user_description: "Home chef",
-                post: UserPost,
-                likes: 0,
-                comments: 0,
-                share: 0,
-                location: "Miami, FL",
-                time: "45 min ago",
-                rattings: "5.6",
-                delivery_status: "Delivery + Pick up/Takeaway",
-                post_content: "It was great night as we were at catering for a wedding. Thank you all of the staff that helped us to make event such a wonderful and delicious."
-            },
-            {
-                id: 2,
-                desktop_icon: UserPhoto,
-                user_name: "Jenah Stephonson",
-                user_description: "Home chef",
-                post: UserPost,
-                likes: 0,
-                comments: 0,
-                share: 0,
-                location: "Miami, FL",
-                time: "45 min ago",
-                rattings: "5.6",
-                delivery_status: "Delivery + Pick up/Takeaway",
-                post_content: "It was great night as we were at catering for a wedding. Thank you all of the staff that helped us to make event such a wonderful and delicious."
-            }
-        ]
-
-        this.services = [
-            {
-                id: 1,
-                desktop_icon: UserPhoto,
-                user_name: "Jenah Stephonson",
-                user_description: "Home chef",
-                post: UserPost,
-                likes: 0,
-                comments: 0,
-                share: 0,
-                location: "Miami, FL",
-                time: "45 min ago",
-                rattings: "5.6",
-                delivery_status: "Delivery + Pick up/Takeaway",
-                post_content: "It was great night as we were at catering for a wedding. Thank you all of the staff that helped us to make event such a wonderful and delicious."
-            },
-            {
-                id: 2,
-                desktop_icon: UserPhoto,
-                user_name: "Jenah Stephonson",
-                user_description: "Home chef",
-                post: UserPost,
-                likes: 0,
-                comments: 0,
-                share: 0,
-                location: "Miami, FL",
-                time: "45 min ago",
-                rattings: "5.6",
-                delivery_status: "Delivery + Pick up/Takeaway",
-                post_content: "It was great night as we were at catering for a wedding. Thank you all of the staff that helped us to make event such a wonderful and delicious."
-            }
-        ]
+        this.user_id = this.props.user_id;
 
         this.ratingChanged = (newRating) => {
             document.querySelector('.each_service .primary-details .rattings .given_rattings').innerHTML = newRating;
@@ -151,22 +103,49 @@ export default class settings extends Component {
         this.setState({ checked });
     }
 
-    async getUserData(){
-        console.log(this);
-        await getUserData(this.token);
+    logout() {
+        window.sessionStorage.clear();
+        reactLocalStorage.clear();
+        window.location.reload();
+    }
+
+    async getUserData() {
+        var user_details = await getChefById(this.user_id, this.token);
+        console.log(user_details, "from getUserData settings");
+        if (user_details.status == false) {
+            ReactDOM.render(
+                <Provider store={configureStore}>
+                    <h1>Error occurs while fetching user's data</h1>
+                </Provider>, document.getElementById('settings-sec'));
+            $("#settings-sec").css("padding-top", "50px");
+        } else {
+            console.log("in else of getuserdata");
+            this.setState({
+                user: user_details
+            });
+        }
+        // if (user_details.chef.length > 0) {
+
+        // } else {
+        //     ReactDOM.render(
+        //         <Provider store={configureStore}>
+        //             <h1>Error occurs while fetching user's data</h1>
+        //         </Provider>, document.getElementById('settings-sec'));
+        //     $("#settings-sec").css("padding-top", "50px");
+        // }
     }
 
     open_menu(menu_class) {
-        var menu_siblings = $('.'+menu_class).siblings();
+        var menu_siblings = $('.' + menu_class).siblings();
         console.log(menu_siblings);
-        menu_siblings.each(function(){
-            $( this ).css('display', 'none');
+        menu_siblings.each(function () {
+            $(this).css('display', 'none');
         })
         // for(i=0; i < menu_siblings.length; i++){
         //     menu_siblings[i].css('display', 'none');
         // }
         // $('.profile').css('display', 'none');
-        $('.'+menu_class).css('display', 'block');
+        $('.' + menu_class).css('display', 'block');
     }
 
     componentDidMount() {
@@ -175,24 +154,26 @@ export default class settings extends Component {
 
     render() {
         return (
-            <div className="settings-content">
+            <div className="settings-content" id="settings-sec">
                 {/* <ul className="switch-content">
                     <li onClick={this.active} className="nav-active" id="food">MY PROFILE</li>
                 </ul> */}
+                {console.log(this.state, "while loading settings")}
                 <div className="profile">
                     <div className="primary-details">
                         <div className="l-div">
                             <div className="profile-img-container">
-                                <img src={UserPhoto}></img>
+                                <img src={this.state.user && this.state.user.chef.profile_image ? this.state.user.chef.profile_image : null}></img>
+                                <h1 style={{ display: this.state.user && this.state.user.chef.profile_image ? "none" : "block" }}>{this.state.user && this.state.user.chef.user_name[0]}</h1>
                             </div>
                             <div className="user-detail-container">
-                                <h3>{this.userdetails.name}</h3>
-                                <h5>User ID/Name</h5>
+                                <h3>{this.state.user && this.state.user.chef.user_name}</h3>
+                                <h5>{this.state.user && this.state.user.chef.name}</h5>
                             </div>
                         </div>
                         <div style={{ paddingRight: "4px", marginTop: "20px" }}>
                             <div style={{ textAlignLast: "right" }}>
-                                <img src={RightArrow}></img>
+                                <img src={RightArrow} onClick={() => this.open_menu('my_profile')} style={{ cursor: "pointer" }}></img>
                             </div>
                         </div>
                     </div>
@@ -298,7 +279,7 @@ export default class settings extends Component {
                             <img src={LeftBack} onClick={() => this.open_menu('help')}></img>
                         </div>
                         <div>
-                            <img src={FAQ} style={{marginRight:"5px"}}></img>
+                            <img src={FAQ} style={{ marginRight: "5px" }}></img>
                             <h3>FAQ</h3>
                         </div>
                     </div>
@@ -309,7 +290,7 @@ export default class settings extends Component {
                             <img src={LeftBack} onClick={() => this.open_menu('help')}></img>
                         </div>
                         <div>
-                            <img src={Terms} style={{marginRight:"5px"}}></img>
+                            <img src={Terms} style={{ marginRight: "5px" }}></img>
                             <h3>TERMS &amp; PRIVACY POLICY</h3>
                         </div>
                     </div>
@@ -375,11 +356,11 @@ export default class settings extends Component {
                             <img src={LeftBack} onClick={() => this.open_menu('help')}></img>
                         </div>
                         <div>
-                            <img src={ContactUs} style={{marginRight:"5px"}}></img>
+                            <img src={ContactUs} style={{ marginRight: "5px" }}></img>
                             <h3>CONTACT US</h3>
                         </div>
                     </div>
-                    <div style={{height:"100%"}}>
+                    <div style={{ height: "100%" }}>
                         <div className="instruction">
                             <div>
                                 <img src={TermsLogo}></img>
@@ -395,7 +376,7 @@ export default class settings extends Component {
                                     <input type="text" id="username" placeholder="Enter name"></input>
                                 </div>
                                 <div>
-                                    <h3>Email<span style={{color:"red"}}> *</span></h3>
+                                    <h3>Email<span style={{ color: "red" }}> *</span></h3>
                                     <input type="text" id="email" placeholder="Enter email" required></input>
                                 </div>
                                 <div>
@@ -403,14 +384,140 @@ export default class settings extends Component {
                                     <input type="text" id="subject" placeholder="Enter subject"></input>
                                 </div>
                                 <div>
-                                    <h3>Message<span style={{color:"red"}}> *</span></h3>
+                                    <h3>Message<span style={{ color: "red" }}> *</span></h3>
                                     <input type="text" id="subject" placeholder="Enter message" required></input>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
+                <div className="my_profile">
+                    <div className="switch-content">
+                        <div>
+                            <img src={LeftBack} onClick={() => this.open_menu('profile')}></img>
+                        </div>
+                        <div>
+                            <h2>MY PROFILE</h2>
+                        </div>
+                    </div>
+                    <div className="profile_activity">
+                        <div className="menu_details">
+                            <div className="menu_icon">
+                                <img src={LargeName}></img>
+                            </div>
+                            <div className="menu_name">
+                                <h3>{this.state.user && this.state.user.chef.user_name}</h3>
+                            </div>
+                        </div>
+                        <div className="other_things">
+                        </div>
+                    </div>
+                    <div className="profile_activity">
+                        <div className="menu_details">
+                            <div className="menu_icon">
+                                <img src={LargePhone}></img>
+                            </div>
+                            <div className="menu_name">
+                                <h3>{this.state.user && this.state.user.chef.mobile}</h3>
+                            </div>
+                        </div>
+                        <div className="other_things">
+                        </div>
+                    </div>
+                    <div className="profile_activity" style={{cursor: "not-allowed"}}>
+                        <div className="menu_details">
+                            <div className="menu_icon">
+                                <img src={LargeEmailSettings}></img>
+                            </div>
+                            <div className="menu_name">
+                                <h3>{this.state.user && this.state.user.chef.email}</h3>
+                            </div>
+                        </div>
+                        <div className="other_things">
+                        </div>
+                    </div>
+                    <div className="profile_activity">
+                        <div className="menu_details">
+                            <div className="menu_icon">
+                                <img src={LargeLocationSettings}></img>
+                            </div>
+                            <div className="menu_name">
+                                <h3>{this.state.user && this.state.user.chef.chef_details.location}</h3>
+                            </div>
+                        </div>
+                        <div className="other_things">
+                        </div>
+                    </div>
+                    <Popup
+                        trigger={
+                            <div className="profile_activity">
+                                <div className="menu_details">
+                                    <div className="menu_icon">
+                                        <img src={LargeDeleteAccount}></img>
+                                    </div>
+                                    <div className="menu_name">
+                                        <h3 style={{ color: "#BF2604" }}>Delete Account</h3>
+                                    </div>
+                                </div>
+                                <div className="other_things">
+                                </div>
+                            </div>}
+                        position="center center"
+                        closeOnDocumentClick
+                        modal
+                        nested
+                    >
+                        {close => (
+                            <div className="logout-popup">
+                                <div className="confirmation">
+                                    <h3>ARE YOU SURE?</h3>
+                                </div>
+                                <div className="question">
+                                    You are about to delete your account, this can not be undone. You will loose all saved info.
+                                </div>
+                                <div className="actions">
+                                    <button type="button" onClick={close}>Cancle</button>
+                                    <button type="button" onClick={() => this.logout()}>Delete</button>
+                                </div>
+                            </div>
+                        )}
+                    </Popup> 
+                    <Popup
+                        trigger={
+                            <div className="profile_activity">
+                                <div className="menu_details">
+                                    <div className="menu_icon">
+                                        <img src={LargeLogout}></img>
+                                    </div>
+                                    <div className="menu_name">
+                                        <h3 style={{ color: "#BF2604" }}>Logout</h3>
+                                    </div>
+                                </div>
+                                <div className="other_things">
+                                </div>
+                            </div>}
+                        position="center center"
+                        closeOnDocumentClick
+                        modal
+                        nested
+                    >
+                        {close => (
+                            <div className="logout-popup">
+                                <div className="confirmation">
+                                    <h3>ARE YOU SURE?</h3>
+                                </div>
+                                <div className="question">
+                                    Do you want to logout?
+                                </div>
+                                <div className="actions">
+                                    <button type="button" onClick={close}>Cancle</button>
+                                    <button type="button" onClick={() => this.logout()}>Log Out</button>
+                                </div>
+                            </div>
+                        )}
+                    </Popup>
+                </div>
             </div>
-        );  
+        );
     }
 }
