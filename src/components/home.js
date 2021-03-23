@@ -81,7 +81,6 @@ export default class home extends Component {
             recipes: [],
             master_classes: []
         }
-        
 
         this.recipes = [
             {

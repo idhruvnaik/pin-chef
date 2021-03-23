@@ -1,0 +1,15 @@
+.chef-page {
+    .home-content{
+        .food{
+            .user-post-container{
+                display: flex;
+                position: relative;
+                .shopping-cart{
+                    position: absolute;
+                    bottom: 10px;
+                    right: 10px;
+                }
+            }
+        }
+    }
+}

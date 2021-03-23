@@ -16,21 +16,32 @@
 
 @media (max-width: 481px) {
   .header {
-      padding: 5px;
-    .l-div{
-        img{
-            height: 50px;
-        }
+    padding: 5px;
+    .l-div {
+      img {
+        height: 50px;
+      }
     }
     .m-div {
       .search-div {
         display: none;
       }
     }
-    .r-div{
-        svg{
+    .r-div {
+      svg {
+        height: 30px;
+      }
+    }
+  }
+  .chef-page {
+    .home-content {
+      .food {
+        .user-post-container {
+          .shopping-cart {
             height: 30px;
+          }
         }
+      }
     }
   }
 }

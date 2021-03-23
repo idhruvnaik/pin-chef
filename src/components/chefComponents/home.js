@@ -15,6 +15,8 @@ import BookClass from '../../assets/png_icons/Book Masterclass icon.png'
 import MasterclassTime from '../../assets/png_icons/Masterclass Time icon.png'
 import MasterclassClockIcon from '../../assets/png_icons/Masterclass clock icon.png'
 
+import ShoppingCart from '../../assets/images/shoping-cart-icon.png';
+
 import $ from 'jquery';
 
 export default class home extends Component {
@@ -84,6 +86,39 @@ export default class home extends Component {
             }
         ]
 
+        this.foods = [
+            {
+                id: 1,
+                desktop_icon: UserPhoto,
+                user_name: "Jenah Stephonson",
+                user_description: "Home chef",
+                post: UserPost,
+                likes: 0,
+                comments: 0,
+                share: 0,
+                location: "Miami, FL",
+                time: "45 min ago",
+                rattings: "5.6",
+                delivery_status: "Delivery + Pick up/Takeaway",
+                post_content: "It was great night as we were at catering for a wedding. Thank you all of the staff that helped us to make event such a wonderful and delicious."
+            },
+            {
+                id: 2,
+                desktop_icon: UserPhoto,
+                user_name: "Jenah Stephonson",
+                user_description: "Home chef",
+                post: UserPost,
+                likes: 0,
+                comments: 0,
+                share: 0,
+                location: "Miami, FL",
+                time: "45 min ago",
+                rattings: "5.6",
+                delivery_status: "Delivery + Pick up/Takeaway",
+                post_content: "It was great night as we were at catering for a wedding. Thank you all of the staff that helped us to make event such a wonderful and delicious."
+            }
+        ]
+
         this.emaster_classes = [
             {
                 recipe_name: "PIZZA",
@@ -138,7 +173,7 @@ export default class home extends Component {
                     <li onClick={this.active} className="nav-active" id="feed">Feeds</li>
                     <li onClick={this.active} className="" id="recipe">Recipes</li>
                     <li onClick={this.active} className="" id="food">Food</li>
-                    <li onClick={this.active} className="" id="service">Services</li>
+                    <li onClick={this.active} className="" id="services">Services</li>
                     <li onClick={this.active} className="" id="e-master-class">e-Masterclass</li>
                 </ul>
                 <div className="feeds sec active" id="feed-sec">
@@ -249,6 +284,143 @@ export default class home extends Component {
                                 </div>
                                 <div className="post-content">
                                     <h4 style={{ color: "green" }}>Ingredients</h4>
+                                    <p>{item.post_content}</p>
+                                </div>
+                            </div>
+                        )
+                    })}
+                </div>
+                <div className="food sec" id="food-sec">
+                    {this.foods.map(function (item) {
+                        return (
+                            <div className="each_food">
+                                <div className="primary-details">
+                                    <div className="l-div">
+                                        <div className="profile-img-container">
+                                            <img src={item.desktop_icon}></img>
+                                        </div>
+                                        <div className="user-detail-container">
+                                            <h3>{item.user_name}</h3>
+                                            <h5>{item.user_description}</h5>
+                                        </div>
+                                    </div>
+                                    <div style={{ paddingRight: "4px" }}>
+                                        <div style={{ textAlignLast: "right" }} className="post-option">
+                                            <img src={PostMenu}></img>
+                                        </div>
+                                        <div style={{ display: "flex" }}>
+                                            <div className="recipe_rattings">5</div>
+                                            <ReactStars
+                                                count={5}
+                                                onChange={null}
+                                                isHalf={true}
+                                                activeColor="#ffd700"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="user-post-container">
+                                    <img className="userpost" src={item.post}></img>
+                                    <img className="shopping-cart" src={ShoppingCart}></img>
+                                </div>
+                                
+                                <div className="food-price">
+                                    <b>Vegan Soft Tacos - $25</b>
+                                </div>
+                                <div className="post-activity">
+                                    <div className="l-div">
+                                        <div className="activity">
+                                            <img style={{ marginRight: "5px" }} src={Location}></img>
+                                            <p>{item.location}</p>
+                                        </div>
+                                        <div className="activity">
+                                            <p>2 Miles Away</p>
+                                        </div>
+                                    </div>
+                                    <div className="r-div">
+                                        <div className="activity">
+                                            <img src={EmptyHeart}></img>
+                                            <p>{item.likes}</p>
+                                        </div>
+                                        <div className="activity">
+                                            <img src={CommentIcon}></img>
+                                            <p>{item.comments}</p>
+                                        </div>
+                                        <div className="activity" style={{ marginRight: "0px" }}>
+                                            <img src={PostShare}></img>
+                                            <p>{item.share}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="post-content">
+                                    <p>{item.post_content}</p>
+                                </div>
+                            </div>
+                        )
+                    })}
+                </div>
+                <div className="services sec" id="services-sec">
+                    {this.foods.map(function (item) {
+                        return (
+                            <div className="each_food">
+                                <div className="primary-details">
+                                    <div className="l-div">
+                                        <div className="profile-img-container">
+                                            <img src={item.desktop_icon}></img>
+                                        </div>
+                                        <div className="user-detail-container">
+                                            <h3>{item.user_name}</h3>
+                                            <h5>{item.user_description}</h5>
+                                        </div>
+                                    </div>
+                                    <div style={{ paddingRight: "4px" }}>
+                                        <div style={{ textAlignLast: "right" }} className="post-option">
+                                            <img src={PostMenu}></img>
+                                        </div>
+                                        <div style={{ display: "flex" }}>
+                                            <div className="recipe_rattings">5</div>
+                                            <ReactStars
+                                                count={5}
+                                                onChange={null}
+                                                isHalf={true}
+                                                activeColor="#ffd700"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="user-post-container">
+                                    <img className="userpost" src={item.post}></img>
+                                </div>
+                                
+                                <div className="food-price">
+                                    <b>Vegan Soft Tacos - $25</b>
+                                </div>
+                                <div className="post-activity">
+                                    <div className="l-div">
+                                        <div className="activity">
+                                            <img style={{ marginRight: "5px" }} src={Location}></img>
+                                            <p>{item.location}</p>
+                                        </div>
+                                        <div className="activity">
+                                            <p>2 Miles Away</p>
+                                        </div>
+                                    </div>
+                                    <div className="r-div">
+                                        <div className="activity">
+                                            <img src={EmptyHeart}></img>
+                                            <p>{item.likes}</p>
+                                        </div>
+                                        <div className="activity">
+                                            <img src={CommentIcon}></img>
+                                            <p>{item.comments}</p>
+                                        </div>
+                                        <div className="activity" style={{ marginRight: "0px" }}>
+                                            <img src={PostShare}></img>
+                                            <p>{item.share}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="post-content">
                                     <p>{item.post_content}</p>
                                 </div>
                             </div>

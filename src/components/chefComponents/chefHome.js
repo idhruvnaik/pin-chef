@@ -15,6 +15,7 @@ import StarSection from './star';
 
 import '../commonComponents.css'
 import '../userFeeds.css'
+import '../chef-feed.scss'
 import '../user-feeds.scss'
 import '../common.scss'
 import '../media.scss'
@@ -115,7 +116,7 @@ class ChefComponents extends React.Component {
 
     render(){
         return (
-            <div className="outer-layout user-feed-page" style={{ background: "none" }}>
+            <div className="outer-layout user-feed-page chef-page" style={{ background: "none" }}>
                 <div className="header">
                     <div className="l-div">
                         <img src={FinalLogo} className="pin-chef-logo"></img>
