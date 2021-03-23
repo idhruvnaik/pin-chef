@@ -99,10 +99,11 @@ class UserReg extends React.Component {
         if (result){
             if (result.auth_token){
                 if(result.roleID == user_role){
-                    // reactLocalStorage.setObject(
-                    //     'token_details', 
-                    //     {'user': result.user_name, 'token': result.auth_token, remember: remember }
-                    // );
+                    result.remember = remember;
+                    reactLocalStorage.setObject(
+                        'token_details', 
+                        result
+                    );
                     console.log(result);
                     console.log(this);
                     this.props.addTokenToState(result);

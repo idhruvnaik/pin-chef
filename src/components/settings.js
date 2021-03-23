@@ -35,8 +35,40 @@ export default class settings extends Component {
 
         this.state = { checked: false };
         this.handleChange = this.handleChange.bind(this);
-        this.getUserData = this.getUserData.bind(this);
-        this.userdetails = {};
+        this.token = this.props.token;
+
+        this.foods = [
+            {
+                id: 1,
+                desktop_icon: UserPhoto,
+                user_name: "Jenah Stephonson",
+                user_description: "Home chef",
+                post: UserPost,
+                likes: 0,
+                comments: 0,
+                share: 0,
+                location: "Miami, FL",
+                time: "45 min ago",
+                rattings: "5.6",
+                delivery_status: "Delivery + Pick up/Takeaway",
+                post_content: "It was great night as we were at catering for a wedding. Thank you all of the staff that helped us to make event such a wonderful and delicious."
+            },
+            {
+                id: 2,
+                desktop_icon: UserPhoto,
+                user_name: "Jenah Stephonson",
+                user_description: "Home chef",
+                post: UserPost,
+                likes: 0,
+                comments: 0,
+                share: 0,
+                location: "Miami, FL",
+                time: "45 min ago",
+                rattings: "5.6",
+                delivery_status: "Delivery + Pick up/Takeaway",
+                post_content: "It was great night as we were at catering for a wedding. Thank you all of the staff that helped us to make event such a wonderful and delicious."
+            }
+        ]
 
         this.services = [
             {
