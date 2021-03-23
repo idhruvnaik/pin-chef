@@ -78,16 +78,12 @@ class UserFeeds extends React.Component {
     }
 
     showSection(element) {
-        console.log(element);
         if ($('.current').length > 0){
-            console.log("inside if");
-            console.log($(".current")[0].id);
             $(".current")[0].src = bar_icons[$('.current')[0].id];
             $(".current").removeClass('current');
         }
         $("#"+element).addClass('current');
         $("#"+element)[0].src = bar_icons[element + '_selected'];
-        console.log($("#"+element)[0]);
         // $(".active").attr('src', bar_icons[$(".active")[0].id]);
         // $(".active").removeClass('active');
         // $(".active").attr('src', bar_icons[element + '_selected']);

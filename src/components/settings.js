@@ -26,6 +26,8 @@ import Switch from "react-switch";
 import { PushMenu } from 'react-push-menu';
 import $ from 'jquery';
 
+import { getUserData } from '../services/apiOperations';
+
 export default class settings extends Component {
 
     constructor(props) {
@@ -33,39 +35,8 @@ export default class settings extends Component {
 
         this.state = { checked: false };
         this.handleChange = this.handleChange.bind(this);
-
-        this.foods = [
-            {
-                id: 1,
-                desktop_icon: UserPhoto,
-                user_name: "Jenah Stephonson",
-                user_description: "Home chef",
-                post: UserPost,
-                likes: 0,
-                comments: 0,
-                share: 0,
-                location: "Miami, FL",
-                time: "45 min ago",
-                rattings: "5.6",
-                delivery_status: "Delivery + Pick up/Takeaway",
-                post_content: "It was great night as we were at catering for a wedding. Thank you all of the staff that helped us to make event such a wonderful and delicious."
-            },
-            {
-                id: 2,
-                desktop_icon: UserPhoto,
-                user_name: "Jenah Stephonson",
-                user_description: "Home chef",
-                post: UserPost,
-                likes: 0,
-                comments: 0,
-                share: 0,
-                location: "Miami, FL",
-                time: "45 min ago",
-                rattings: "5.6",
-                delivery_status: "Delivery + Pick up/Takeaway",
-                post_content: "It was great night as we were at catering for a wedding. Thank you all of the staff that helped us to make event such a wonderful and delicious."
-            }
-        ]
+        this.getUserData = this.getUserData.bind(this);
+        this.userdetails = {};
 
         this.services = [
             {
@@ -148,6 +119,11 @@ export default class settings extends Component {
         this.setState({ checked });
     }
 
+    async getUserData(){
+        console.log(this);
+        await getUserData(this.token);
+    }
+
     open_menu(menu_class) {
         var menu_siblings = $('.'+menu_class).siblings();
         console.log(menu_siblings);
@@ -159,6 +135,10 @@ export default class settings extends Component {
         // }
         // $('.profile').css('display', 'none');
         $('.'+menu_class).css('display', 'block');
+    }
+
+    componentDidMount() {
+        this.getUserData();
     }
 
     render() {
@@ -174,7 +154,7 @@ export default class settings extends Component {
                                 <img src={UserPhoto}></img>
                             </div>
                             <div className="user-detail-container">
-                                <h3>John Doe</h3>
+                                <h3>{this.userdetails.name}</h3>
                                 <h5>User ID/Name</h5>
                             </div>
                         </div>

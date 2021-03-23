@@ -3,7 +3,7 @@ import {reactLocalStorage} from 'reactjs-localstorage';
 import { useDispatch } from 'react-redux';
 import { addToken, removeToken, signIn} from './actions';
 
-const apiHost = "http://52.87.176.237:8080/api"
+const apiHost = "http://35.175.243.253:8080/api"
 const registration_endpoint = "/auth/user"
 const login_endpoint = "/auth/login"
 const otp_endpoint = "/account/verify-otp"
@@ -194,6 +194,23 @@ export const likePost = async(post_id, token)=>{
     }
     try{
         let resp = await make_rest_call(apiURL, 'POST', data, headers);
+        return resp;
+    }
+    catch(err){
+        return {
+            status: false,
+            message: err.message
+        }
+    }
+}
+
+export const getUserData = async(token)=>{
+    let apiURL = apiHost + '/chef/getChefById/';
+    var headers = {
+        "Authorization": "Bearer " + token
+    };
+    try{
+        let resp = await make_rest_call(apiURL, 'GET', {}, headers);
         return resp;
     }
     catch(err){
