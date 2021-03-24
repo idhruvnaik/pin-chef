@@ -15,6 +15,9 @@ const recipe_endpoint = "/recipe"
 const e_class_endpoint = "/e-class"
 const food_endpoint = "/food"
 const service_endpoint = "/service"
+const food_purchase_endpoint = "/cart/food"
+const recipe_purchase_endpoint = "/cart/recipe"
+const master_class_purchase_endpoint = "/cart/masterclass"
 
 
 async function make_rest_call(apiURL, method, body, headers){
@@ -188,6 +191,57 @@ export const getAllFood = async(token)=>{
 
 export const getAllServices = async(token)=>{
     let apiURL = apiHost + service_endpoint;
+    var headers = {
+        "Authorization": "Bearer " + token
+    };
+    try{
+        let resp = await make_rest_call(apiURL, 'GET', {}, headers);
+        return resp;
+    }
+    catch(err){
+        return {
+            status: false,
+            message: err.message
+        }
+    }
+}
+
+export const getAllFoodPurchases = async(user_id, token)=>{
+    let apiURL = apiHost + food_purchase_endpoint + "/" + user_id;
+    var headers = {
+        "Authorization": "Bearer " + token
+    };
+    try{
+        let resp = await make_rest_call(apiURL, 'GET', {}, headers);
+        return resp;
+    }
+    catch(err){
+        return {
+            status: false,
+            message: err.message
+        }
+    }
+}
+
+export const getAllRecipePurchases = async(user_id, token)=>{
+    let apiURL = apiHost + recipe_purchase_endpoint + "/" + user_id;
+    var headers = {
+        "Authorization": "Bearer " + token
+    };
+    try{
+        let resp = await make_rest_call(apiURL, 'GET', {}, headers);
+        return resp;
+    }
+    catch(err){
+        return {
+            status: false,
+            message: err.message
+        }
+    }
+}
+
+export const getAllMasterClassPurchases = async(user_id, token)=>{
+    let apiURL = apiHost + master_class_purchase_endpoint + "/" + user_id;
     var headers = {
         "Authorization": "Bearer " + token
     };

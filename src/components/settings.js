@@ -111,7 +111,6 @@ export default class settings extends Component {
 
     async getUserData() {
         var user_details = await getChefById(this.user_id, this.token);
-        console.log(user_details, "from getUserData settings");
         if (user_details.status == false) {
             ReactDOM.render(
                 <Provider store={configureStore}>
@@ -119,25 +118,14 @@ export default class settings extends Component {
                 </Provider>, document.getElementById('settings-sec'));
             $("#settings-sec").css("padding-top", "50px");
         } else {
-            console.log("in else of getuserdata");
             this.setState({
                 user: user_details
             });
         }
-        // if (user_details.chef.length > 0) {
-
-        // } else {
-        //     ReactDOM.render(
-        //         <Provider store={configureStore}>
-        //             <h1>Error occurs while fetching user's data</h1>
-        //         </Provider>, document.getElementById('settings-sec'));
-        //     $("#settings-sec").css("padding-top", "50px");
-        // }
     }
 
     open_menu(menu_class) {
         var menu_siblings = $('.' + menu_class).siblings();
-        console.log(menu_siblings);
         menu_siblings.each(function () {
             $(this).css('display', 'none');
         })
@@ -158,7 +146,6 @@ export default class settings extends Component {
                 {/* <ul className="switch-content">
                     <li onClick={this.active} className="nav-active" id="food">MY PROFILE</li>
                 </ul> */}
-                {console.log(this.state, "while loading settings")}
                 <div className="profile">
                     <div className="primary-details">
                         <div className="l-div">

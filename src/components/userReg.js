@@ -11,6 +11,11 @@ import Email from '../assets/png_icons/Email icon.png';
 import showPassword from '../assets/png_icons/Show password icon.png';
 import HidePassword from '../assets/png_icons/Hide password icon.png';
 import Password from '../assets/png_icons/Password icon.png'
+
+import AppleIcon from '../assets/svg/AppleSignin'
+import FbIcon from '../assets/svg/FacebookSignin'
+import GoogleIcon from '../assets/svg/GoogleSignin'
+import Mail from '../assets/svg/MailIcon';
 import $ from 'jquery';
 // import 'reactjs-popup/dist/index.css';
 
@@ -58,7 +63,8 @@ class UserReg extends React.Component {
         forgot.style.opacity='0';
         registerBtn.classList.add('active');
         loginBtn.classList.remove('active');
-
+        $('#note').css("display", "none");
+        $('.multi-login').css("display", "none");
     };
 
     login() {
@@ -77,6 +83,8 @@ class UserReg extends React.Component {
         loginBtn.classList.add('active');
         registerBtn.classList.remove('active');
         registerform.style.opacity='0';
+        $('#note').css("display", "block");
+        $('.multi-login').css("display", "block");
     };
     change_user(){
         var user = document.querySelector('#user_choice span').innerHTML;
@@ -113,16 +121,25 @@ class UserReg extends React.Component {
                     //         email: document.querySelector('#loginform #username').value
                     //     }
                     // );
-                    this.props.history.push(
-                        {            
-                            pathname: '/Homepage'
-                        }
-                    );  
+                    if(result.roleID == 2){
+                        this.props.history.push(
+                            {            
+                                pathname: '/Chef/Home'
+                            }
+                        );  
+                    }else{
+                        this.props.history.push(
+                            {            
+                                pathname: '/Homepage'
+                            }
+                        );
+                    } 
+                    
                 }else{
                     if(result.roleID == 2){
-                        $('#errorMessage')[0].innerHTML = "User is not Chef";
-                    }else{
                         $('#errorMessage')[0].innerHTML = "User is not user";
+                    }else{
+                        $('#errorMessage')[0].innerHTML = "User is not Chef";
                     }
                 }
             }else{
@@ -179,9 +196,14 @@ class UserReg extends React.Component {
             <div className="outer-layout" style={{backgroundColor: "#555", backgroundImage: "none" }}>
                 <div className="container">
                     <div className="login-register">
-                        <div className="nav-buttons">
-                            <button id="loginBtn" className='active' onClick={this.login} >SIGN IN </button>
-                            <button id="registerBtn" onClick={this.registration}>SIGN UP</button>
+                        <div className="form-headers">
+                            <div style={{width:"20%"}}>
+                                <Mail />
+                            </div>
+                            <div className="nav-buttons">
+                                <button id="loginBtn" className='active' onClick={this.login} >SIGN IN </button>
+                                <button id="registerBtn" onClick={this.registration}>SIGN UP</button>
+                            </div>
                         </div>
                         <div id="user_choice">
                             <span onClick={this.change_user}>I AM A CHEF &gt;</span>
@@ -231,6 +253,14 @@ class UserReg extends React.Component {
                                 <input type="radio" name="user_sign_in" id="storeToken" onClick={this.save_token.bind(this)}></input>Keep me signed in
                             </div>
                             <a href="" style={{color:"#FFD54F"}}>FORGOT PASSWORD</a>
+                        </div>
+                        <div className="multi-login">
+                            <AppleIcon />
+                            <FbIcon />
+                            <GoogleIcon />
+                        </div>
+                        <div id="note">
+                            Signing In or Signing Up means you accept our <u><b>Terms/Conditions</b></u> &amp; <u><b>Privacy Policy</b></u>
                         </div>
                     </div>
                 </div>

@@ -190,92 +190,98 @@ export default class home extends Component {
     }
 
     async initialize_feeds(){
-        let post_result = await getAllPosts(this.token);
-        let chef_result = await this.initialize_chefs();
-        if(chef_result.length > 0){
-            if(post_result.length > 0){
-                if(post_result.status == false){
-                    console.log(post_result.message);
-                    ReactDOM.render(
-                        <Provider store={configureStore}>
-                            <NoFeeds />
-                        </Provider>, document.getElementById('feed-sec'));
-                    $("#feed-sec").css("padding-top", "50px");
-                }else{
-                    post_result.map(function (item) {
-                        let chef_details = chef_result.find(chef => chef._id == item.chef_id);
-                        item.chef = chef_details;
-                    })
+        if (this.token){
+            let post_result = await getAllPosts(this.token);
+            let chef_result = await this.initialize_chefs();
+            if(chef_result.length > 0){
+                if(post_result.length > 0){
+                    if(post_result.status == false){
+                        console.log(post_result.message);
+                        ReactDOM.render(
+                            <Provider store={configureStore}>
+                                <NoFeeds />
+                            </Provider>, document.getElementById('feed-sec'));
+                        $("#feed-sec").css("padding-top", "50px");
+                    }else{
+                        post_result.map(function (item) {
+                            let chef_details = chef_result.find(chef => chef._id == item.chef_id);
+                            item.chef = chef_details;
+                        })
+                    }
                 }
-            }
 
-            this.setState({
-                feeds: post_result});
-        }  else{
-            ReactDOM.render(
-                <Provider store={configureStore}>
-                    <NoFeeds />
-                </Provider>, document.getElementById('feed-sec'));
-            $("#feed-sec").css("padding-top", "50px");
+                this.setState({
+                    feeds: post_result});
+            }  else{
+                ReactDOM.render(
+                    <Provider store={configureStore}>
+                        <NoFeeds />
+                    </Provider>, document.getElementById('feed-sec'));
+                $("#feed-sec").css("padding-top", "50px");
+            }
         }
     }
 
     async initialize_recipes(){
-        let recipe_result = await getAllRecipes(this.token);
-        let chef_result = await this.initialize_chefs();
-        if(chef_result.length > 0){
-            if(recipe_result.length > 0){
-                if(recipe_result.status == false){
-                    console.log(recipe_result.message);
-                    ReactDOM.render(
-                        <Provider store={configureStore}>
-                            <NoRecipes />
-                        </Provider>, document.getElementById('recipe-sec'));
-                    $("#recipe-sec").css("padding-top", "50px");
-                }else{
-                    recipe_result.map(function (item) {
-                        let chef_details = chef_result.find(chef => chef._id == item.chef_id);
-                        item.chef = chef_details;
-                    })
+        if (this.token){
+            let recipe_result = await getAllRecipes(this.token);
+            let chef_result = await this.initialize_chefs();
+            if(chef_result.length > 0){
+                if(recipe_result.length > 0){
+                    if(recipe_result.status == false){
+                        console.log(recipe_result.message);
+                        ReactDOM.render(
+                            <Provider store={configureStore}>
+                                <NoRecipes />
+                            </Provider>, document.getElementById('recipe-sec'));
+                        $("#recipe-sec").css("padding-top", "50px");
+                    }else{
+                        recipe_result.map(function (item) {
+                            let chef_details = chef_result.find(chef => chef._id == item.chef_id);
+                            item.chef = chef_details;
+                        })
+                    }
                 }
-            }
 
-            this.setState({
-                recipes: recipe_result});
-        } else {
-            ReactDOM.render(
-                <Provider store={configureStore}>
-                    <NoRecipes />
-                </Provider>, document.getElementById('recipe-sec'));
-            $("#recipe-sec").css("padding-top", "50px");
-        } 
+                this.setState({
+                    recipes: recipe_result});
+            } else {
+                ReactDOM.render(
+                    <Provider store={configureStore}>
+                        <NoRecipes />
+                    </Provider>, document.getElementById('recipe-sec'));
+                $("#recipe-sec").css("padding-top", "50px");
+            } 
+        }
     }
 
     async initialize_e_master_class(){
-        let master_class_result = await getAllMasterClasses(this.token);
-        let chef_result = await this.initialize_chefs();
-        if(chef_result.length > 0){
-            if(master_class_result.length > 0){
-                if(master_class_result.status == false){
-                    console.log(master_class_result.message);
-                    ReactDOM.render(
-                        <Provider store={configureStore}>
-                            <NoClasses />
-                        </Provider>, document.getElementById('e-master-class-sec'));
-                }else{
-                    master_class_result.map(function (item) {
-                        let chef_details = chef_result.find(chef => chef._id == item.chef_id);
-                        item.chef = chef_details;
-                    })
+        if(this.token){
+            let master_class_result = await getAllMasterClasses(this.token);
+            let chef_result = await this.initialize_chefs();
+            if(chef_result.length > 0){
+                if(master_class_result.length > 0){
+                    if(master_class_result.status == false){
+                        console.log(master_class_result.message);
+                        ReactDOM.render(
+                            <Provider store={configureStore}>
+                                <NoClasses />
+                            </Provider>, document.getElementById('e-master-class-sec'));
+                    }else{
+                        master_class_result.map(function (item) {
+                            let chef_details = chef_result.find(chef => chef._id == item.chef_id);
+                            item.chef = chef_details;
+                        })
+                    }
                 }
+                this.setState({
+                    master_classes: master_class_result});
+            } else {
+                ReactDOM.render(
+                    <Provider store={configureStore}>
+                        <NoClasses />
+                    </Provider>, document.getElementById('e-master-class-sec'));
             }
-            this.setState({
-                master_classes: master_class_result});
-        } else {
-            ReactDOM.render(
-                <Provider store={configureStore}>
-                    <NoClasses />
-                </Provider>, document.getElementById('e-master-class-sec'));
         }
     }
 
