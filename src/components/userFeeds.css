@@ -161,7 +161,7 @@ ul.switch-content-1 li {
   align-items: flex-start;
   justify-content: space-between;
 }
-.recipe_rattings {
+.recipe_rattings, .feed_rattings {
   align-self: center;
   margin-right: 10px;
   font-weight: 500;
@@ -840,3 +840,8 @@ ul.switch-content-1 li {
   border-bottom-left-radius: 15px; */ 
   border-radius: 15px 0px 15px 15px;
 }
+
+
+
+
+

@@ -31,6 +31,9 @@
   .login-register, .otp-container .login-register{
     width: 95%;
   }
+  .some-custom-class{
+    width: 40%;
+  }
 }
 
 @media (max-width: 481px) {
@@ -88,6 +91,9 @@
   }
   .form-headers .nav-buttons{
     font-size: 13px;
+  }
+  .some-custom-class{
+    width: 100%;
   }
   ::placeholder {
     font-size: 12px;

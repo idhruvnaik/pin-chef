@@ -167,42 +167,42 @@ export default class home extends Component {
             $('.nav-active').removeClass('nav-active');
             e.target.classList.add('nav-active');
         }
-        
+
     }
 
-    async initialize_chefs(){
+    async initialize_chefs() {
         let chef_result = await getAllChef(this.token);
-        if(chef_result.length > 0){
-            if(chef_result.status == false){
+        if (chef_result.length > 0) {
+            if (chef_result.status == false) {
                 // this.setState({
                 //     chefs: []});
                 return [];
-            } else{
+            } else {
                 // this.setState({
                 //     chefs: chef_result});
                 return chef_result;
             }
-        }  else{
+        } else {
             // this.setState({
             //     chefs: []});
             return [];
         }
     }
 
-    async initialize_feeds(){
-        if (this.token){
+    async initialize_feeds() {
+        if (this.token) {
             let post_result = await getAllPosts(this.token);
             let chef_result = await this.initialize_chefs();
-            if(chef_result.length > 0){
-                if(post_result.length > 0){
-                    if(post_result.status == false){
+            if (chef_result.length > 0) {
+                if (post_result.length > 0) {
+                    if (post_result.status == false) {
                         console.log(post_result.message);
                         ReactDOM.render(
                             <Provider store={configureStore}>
                                 <NoFeeds />
                             </Provider>, document.getElementById('feed-sec'));
                         $("#feed-sec").css("padding-top", "50px");
-                    }else{
+                    } else {
                         post_result.map(function (item) {
                             let chef_details = chef_result.find(chef => chef._id == item.chef_id);
                             item.chef = chef_details;
@@ -211,8 +211,9 @@ export default class home extends Component {
                 }
 
                 this.setState({
-                    feeds: post_result});
-            }  else{
+                    feeds: post_result
+                });
+            } else {
                 ReactDOM.render(
                     <Provider store={configureStore}>
                         <NoFeeds />
@@ -222,20 +223,20 @@ export default class home extends Component {
         }
     }
 
-    async initialize_recipes(){
-        if (this.token){
+    async initialize_recipes() {
+        if (this.token) {
             let recipe_result = await getAllRecipes(this.token);
             let chef_result = await this.initialize_chefs();
-            if(chef_result.length > 0){
-                if(recipe_result.length > 0){
-                    if(recipe_result.status == false){
+            if (chef_result.length > 0) {
+                if (recipe_result.length > 0) {
+                    if (recipe_result.status == false) {
                         console.log(recipe_result.message);
                         ReactDOM.render(
                             <Provider store={configureStore}>
                                 <NoRecipes />
                             </Provider>, document.getElementById('recipe-sec'));
                         $("#recipe-sec").css("padding-top", "50px");
-                    }else{
+                    } else {
                         recipe_result.map(function (item) {
                             let chef_details = chef_result.find(chef => chef._id == item.chef_id);
                             item.chef = chef_details;
@@ -244,30 +245,31 @@ export default class home extends Component {
                 }
 
                 this.setState({
-                    recipes: recipe_result});
+                    recipes: recipe_result
+                });
             } else {
                 ReactDOM.render(
                     <Provider store={configureStore}>
                         <NoRecipes />
                     </Provider>, document.getElementById('recipe-sec'));
                 $("#recipe-sec").css("padding-top", "50px");
-            } 
+            }
         }
     }
 
-    async initialize_e_master_class(){
-        if(this.token){
+    async initialize_e_master_class() {
+        if (this.token) {
             let master_class_result = await getAllMasterClasses(this.token);
             let chef_result = await this.initialize_chefs();
-            if(chef_result.length > 0){
-                if(master_class_result.length > 0){
-                    if(master_class_result.status == false){
+            if (chef_result.length > 0) {
+                if (master_class_result.length > 0) {
+                    if (master_class_result.status == false) {
                         console.log(master_class_result.message);
                         ReactDOM.render(
                             <Provider store={configureStore}>
                                 <NoClasses />
                             </Provider>, document.getElementById('e-master-class-sec'));
-                    }else{
+                    } else {
                         master_class_result.map(function (item) {
                             let chef_details = chef_result.find(chef => chef._id == item.chef_id);
                             item.chef = chef_details;
@@ -275,7 +277,8 @@ export default class home extends Component {
                     }
                 }
                 this.setState({
-                    master_classes: master_class_result});
+                    master_classes: master_class_result
+                });
             } else {
                 ReactDOM.render(
                     <Provider store={configureStore}>
@@ -291,7 +294,7 @@ export default class home extends Component {
         this.initialize_recipes();
         this.initialize_e_master_class();
     }
-    like_post(e){
+    like_post(e) {
         console.log(e.target.id);
         likePost(e.target.id, this.token);
         this.initialize_feeds();
@@ -318,7 +321,19 @@ export default class home extends Component {
                                             <h5>{item.chef && item.chef.chef_details.position}</h5>
                                         </div>
                                     </div>
-                                    <div className="post-option"><img src={PostMenu}></img></div>
+                                    <div style={{ paddingRight: "4px" }}>
+                                        <div className="post-option" style={{ textAlignLast: "right" }}><img src={PostMenu}></img></div>
+                                        <div style={{ display: "flex" }}>
+                                            <div className="feed_rattings">{item.rate}</div>
+                                            <ReactStars
+                                                count={5}
+                                                value={item.rate}
+                                                onChange={null}
+                                                isHalf={true}
+                                                activeColor="#ffd700"
+                                            />
+                                        </div>
+                                    </div>
                                 </div>
                                 <div className="post-image">
                                     <img className="userpost" src={item.post_content && item.post_content}></img>
@@ -373,10 +388,10 @@ export default class home extends Component {
                                             <img src={PostMenu}></img>
                                         </div>
                                         <div style={{ display: "flex" }}>
-                                            <div className="recipe_rattings">{item.rating}</div>
+                                            <div className="recipe_rattings">{item.rate}</div>
                                             <ReactStars
                                                 count={5}
-                                                value={item.rating}
+                                                value={item.rate}
                                                 onChange={null}
                                                 isHalf={true}
                                                 activeColor="#ffd700"

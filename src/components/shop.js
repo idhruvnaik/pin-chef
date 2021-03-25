@@ -23,9 +23,8 @@ export default class home extends Component {
         this.token = this.props.token;
         this.initialize_chefs = this.initialize_chefs.bind(this);
         this.initialize_food = this.initialize_food.bind(this);
-        this.initialize_services = this.initialize_services(this);
+        this.initialize_services = this.initialize_services.bind(this);
         this.state = {
-            chefs: [],
             food: [],
             services: []
         }
@@ -114,21 +113,18 @@ export default class home extends Component {
         let chef_result = await getAllChef(this.token);
         if(chef_result.length > 0){
             if(chef_result.status == false){
-                this.setState({
-                    chefs: []});
+                return [];
             } else{
-                this.setState({
-                    chefs: chef_result});
+                return chef_result;
             }
         }  else{
-            this.setState({
-                chefs: []});
+            return [];
         }
     }
 
     async initialize_food(){
         let food_result = await getAllFood(this.token);
-        let chef_result = await this.state.chefs;
+        let chef_result = await this.initialize_chefs();
         if(chef_result.length > 0){
             if(food_result.length > 0){
                 if(food_result.status == false){
@@ -159,7 +155,7 @@ export default class home extends Component {
 
     async initialize_services(){
         let service_result = await getAllServices(this.token);
-        let chef_result = await this.state.chefs;
+        let chef_result = await this.initialize_chefs();
         if(chef_result.length > 0){
             if(service_result.length > 0){
                 if(service_result.status == false){
@@ -189,8 +185,8 @@ export default class home extends Component {
     }
 
     componentDidMount() {
-        this.initialize_chefs();
         this.initialize_food();
+        this.initialize_services();
     }
 
     render() {
@@ -201,7 +197,6 @@ export default class home extends Component {
                     <li onClick={this.active} className="" id="service">Services</li>
                 </ul>
                 <div className="food sec active" id="food-sec">
-                    {console.log(this.state)}
                     {this.state.food.length > 0 && this.state.food.map((item) => {
                         return (
                             <div className="each_food">
@@ -220,9 +215,10 @@ export default class home extends Component {
                                             <img src={PostMenu}></img>
                                         </div>
                                         <div style={{ display: "flex" }}>
-                                            <div className="recipe_rattings">5</div>
+                                            <div className="recipe_rattings">{item.rate}</div>
                                             <ReactStars
                                                 count={5}
+                                                value={item.rate}
                                                 onChange={null}
                                                 isHalf={true}
                                                 activeColor="#ffd700"
@@ -288,10 +284,11 @@ export default class home extends Component {
                                             <img src={PostMenu}></img>
                                         </div>
                                         <div style={{ display: "flex" }}>
-                                            <div className="recipe_rattings">5</div>
+                                            <div className="recipe_rattings">{item.rate}</div>
                                             <ReactStars
                                                 count={5}
                                                 onChange={null}
+                                                value={item.rate}
                                                 isHalf={true}
                                                 activeColor="#ffd700"
                                             />
@@ -314,7 +311,7 @@ export default class home extends Component {
                                     </div>
                                     <div className="r-div">
                                         <div className="activity">
-                                            <img src={EmptyHeart} height="30"></img>
+                                            <img src={item.is_like ? FullHeart : EmptyHeart} height="30"></img>
                                             <p>{item.likes}</p>
                                         </div>
                                         <div className="activity">

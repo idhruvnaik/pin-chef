@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactStars from "react-rating-stars-component";
 import UserPhoto from '../assets/images/photo2.png';
 import FollowersIcon from '../assets/png_icons/followers icon.png'
-import { addTokenToState, getAllChef } from '../services/apiOperations';
+import { addTokenToState, getAllChef, getAllFollowedChef } from '../services/apiOperations';
 import { connect } from "react-redux";
 // import { useHistory  } from 'react-router-dom';
 
@@ -15,9 +15,12 @@ class chef extends React.Component {
         super(props);
 
         this.token = this.props.token;
+        this.user_id = this.props.user_id;
         this.initialize_chefs = this.initialize_chefs.bind(this);
+        this.initialize_followed_chefs = this.initialize_followed_chefs.bind(this);
         this.state = {
-            chefs: []
+            chefs: [],
+            followed_chefs: []
         }
 
         this.chefs = [
@@ -92,8 +95,25 @@ class chef extends React.Component {
         }
     }
 
+    async initialize_followed_chefs(){
+        let chef_result = await getAllFollowedChef(this.user_id, this.token);
+        if(chef_result.length > 0){
+            if(chef_result.status == false){
+                this.setState({
+                    followed_chefs: []});
+            } else{
+                this.setState({
+                    followed_chefs: chef_result});
+            }
+        }  else{
+            this.setState({
+                followed_chefs: []});
+        }
+    }
+
     componentDidMount() {
         this.initialize_chefs();
+        this.initialize_followed_chefs();
     }
 
     render() {
@@ -104,7 +124,8 @@ class chef extends React.Component {
                     <li onClick={this.active} className="" id="following-chef">Following Chefs</li>
                 </ul>
                 <div className="all_chefs sec active" id="all-chef-sec">
-                    {this.state.chefs.map((item) => {
+                    {this.state.chefs.length > 0 && this.state.chefs.map((item) => {
+                        console.log(item.is_follow);
                         return (
                             <div className="chef">
                                 <div className="chef_details">
@@ -126,7 +147,7 @@ class chef extends React.Component {
                                                 <img src={FollowersIcon}></img>
                                                 <span>{item.followerCount} Followers</span>
                                             </div>
-                                            <button type="button">{item.is_follow ? "Follow": "Unfollow"}</button>
+                                            <button type="button">{item.is_follow ? "Unfollow": "Follow"}</button>
                                         </div>
                                     </div>
                                     <h5>{item.chef_details.position}</h5>
@@ -142,11 +163,11 @@ class chef extends React.Component {
                     })}
                 </div>
                 <div className="following_chefs sec" id="following-chef-sec">
-                    {this.chefs.map(function (item) {
+                    {this.state.followed_chefs.map((item) => {
                         return (
                             <div className="chef">
                                 <div className="chef_details">
-                                    <img src={item.desktop_icon}></img>
+                                    <img src={item.profile_image}></img>
                                     <ReactStars
                                         count={5}
                                         onChange={null}
@@ -161,17 +182,17 @@ class chef extends React.Component {
                                         <div className="follower-count">
                                             <div>
                                                 <img src={FollowersIcon}></img>
-                                                <span>{item.no_of_followers} Followers</span>
+                                                <span>{item.followerCount} Followers</span>
                                             </div>
-                                            <button type="button">Follow</button>
+                                            <button type="button">Unfollow</button>
                                         </div>
                                     </div>
-                                    <p>{item.designation}</p>
-                                    <p>{item.specialization}</p>
-                                    <p>{item.address}</p>
+                                    <p>{item.chef_details.position}</p>
+                                    <p>{item.chef_details.specialty.join(", ")}</p>
+                                    <p>{item.chef_details.background_info}</p>
                                     <div className="location" style={{ color: "green" }}>
                                         <img src={LocationIcon}></img>
-                                        &nbsp;&nbsp;{item.location}
+                                        &nbsp;&nbsp;{item.chef_details.service_location}
                                     </div>
                                 </div>
                             </div>

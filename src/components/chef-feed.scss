@@ -34,111 +34,124 @@
     .services {
       display: none;
     }
-    .pop-up {
-      .pop-up-pad {
+  }
+}
+.pop-up.feed {
+  .pop-up-pad {
+    padding: 10px;
+    .popup-header {
+      background-color: #5b5353;
+      border-radius: 10px;
+      .header-pad {
         padding: 10px;
-        .popup-header {
-          background-color: #5b5353;
-          border-radius: 10px;
-          .header-pad {
-            padding: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            h3 {
-              color: #ffffff;
-            }
-            .post-img {
-              height: 50px;
-            }
-          }
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        h3 {
+          color: #ffffff;
         }
-        .popup-content {
-          padding: 10px;
-          .icon-bar {
-            padding: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 0% 5%;
-            border-bottom: 5px solid #ffd54f;
-            border-radius: 5px;
-            margin-bottom: 30px;
-            img {
-              height: 30px;
-            }
+        .post-img {
+          height: 50px;
+        }
+      }
+    }
+    .popup-content {
+      padding: 10px;
+      .icon-bar {
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0% 5%;
+        border-bottom: 5px solid #ffd54f;
+        border-radius: 5px;
+        margin-bottom: 30px;
+        img {
+          height: 30px;
+        }
+      }
+      .form-container {
+        margin: 0% 5%;
+        margin-bottom: 20px;
+        .form-group {
+          border: 1px solid gainsboro;
+          border-radius: 10px;
+          margin-bottom: 10px;
+          &:last-child {
+            margin-bottom: 0px;
           }
-          .form-container {
-            margin: 0% 5%;
-            margin-bottom: 20px;
-            .form-group {
-              border: 1px solid gainsboro;
-              border-radius: 10px;
-              margin-bottom: 10px;
-              &:last-child {
-                margin-bottom: 0px;
-              }
-              &.height {
-                height: 200px;
+          &.height {
+            height: 200px;
+          }
+          input {
+            text-align: left;
+            width: calc(100% - 30px);
+            height: calc(100% - 30px);
+            padding: 10px;
+          }
+          &.img-field {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .image-upload {
+              label {
+                img {
+                  height: 70px;
+                }
               }
               input {
-                text-align: left;
-                width: calc(100% - 30px);
-                height: calc(100% - 30px);
-                padding: 10px;
-              }
-              &.img-field {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                .image-upload {
-                  label {
-                    img {
-                      height: 70px;
-                    }
-                  }
-                  input {
-                    display: none;
-                  }
-                }
-              }
-              &.location {
-                display: flex;
-                align-items: center;
-                padding: 10px;
-                .location-img {
-                  width: 30px;
-                  height: 30px;
-                }
-                input {
-                  flex: 1;
-                }
+                display: none;
               }
             }
           }
-          .popup-footer {
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
-              margin: 0% 5%;
-            .footer-btn {
-                padding: 10px;
-                border-radius: 15px;
-                font-weight: 600;
-                font-size: 18px;
-                margin: 0;
-                &.light{
-                    background-color: #D9D9D9;
-                    color: #5B5353;
-                }
-                &.dark{
-                    background-color: #5B5353;
-                    color: #ffffff;
-                }
+          &.location {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            .location-img {
+              width: 30px;
+              height: 30px;
+            }
+            input {
+              flex: 1;
             }
           }
         }
       }
+      .popup-footer {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin: 0% 5%;
+        .footer-btn {
+            padding: 10px;
+            border-radius: 15px;
+            font-weight: 600;
+            font-size: 18px;
+            margin: 0;
+            &.light{
+                background-color: #D9D9D9;
+                color: #5B5353;
+            }
+            &.dark{
+                background-color: #5B5353;
+                color: #ffffff;
+            }
+        }
+      }
     }
   }
+}
+.slide-pane__overlay{
+  display: flex;
+  justify-content: center;
+}
+.some-custom-class{
+  border-radius: 15px;
+}
+.slide-pane__header{
+  background-color: #5B5353;
+}
+.slide-pane__content {
+  padding: 0px;
 }

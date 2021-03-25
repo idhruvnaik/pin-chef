@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ReactStars from "react-rating-stars-component";
+import ImageUploader from "react-images-upload";
 import SlidingPane from "react-sliding-pane";
 import "react-sliding-pane/dist/react-sliding-pane.css";
 
@@ -33,6 +34,11 @@ import { Button } from "rsuite";
 export default class home extends Component {
   constructor(props) {
     super(props);
+    this.onDrop = this.onDrop.bind(this);
+    this.state = {
+      isPaneOpenLeft: false,
+      pictures: []
+    }
 
     this.feeds = [
       {
@@ -179,8 +185,9 @@ export default class home extends Component {
     this.isFeedPopup = false;
 
     this.toggleFeedPopup = () => {
-      this.isFeedPopup = !this.isFeedPopup;
-      console.log(this.isFeedPopup);
+      this.setState({ isPaneOpenLeft: true });
+      // this.isFeedPopup = !this.isFeedPopup;
+      // console.log(this.isFeedPopup);
     };
 
     this.active = (e) => {
@@ -190,6 +197,12 @@ export default class home extends Component {
       $(".nav-active").removeClass("nav-active");
       e.target.classList.add("nav-active");
     };
+  }
+
+  onDrop(pictureFiles, pictureDataURLs) {
+    this.setState({
+      pictures: this.state.pictures.concat(pictureFiles)
+    });
   }
 
   render() {
@@ -271,54 +284,65 @@ export default class home extends Component {
           <SlidingPane
             className="some-custom-class"
             overlayClassName="some-custom-overlay-class"
-            isOpen={this.isFeedPopup}
-            title="Hey, it is optional pane title.  I can be React component too."
-            subtitle="Optional subtitle."
+            isOpen={this.state.isPaneOpenLeft}
+            from={"bottom"}
+            title="Create a Post"
+            subtitle=""
             onRequestClose={() => {
-              return this.toggleFeedPopup;
+              this.setState({ isPaneOpenLeft: false });
+            }}
+            onAfterOpen={() => {
+              $('.slide-pane__header').css("background-color", "#5B5353");
+              $('.slide-pane__header').css("color", "white");
+              $('.slide-pane__header').css("border-radius", "15px");
+              $('.slide-pane__header').css("border-bottom-left-radius", "0px");
             }}
           >
-            <div>And I am pane content. BTW, what rocks?</div>
-            <br /> */}
-          </SlidingPane>
-          {/* <div className="pop-up">
-            <div className="pop-up-pad">
-              <div className="popup-header">
-                <div className="header-pad">
-                  <h3>Create a Post</h3>
-                  <img className="post-img" src={PostIcon}></img>
-                </div>
-              </div>
-              <div className="popup-content">
-                <div className="icon-bar">
-                  <img src={GalleryIcon}></img>
-                  <img src={DescriptionIcon}></img>
-                  <img src={LocationIcon}></img>
-                </div>
-                <div className="form-container">
-                  <div className="form-group height img-field">
-                    <div class="image-upload">
-                      <label for="file-input">
-                        <img src={ImageUploadIcon} />
-                      </label>
-                      <input id="file-input" type="file" />
+            <div className="pop-up feed">
+              <div className="pop-up-pad">
+                <div className="popup-content">
+                  <div className="icon-bar">
+                    <img src={GalleryIcon}></img>
+                    <img src={DescriptionIcon}></img>
+                    <img src={LocationIcon}></img>
+                  </div>
+                  <div className="form-container">
+                    <div className="form-group height img-field">
+                      <div class="image-upload">
+                        <label for="file-input">
+                          
+                          <img src={ImageUploadIcon} />
+                        </label>
+                        <input id="file-input" type="file" />
+                        {/* <ImageUploader
+                          withIcon={true}
+                          withPreview={true}
+                          label=""
+                          singleImage={true}
+                          buttonText="Upload Images"
+                          onChange={this.onDrop}
+                          imgExtension={[".jpg", ".gif", ".png", ".gif", ".svg"]}
+                          maxFileSize={1048576}
+                          fileSizeError=" file size is too big"
+                        /> */}
+                      </div>
+                    </div>
+                    <div className="form-group height">
+                      <input placeholder="Write post description" type="textarea" />
+                    </div>
+                    <div className="form-group location">
+                      <img src={LocationPlusIcon} className="location-img"></img>
+                      <input placeholder="Write post description" type="text" />
                     </div>
                   </div>
-                  <div className="form-group height">
-                     <input placeholder="Write post description" type="textarea" />
-                  </div>
-                  <div className="form-group location">
-                     <img src={LocationPlusIcon} className="location-img"></img>
-                     <input placeholder="Write post description" type="text" />
-                  </div>
-                </div>
-                <div className="popup-footer">
+                  <div className="popup-footer">
                     <button className="footer-btn light">Cancel</button>
                     <button className="footer-btn dark">Post</button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div> */}
+          </SlidingPane>
         </div>
         <div className="recipes sec" id="recipe-sec">
           {this.recipes.map(function (item) {

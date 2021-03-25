@@ -8,7 +8,8 @@ import UserPhoto from "../assets/images/photo2.png";
 import UserPost from "../assets/images/bannerFeed2.png";
 import PostMenu from "../assets/png_icons/Post menu icon@2x.png";
 import CommentIcon from "../assets/png_icons/Comment icon@2x.png";
-import EmptyHeart from "../assets/png_icons/Empty heart@2x.png";
+import EmptyHeart from '../assets/png_icons/Empty heart (2).png';
+import FullHeart from '../assets/png_icons/Filled heart.png';
 import PostShare from "../assets/png_icons/Post Share count@2x.png";
 import Time from "../assets/png_icons/time recipe@2x.png";
 import Recipe_time from "../assets/png_icons/time recipe.png";
@@ -17,10 +18,14 @@ import RightArrowIcon from "../assets/png_icons/right-arrow-icon.png";
 import DownArrowIcon from "../assets/png_icons/down-arrow-icon.png";
 import CopyIcon from "../assets/png_icons/copy-icon.png";
 import LeftBack from '../assets/png_icons/Green back arrow.png';
+import LocationIcon from '../assets/png_icons/Location outlined@2x.png';
 
+import NoFeeds from '../assets/svg/NoFeedPost';
+import NoRecipes from '../assets/svg/NoRecipesPosts';
 import NoPurchases from '../assets/svg/NoPurchases';
-import { getAllChef, getAllPosts, likePost, getAllRecipes, getAllMasterClasses, getAllFoodPurchases, getAllRecipePurchases, getAllMasterClassPurchases } from '../services/apiOperations';
+import { getAllChef, getAllPosts, likePost, getAllRecipes, getAllPurchases, getAllFood, getAllServices } from '../services/apiOperations';
 import $ from "jquery";
+import chef from "./chefComponents/chef";
 
 export default class home extends Component {
   constructor(props) {
@@ -28,13 +33,18 @@ export default class home extends Component {
     this.open_purchase_details = this.open_purchase_details.bind(this);
     this.initialize_food_recipe_purchases = this.initialize_food_recipe_purchases.bind(this);
     this.initialize_chefs = this.initialize_chefs.bind(this);
+    this.initialize_feeds = this.initialize_feeds.bind(this);
+    this.initialize_recipes = this.initialize_recipes.bind(this);
+    this.initialize_food_services = this.initialize_food_services.bind(this);
+    this.like_post = this.like_post.bind(this);
 
     this.state = {
-      food: [],
+      food_services: [],
       feeds: [],
       recipes: [],
       food_recipe_purchases: [],
-      master_class_purchases: []
+      master_class_purchases: [],
+      all_purchases: []
     }
 
     this.token = this.props.token;
@@ -206,33 +216,93 @@ export default class home extends Component {
     }
   }
 
+  async initialize_feeds() {
+    if (this.token) {
+      let post_result = await getAllPosts(this.token);
+      let chef_result = await this.initialize_chefs();
+      if (chef_result.length > 0) {
+        if (post_result.length > 0) {
+          if (post_result.status == false) {
+            console.log(post_result.message);
+            ReactDOM.render(
+              <Provider store={configureStore}>
+                <NoFeeds />
+              </Provider>, document.getElementById('star-feed-sec'));
+            $("#star-feed-sec").css("padding-top", "50px");
+          } else {
+            post_result.map(function (item) {
+              let chef_details = chef_result.find(chef => chef._id == item.chef_id);
+              item.chef = chef_details;
+            })
+          }
+        }
+
+        this.setState({
+          feeds: post_result
+        });
+      } else {
+        ReactDOM.render(
+          <Provider store={configureStore}>
+            <NoFeeds />
+          </Provider>, document.getElementById('star-feed-sec'));
+        $("#star-feed-sec").css("padding-top", "50px");
+      }
+    }
+  }
+
+  async initialize_recipes() {
+    if (this.token) {
+      let recipe_result = await getAllRecipes(this.token);
+      let chef_result = await this.initialize_chefs();
+      if (chef_result.length > 0) {
+        if (recipe_result.length > 0) {
+          if (recipe_result.status == false) {
+            console.log(recipe_result.message);
+            ReactDOM.render(
+              <Provider store={configureStore}>
+                <NoRecipes />
+              </Provider>, document.getElementById('star-recipe-sec'));
+            $("#star-recipe-sec").css("padding-top", "50px");
+          } else {
+            recipe_result.map(function (item) {
+              let chef_details = chef_result.find(chef => chef._id == item.chef_id);
+              item.chef = chef_details;
+            })
+          }
+        }
+
+        this.setState({
+          recipes: recipe_result
+        });
+      } else {
+        ReactDOM.render(
+          <Provider store={configureStore}>
+            <NoRecipes />
+          </Provider>, document.getElementById('star-recipe-sec'));
+        $("#star-recipe-sec").css("padding-top", "50px");
+      }
+    }
+  }
+
   async initialize_food_recipe_purchases() {
     if (this.token) {
-      let food_purchases = await getAllFoodPurchases(this.user_id, this.token);
-      let recipe_purchases = await getAllRecipePurchases(this.user_id, this.token);
+      let all_purchases = await getAllPurchases(this.user_id, this.token);
       let chef_result = await this.initialize_chefs();
-      var temp = [];
       if (chef_result.length > 0) {
-        if (recipe_purchases.status == false && food_purchases.status == false) {
+        if (all_purchases.status == false) {
           ReactDOM.render(
             <Provider store={configureStore}>
               <NoPurchases />
             </Provider>, document.getElementById('my-purchase-sec'));
           $("#my-purchase-sec").css("padding-top", "50px");
         } else {
-          if (!(recipe_purchases.status) && recipe_purchases.status != false) {
-            recipe_purchases.items.map(function (item) {
-              let chef_details = chef_result.find(chef => chef._id == item.chef_id);
-              item.chef = chef_details;
+          if (!(all_purchases.status) && all_purchases.status != false) {
+            all_purchases.map(function (purchase) {
+              purchase.items.map(function (item) {
+                let chef_details = chef_result.find(chef => chef._id == item.chef_id);
+                item.chef = chef_details;
+              })
             })
-            temp.push(recipe_purchases)
-          }
-          if (!(food_purchases.status) && food_purchases.status != false) {
-            food_purchases.items.map(function (item) {
-              let chef_details = chef_result.find(chef => chef._id == item.chef_id);
-              item.chef = chef_details;
-            })
-            temp.push(food_purchases)
           }
         }
       } else {
@@ -243,13 +313,76 @@ export default class home extends Component {
         $("#my-purchase-sec").css("padding-top", "50px");
       }
       this.setState({
-        food_recipe_purchases: temp
+        all_purchases: all_purchases
       });
     }
   }
 
+  async initialize_food_services() {
+    let food_result = await getAllFood(this.token);
+    let service_result = await getAllServices(this.token);
+    let chef_result = await this.initialize_chefs();
+    console.log(food_result.length, "total number of food");
+    console.log(service_result.length, "total number of service");
+    var temp = [];
+    if (chef_result.length > 0) {
+      if (food_result.length > 0) {
+        if (food_result.status == false) {
+          console.log(food_result.message);
+          ReactDOM.render(
+            <Provider store={configureStore}>
+              <h1>{food_result.message}</h1>
+            </Provider>, document.getElementById('food-sec'));
+          $("#food-sec").css("padding-top", "50px");
+        } else {
+          food_result.map(function (item) {
+            let chef_details = chef_result.find(chef => chef._id == item.chef_id);
+            item.chef = chef_details;
+          })
+        }
+      }
+
+      temp = food_result;
+
+      if (service_result.length > 0) {
+        if (service_result.status == false) {
+          console.log(service_result.message);
+          ReactDOM.render(
+            <Provider store={configureStore}>
+              <h1>{service_result.message}</h1>
+            </Provider>, document.getElementById('food-sec'));
+          $("#food-sec").css("padding-top", "50px");
+        } else {
+          service_result.map(function (item) {
+            let chef_details = chef_result.find(chef => chef._id == item.chef_id);
+            item.chef = chef_details;
+          })
+        }
+      }
+
+      this.setState({
+        food_services: temp.concat(service_result)
+      });
+    } else {
+      ReactDOM.render(
+        <Provider store={configureStore}>
+          <h1>There is no Chef found.</h1>
+        </Provider>, document.getElementById('food-sec'));
+      $("#food-sec").css("padding-top", "50px");
+    }
+  }
+
   componentDidMount() {
+    this.initialize_feeds();
+    this.initialize_recipes();
     this.initialize_food_recipe_purchases();
+    this.initialize_food_services();
+  }
+
+  like_post(e) {
+    console.log(e.target.id);
+    likePost(e.target.id, this.token);
+    this.initialize_feeds();
   }
 
   open_purchase_details(purchase_type, item) {
@@ -261,7 +394,6 @@ export default class home extends Component {
       $(this).css('display', 'none');
     })
     $('.' + item).css("display", "block");
-    // $('.item').css("display", "none");
   }
 
   render() {
@@ -282,30 +414,42 @@ export default class home extends Component {
           </li>
         </ul>
         <div className="feeds_2 sec active" id="star-feed-sec">
-          {this.feeds.map(function (item) {
+          {this.state.feeds.length > 0 && this.state.feeds.map((item) => {
             return (
               <div className="feed">
                 <div className="primary-details">
                   <div className="l-div">
                     <div className="profile-img-container">
-                      <img src={item.desktop_icon}></img>
+                      <img src={item.chef && item.chef.profile_image}></img>
                     </div>
                     <div className="user-detail-container">
-                      <h3>{item.user_name}</h3>
-                      <h5>{item.user_description}</h5>
+                      <h3>{item.chef && item.chef.user_name}</h3>
+                      <h5>{item.chef && item.chef.chef_details.position}</h5>
                     </div>
                   </div>
-                  <div className="post-option">
-                    <img src={PostMenu}></img>
+                  <div style={{ paddingRight: "4px" }}>
+                    <div className="post-option" style={{ textAlignLast: "right" }}>
+                      <img src={PostMenu}></img>
+                    </div>
+                    <div style={{ display: "flex" }}>
+                      <div className="feed_rattings">{item.rate}</div>
+                      <ReactStars
+                        count={5}
+                        value={item.rate}
+                        onChange={null}
+                        isHalf={true}
+                        activeColor="#ffd700"
+                      />
+                    </div>
                   </div>
                 </div>
                 <div className="post-image">
-                  <img className="userpost" src={item.post}></img>
+                  <img className="userpost" src={item.post_content && item.post_content}></img>
                 </div>
                 <div className="post-activity">
                   <div className="l-div">
                     <div className="activity">
-                      <img src={EmptyHeart}></img>
+                      <img src={item.is_like ? FullHeart : EmptyHeart} id={item._id} onClick={this.like_post.bind(this)} height="30"></img>
                       <span>{item.likes}</span>
                     </div>
                     <div className="activity">
@@ -319,32 +463,32 @@ export default class home extends Component {
                   </div>
                   <div className="r-div">
                     <div className="activity">
-                      <img src={Location}></img>
+                      <img src={LocationIcon}></img>
                       <span>{item.location}</span>
                     </div>
                     <div className="activity">
                       <img src={Time}></img>
-                      <span>{item.time}</span>
+                      <span>{item.createdAt}</span>
                     </div>
                   </div>
                 </div>
-                <div className="post-content">{item.post_content}</div>
+                <div className="post-content">{item.description}</div>
               </div>
             );
           })}
         </div>
         <div className="recipes_2 sec" id="star-recipe-sec">
-          {this.recipes.map(function (item) {
+          {this.state.recipes.length > 0 && this.state.recipes.map(function (item) {
             return (
               <div className="recipe">
                 <div className="primary-details">
                   <div className="l-div">
                     <div className="profile-img-container">
-                      <img src={item.desktop_icon}></img>
+                      <img src={item.chef && item.chef.profile_image}></img>
                     </div>
                     <div className="user-detail-container">
-                      <h3>{item.user_name}</h3>
-                      <h5>{item.user_description}</h5>
+                      <h3>{item.chef && item.chef.user_name}</h3>
+                      <h5>{item.chef && item.chef.chef_details.position}</h5>
                     </div>
                   </div>
                   <div style={{ paddingRight: "4px" }}>
@@ -355,9 +499,10 @@ export default class home extends Component {
                       <img src={PostMenu}></img>
                     </div>
                     <div style={{ display: "flex" }}>
-                      <div className="recipe_rattings">5</div>
+                      <div className="recipe_rattings">{item.rate}</div>
                       <ReactStars
                         count={5}
+                        value={item.rate}
                         onChange={null}
                         isHalf={true}
                         activeColor="#ffd700"
@@ -365,16 +510,16 @@ export default class home extends Component {
                     </div>
                   </div>
                 </div>
-                <img className="userpost" src={item.post}></img>
+                <img className="userpost" src={item.recipe_content}></img>
                 <div className="post-activity" style={{ display: "flex" }}>
                   <div className="recipe_details">
                     <div>
-                      <h4>{item.recipe_name}</h4>
-                      <h5>({item.recipe_type})</h5>
+                      <h4>{item.food_name}</h4>
+                      <h5>({item.cuisine_type.join(", ")})</h5>
                     </div>
                     <div className="time">
                       <img src={Recipe_time}></img>
-                      <span>{item.time}</span>
+                      <span>Total: {item.total_time}</span>
                     </div>
                   </div>
                   <div className="activities">
@@ -387,31 +532,32 @@ export default class home extends Component {
                       <p>{item.comments}</p>
                     </div>
                     <div className="activity">
-                      <img src={EmptyHeart}></img>
+                      <img src={item.is_like ? FullHeart : EmptyHeart} height="30"></img>
                       <p>{item.likes}</p>
                     </div>
                   </div>
                 </div>
                 <div className="post-content">
                   <h4 style={{ color: "green" }}>Ingredients</h4>
-                  <p>{item.post_content}</p>
+                  <p>{item.ingredients}</p>
                 </div>
               </div>
             );
           })}
         </div>
         <div className="foodservices sec" id="food-service-sec">
-          {this.foods.map(function (item) {
+          {console.log(this.state.food_services.length, "total number of food and services")}
+          {this.state.food_services.length > 0 && this.state.food_services.map((item) => {
             return (
               <div className="each_food">
                 <div className="primary-details">
                   <div className="l-div">
                     <div className="profile-img-container">
-                      <img src={item.desktop_icon}></img>
+                      <img src={item.chef.profile_image}></img>
                     </div>
                     <div className="user-detail-container">
-                      <h3>{item.user_name}</h3>
-                      <h5>{item.user_description}</h5>
+                      <h3>{item.chef.user_name}</h3>
+                      <h5>{item.chef.chef_details.position}</h5>
                     </div>
                   </div>
                   <div style={{ paddingRight: "4px" }}>
@@ -422,24 +568,28 @@ export default class home extends Component {
                       <img src={PostMenu}></img>
                     </div>
                     <div style={{ display: "flex" }}>
-                      <div className="recipe_rattings">5</div>
+                      <div className="recipe_rattings">{item.rate}</div>
                       <ReactStars
                         count={5}
                         onChange={null}
+                        value={item.rate}
                         isHalf={true}
                         activeColor="#ffd700"
                       />
                     </div>
+                    <div>
+                      <i>{item.available && item.available.delivery ? "Delivery" : ''} {item.available && item.available.pickup ? "+ Pick up/Takeaway" : ''}</i>
+                    </div>
                   </div>
                 </div>
-                <img className="userpost" src={item.post}></img>
+                <img className="userpost" src={item.food_content}></img>
                 <div className="food-price">
-                  <b>Vegan Soft Tacos - $25</b>
+                  <b>{item.food_name} - ${item.price}</b>
                 </div>
                 <div className="post-activity">
                   <div className="l-div">
                     <div className="activity">
-                      <img style={{ marginRight: "5px" }} src={Location}></img>
+                      <img style={{ marginRight: "5px" }} src={LocationIcon}></img>
                       <p>{item.location}</p>
                     </div>
                     <div className="activity">
@@ -448,7 +598,7 @@ export default class home extends Component {
                   </div>
                   <div className="r-div">
                     <div className="activity">
-                      <img src={EmptyHeart}></img>
+                      <img src={item.is_like ? FullHeart : EmptyHeart} height="30"></img>
                       <p>{item.likes}</p>
                     </div>
                     <div className="activity">
@@ -462,82 +612,82 @@ export default class home extends Component {
                   </div>
                 </div>
                 <div className="post-content">
-                  <p>{item.post_content}</p>
+                  <p>{item.description}</p>
                 </div>
               </div>
             );
           })}
         </div>
         <div className="my_purchases sec" id="my-purchase-sec">
-          {console.log(this.state.food_recipe_purchases, "food recipe purchase")}
-          {this.state.food_recipe_purchases.length > 0 && this.state.food_recipe_purchases.map((purchases) => {
-            console.log(purchases, "each purchase");
+          {this.state.all_purchases.length > 0 && this.state.all_purchases.map((purchase) => {
             return (
-              <div className="item">
-                <div className="head-container">
-                  <div className="l-div">
-                    <div className="profile-img-container">
-                      <img src={purchases.items[0].chef.profile_image}></img>
-                    </div>
-                    <div className="user-detail-container">
-                      <h3>{purchases.user_name}</h3>
-                      <h5>{purchases.user_description}</h5>
-                    </div>
-                    <ReactStars
-                      count={5}
-                      onChange={null}
-                      isHalf={true}
-                      activeColor="#ffd700"
-                      classNames="star-rating"
-                    />
-                  </div>
-                  <div className="r-div">
-                    <h3 onClick={() => this.open_purchase_details("food_recipe", "purchase-detail")}>{purchases.puchase_type}</h3>
-                    <img src={RefreshIcon}></img>
-                  </div>
-                </div>
-                <div className="content">
-                  <div className="price-block">
-                    <div className="price-detail">
-                      <h4>Cuban Tacos</h4>
+              purchase.items.map((item) => {
+                return (
+                  <div className="item">
+                    <div className="head-container">
+                      <div className="l-div">
+                        <div className="profile-img-container">
+                          <img src={item.chef.profile_image}></img>
+                        </div>
+                        <div className="user-detail-container">
+                          <h3>{item.chef.user_name}</h3>
+                          <h5>{item.chef.chef_details.position}</h5>
+                        </div>
+                        <ReactStars
+                          count={5}
+                          onChange={null}
+                          value={purchase.rate}
+                          isHalf={true}
+                          activeColor="#ffd700"
+                          classNames="star-rating"
+                        />
+                      </div>
                       <div className="r-div">
-                        <h5>1</h5>
-                        <h5>$23.80</h5>
-                        <h5>$23.80</h5>
+                        <h3 onClick={() => this.open_purchase_details("food_recipe", "purchase-detail")}>{purchase.order_type == "masterclass" ? "Masterclass" : "Food and Services"}</h3>
+                        <img src={RefreshIcon}></img>
                       </div>
                     </div>
-                    <div className="total-price">
-                      <h3><span>Total </span>$ 39.84</h3>
+                    <div className="content">
+                      <div className="price-block">
+                        <div className="price-detail">
+                          <h4>{item.title}</h4>
+                          <div className="r-div">
+                            <h5>{item.qty}</h5>
+                            <h5>${item.price}</h5>
+                            <h5>${item.amount}</h5>
+                          </div>
+                        </div>
+                        <div className="total-price">
+                          <h3><span>Total </span>$ {item.amount}</h3>
+                        </div>
+                      </div>
+                      <div className="ticket-block">
+                        <div className="url-block">
+                          <h5>Class Link: www.pinchef.io/dough</h5>
+                          <img src={RightArrowIcon}></img>
+                        </div>
+                        <div className="ticket-detail">
+                          <h5>Ticket number: 38Kzw23</h5>
+                          <img src={CopyIcon}></img>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bottom-block">
+                      <h4>2 days</h4>
+                      <div className="details-block">
+                        <h4>Details</h4>
+                        <img src={DownArrowIcon}></img>
+                      </div>
                     </div>
                   </div>
-                  <div className="ticket-block">
-                    <div className="url-block">
-                      <h5>Class Link: www.pinchef.io/dough</h5>
-                      <img src={RightArrowIcon}></img>
-                    </div>
-                    <div className="ticket-detail">
-                      <h5>Ticket number: 38Kzw23</h5>
-                      <img src={CopyIcon}></img>
-                    </div>
-                  </div>
-                </div>
-                <div className="bottom-block">
-                  <h4>2 days</h4>
-                  <div className="details-block">
-                    <h4>Details</h4>
-                    <img src={DownArrowIcon}></img>
-                  </div>
-                </div>
-              </div>
+                )
+              })
             )
-            // purchases.items.map((item) => {
-              
-            // })
           })}
           <div className="purchase-detail">
             <div className="switch-content">
               <div>
-                <img src={LeftBack} onClick={() => this.open_purchase_details('item')}></img>
+                <img src={LeftBack} onClick={() => this.open_purchase_details(null, 'item')}></img>
               </div>
               <div>
                 <h2>PURCHASE DETAILS</h2>
