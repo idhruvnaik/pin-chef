@@ -1,6 +1,6 @@
 .chef-page {
   .home-content {
-    .feeds {
+    .feeds, .recipes {
       .btn-container {
         width: 100%;
         text-align: right;
@@ -36,9 +36,8 @@
     }
   }
 }
-.pop-up.feed {
+.pop-up-feed {
   .pop-up-pad {
-    padding: 10px;
     .popup-header {
       background-color: #5b5353;
       border-radius: 10px;
@@ -74,20 +73,43 @@
         margin: 0% 5%;
         margin-bottom: 20px;
         .form-group {
-          border: 1px solid gainsboro;
-          border-radius: 10px;
           margin-bottom: 10px;
+          display: flex;
+          flex-direction: column;
+          &.radio-group{
+            ul{
+              flex-direction: row;
+              width: 100%;
+              align-items: center;
+              justify-content: space-between;
+            }
+            input{
+              visibility: hidden;
+              height: unset;
+            }
+            li{
+              display: flex;
+              align-items: center;
+            }
+          }
+          label{
+            margin-bottom: 10px;
+            sup{
+              color: red;
+            }
+          }
           &:last-child {
             margin-bottom: 0px;
           }
-          &.height {
+          .description-field{
             height: 200px;
           }
-          input {
+          input, select {
             text-align: left;
+            padding: 15px;
+            border: 1px solid #514949;
+            border-radius: 10px;
             width: calc(100% - 30px);
-            height: calc(100% - 30px);
-            padding: 10px;
           }
           &.img-field {
             display: flex;
@@ -105,15 +127,17 @@
             }
           }
           &.location {
-            display: flex;
-            align-items: center;
-            padding: 10px;
+            position: relative;
             .location-img {
               width: 30px;
               height: 30px;
+              position: absolute;
+              top: 20px;
+              left: 10px;
             }
             input {
-              flex: 1;
+              padding-left: 50px;
+              width: calc(100% - 65px);
             }
           }
         }
@@ -146,7 +170,7 @@
   display: flex;
   justify-content: center;
 }
-.some-custom-class{
+.pop-up-feeds{
   border-radius: 15px;
 }
 .slide-pane__header{
