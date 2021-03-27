@@ -425,11 +425,6 @@ export default class home extends Component {
             <div className="pop-up-feed">
               <div className="pop-up-pad">
                 <div className="popup-content">
-                  <div className="icon-bar">
-                    <img src={GalleryIcon}></img>
-                    <img src={DescriptionIcon}></img>
-                    <img src={LocationIcon}></img>
-                  </div>
                   <div className="form-container">
                     <div className="form-group height img-field">
                       <div class="image-upload">
