@@ -3,7 +3,7 @@ import ReactStars from "react-rating-stars-component";
 import ReactDOM, { render } from 'react-dom';
 import { Provider } from "react-redux";
 import configureStore from "../store";
-import { getAllChef, getAllFood, getAllServices } from '../services/apiOperations';
+import { getAllChef, getAllFood, getAllServices, likeFood, unlikeFood, likeService, unlikeService } from '../services/apiOperations';
 
 import UserPhoto from '../assets/images/photo2.png';
 import UserPost from '../assets/images/bannerFeed2.png';
@@ -14,6 +14,7 @@ import FullHeart from '../assets/png_icons/Filled heart.png';
 import PostShare from '../assets/png_icons/Post Share count@2x.png';
 import LocationIcon from '../assets/png_icons/Location outlined@2x.png';
 
+import NoServices from '../assets/svg/NoServicesPost';
 import $ from 'jquery';
 
 export default class home extends Component {
@@ -21,79 +22,16 @@ export default class home extends Component {
     constructor(props) {
         super(props);
         this.token = this.props.token;
+        this.user_id = this.props.user_id;
         this.initialize_chefs = this.initialize_chefs.bind(this);
         this.initialize_food = this.initialize_food.bind(this);
         this.initialize_services = this.initialize_services.bind(this);
+        this.like_unlike_food = this.like_unlike_food.bind(this);
+        this.like_unlike_service = this.like_unlike_service.bind(this);
         this.state = {
             food: [],
             services: []
         }
-
-        this.foods = [
-            {
-                id: 1,
-                desktop_icon: UserPhoto,
-                user_name: "Jenah Stephonson",
-                user_description: "Home chef",
-                post: UserPost,
-                likes: 0,
-                comments: 0,
-                share: 0,
-                location: "Miami, FL",
-                time: "45 min ago",
-                rattings: "5.6",
-                delivery_status: "Delivery + Pick up/Takeaway",
-                post_content: "It was great night as we were at catering for a wedding. Thank you all of the staff that helped us to make event such a wonderful and delicious."
-            },
-            {
-                id: 2,
-                desktop_icon: UserPhoto,
-                user_name: "Jenah Stephonson",
-                user_description: "Home chef",
-                post: UserPost,
-                likes: 0,
-                comments: 0,
-                share: 0,
-                location: "Miami, FL",
-                time: "45 min ago",
-                rattings: "5.6",
-                delivery_status: "Delivery + Pick up/Takeaway",
-                post_content: "It was great night as we were at catering for a wedding. Thank you all of the staff that helped us to make event such a wonderful and delicious."
-            }
-        ]
-
-        this.services = [
-            {
-                id: 1,
-                desktop_icon: UserPhoto,
-                user_name: "Jenah Stephonson",
-                user_description: "Home chef",
-                post: UserPost,
-                likes: 0,
-                comments: 0,
-                share: 0,
-                location: "Miami, FL",
-                time: "45 min ago",
-                rattings: "5.6",
-                delivery_status: "Delivery + Pick up/Takeaway",
-                post_content: "It was great night as we were at catering for a wedding. Thank you all of the staff that helped us to make event such a wonderful and delicious."
-            },
-            {
-                id: 2,
-                desktop_icon: UserPhoto,
-                user_name: "Jenah Stephonson",
-                user_description: "Home chef",
-                post: UserPost,
-                likes: 0,
-                comments: 0,
-                share: 0,
-                location: "Miami, FL",
-                time: "45 min ago",
-                rattings: "5.6",
-                delivery_status: "Delivery + Pick up/Takeaway",
-                post_content: "It was great night as we were at catering for a wedding. Thank you all of the staff that helped us to make event such a wonderful and delicious."
-            }
-        ]
 
         this.ratingChanged = (newRating) => {
             document.querySelector('.each_service .primary-details .rattings .given_rattings').innerHTML = newRating;
@@ -110,7 +48,7 @@ export default class home extends Component {
     }
 
     async initialize_chefs(){
-        let chef_result = await getAllChef(this.token);
+        let chef_result = await getAllChef(this.user_id, this.token);
         if(chef_result.length > 0){
             if(chef_result.status == false){
                 return [];
@@ -123,7 +61,7 @@ export default class home extends Component {
     }
 
     async initialize_food(){
-        let food_result = await getAllFood(this.token);
+        let food_result = await getAllFood(this.user_id, this.token);
         let chef_result = await this.initialize_chefs();
         if(chef_result.length > 0){
             if(food_result.length > 0){
@@ -147,14 +85,14 @@ export default class home extends Component {
         }  else{
             ReactDOM.render(
                 <Provider store={configureStore}>
-                    <h1>There is no Chef found.</h1>
+                    <h1>There is no Food found.</h1>
                 </Provider>, document.getElementById('food-sec'));
             $("#food-sec").css("padding-top", "50px");
         }
     }
 
     async initialize_services(){
-        let service_result = await getAllServices(this.token);
+        let service_result = await getAllServices(this.user_id, this.token);
         let chef_result = await this.initialize_chefs();
         if(chef_result.length > 0){
             if(service_result.length > 0){
@@ -162,9 +100,8 @@ export default class home extends Component {
                     console.log(service_result.message);
                     ReactDOM.render(
                         <Provider store={configureStore}>
-                            <h1>{service_result.message}</h1>
+                            <NoServices />
                         </Provider>, document.getElementById('service-sec'));
-                    $("#service-sec").css("padding-top", "50px");
                 }else{
                     service_result.map(function (item) {
                         let chef_details = chef_result.find(chef => chef._id == item.chef_id);
@@ -178,9 +115,46 @@ export default class home extends Component {
         }  else{
             ReactDOM.render(
                 <Provider store={configureStore}>
-                    <h1>There is no Chef found.</h1>
+                    <NoServices />
                 </Provider>, document.getElementById('service-sec'));
-            $("#service-sec").css("padding-top", "50px");
+        }
+    }
+
+    async like_unlike_food(e) {
+        console.log(e, "from like unlike food");
+        if (e.target && e.target.src == EmptyHeart ){
+            let result = await likeFood(this.user_id, e.target.id, this.token);
+            if (result.status && result.status == false){
+                console.log(result.message);
+            } else{
+                this.initialize_food();
+            }
+        } else {
+            let result = await unlikeFood(this.user_id, e.target.id, this.token);
+            if (result.status && result.status == false){
+                console.log(result.message);
+            } else{
+                this.initialize_food();
+            }
+        }
+    }
+
+    async like_unlike_service(e) {
+        console.log(e, "from like unlike service");
+        if (e.target && e.target.src == EmptyHeart ){
+            let result = await likeService(this.user_id, e.target.id, this.token);
+            if (result.status && result.status == false){
+                console.log(result.message);
+            } else{
+                this.initialize_services();
+            }
+        } else {
+            let result = await unlikeService(this.user_id, e.target.id, this.token);
+            if (result.status && result.status == false){
+                console.log(result.message);
+            } else{
+                this.initialize_services();
+            }
         }
     }
 
@@ -245,7 +219,7 @@ export default class home extends Component {
                                     </div>
                                     <div className="r-div">
                                         <div className="activity">
-                                            <img src={item.is_like ? FullHeart : EmptyHeart} height="30"></img>
+                                            <img src={item.is_like ? FullHeart : EmptyHeart} id={item._id} onClick={this.like_unlike_food} height="30"></img>
                                             <p>{item.likes}</p>
                                         </div>
                                         <div className="activity">
@@ -266,7 +240,7 @@ export default class home extends Component {
                     })}
                 </div>
                 <div className="services sec" id="service-sec">
-                    {this.state.services.length > 0 && this.state.services.map(function (item) {
+                    {this.state.services.length > 0 && this.state.services.map((item) => {
                         return (
                             <div className="each_service">
                                 <div className="primary-details">
@@ -311,7 +285,7 @@ export default class home extends Component {
                                     </div>
                                     <div className="r-div">
                                         <div className="activity">
-                                            <img src={item.is_like ? FullHeart : EmptyHeart} height="30"></img>
+                                            <img src={item.is_like ? FullHeart : EmptyHeart} id={item._id} onClick={this.like_unlike_service} height="30"></img>
                                             <p>{item.likes}</p>
                                         </div>
                                         <div className="activity">

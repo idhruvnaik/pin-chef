@@ -24,7 +24,7 @@ import BookClass from '../assets/png_icons/Book Masterclass icon.png'
 import MasterclassTime from '../assets/png_icons/Masterclass Time icon.png'
 import MasterclassClockIcon from '../assets/png_icons/Masterclass clock icon.png'
 
-import { getAllChef, getAllPosts, likePost, getAllRecipes, getAllMasterClasses } from '../services/apiOperations';
+import { getAllChef, getAllPosts, likePost, getAllRecipes, getAllMasterClasses, unlikePost, unlikeRecipe, likeRecipe } from '../services/apiOperations';
 
 import $ from 'jquery';
 
@@ -33,128 +33,20 @@ export default class home extends Component {
     constructor(props) {
         super(props);
         this.token = this.props.token;
+        this.user_id = this.props.user_id;
         this.initialize_chefs = this.initialize_chefs.bind(this);
         this.initialize_feeds = this.initialize_feeds.bind(this);
         this.initialize_recipes = this.initialize_recipes.bind(this);
         this.initialize_e_master_class = this.initialize_e_master_class.bind(this);
-        this.like_post = this.like_post.bind(this);
+        this.like_unlike_post = this.like_unlike_post.bind(this);
+        this.like_unlike_recipe = this.like_unlike_recipe.bind(this);
         this.render = this.render.bind(this);
-        this.feeds = [
-            {
-                _id: 1,
-                chef: {
-                    profile_image: UserPhoto,
-                    name: "Jenah Stephonson",
-                    chef_details: {
-                        position: "Home chef"
-                    }
-                },
-                post_content: UserPost,
-                likes: 2,
-                comments: 0,
-                share: 0,
-                location: "Miami, FL",
-                createdAt: "45 min ago",
-                description: "It was great night as we were at catering for a wedding. Thank you all of the staff that helped us to make event such a wonderful and delicious."
-            },
-            {
-                _id: 2,
-                chef: {
-                    profile_image: UserPhoto,
-                    name: "Jenah Stephonson",
-                    chef_details: {
-                        position: "Home chef"
-                    }
-                },
-                post_content: UserPost,
-                likes: 0,
-                comments: 0,
-                share: 0,
-                location: "Miami, FL",
-                createdAt: "45 min ago",
-                description: "It was great night as we were at catering for a wedding. Thank you all of the staff that helped us to make event such a wonderful and delicious."
-            }
-        ]
         this.state = {
             chefs: [],
             feeds: [],
             recipes: [],
             master_classes: []
         }
-
-        this.recipes = [
-            {
-                id: 1,
-                chef: {
-                    profile_image: UserPhoto,
-                    name: "Jenah Stephonson",
-                    chef_details: {
-                        position: "Home chef"
-                    }
-                },
-                post: UserPost,
-                food_name: "Beef Taco",
-                cuisine_type: ["Mexican"],
-                likes: 0,
-                comments: 0,
-                share: 0,
-                location: "Miami, FL",
-                total_time: "45 min ago",
-                ingredients: "It was great night as we were at catering for a wedding. Thank you all of the staff that helped us to make event such a wonderful and delicious."
-            },
-            {
-                id: 1,
-                chef: {
-                    profile_image: UserPhoto,
-                    name: "Jenah Stephonson",
-                    chef_details: {
-                        position: "Home chef"
-                    }
-                },
-                post: UserPost,
-                food_name: "Beef Taco",
-                cuisine_type: ["Mexican"],
-                likes: 0,
-                comments: 0,
-                share: 0,
-                location: "Miami, FL",
-                total_time: "45 min ago",
-                ingredients: "It was great night as we were at catering for a wedding. Thank you all of the staff that helped us to make event such a wonderful and delicious."
-            }
-        ]
-
-        this.emaster_classes = [
-            {
-                recipe_name: "PIZZA",
-                recipe_image: Food,
-                recipe_type: "Italian",
-                recipe_diet: "Vegan",
-                chef_name: "Jenah Stephanson",
-                chef_desktop_icon: UserPhoto,
-                ingredients: "pepper, flour, orange juice",
-                recipe_description: "Come and enjoy cooking the yummiest Pizza you have ever seen.",
-                price: "25",
-                date: "Feb 20 - UTC",
-                time: "12:30",
-                remaining_time: "2:30",
-                available_tickets: "34"
-            },
-            {
-                recipe_name: "PIZZA",
-                recipe_image: Food,
-                recipe_type: "Italian",
-                recipe_diet: "Vegan",
-                chef_name: "Jenah Stephanson",
-                chef_desktop_icon: UserPhoto,
-                ingredients: "pepper, flour, orange juice",
-                recipe_description: "Come and enjoy cooking the yummiest Pizza you have ever seen.",
-                price: "25",
-                date: "Feb 20 - UTC",
-                time: "12:30",
-                remaining_time: "2:30",
-                available_tickets: "34"
-            }
-        ]
 
         this.ratingChanged = (newRating) => {
             document.querySelector('.each_service .primary-details .rattings .given_rattings').innerHTML = newRating;
@@ -171,27 +63,21 @@ export default class home extends Component {
     }
 
     async initialize_chefs() {
-        let chef_result = await getAllChef(this.token);
+        let chef_result = await getAllChef(this.user_id, this.token);
         if (chef_result.length > 0) {
             if (chef_result.status == false) {
-                // this.setState({
-                //     chefs: []});
                 return [];
             } else {
-                // this.setState({
-                //     chefs: chef_result});
                 return chef_result;
             }
         } else {
-            // this.setState({
-            //     chefs: []});
             return [];
         }
     }
 
     async initialize_feeds() {
         if (this.token) {
-            let post_result = await getAllPosts(this.token);
+            let post_result = await getAllPosts(this.user_id, this.token);
             let chef_result = await this.initialize_chefs();
             if (chef_result.length > 0) {
                 if (post_result.length > 0) {
@@ -201,7 +87,6 @@ export default class home extends Component {
                             <Provider store={configureStore}>
                                 <NoFeeds />
                             </Provider>, document.getElementById('feed-sec'));
-                        $("#feed-sec").css("padding-top", "50px");
                     } else {
                         post_result.map(function (item) {
                             let chef_details = chef_result.find(chef => chef._id == item.chef_id);
@@ -218,14 +103,13 @@ export default class home extends Component {
                     <Provider store={configureStore}>
                         <NoFeeds />
                     </Provider>, document.getElementById('feed-sec'));
-                $("#feed-sec").css("padding-top", "50px");
             }
         }
     }
 
     async initialize_recipes() {
         if (this.token) {
-            let recipe_result = await getAllRecipes(this.token);
+            let recipe_result = await getAllRecipes(this.user_id, this.token);
             let chef_result = await this.initialize_chefs();
             if (chef_result.length > 0) {
                 if (recipe_result.length > 0) {
@@ -294,11 +178,43 @@ export default class home extends Component {
         this.initialize_recipes();
         this.initialize_e_master_class();
     }
-    like_post(e) {
-        console.log(e.target.id);
-        likePost(e.target.id, this.token);
-        this.initialize_feeds();
+
+    async like_unlike_post(e) {
+        if (e.target.src == EmptyHeart ){
+            let result = await likePost(this.user_id, e.target.id, this.token);
+            if (result.status && result.status == false){
+                console.log(result.message);
+            } else{
+                this.initialize_feeds();
+            }
+        } else {
+            let result = await unlikePost(this.user_id, e.target.id, this.token);
+            if (result.status && result.status == false){
+                console.log(result.message);
+            } else{
+                this.initialize_feeds();
+            }
+        }
     }
+
+    async like_unlike_recipe(e) {
+        if (e.target.src == EmptyHeart ){
+            let result = await likeRecipe(this.user_id, e.target.id, this.token);
+            if (result.status && result.status == false){
+                console.log(result.message);
+            } else{
+                this.initialize_recipes();
+            }
+        } else {
+            let result = await unlikeRecipe(this.user_id, e.target.id, this.token);
+            if (result.status && result.status == false){
+                console.log(result.message);
+            } else{
+                this.initialize_recipes();
+            }
+        }
+    }
+
     render() {
         return (
             <div className="home-content" >
@@ -330,6 +246,7 @@ export default class home extends Component {
                                                 value={item.rate}
                                                 onChange={null}
                                                 isHalf={true}
+                                                edit={false}
                                                 activeColor="#ffd700"
                                             />
                                         </div>
@@ -341,7 +258,7 @@ export default class home extends Component {
                                 <div className="post-activity">
                                     <div className="l-div">
                                         <div className="activity">
-                                            <img src={item.is_like ? FullHeart : EmptyHeart} id={item._id} onClick={this.like_post.bind(this)} height="30"></img>
+                                            <img src={item.is_like ? FullHeart : EmptyHeart} id={item._id} onClick={this.like_unlike_post} height="30"></img>
                                             <span>{item.likes}</span>
                                         </div>
                                         <div className="activity">
@@ -394,6 +311,7 @@ export default class home extends Component {
                                                 value={item.rate}
                                                 onChange={null}
                                                 isHalf={true}
+                                                edit={false}
                                                 activeColor="#ffd700"
                                             />
                                         </div>
@@ -421,7 +339,7 @@ export default class home extends Component {
                                             <p>{item.comments}</p>
                                         </div>
                                         <div className="activity">
-                                            <img src={item.is_like ? FullHeart : EmptyHeart} height="30"></img>
+                                            <img src={item.is_like ? FullHeart : EmptyHeart} id={item._id} onClick={this.like_unlike_recipe} height="30"></img>
                                             <p>{item.likes}</p>
                                         </div>
                                     </div>

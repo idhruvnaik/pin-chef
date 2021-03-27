@@ -23,7 +23,8 @@ import LocationIcon from '../assets/png_icons/Location outlined@2x.png';
 import NoFeeds from '../assets/svg/NoFeedPost';
 import NoRecipes from '../assets/svg/NoRecipesPosts';
 import NoPurchases from '../assets/svg/NoPurchases';
-import { getAllChef, getAllPosts, likePost, getAllRecipes, getAllPurchases, getAllFood, getAllServices } from '../services/apiOperations';
+import NoFoodService from '../assets/svg/NoFoodServices'
+import { getAllChef, getAllPosts, likePost, getAllRecipes, getAllPurchases, getAllFood, getAllServices, unlikePost, unlikeRecipe, likeRecipe } from '../services/apiOperations';
 import $ from "jquery";
 import chef from "./chefComponents/chef";
 
@@ -36,7 +37,8 @@ export default class home extends Component {
     this.initialize_feeds = this.initialize_feeds.bind(this);
     this.initialize_recipes = this.initialize_recipes.bind(this);
     this.initialize_food_services = this.initialize_food_services.bind(this);
-    this.like_post = this.like_post.bind(this);
+    this.like_unlike_post = this.like_unlike_post.bind(this);
+    this.like_unlike_recipe = this.like_unlike_recipe.bind(this);
 
     this.state = {
       food_services: [],
@@ -49,144 +51,6 @@ export default class home extends Component {
 
     this.token = this.props.token;
     this.user_id = this.props.user_id;
-
-    this.feeds = [
-      {
-        id: 1,
-        desktop_icon: UserPhoto,
-        user_name: "Jenah Stephonson",
-        user_description: "Home chef",
-        post: UserPost,
-        likes: 0,
-        comments: 0,
-        share: 0,
-        location: "Miami, FL",
-        time: "45 min ago",
-        post_content:
-          "It was great night as we were at catering for a wedding. Thank you all of the staff that helped us to make event such a wonderful and delicious.",
-      },
-      {
-        id: 2,
-        desktop_icon: UserPhoto,
-        user_name: "Jenah Stephonson",
-        user_description: "Home chef",
-        post: UserPost,
-        likes: 0,
-        comments: 0,
-        share: 0,
-        location: "Miami, FL",
-        time: "45 min ago",
-        post_content:
-          "It was great night as we were at catering for a wedding. Thank you all of the staff that helped us to make event such a wonderful and delicious.",
-      },
-    ];
-
-    this.recipes = [
-      {
-        id: 1,
-        desktop_icon: UserPhoto,
-        user_name: "Jenah Stephonson",
-        user_description: "Home chef",
-        post: UserPost,
-        recipe_name: "Beef Taco",
-        recipe_type: "Mexican",
-        likes: 0,
-        comments: 0,
-        share: 0,
-        location: "Miami, FL",
-        time: "45 min ago",
-        post_content:
-          "It was great night as we were at catering for a wedding. Thank you all of the staff that helped us to make event such a wonderful and delicious.",
-      },
-      {
-        id: 2,
-        desktop_icon: UserPhoto,
-        user_name: "Jenah Stephonson",
-        user_description: "Home chef",
-        post: UserPost,
-        recipe_name: "Beef Taco",
-        recipe_type: "Mexican",
-        likes: 0,
-        comments: 0,
-        share: 0,
-        location: "Miami, FL",
-        time: "45 min ago",
-        post_content:
-          "It was great night as we were at catering for a wedding. Thank you all of the staff that helped us to make event such a wonderful and delicious.",
-      },
-    ];
-
-    this.foods = [
-      {
-        id: 1,
-        desktop_icon: UserPhoto,
-        user_name: "Jenah Stephonson",
-        user_description: "Home chef",
-        post: UserPost,
-        likes: 0,
-        comments: 0,
-        share: 0,
-        location: "Miami, FL",
-        time: "45 min ago",
-        rattings: "5.6",
-        delivery_status: "Delivery + Pick up/Takeaway",
-        post_content:
-          "It was great night as we were at catering for a wedding. Thank you all of the staff that helped us to make event such a wonderful and delicious.",
-      },
-      {
-        id: 2,
-        desktop_icon: UserPhoto,
-        user_name: "Jenah Stephonson",
-        user_description: "Home chef",
-        post: UserPost,
-        likes: 0,
-        comments: 0,
-        share: 0,
-        location: "Miami, FL",
-        time: "45 min ago",
-        rattings: "5.6",
-        delivery_status: "Delivery + Pick up/Takeaway",
-        post_content:
-          "It was great night as we were at catering for a wedding. Thank you all of the staff that helped us to make event such a wonderful and delicious.",
-      },
-    ];
-
-    this.purchases = [
-      {
-        id: 1,
-        desktop_icon: UserPhoto,
-        user_name: "Jenah Stephonson",
-        user_description: "Home chef",
-        post: UserPost,
-        puchase_type: "Food and Services",
-        likes: 0,
-        comments: 0,
-        share: 0,
-        location: "Miami, FL",
-        time: "45 min ago",
-        rattings: "5.6",
-        delivery_status: "Delivery + Pick up/Takeaway",
-        post_content:
-          "It was great night as we were at catering for a wedding. Thank you all of the staff that helped us to make event such a wonderful and delicious.",
-      },
-      {
-        id: 2,
-        desktop_icon: UserPhoto,
-        user_name: "Jenah Stephonson",
-        user_description: "Home chef",
-        post: UserPost,
-        puchase_type: "Masterclass",
-        likes: 0,
-        comments: 0,
-        share: 0,
-        location: "Miami, FL",
-        time: "45 min ago",
-        rattings: "5.6",
-        delivery_status: "Delivery + Pick up/Takeaway",
-        post_content:
-          "It was great night as we were at catering for a wedding. Thank you all of the staff that helped us to make event such a wonderful and delicious.",
-      },
-    ];
 
     this.ratingChanged = (newRating) => {
       document.querySelector(
@@ -204,7 +68,7 @@ export default class home extends Component {
   }
 
   async initialize_chefs() {
-    let chef_result = await getAllChef(this.token);
+    let chef_result = await getAllChef(this.user_id, this.token);
     if (chef_result.length > 0) {
       if (chef_result.status == false) {
         return [];
@@ -218,7 +82,7 @@ export default class home extends Component {
 
   async initialize_feeds() {
     if (this.token) {
-      let post_result = await getAllPosts(this.token);
+      let post_result = await getAllPosts(this.user_id, this.token);
       let chef_result = await this.initialize_chefs();
       if (chef_result.length > 0) {
         if (post_result.length > 0) {
@@ -252,7 +116,7 @@ export default class home extends Component {
 
   async initialize_recipes() {
     if (this.token) {
-      let recipe_result = await getAllRecipes(this.token);
+      let recipe_result = await getAllRecipes(this.user_id, this.token);
       let chef_result = await this.initialize_chefs();
       if (chef_result.length > 0) {
         if (recipe_result.length > 0) {
@@ -294,7 +158,6 @@ export default class home extends Component {
             <Provider store={configureStore}>
               <NoPurchases />
             </Provider>, document.getElementById('my-purchase-sec'));
-          $("#my-purchase-sec").css("padding-top", "50px");
         } else {
           if (!(all_purchases.status) && all_purchases.status != false) {
             all_purchases.map(function (purchase) {
@@ -310,7 +173,6 @@ export default class home extends Component {
           <Provider store={configureStore}>
             <NoPurchases />
           </Provider>, document.getElementById('my-purchase-sec'));
-        $("#my-purchase-sec").css("padding-top", "50px");
       }
       this.setState({
         all_purchases: all_purchases
@@ -322,8 +184,6 @@ export default class home extends Component {
     let food_result = await getAllFood(this.token);
     let service_result = await getAllServices(this.token);
     let chef_result = await this.initialize_chefs();
-    console.log(food_result.length, "total number of food");
-    console.log(service_result.length, "total number of service");
     var temp = [];
     if (chef_result.length > 0) {
       if (food_result.length > 0) {
@@ -350,8 +210,8 @@ export default class home extends Component {
           ReactDOM.render(
             <Provider store={configureStore}>
               <h1>{service_result.message}</h1>
-            </Provider>, document.getElementById('food-sec'));
-          $("#food-sec").css("padding-top", "50px");
+            </Provider>, document.getElementById('food-service-sec'));
+          $("#food-service-sec").css("padding-top", "50px");
         } else {
           service_result.map(function (item) {
             let chef_details = chef_result.find(chef => chef._id == item.chef_id);
@@ -366,9 +226,8 @@ export default class home extends Component {
     } else {
       ReactDOM.render(
         <Provider store={configureStore}>
-          <h1>There is no Chef found.</h1>
-        </Provider>, document.getElementById('food-sec'));
-      $("#food-sec").css("padding-top", "50px");
+          <NoFoodService />
+        </Provider>, document.getElementById('food-service-sec'));
     }
   }
 
@@ -379,17 +238,44 @@ export default class home extends Component {
     this.initialize_food_services();
   }
 
-  like_post(e) {
-    console.log(e.target.id);
-    likePost(e.target.id, this.token);
-    this.initialize_feeds();
+  async like_unlike_post(e) {
+    if (e.target.src == EmptyHeart) {
+      let result = await likePost(this.user_id, e.target.id, this.token);
+      if (result.status && result.status == false) {
+        console.log(result.message);
+      } else {
+        this.initialize_feeds();
+      }
+    } else {
+      let result = await unlikePost(this.user_id, e.target.id, this.token);
+      if (result.status && result.status == false) {
+        console.log(result.message);
+      } else {
+        this.initialize_feeds();
+      }
+    }
+  }
+
+  async like_unlike_recipe(e) {
+    if (e.target.src == EmptyHeart) {
+      let result = await likeRecipe(this.user_id, e.target.id, this.token);
+      if (result.status && result.status == false) {
+        console.log(result.message);
+      } else {
+        this.initialize_recipes();
+      }
+    } else {
+      let result = await unlikeRecipe(this.user_id, e.target.id, this.token);
+      if (result.status && result.status == false) {
+        console.log(result.message);
+      } else {
+        this.initialize_recipes();
+      }
+    }
   }
 
   open_purchase_details(purchase_type, item) {
-    console.log("opened purchase details");
-    console.log(item);
     var item_siblings = $('.' + item).siblings();
-    console.log(item_siblings);
     item_siblings.each(function () {
       $(this).css('display', 'none');
     })
@@ -438,6 +324,7 @@ export default class home extends Component {
                         value={item.rate}
                         onChange={null}
                         isHalf={true}
+                        edit={false}
                         activeColor="#ffd700"
                       />
                     </div>
@@ -449,7 +336,7 @@ export default class home extends Component {
                 <div className="post-activity">
                   <div className="l-div">
                     <div className="activity">
-                      <img src={item.is_like ? FullHeart : EmptyHeart} id={item._id} onClick={this.like_post.bind(this)} height="30"></img>
+                      <img src={item.is_like ? FullHeart : EmptyHeart} id={item._id} onClick={this.like_unlike_post} height="30"></img>
                       <span>{item.likes}</span>
                     </div>
                     <div className="activity">
@@ -478,7 +365,7 @@ export default class home extends Component {
           })}
         </div>
         <div className="recipes_2 sec" id="star-recipe-sec">
-          {this.state.recipes.length > 0 && this.state.recipes.map(function (item) {
+          {this.state.recipes.length > 0 && this.state.recipes.map((item) => {
             return (
               <div className="recipe">
                 <div className="primary-details">
@@ -503,6 +390,7 @@ export default class home extends Component {
                       <ReactStars
                         count={5}
                         value={item.rate}
+                        edit={false}
                         onChange={null}
                         isHalf={true}
                         activeColor="#ffd700"
@@ -532,7 +420,7 @@ export default class home extends Component {
                       <p>{item.comments}</p>
                     </div>
                     <div className="activity">
-                      <img src={item.is_like ? FullHeart : EmptyHeart} height="30"></img>
+                      <img src={item.is_like ? FullHeart : EmptyHeart} id={item._id} onClick={this.like_unlike_recipe} height="30"></img>
                       <p>{item.likes}</p>
                     </div>
                   </div>
@@ -546,7 +434,6 @@ export default class home extends Component {
           })}
         </div>
         <div className="foodservices sec" id="food-service-sec">
-          {console.log(this.state.food_services.length, "total number of food and services")}
           {this.state.food_services.length > 0 && this.state.food_services.map((item) => {
             return (
               <div className="each_food">

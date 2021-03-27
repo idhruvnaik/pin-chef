@@ -232,6 +232,13 @@ ul.switch-content-1 li {
   justify-content: space-between;
 }
 
+.user-feed-page .user-pallet .menu-bar .home-content .feeds .post-activity .l-div .activity,
+.user-feed-page .user-pallet .menu-bar .star-content .feeds_2 .post-activity .l-div .activity,
+.user-feed-page .user-pallet .menu-bar .home-content .recipes .post-activity .activities .activity,
+.user-feed-page .user-pallet .menu-bar .star-content .recipes_2 .post-activity .activities .activity{
+  cursor: pointer;
+}
+
 .user-feed-page .user-pallet .menu-bar .home-content .feeds .post-activity .activity,
 .user-feed-page .user-pallet .menu-bar .star-content .feeds_2 .post-activity .activity {
   display: flex;

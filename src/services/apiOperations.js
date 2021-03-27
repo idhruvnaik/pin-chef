@@ -10,7 +10,6 @@ const otp_endpoint = "/account/verify-otp"
 const feeds_endpoint = "/chef/getAll"
 const posts_endpoint = "/post"
 const each_chef_endpoint = "/chef/getChefById"
-const like_endpoint = "/like"
 const recipe_endpoint = "/recipe"
 const e_class_endpoint = "/e-class"
 const food_endpoint = "/food"
@@ -20,6 +19,15 @@ const food_purchase_endpoint = "/cart/food"
 const recipe_purchase_endpoint = "/cart/recipe"
 const master_class_purchase_endpoint = "/cart/masterclass"
 const followed_chef_endpoint = "/post-follow/user"
+const follow_chef_endpoint = "/post-follow"
+const like_post_endpoint = "/like"
+const unlike_post_endpoint = "/unlike"
+const like_recipe_endpoint = "/recipe-like"
+const unlike_recipe_endpoint = "/recipe-unlike"
+const like_food_endpoint = "/food/like"
+const unlike_food_endpoint = "/food/unlike"
+const like_service_endpoint = "/service/like"
+const unlike_service_endpoint = "/service/unlike"
 
 
 async function make_rest_call(apiURL, method, body, headers){
@@ -38,16 +46,6 @@ async function make_rest_call(apiURL, method, body, headers){
     }
 }
 
-// export const abc=()=>{
-//     return {
-//         "id": "603ddda4df7c6f0d9c8cc882",
-//         "user_name": "dhaval_123",
-//         "auth_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJkaGF2YWxfMTIzIiwiaWF0IjoxNjE1Nzg5MjE2LCJleHAiOjE2NDczMjUyMTZ9.NdAC-KlUlhw01GwWRUCWu5BJmD8Jz5oAPRIqkGqXqko",
-//         "roleID": 2,
-//         "profile": false
-//     }
-// }
-
 export const verifyLogin= async(username, password, remember)=>{
     let apiURL= apiHost + login_endpoint;
     var data = {
@@ -64,10 +62,6 @@ export const verifyLogin= async(username, password, remember)=>{
         };
     }
 }
-// export default function Dispatch_state(){
-//     const dispatch = useDispatch();
-//     dispatch(addToken());
-// }
 
 export const addTokenToState=(token_details)=>{
     return dispatch =>{
@@ -106,8 +100,8 @@ export const verifyOtp= async(username, otp, token)=>{
     }
 }
 
-export const getAllChef = async(token)=>{
-    let apiURL = apiHost + feeds_endpoint;
+export const getAllChef = async(user_id, token)=>{
+    let apiURL = apiHost + feeds_endpoint + "/" + user_id;
     var headers = {
         "Authorization": "Bearer " + token
     };
@@ -123,8 +117,8 @@ export const getAllChef = async(token)=>{
     }
 }
 
-export const getAllPosts = async(token)=>{
-    let apiURL = apiHost + posts_endpoint;
+export const getAllPosts = async(user_id, token)=>{
+    let apiURL = apiHost + posts_endpoint + "/" + user_id;
     var headers = {
         "Authorization": "Bearer " + token
     };
@@ -140,8 +134,8 @@ export const getAllPosts = async(token)=>{
     }
 }
 
-export const getAllRecipes = async(token)=>{
-    let apiURL = apiHost + recipe_endpoint;
+export const getAllRecipes = async(user_id, token)=>{
+    let apiURL = apiHost + recipe_endpoint + "/" + user_id;
     var headers = {
         "Authorization": "Bearer " + token
     };
@@ -174,8 +168,8 @@ export const getAllMasterClasses = async(token)=>{
     }
 }
 
-export const getAllFood = async(token)=>{
-    let apiURL = apiHost + food_endpoint;
+export const getAllFood = async(user_id, token)=>{
+    let apiURL = apiHost + food_endpoint + "/" + user_id;
     var headers = {
         "Authorization": "Bearer " + token
     };
@@ -191,8 +185,8 @@ export const getAllFood = async(token)=>{
     }
 }
 
-export const getAllServices = async(token)=>{
-    let apiURL = apiHost + service_endpoint;
+export const getAllServices = async(user_id, token)=>{
+    let apiURL = apiHost + service_endpoint + "/" + user_id;
     var headers = {
         "Authorization": "Bearer " + token
     };
@@ -310,13 +304,182 @@ export const getChefById = async(chef_id, token)=>{
     }
 }
 
-export const likePost = async(post_id, token)=>{
-    let apiURL = apiHost + like_endpoint;
+export const likePost = async(user_id, post_id, token)=>{
+    let apiURL = apiHost + like_post_endpoint;
     var headers = {
         "Authorization": "Bearer " + token
     };
     var data = {
-        post_id: post_id
+        post_id: post_id,
+        user_id: user_id
+    }
+    try{
+        let resp = await make_rest_call(apiURL, 'POST', data, headers);
+        return resp;
+    }
+    catch(err){
+        return {
+            status: false,
+            message: err.message
+        }
+    }
+}
+
+export const unlikePost = async(user_id, post_id, token)=>{
+    let apiURL = apiHost + unlike_post_endpoint;
+    var headers = {
+        "Authorization": "Bearer " + token
+    };
+    var data = {
+        post_id: post_id,
+        user_id: user_id
+    }
+    try{
+        let resp = await make_rest_call(apiURL, 'POST', data, headers);
+        return resp;
+    }
+    catch(err){
+        return {
+            status: false,
+            message: err.message
+        }
+    }
+}
+
+export const likeRecipe = async(user_id, recipe_id, token)=>{
+    let apiURL = apiHost + like_recipe_endpoint;
+    var headers = {
+        "Authorization": "Bearer " + token
+    };
+    var data = {
+        recipe_id: recipe_id,
+        user_id: user_id
+    }
+    try{
+        let resp = await make_rest_call(apiURL, 'POST', data, headers);
+        return resp;
+    }
+    catch(err){
+        return {
+            status: false,
+            message: err.message
+        }
+    }
+}
+
+export const unlikeRecipe = async(user_id, recipe_id, token)=>{
+    let apiURL = apiHost + unlike_recipe_endpoint;
+    var headers = {
+        "Authorization": "Bearer " + token
+    };
+    var data = {
+        recipe_id: recipe_id,
+        user_id: user_id
+    }
+    try{
+        let resp = await make_rest_call(apiURL, 'POST', data, headers);
+        return resp;
+    }
+    catch(err){
+        return {
+            status: false,
+            message: err.message
+        }
+    }
+}
+
+export const likeFood = async(user_id, food_id, token)=>{
+    let apiURL = apiHost + like_food_endpoint;
+    var headers = {
+        "Authorization": "Bearer " + token
+    };
+    var data = {
+        food_id: food_id,
+        user_id: user_id
+    }
+    try{
+        let resp = await make_rest_call(apiURL, 'POST', data, headers);
+        return resp;
+    }
+    catch(err){
+        return {
+            status: false,
+            message: err.message
+        }
+    }
+}
+
+export const unlikeFood = async(user_id, food_id, token)=>{
+    let apiURL = apiHost + unlike_food_endpoint;
+    var headers = {
+        "Authorization": "Bearer " + token
+    };
+    var data = {
+        food_id: food_id,
+        user_id: user_id
+    }
+    try{
+        let resp = await make_rest_call(apiURL, 'POST', data, headers);
+        return resp;
+    }
+    catch(err){
+        return {
+            status: false,
+            message: err.message
+        }
+    }
+}
+
+export const likeService = async(user_id, service_id, token)=>{
+    let apiURL = apiHost + like_service_endpoint;
+    var headers = {
+        "Authorization": "Bearer " + token
+    };
+    var data = {
+        service_id: service_id,
+        user_id: user_id
+    }
+    try{
+        let resp = await make_rest_call(apiURL, 'POST', data, headers);
+        return resp;
+    }
+    catch(err){
+        return {
+            status: false,
+            message: err.message
+        }
+    }
+}
+
+export const unlikeService = async(user_id, service_id, token)=>{
+    let apiURL = apiHost + unlike_service_endpoint;
+    var headers = {
+        "Authorization": "Bearer " + token
+    };
+    var data = {
+        service_id: service_id,
+        user_id: user_id
+    }
+    try{
+        let resp = await make_rest_call(apiURL, 'POST', data, headers);
+        return resp;
+    }
+    catch(err){
+        return {
+            status: false,
+            message: err.message
+        }
+    }
+}
+
+export const followChef = async(user_id, chef_id, token)=>{
+    let apiURL = apiHost + follow_chef_endpoint;
+    var headers = {
+        "Authorization": "Bearer " + token
+    };
+    var data = {
+        chef_id: chef_id,
+	    user_id: user_id
     }
     try{
         let resp = await make_rest_call(apiURL, 'POST', data, headers);
