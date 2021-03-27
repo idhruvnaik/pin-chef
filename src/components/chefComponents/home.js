@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import ReactStars from "react-rating-stars-component";
-import ImageUploader from "react-images-upload";
 import SlidingPane from "react-sliding-pane";
 import "react-sliding-pane/dist/react-sliding-pane.css";
 
@@ -186,8 +185,10 @@ export default class home extends Component {
 
     this.toggleFeedPopup = () => {
       this.setState({ isPaneOpenLeft: true });
-      // this.isFeedPopup = !this.isFeedPopup;
-      // console.log(this.isFeedPopup);
+    };
+
+    this.toggleRecipePopup = () => {
+      this.setState({ isRecipePopup: true });
     };
 
     this.active = (e) => {
@@ -282,12 +283,13 @@ export default class home extends Component {
             </Button>
           </div>
           <SlidingPane
-            className="some-custom-class"
+            className="pop-up-feeds"
             overlayClassName="some-custom-overlay-class"
             isOpen={this.state.isPaneOpenLeft}
             from={"bottom"}
             title="Create a Post"
             subtitle=""
+            width="100%"
             onRequestClose={() => {
               this.setState({ isPaneOpenLeft: false });
             }}
@@ -298,7 +300,7 @@ export default class home extends Component {
               $('.slide-pane__header').css("border-bottom-left-radius", "0px");
             }}
           >
-            <div className="pop-up feed">
+            <div className="pop-up-feed">
               <div className="pop-up-pad">
                 <div className="popup-content">
                   <div className="icon-bar">
@@ -307,28 +309,16 @@ export default class home extends Component {
                     <img src={LocationIcon}></img>
                   </div>
                   <div className="form-container">
-                    <div className="form-group height img-field">
+                    <div className="form-group img-field">
                       <div class="image-upload">
                         <label for="file-input">
-                          
                           <img src={ImageUploadIcon} />
                         </label>
-                        <input id="file-input" type="file" />
-                        {/* <ImageUploader
-                          withIcon={true}
-                          withPreview={true}
-                          label=""
-                          singleImage={true}
-                          buttonText="Upload Images"
-                          onChange={this.onDrop}
-                          imgExtension={[".jpg", ".gif", ".png", ".gif", ".svg"]}
-                          maxFileSize={1048576}
-                          fileSizeError=" file size is too big"
-                        /> */}
+                        <input id="file-input" type="file" className="description-field" />
                       </div>
                     </div>
-                    <div className="form-group height">
-                      <input placeholder="Write post description" type="textarea" />
+                    <div className="form-group">
+                      <input placeholder="Write post description" className="description-field" type="textarea" />
                     </div>
                     <div className="form-group location">
                       <img src={LocationPlusIcon} className="location-img"></img>
@@ -410,6 +400,98 @@ export default class home extends Component {
               </div>
             );
           })}
+          <div className="btn-container">
+            <Button onClick={this.toggleRecipePopup}>
+              <img className="create-feed-btn" src={PlusIcon}></img>
+            </Button>
+            <SlidingPane
+            className="pop-up-recipes"
+            overlayClassName="some-custom-overlay-class"
+            isOpen={this.state.isRecipePopup}
+            from={"bottom"}
+            title="Create a Recipe"
+            subtitle=""
+            width="100%"
+            onRequestClose={() => {
+              this.setState({ isRecipePopup: false });
+            }}
+            onAfterOpen={() => {
+              $('.slide-pane__header').css("background-color", "#5B5353");
+              $('.slide-pane__header').css("color", "white");
+              $('.slide-pane__header').css("border-radius", "15px");
+              $('.slide-pane__header').css("border-bottom-left-radius", "0px");
+            }}
+          >
+            <div className="pop-up-feed">
+              <div className="pop-up-pad">
+                <div className="popup-content">
+                  <div className="form-container">
+                    <div className="form-group height img-field">
+                      <div class="image-upload">
+                        <label for="file-input">
+                          
+                          <img src={ImageUploadIcon} />
+                        </label>
+                        <input id="file-input" type="file" />
+                      </div>
+                    </div>
+                    <div className="form-group">
+                      <label>Food Name <sup>*</sup></label>
+                      <input placeholder="Enter Food title" type="text" />
+                    </div>
+                    <div className="form-group">
+                    <label>Food Name <sup>*</sup></label>
+                      <select>
+                        <option>Indian</option>
+                        <option>South Indian</option>
+                      </select>
+                    </div>
+                    <div className="form-group">
+                      <label>Number of Servings <sup>*</sup></label>
+                      <input placeholder="Enter Number of Servings" type="number" />
+                    </div>
+                    <div className="form-group">
+                      <label>Prep Time <sup>*</sup></label>
+                      <input placeholder="Enter Number of Servings" type="number" />
+                    </div>
+                    <div className="form-group">
+                      <label>Cooking time <sup>*</sup></label>
+                      <input placeholder="Enter Number of Servings" type="number" />
+                    </div>
+                    <div className="form-group">
+                      <label>Ingredients <sup>*</sup></label>
+                      <input placeholder="Write post description" className="description-field" type="textarea" />
+                    </div>
+                    <div className="form-group">
+                      <label>Instructions <sup>*</sup></label>
+                      <input placeholder="Write post description" className="description-field" type="textarea" />
+                    </div>
+                    <div className="form-group">
+                      <label>Instructions <sup>*</sup></label>
+                      <input placeholder="Write post description" className="description-field" type="textarea" />
+                    </div>
+                    <div className="form-group">
+                      <label>Required tools (optional)</label>
+                      <input placeholder="Write post description" className="description-field" type="textarea" />
+                    </div>
+                    <div className="form-group radio-group">
+                      <label>Dates</label>
+                      <ul>
+                          <li><input type="radio" name="level" />Easy</li>
+                          <li><input type="radio" name="level" />Medium</li>
+                          <li><input type="radio" name="level" />Hard</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div className="popup-footer">
+                    <button className="footer-btn light">Cancel</button>
+                    <button className="footer-btn dark">Post</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </SlidingPane>
+          </div>
         </div>
         <div className="food sec" id="food-sec">
           {this.foods.map(function (item) {
