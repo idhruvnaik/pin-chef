@@ -210,7 +210,9 @@ class UserReg extends React.Component {
                         </div>
                         <div className="form-group">
                             <form action='' id="loginform" onSubmit={this.login_user}>
-                                <label htmlFor="username">email/id</label>
+                                <div className="username_container">
+                                    <label htmlFor="username">email/id</label>
+                                </div>
                                 <div className="user_input">
                                     <div className="symbol">
                                         <img src={Email}></img>
@@ -220,7 +222,9 @@ class UserReg extends React.Component {
                                         <input type="text" id="username" placeholder="ex: johndoe@pinchef.io"></input>
                                     </div>
                                 </div>
-                                <label htmlFor="password">password</label>
+                                <div className="password_container">
+                                    <label htmlFor="password">password</label>
+                                </div>
                                 <div className="password_input">
                                     <div>
                                         <img src={Password}></img>
@@ -252,12 +256,14 @@ class UserReg extends React.Component {
                             <div id="signin_storage">
                                 <input type="radio" name="user_sign_in" id="storeToken" onClick={this.save_token.bind(this)}></input>Keep me signed in
                             </div>
-                            <a href="" style={{color:"#FFD54F"}}>FORGOT PASSWORD</a>
                         </div>
                         <div className="multi-login">
-                            <AppleIcon />
-                            <FbIcon />
-                            <GoogleIcon />
+                            <div>
+                                <AppleIcon /> &nbsp;
+                                <FbIcon /> &nbsp;
+                                <GoogleIcon /> &nbsp;
+                            </div>
+                            <a href="" style={{color:"#FFD54F", textShadow: "2px 2px grey"}}>FORGOT PASSWORD</a>
                         </div>
                         <div id="note">
                             Signing In or Signing Up means you accept our <u><b>Terms/Conditions</b></u> &amp; <u><b>Privacy Policy</b></u>

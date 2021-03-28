@@ -5,26 +5,25 @@ import { Provider } from "react-redux";
 import configureStore from "../store";
 
 import UserPhoto from "../assets/images/photo2.png";
-import UserPost from "../assets/images/bannerFeed2.png";
 import PostMenu from "../assets/png_icons/Post menu icon@2x.png";
-import CommentIcon from "../assets/png_icons/Comment icon@2x.png";
-import EmptyHeart from '../assets/png_icons/Empty heart (2).png';
-import FullHeart from '../assets/png_icons/Filled heart.png';
-import PostShare from "../assets/png_icons/Post Share count@2x.png";
-import Time from "../assets/png_icons/time recipe@2x.png";
-import Recipe_time from "../assets/png_icons/time recipe.png";
+import CommentIcon from '../assets/svg/Comment icon.svg';
+import EmptyHeart from '../assets/svg/Like button empty.svg';
+import FullHeart from '../assets/svg/Like button full.svg';
+import PostShare from '../assets/svg/Post Share count.svg';
+import Time from '../assets/svg/time-2.svg';
+import Recipe_time from "../assets/svg/recipe-time.svg";
 import RefreshIcon from "../assets/png_icons/refresh-icon.png";
 import RightArrowIcon from "../assets/png_icons/right-arrow-icon.png";
 import DownArrowIcon from "../assets/png_icons/down-arrow-icon.png";
 import CopyIcon from "../assets/png_icons/copy-icon.png";
 import LeftBack from '../assets/png_icons/Green back arrow.png';
-import LocationIcon from '../assets/png_icons/Location outlined@2x.png';
+import LocationIcon from '../assets/svg/Location.svg';
 
 import NoFeeds from '../assets/svg/NoFeedPost';
 import NoRecipes from '../assets/svg/NoRecipesPosts';
 import NoPurchases from '../assets/svg/NoPurchases';
 import NoFoodService from '../assets/svg/NoFoodServices'
-import { getAllChef, getAllPosts, likePost, getAllRecipes, getAllPurchases, getAllFood, getAllServices, unlikePost, unlikeRecipe, likeRecipe } from '../services/apiOperations';
+import { getAllChef, getAllPosts, likePost, getAllRecipes, getAllPurchases, getAllFood, getAllServices, unlikePost, unlikeRecipe, likeRecipe, likeFood, unlikeFood, likeService, unlikeService } from '../services/apiOperations';
 import $ from "jquery";
 import chef from "./chefComponents/chef";
 
@@ -39,6 +38,9 @@ export default class home extends Component {
     this.initialize_food_services = this.initialize_food_services.bind(this);
     this.like_unlike_post = this.like_unlike_post.bind(this);
     this.like_unlike_recipe = this.like_unlike_recipe.bind(this);
+    this.like_unlike_food_service = this.like_unlike_food_service.bind(this);
+    this.showTime = this.showTime.bind(this);
+    this.makeTimer = this.makeTimer.bind(this);
 
     this.state = {
       food_services: [],
@@ -94,9 +96,10 @@ export default class home extends Component {
               </Provider>, document.getElementById('star-feed-sec'));
             $("#star-feed-sec").css("padding-top", "50px");
           } else {
-            post_result.map(function (item) {
+            post_result.map((item) => {
               let chef_details = chef_result.find(chef => chef._id == item.chef_id);
               item.chef = chef_details;
+              item.createdAt = this.showTime(item.createdAt);
             })
           }
         }
@@ -181,8 +184,8 @@ export default class home extends Component {
   }
 
   async initialize_food_services() {
-    let food_result = await getAllFood(this.token);
-    let service_result = await getAllServices(this.token);
+    let food_result = await getAllFood(this.user_id, this.token);
+    let service_result = await getAllServices(this.user_id, this.token);
     let chef_result = await this.initialize_chefs();
     var temp = [];
     if (chef_result.length > 0) {
@@ -198,6 +201,7 @@ export default class home extends Component {
           food_result.map(function (item) {
             let chef_details = chef_result.find(chef => chef._id == item.chef_id);
             item.chef = chef_details;
+            item.item_type = "food";
           })
         }
       }
@@ -216,10 +220,11 @@ export default class home extends Component {
           service_result.map(function (item) {
             let chef_details = chef_result.find(chef => chef._id == item.chef_id);
             item.chef = chef_details;
+            item.item_type = "service";
           })
         }
       }
-
+      console.log(temp, "temp from star");
       this.setState({
         food_services: temp.concat(service_result)
       });
@@ -239,37 +244,145 @@ export default class home extends Component {
   }
 
   async like_unlike_post(e) {
-    if (e.target.src == EmptyHeart) {
+    if (e.target.className == "false") {
       let result = await likePost(this.user_id, e.target.id, this.token);
       if (result.status && result.status == false) {
         console.log(result.message);
       } else {
-        this.initialize_feeds();
+        let feeds = [...this.state.feeds];
+        feeds.map((feed) => {
+          if (feed._id == e.target.id) {
+            feed.likes = feed.likes + 1;
+            feed.is_like = true;
+          }
+        })
+        this.setState({
+          feeds: feeds
+        })
       }
     } else {
       let result = await unlikePost(this.user_id, e.target.id, this.token);
       if (result.status && result.status == false) {
         console.log(result.message);
       } else {
-        this.initialize_feeds();
+        let feeds = [...this.state.feeds];
+        feeds.map((feed) => {
+          if (feed._id == e.target.id) {
+            feed.likes = feed.likes - 1;
+            feed.is_like = false;
+          }
+        })
+        this.setState({
+          feeds: feeds
+        })
       }
     }
   }
 
   async like_unlike_recipe(e) {
-    if (e.target.src == EmptyHeart) {
+    if (e.target.className == "false") {
       let result = await likeRecipe(this.user_id, e.target.id, this.token);
       if (result.status && result.status == false) {
         console.log(result.message);
       } else {
-        this.initialize_recipes();
+        let recipes = [...this.state.recipes];
+        recipes.map((recipe) => {
+          if (recipe._id == e.target.id) {
+            recipe.likes = recipe.likes + 1;
+            recipe.is_like = true;
+          }
+        })
+        this.setState({
+          recipes: recipes
+        })
       }
     } else {
       let result = await unlikeRecipe(this.user_id, e.target.id, this.token);
       if (result.status && result.status == false) {
         console.log(result.message);
       } else {
-        this.initialize_recipes();
+        let recipes = [...this.state.recipes];
+        recipes.map((recipe) => {
+          if (recipe._id == e.target.id) {
+            recipe.likes = recipe.likes - 1;
+            recipe.is_like = false;
+          }
+        })
+        this.setState({
+          recipes: recipes
+        })
+      }
+    }
+  }
+
+  async like_unlike_food_service(e) {
+    if (e.target.name == "service") {
+      if (e.target.className == "false") {
+        let result = await likeService(this.user_id, e.target.id, this.token);
+        if (result.status && result.status == false) {
+          console.log(result.message);
+        } else {
+          let services = [...this.state.food_services];
+          services.map((service) => {
+            if (service._id == e.target.id) {
+              service.likes = service.likes + 1;
+              service.is_like = true;
+            }
+          })
+          this.setState({
+            food_services: services
+          })
+        }
+      } else {
+        let result = await unlikeService(this.user_id, e.target.id, this.token);
+        if (result.status && result.status == false) {
+          console.log(result.message);
+        } else {
+          let services = [...this.state.food_services];
+          services.map((service) => {
+            if (service._id == e.target.id) {
+              service.likes = service.likes - 1;
+              service.is_like = false;
+            }
+          })
+          this.setState({
+            food_services: services
+          })
+        }
+      }
+    } else {
+      if (e.target.className == "false") {
+        let result = await likeFood(this.user_id, e.target.id, this.token);
+        if (result.status && result.status == false) {
+          console.log(result.message);
+        } else {
+          let food = [...this.state.food_services];
+          food.map((each_food) => {
+            if (each_food._id == e.target.id) {
+              each_food.likes = each_food.likes + 1;
+              each_food.is_like = true;
+            }
+          })
+          this.setState({
+            food_services: food
+          })
+        }
+      } else {
+        let result = await unlikeFood(this.user_id, e.target.id, this.token);
+        if (result.status && result.status == false) {
+          console.log(result.message);
+        } else {
+          let food = [...this.state.food_services];
+          food.map((each_food) => {
+            if (each_food._id == e.target.id) {
+              each_food.likes = each_food.likes - 1;
+              each_food.is_like = false;
+            }
+          })
+          this.setState({
+            food_services: food
+          })
+        }
       }
     }
   }
@@ -282,6 +395,26 @@ export default class home extends Component {
     $('.' + item).css("display", "block");
   }
 
+  makeTimer() {
+    setInterval(() => {
+      this.initialize_feeds();
+    }, 60000)
+  }
+
+  showTime(datetime) {
+    var date1 = new Date(datetime);
+    var date2 = new Date();
+    var diffInMs = Math.abs(date2 - date1);
+    if ((diffInMs / (1000 * 60 * 60 * 24)) > 0) {
+      return (diffInMs / (1000 * 60 * 60 * 24)).toFixed(1) + " days ago";
+    } else if ((diffInMs / (1000 * 60 * 60)) > 0) {
+      return (diffInMs / (1000 * 60 * 60)).toFixed(1) + " hours ago";
+    } else if ((diffInMs / (1000 * 60)) > 0) {
+      return (diffInMs / (1000 * 60)).toFixed(1) + " mins ago";
+    } else {
+      return (diffInMs / 1000).toFixed(2) + " seconds ago ";
+    }
+  }
   render() {
     return (
       <div className="star-content">
@@ -336,7 +469,7 @@ export default class home extends Component {
                 <div className="post-activity">
                   <div className="l-div">
                     <div className="activity">
-                      <img src={item.is_like ? FullHeart : EmptyHeart} id={item._id} onClick={this.like_unlike_post} height="30"></img>
+                      <img src={item.is_like ? FullHeart : EmptyHeart} id={item._id} className={item.is_like.toString()} onClick={this.like_unlike_post}></img>
                       <span>{item.likes}</span>
                     </div>
                     <div className="activity">
@@ -347,15 +480,23 @@ export default class home extends Component {
                       <img src={PostShare}></img>
                       <span>{item.share}</span>
                     </div>
+                    <div className="activity">
+                      <div>
+                        <img src={LocationIcon}></img>
+                      </div>
+                      <div>
+                        <span>{item.location}</span>
+                      </div>
+                    </div>
                   </div>
                   <div className="r-div">
                     <div className="activity">
-                      <img src={LocationIcon}></img>
-                      <span>{item.location}</span>
-                    </div>
-                    <div className="activity">
-                      <img src={Time}></img>
-                      <span>{item.createdAt}</span>
+                      <div>
+                        <img src={Time}></img>
+                      </div>
+                      <div>
+                        <span>{item.createdAt}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -420,7 +561,7 @@ export default class home extends Component {
                       <p>{item.comments}</p>
                     </div>
                     <div className="activity">
-                      <img src={item.is_like ? FullHeart : EmptyHeart} id={item._id} onClick={this.like_unlike_recipe} height="30"></img>
+                      <img src={item.is_like ? FullHeart : EmptyHeart} id={item._id} onClick={this.like_unlike_recipe} className={item.is_like.toString()}></img>
                       <p>{item.likes}</p>
                     </div>
                   </div>
@@ -485,7 +626,7 @@ export default class home extends Component {
                   </div>
                   <div className="r-div">
                     <div className="activity">
-                      <img src={item.is_like ? FullHeart : EmptyHeart} height="30"></img>
+                      <img src={item.is_like ? FullHeart : EmptyHeart} className={item.is_like.toString()} name={item.item_type} id={item._id} onClick={this.like_unlike_food_service}></img>
                       <p>{item.likes}</p>
                     </div>
                     <div className="activity">

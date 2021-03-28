@@ -31,6 +31,9 @@
   .login-register, .otp-container .login-register{
     width: 95%;
   }
+  ::-webkit-scrollbar {
+    width: 0px;
+  }
 }
 
 @media (max-width: 481px) {
@@ -92,6 +95,23 @@
   ::placeholder {
     font-size: 12px;
   }
+  #e-master-class-sec{
+    font-size: 11px;
+  }
+  .user-pallet{
+    height: calc(100% - 125px);
+  }
+  #forgot {
+    height: 45px;
+  }
+  .multi-login {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+  .multi-login div svg:nth-child(1), .multi-login div svg:nth-child(2), .multi-login div svg:nth-child(3){
+    height: 30px;
+    width: 30px;
+  }
 }
 @media (max-height: 570px) {
   .all_chefs .chef, .following_chefs .chef{
@@ -123,6 +143,12 @@
   }
   .login-register{
     font-size: 12px;
+  }
+  .order_content .user_details img:first-child{
+    height: 30px;
+  }
+  #forgot {
+    height: 35px;
   }
 }
 
@@ -174,5 +200,8 @@
   .form-headers .nav-buttons{
     font-size: 13px;
     text-align: center;
+  }
+  .multi-login a{
+    font-size: x-small;
   }
 }

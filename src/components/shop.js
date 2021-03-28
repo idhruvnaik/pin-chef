@@ -5,14 +5,12 @@ import { Provider } from "react-redux";
 import configureStore from "../store";
 import { getAllChef, getAllFood, getAllServices, likeFood, unlikeFood, likeService, unlikeService } from '../services/apiOperations';
 
-import UserPhoto from '../assets/images/photo2.png';
-import UserPost from '../assets/images/bannerFeed2.png';
 import PostMenu from '../assets/png_icons/Post menu icon@2x.png';
-import CommentIcon from '../assets/png_icons/Comment icon@2x.png';
-import EmptyHeart from '../assets/png_icons/Empty heart (2).png';
-import FullHeart from '../assets/png_icons/Filled heart.png';
-import PostShare from '../assets/png_icons/Post Share count@2x.png';
-import LocationIcon from '../assets/png_icons/Location outlined@2x.png';
+import CommentIcon from '../assets/svg/Comment icon.svg';
+import EmptyHeart from '../assets/svg/Like button empty.svg';
+import FullHeart from '../assets/svg/Like button full.svg';
+import PostShare from '../assets/svg/Post Share count.svg';
+import LocationIcon from '../assets/svg/Location.svg';
 
 import NoServices from '../assets/svg/NoServicesPost';
 import $ from 'jquery';
@@ -121,39 +119,73 @@ export default class home extends Component {
     }
 
     async like_unlike_food(e) {
-        console.log(e, "from like unlike food");
-        if (e.target && e.target.src == EmptyHeart ){
+        if (e.target.className == "false" ){
             let result = await likeFood(this.user_id, e.target.id, this.token);
             if (result.status && result.status == false){
                 console.log(result.message);
             } else{
-                this.initialize_food();
+                let food = [...this.state.food];
+                food.map((each_food) => {
+                    if(each_food._id == e.target.id){
+                        each_food.likes = each_food.likes + 1;
+                        each_food.is_like = true;
+                    }
+                })
+                this.setState({
+                    food: food
+                })
             }
         } else {
             let result = await unlikeFood(this.user_id, e.target.id, this.token);
             if (result.status && result.status == false){
                 console.log(result.message);
             } else{
-                this.initialize_food();
+                let food = [...this.state.food];
+                food.map((each_food) => {
+                    if(each_food._id == e.target.id){
+                        each_food.likes = each_food.likes - 1;
+                        each_food.is_like = false;
+                    }
+                })
+                this.setState({
+                    food: food
+                })
             }
         }
     }
 
     async like_unlike_service(e) {
-        console.log(e, "from like unlike service");
-        if (e.target && e.target.src == EmptyHeart ){
+        if (e.target.className == "false"){
             let result = await likeService(this.user_id, e.target.id, this.token);
             if (result.status && result.status == false){
                 console.log(result.message);
             } else{
-                this.initialize_services();
+                let services = [...this.state.services];
+                services.map((service) => {
+                    if(service._id == e.target.id){
+                        service.likes = service.likes + 1;
+                        service.is_like = true;
+                    }
+                })
+                this.setState({
+                    services: services
+                })
             }
         } else {
             let result = await unlikeService(this.user_id, e.target.id, this.token);
             if (result.status && result.status == false){
                 console.log(result.message);
             } else{
-                this.initialize_services();
+                let services = [...this.state.services];
+                services.map((service) => {
+                    if(service._id == e.target.id){
+                        service.likes = service.likes - 1;
+                        service.is_like = false;
+                    }
+                })
+                this.setState({
+                    services: services
+                })
             }
         }
     }
@@ -219,7 +251,7 @@ export default class home extends Component {
                                     </div>
                                     <div className="r-div">
                                         <div className="activity">
-                                            <img src={item.is_like ? FullHeart : EmptyHeart} id={item._id} onClick={this.like_unlike_food} height="30"></img>
+                                            <img src={item.is_like ? FullHeart : EmptyHeart} id={item._id} onClick={this.like_unlike_food} className={item.is_like.toString()}></img>
                                             <p>{item.likes}</p>
                                         </div>
                                         <div className="activity">
@@ -285,7 +317,7 @@ export default class home extends Component {
                                     </div>
                                     <div className="r-div">
                                         <div className="activity">
-                                            <img src={item.is_like ? FullHeart : EmptyHeart} id={item._id} onClick={this.like_unlike_service} height="30"></img>
+                                            <img src={item.is_like ? FullHeart : EmptyHeart} id={item._id} onClick={this.like_unlike_service} className={item.is_like.toString()}></img>
                                             <p>{item.likes}</p>
                                         </div>
                                         <div className="activity">

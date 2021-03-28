@@ -7,20 +7,18 @@ import configureStore from "../store";
 import NoFeeds from '../assets/svg/NoFeedPost';
 import NoRecipes from '../assets/svg/NoRecipesPosts';
 import NoClasses from '../assets/svg/NoMasterClassPost';
-import UserPhoto from '../assets/images/photo2.png';
-import UserPost from '../assets/images/bannerFeed2.png';
 import PostMenu from '../assets/png_icons/Post menu icon@2x.png';
-import CommentIcon from '../assets/png_icons/Comment icon@2x.png';
-import EmptyHeart from '../assets/png_icons/Empty heart (2).png';
-import FullHeart from '../assets/png_icons/Filled heart.png';
-import PostShare from '../assets/png_icons/Post Share count@2x.png';
-import Time from '../assets/png_icons/time recipe@2x.png';
-import Recipe_time from '../assets/png_icons/time recipe.png';
+import CommentIcon from '../assets/svg/Comment icon.svg';
+import EmptyHeart from '../assets/svg/Like button empty.svg';
+import FullHeart from '../assets/svg/Like button full.svg';
+import PostShare from '../assets/svg/Post Share count.svg';
+import Time from '../assets/svg/time-2.svg';
+import Recipe_time from '../assets/svg/recipe-time.svg';
 import Food from '../assets/png_icons/mexicanFood.png';
-import LocationIcon from '../assets/png_icons/Location outlined@2x.png';
+import LocationIcon from '../assets/svg/Location.svg';
 
 import MasterShare from '../assets/png_icons/Masterclass Share btn@2x.png'
-import BookClass from '../assets/png_icons/Book Masterclass icon.png'
+import BookClass from '../assets/svg/Book masterclass.svg'
 import MasterclassTime from '../assets/png_icons/Masterclass Time icon.png'
 import MasterclassClockIcon from '../assets/png_icons/Masterclass clock icon.png'
 
@@ -40,6 +38,8 @@ export default class home extends Component {
         this.initialize_e_master_class = this.initialize_e_master_class.bind(this);
         this.like_unlike_post = this.like_unlike_post.bind(this);
         this.like_unlike_recipe = this.like_unlike_recipe.bind(this);
+        this.showTime = this.showTime.bind(this);
+        this.makeTimer = this.makeTimer.bind(this);
         this.render = this.render.bind(this);
         this.state = {
             chefs: [],
@@ -47,7 +47,7 @@ export default class home extends Component {
             recipes: [],
             master_classes: []
         }
-
+        this.makeTimer();
         this.ratingChanged = (newRating) => {
             document.querySelector('.each_service .primary-details .rattings .given_rattings').innerHTML = newRating;
         };
@@ -88,9 +88,10 @@ export default class home extends Component {
                                 <NoFeeds />
                             </Provider>, document.getElementById('feed-sec'));
                     } else {
-                        post_result.map(function (item) {
+                        post_result.map((item) => {
                             let chef_details = chef_result.find(chef => chef._id == item.chef_id);
                             item.chef = chef_details;
+                            item.createdAt = this.showTime(item.createdAt);
                         })
                     }
                 }
@@ -180,38 +181,95 @@ export default class home extends Component {
     }
 
     async like_unlike_post(e) {
-        if (e.target.src == EmptyHeart ){
+        if (e.target.className == "false" ){
             let result = await likePost(this.user_id, e.target.id, this.token);
             if (result.status && result.status == false){
                 console.log(result.message);
             } else{
-                this.initialize_feeds();
+                let feeds = [...this.state.feeds];
+                feeds.map((feed) => {
+                    if(feed._id == e.target.id){
+                        feed.likes = feed.likes + 1;
+                        feed.is_like = true;
+                    }
+                })
+                this.setState({
+                    feeds: feeds
+                })
             }
         } else {
             let result = await unlikePost(this.user_id, e.target.id, this.token);
             if (result.status && result.status == false){
                 console.log(result.message);
             } else{
-                this.initialize_feeds();
+                let feeds = [...this.state.feeds];
+                feeds.map((feed) => {
+                    if(feed._id == e.target.id){
+                        feed.likes = feed.likes - 1;
+                        feed.is_like = false;
+                    }
+                })
+                this.setState({
+                    feeds: feeds
+                })
             }
         }
     }
 
     async like_unlike_recipe(e) {
-        if (e.target.src == EmptyHeart ){
+        if (e.target.className == "false") {
             let result = await likeRecipe(this.user_id, e.target.id, this.token);
-            if (result.status && result.status == false){
+            if (result.status && result.status == false) {
                 console.log(result.message);
-            } else{
-                this.initialize_recipes();
+            } else {
+                let recipes = [...this.state.recipes];
+                recipes.map((recipe) => {
+                    if(recipe._id == e.target.id){
+                        recipe.likes = recipe.likes + 1;
+                        recipe.is_like = true;
+                    }
+                })
+                this.setState({
+                    recipes: recipes
+                })
             }
         } else {
             let result = await unlikeRecipe(this.user_id, e.target.id, this.token);
-            if (result.status && result.status == false){
+            if (result.status && result.status == false) {
                 console.log(result.message);
-            } else{
-                this.initialize_recipes();
+            } else {
+                let recipes = [...this.state.recipes];
+                recipes.map((recipe) => {
+                    if(recipe._id == e.target.id){
+                        recipe.likes = recipe.likes - 1;
+                        recipe.is_like = false;
+                    }
+                })
+                this.setState({
+                    recipes: recipes
+                })
             }
+        }
+    }
+
+    makeTimer(){
+        setInterval(() => {
+          this.initialize_feeds();
+        }, 60000)
+    }
+
+    showTime(datetime) {
+        var date1 = new Date(datetime);
+        var date2 = new Date();
+        var diffInMs = Math.abs(date2 - date1);
+        if ((diffInMs / (1000 * 60 * 60 * 24)) > 0){
+            return (diffInMs / (1000 * 60 * 60 * 24)).toFixed(1) + " days ago";
+        } else if((diffInMs / (1000 * 60 * 60)) > 0){
+            return (diffInMs / (1000 * 60 * 60)).toFixed(1) + " hours ago";
+        } else if ((diffInMs / (1000 * 60)) > 0){
+            return (diffInMs / (1000 * 60)).toFixed(1) + " mins ago";
+        } else{
+            return (diffInMs / 1000).toFixed(2) + " seconds ago ";
         }
     }
 
@@ -239,7 +297,7 @@ export default class home extends Component {
                                     </div>
                                     <div style={{ paddingRight: "4px" }}>
                                         <div className="post-option" style={{ textAlignLast: "right" }}><img src={PostMenu}></img></div>
-                                        <div style={{ display: "flex" }}>
+                                        {/* <div style={{ display: "flex" }}>
                                             <div className="feed_rattings">{item.rate}</div>
                                             <ReactStars
                                                 count={5}
@@ -249,7 +307,7 @@ export default class home extends Component {
                                                 edit={false}
                                                 activeColor="#ffd700"
                                             />
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
                                 <div className="post-image">
@@ -258,7 +316,7 @@ export default class home extends Component {
                                 <div className="post-activity">
                                     <div className="l-div">
                                         <div className="activity">
-                                            <img src={item.is_like ? FullHeart : EmptyHeart} id={item._id} onClick={this.like_unlike_post} height="30"></img>
+                                            <img src={item.is_like ? FullHeart : EmptyHeart} id={item._id} className={item.is_like.toString()} onClick={this.like_unlike_post}></img>
                                             <span>{item.likes}</span>
                                         </div>
                                         <div className="activity">
@@ -269,15 +327,23 @@ export default class home extends Component {
                                             <img src={PostShare}></img>
                                             <span>{item.share}</span>
                                         </div>
+                                        <div className="activity">
+                                            <div>
+                                                <img src={LocationIcon}></img>
+                                            </div>
+                                            <div>
+                                                <span>{item.location}</span>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div className="r-div">
                                         <div className="activity">
-                                            <img src={LocationIcon}></img>
-                                            <span>{item.location}</span>
-                                        </div>
-                                        <div className="activity">
-                                            <img src={Time}></img>
-                                            <span>{item.createdAt}</span>
+                                            <div>
+                                                <img src={Time}></img>
+                                            </div>
+                                            <div>
+                                                <span>{item.createdAt}</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -339,7 +405,7 @@ export default class home extends Component {
                                             <p>{item.comments}</p>
                                         </div>
                                         <div className="activity">
-                                            <img src={item.is_like ? FullHeart : EmptyHeart} id={item._id} onClick={this.like_unlike_recipe} height="30"></img>
+                                            <img src={item.is_like ? FullHeart : EmptyHeart} id={item._id} className={item.is_like.toString()} onClick={this.like_unlike_recipe}></img>
                                             <p>{item.likes}</p>
                                         </div>
                                     </div>

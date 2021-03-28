@@ -492,3 +492,24 @@ export const followChef = async(user_id, chef_id, token)=>{
         }
     }
 }
+
+export const unfollowChef = async(user_id, chef_id, token)=>{
+    let apiURL = apiHost + follow_chef_endpoint;
+    var headers = {
+        "Authorization": "Bearer " + token
+    };
+    var data = {
+        chef_id: chef_id,
+	    user_id: user_id
+    }
+    try{
+        let resp = await make_rest_call(apiURL, 'DELETE', data, headers);
+        return resp;
+    }
+    catch(err){
+        return {
+            status: false,
+            message: err.message
+        }
+    }
+}

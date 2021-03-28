@@ -208,7 +208,7 @@ opacity: 0;;
     height: 55px;
 }
 .password_input .symbol{
-    padding-top: 15px;
+    padding-top: 18px;
     border-top-right-radius: 30px;
     border-bottom-right-radius: 30px;
 }
@@ -250,4 +250,21 @@ input:focus {
     font-weight: 100;
     font-family: Montserrat;
     padding: 10px;
+}
+.username_container{
+    text-align-last: left;
+    margin-bottom: 5px;
+    padding-left: 80px;
+}
+.password_container{
+    text-align-last: left;
+    margin-bottom: 5px;
+    padding-left: 20px;
+}
+.multi-login{
+    display: flex;
+    justify-content: space-between;
+    padding-left: 10%;
+    padding-right: 10%;
+    align-items: center;
 }
