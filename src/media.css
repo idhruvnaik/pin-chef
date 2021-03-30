@@ -40,6 +40,9 @@
   .contact_us .feedback {
     height: 77%;
   }
+  .user-feed-page .user-pallet .menu-bar .star-content .my_purchases .item{
+    width: 92%;
+  }
 }
 
 @media (max-width: 481px) {
@@ -60,7 +63,7 @@
   }
   .user-feed-page .user-pallet .menu-bar .star-content .my_purchases .item{
     padding: 12px;
-    font-size: small;
+    font-size: small; 
   }
   .user-feed-page .user-pallet .menu-bar ul.switch-content li {
     font-size: 12px;
