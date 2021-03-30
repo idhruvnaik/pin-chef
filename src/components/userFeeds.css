@@ -398,6 +398,7 @@ ul.switch-content-1 li {
 .order_content .user_details img {
   border-radius: 50%;
   height: 40px;
+  width: 40px;
 }
 .order_content .user_details img:first-child {
   border-radius: 0px;
