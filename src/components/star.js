@@ -671,7 +671,7 @@ export default class home extends Component {
                         />
                       </div>
                       <div className="r-div">
-                        <h3 onClick={() => this.open_purchase_details("food_recipe", "purchase-detail")}>{purchase.order_type == "masterclass" ? "Masterclass" : "Food and Services"}</h3>
+                        <h3 onClick={() => this.open_purchase_details(null, purchase.order_type == "eclass" ? "purchase-detail" : "food-service-purchase-detail")}>{purchase.order_type == "eclass" ? "Masterclass" : "Food and Services"}</h3>
                         <img src={RefreshIcon}></img>
                       </div>
                     </div>
@@ -765,6 +765,52 @@ export default class home extends Component {
                 <div className="details-section">
                   <h3>Needed Ingredients</h3>
                   <textarea placeholder="Masterclass instructions autofilled"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="food-service-purchase-detail">
+            <div className="switch-content">
+              <div>
+                <img src={LeftBack} onClick={() => this.open_purchase_details(null, 'item')}></img>
+              </div>
+              <div>
+                <h2>PURCHASE DETAILS</h2>
+              </div>
+            </div>
+            <div className="head-container">
+              <h5 className="date">13 October, 2020- 1:24 PM</h5>
+              <div className="l-div">
+              </div>
+              <div className="content">
+                <table>
+                  <thead>
+                    <th>Item</th>
+                    <th>QTY</th>
+                    <th>Price</th>
+                    <th>Amount</th>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Cook and Deliver</td>
+                      <td>1 <span className="plus-icon">+</span></td>
+                      <td>$23.80</td>
+                      <td>$23.80</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div className="total-detail">
+                  <h4>Sub total <span>$ 23.00</span></h4>
+                  <h4>Tax: <span>% 8</span></h4>
+                  <h3>Total: $ 39.84</h3>
+                </div>
+                <div className="details-section">
+                  <h3>Extra notes</h3>
+                  <textarea placeholder="User address"></textarea>
+                </div>
+                <div className="details-section">
+                  <h3>Payment Method</h3>
+                  <textarea placeholder="Select a payment method"></textarea>
                 </div>
               </div>
             </div>

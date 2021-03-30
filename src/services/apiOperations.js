@@ -15,6 +15,7 @@ const e_class_endpoint = "/e-class"
 const food_endpoint = "/food"
 const service_endpoint = "/service"
 const cart_endpoint = "/cart"
+const order_endpoint = "/order"
 const food_purchase_endpoint = "/cart/food"
 const recipe_purchase_endpoint = "/cart/recipe"
 const master_class_purchase_endpoint = "/cart/masterclass"
@@ -254,7 +255,7 @@ export const getAllMasterClassPurchases = async(user_id, token)=>{
 }
 
 export const getAllPurchases = async(user_id, token)=>{
-    let apiURL = apiHost + cart_endpoint + "/" + user_id;
+    let apiURL = apiHost + order_endpoint + "/" + user_id;
     var headers = {
         "Authorization": "Bearer " + token
     };

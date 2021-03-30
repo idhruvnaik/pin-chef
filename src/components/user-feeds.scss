@@ -328,6 +328,132 @@
               }
             }
           }
+          .food-service-purchase-detail {
+            width: calc(100% - 20px);
+            padding: 10px;
+            .head-container {
+              .date {
+                width: 100%;
+                text-align: right;
+                font-weight: 300;
+                margin-bottom: 5px;
+              }
+              .l-div {
+                display: flex;
+                .profile-img-container {
+                  height: 50px;
+                  width: 50px;
+                  margin-right: 10px;
+                  img {
+                    height: 100%;
+                    width: 100%;
+                    border-radius: 50%;
+                  }
+                }
+                .user-detail-container {
+                  display: flex;
+                  flex-direction: column;
+                  text-align: left;
+                  h3 {
+                    margin-bottom: 5px;
+                    font-size: 14px;
+                  }
+                  h5 {
+                    color: #707070;
+                    font-weight: 400;
+                    font-size: 12px;
+                  }
+                }
+              }
+            }
+            .content {
+              table {
+                border-spacing: 0;
+                margin-bottom: 20px;
+                thead {
+                  background: #464040;
+                  border-radius: 10px;
+                  th {
+                    color: white;
+                    font-weight: 700;
+                    padding: 7px 10px;
+                    width: 100%;
+                    &:first-child {
+                      border-top-left-radius: 5px;
+                      border-bottom-left-radius: 5px;
+                    }
+                    &:last-child {
+                      border-top-right-radius: 5px;
+                      border-bottom-right-radius: 5px;
+                    }
+                  }
+                }
+                tbody {
+                  tr {
+                    td {
+                      padding: 10px;
+                      &:first-child {
+                        text-align: left;
+                      }
+                      .plus-icon {
+                        color: #3f8f22;
+                        font-size: 18px;
+                        font-weight: 700;
+                        cursor: pointer;
+                      }
+                    }
+                  }
+                }
+              }
+              .total-detail {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                padding: 0px 10px;
+                margin-bottom: 20px;
+                h4 {
+                  color: #464040;
+                  margin-bottom: 10px;
+                  span {
+                    font-weight: 300;
+                  }
+                }
+                h3 {
+                  color: #469a09;
+                }
+              }
+              .youtube-link {
+                display: flex;
+                align-items: center;
+                margin-bottom: 30px;
+                h5 {
+                  margin-right: 10px;
+                  font-weight: 300;
+                }
+                img {
+                  height: 20px;
+                }
+              }
+              .details-section {
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 10px;
+                &:last-child{
+                  margin-bottom: 0px;
+                }
+                h3 {
+                  color: #469A09;
+                  margin-bottom: 10px;
+                  text-align: left;
+                }
+                textarea {
+                  border-radius: 5px;
+                  height: 100px;
+                  padding: 30px;
+                }
+              }
+            }
+          }
         }
       }
     }

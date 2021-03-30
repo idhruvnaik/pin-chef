@@ -167,8 +167,8 @@ ul.switch-content-1 li {
 }
 .user-feed-page .user-pallet .menu-bar .home-content .primary-details .profile-img-container,
 .user-feed-page .user-pallet .menu-bar .star-content .primary-details .profile-img-container {
-  max-height: 50px;
-  max-width: 50px;
+  height: 50px;
+  width: 50px;
   display: flex;
   margin-right: 10px;
 }
@@ -782,24 +782,25 @@ ul.switch-content-1 li {
   height: 90%;
 }
 
-.purchase-detail {
+.purchase-detail, .food-service-purchase-detail {
   display: none;
 }
-.purchase-detail .switch-content{
+.purchase-detail .switch-content, .food-service-purchase-detail .switch-content{
   justify-content: center;
   color: green;
   display: flex;
   margin-bottom: 20px;
 }
-.purchase-detail .switch-content div:first-child {
+.purchase-detail .switch-content div:first-child, .food-service-purchase-detail .switch-content div:first-child{
   text-align-last: left;
   width: 10%;
   cursor: pointer;
 }
-.purchase-detail .switch-content div:last-child {
-  width: 90%;
+.purchase-detail .switch-content div:last-child, .food-service-purchase-detail .switch-content div:last-child {
+  width: 80%;
   display: flex;
   justify-content: center;
+  margin-right: 10%;
 }
 
 
