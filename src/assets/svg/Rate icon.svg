@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="46" height="47" viewBox="0 0 46 47">
+  <g id="Rate_icon" data-name="Rate icon" transform="translate(-0.129 0.454)">
+    <g id="Yellow_star" data-name="Yellow star" transform="translate(4 5.237)">
+      <path id="Yellow_star-2" data-name="Yellow star" d="M37.727,23.98a3.282,3.282,0,0,0-3.166-2.3H25.094l-2.981-9.054A3.28,3.28,0,0,0,18.95,10.34h-.014a3.281,3.281,0,0,0-3.158,2.314l-2.894,9.029H3.337a3.33,3.33,0,0,0-1.951,6.03L9.11,33.295,6.137,42.324a3.28,3.28,0,0,0,1.2,3.73,3.28,3.28,0,0,0,3.917.011l7.737-5.592,7.645,5.583a3.331,3.331,0,0,0,5.136-3.706l-2.9-9.054L36.525,27.7a3.281,3.281,0,0,0,1.2-3.723Z" transform="translate(0 -10.34)" fill="#facb78" stroke="#facb78" stroke-width="1"/>
+    </g>
+    <g id="Rectangle_1510" data-name="Rectangle 1510" transform="translate(0.129 -0.454)" fill="none" stroke="#707070" stroke-width="1" opacity="0">
+      <rect width="46" height="47" stroke="none"/>
+      <rect x="0.5" y="0.5" width="45" height="46" fill="none"/>
+    </g>
+  </g>
+</svg>

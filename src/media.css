@@ -34,6 +34,12 @@
   ::-webkit-scrollbar {
     width: 0px;
   }
+  .footer{
+    justify-content: space-between;
+  }
+  .contact_us .feedback {
+    height: 77%;
+  }
 }
 
 @media (max-width: 481px) {
@@ -112,6 +118,17 @@
     height: 30px;
     width: 30px;
   }
+  .settings-content{
+    font-size: 12px;
+  }
+  .contact_us .feedback{
+    height: 80%;
+  }
+}
+@media (max-width: 380px) {
+  .contact_us .feedback{
+    height: 75%;
+  }
 }
 @media (max-height: 570px) {
   .all_chefs .chef, .following_chefs .chef{
@@ -149,6 +166,9 @@
   }
   #forgot {
     height: 35px;
+  }
+  .contact_us .feedback{
+    height: 70%;
   }
 }
 

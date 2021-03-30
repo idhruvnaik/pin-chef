@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" viewBox="0 0 46 46">
+  <g id="Help_icon" data-name="Help icon" transform="translate(-0.129 -0.262)">
+    <g id="Rectangle_1512" data-name="Rectangle 1512" transform="translate(0.129 0.262)" fill="none" stroke="#707070" stroke-width="1" opacity="0">
+      <rect width="46" height="46" stroke="none"/>
+      <rect x="0.5" y="0.5" width="45" height="45" fill="none"/>
+    </g>
+    <g id="Help" transform="translate(3.306 4.019)">
+      <g id="Group_309" data-name="Group 309">
+        <path id="Help_icon-2" data-name="Help icon" d="M20.32,0a20.32,20.32,0,1,0,20.32,20.32A20.4,20.4,0,0,0,20.32,0Zm0,34.607A2.381,2.381,0,1,1,22.7,32.226,2.381,2.381,0,0,1,20.32,34.607Zm4.219-15.669A4.086,4.086,0,0,0,22.7,22.074V22.7a2.381,2.381,0,1,1-4.762,0v-.627A8.717,8.717,0,0,1,21.722,15.1a2.381,2.381,0,1,0-3.783-1.923,2.381,2.381,0,1,1-4.762,0,7.144,7.144,0,1,1,11.363,5.762Z" fill="#3f8f22"/>
+      </g>
+    </g>
+  </g>
+</svg>

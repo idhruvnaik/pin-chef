@@ -9,16 +9,16 @@ import PostShare from '../assets/png_icons/Post Share count@2x.png';
 import SmallRightArrow from '../assets/png_icons/Right green arrow.png'
 import RightArrow from '../assets/png_icons/Right green arrow@2x.png';
 import LeftBack from '../assets/png_icons/Green back arrow.png'
-import BellIcon from '../assets/png_icons/Bell icon@2x.png'
-import Help from '../assets/png_icons/Help@2x.png'
-import Share from '../assets/png_icons/share settings@2x.png'
-import Star from '../assets/png_icons/Yellow star@2x.png'
-import FAQ from '../assets/png_icons/Faq icon on menu.png'
-import Terms from '../assets/png_icons/terms icon on menu.png'
-import ContactUs from '../assets/png_icons/contact-us icon on menu.png'
-import LargeFAQ from '../assets/png_icons/Faq icon on menu@2x.png'
-import LargeTerms from '../assets/png_icons/terms icon on menu@2x.png'
-import LargeContactUs from '../assets/png_icons/contact-us icon on menu@2x.png'
+import BellIcon from '../assets/svg/Notifications icon.svg'
+import Help from '../assets/svg/Help icon.svg'
+import Share from '../assets/svg/Share icon.svg'
+import Star from '../assets/svg/Rate icon.svg'
+import FAQ from '../assets/svg/Faq icon on menu.svg'
+import Terms from '../assets/svg/terms icon on menu.svg'
+import ContactUs from '../assets/svg/contact_us.svg'
+import LargeFAQ from '../assets/svg/Faq icon on menu.svg'
+import LargeTerms from '../assets/svg/terms icon on menu.svg'
+import LargeContactUs from '../assets/svg/contact_us.svg'
 import LargeDeleteAccount from '../assets/png_icons/Delete settings@2x.png'
 import LargeLogout from '../assets/png_icons/Logout@2x.png'
 import LargeLocationSettings from '../assets/png_icons/Location settings@2x.png'
@@ -373,6 +373,9 @@ export default class settings extends Component {
                                 <div>
                                     <h3>Message<span style={{ color: "red" }}> *</span></h3>
                                     <input type="text" id="subject" placeholder="Enter message" required></input>
+                                </div>
+                                <div>
+                                    <input type="submit" value="Send" className="send_queries"></input>
                                 </div>
                             </form>
                         </div>

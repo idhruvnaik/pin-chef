@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" viewBox="0 0 46 46">
+  <g id="Notifications_icon" data-name="Notifications icon" transform="translate(-0.129 -0.488)">
+    <g id="Notifications_icon_settings" data-name="Notifications icon settings">
+      <g id="Notifications_icon_settings-2" data-name="Notifications icon settings" transform="translate(6.084 5.786)">
+        <rect id="Rectangle_479" data-name="Rectangle 479" width="33.062" height="33.062" transform="translate(0.605)" fill="none"/>
+        <path id="Notifications_settings" data-name="Notifications settings" d="M31.494,29.459H20.973a4.208,4.208,0,1,1-8.417,0H2.035A2.021,2.021,0,0,1,.141,27.986a2.246,2.246,0,0,1,.631-2.315,8.471,8.471,0,0,0,3.367-6.733V12.625a12.625,12.625,0,0,1,25.25,0v6.313a8.471,8.471,0,0,0,3.367,6.733,1.992,1.992,0,0,1,.631,2.315A2.021,2.021,0,0,1,31.494,29.459Z" transform="translate(-0.063)" fill="#3f8f22" stroke="#3f8f22" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" fill-rule="evenodd"/>
+      </g>
+      <g id="Rectangle_1514" data-name="Rectangle 1514" transform="translate(0.129 0.488)" fill="none" stroke="#707070" stroke-width="1" opacity="0">
+        <rect width="46" height="46" stroke="none"/>
+        <rect x="0.5" y="0.5" width="45" height="45" fill="none"/>
+      </g>
+    </g>
+  </g>
+</svg>
