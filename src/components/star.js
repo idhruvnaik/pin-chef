@@ -48,7 +48,9 @@ export default class home extends Component {
       recipes: [],
       food_recipe_purchases: [],
       master_class_purchases: [],
-      all_purchases: []
+      all_purchases: [],
+      master_purchase: {},
+      food_recipe_purchase: {}
     }
 
     this.token = this.props.token;
@@ -387,12 +389,25 @@ export default class home extends Component {
     }
   }
 
-  open_purchase_details(purchase_type, item) {
+  open_purchase_details(purchase_type, item, data) {
+    if (purchase_type != null && purchase_type == "master_purchase") {
+      this.setState({
+        master_purchase: data
+      })
+    } else if (purchase_type != null && purchase_type == "food_recipe_purchase") {
+      this.setState({
+        food_recipe_purchase: data
+      })
+    }
+    console.log(this.state, "from open purchase details");
     var item_siblings = $('.' + item).siblings();
     item_siblings.each(function () {
       $(this).css('display', 'none');
     })
     $('.' + item).css("display", "block");
+    $('.' + item).animate({
+      scrollTop: "0px"
+    });
   }
 
   makeTimer() {
@@ -671,7 +686,7 @@ export default class home extends Component {
                         />
                       </div>
                       <div className="r-div">
-                        <h3 onClick={() => this.open_purchase_details(null, purchase.order_type == "eclass" ? "purchase-detail" : "food-service-purchase-detail")}>{purchase.order_type == "eclass" ? "Masterclass" : "Food and Services"}</h3>
+                        <h3 onClick={() => this.open_purchase_details(purchase.order_type == "eclass" ? "master_purchase" : "food_recipe_purchase", purchase.order_type == "eclass" ? "purchase-detail" : "food-service-purchase-detail", item)}>{purchase.order_type == "eclass" ? "Masterclass" : "Food and Services"}</h3>
                         <img src={RefreshIcon}></img>
                       </div>
                     </div>
@@ -715,7 +730,7 @@ export default class home extends Component {
           <div className="purchase-detail">
             <div className="switch-content">
               <div>
-                <img src={LeftBack} onClick={() => this.open_purchase_details(null, 'item')}></img>
+                <img src={LeftBack} onClick={() => this.open_purchase_details(null, 'item', null)}></img>
               </div>
               <div>
                 <h2>PURCHASE DETAILS</h2>
@@ -770,9 +785,10 @@ export default class home extends Component {
             </div>
           </div>
           <div className="food-service-purchase-detail">
+            {console.log(this.state.food_recipe_purchase, "while loading food service purchase details")}
             <div className="switch-content">
               <div>
-                <img src={LeftBack} onClick={() => this.open_purchase_details(null, 'item')}></img>
+                <img src={LeftBack} onClick={() => this.open_purchase_details(null, 'item', null)}></img>
               </div>
               <div>
                 <h2>PURCHASE DETAILS</h2>
@@ -792,10 +808,10 @@ export default class home extends Component {
                   </thead>
                   <tbody>
                     <tr>
-                      <td>Cook and Deliver</td>
-                      <td>1 <span className="plus-icon">+</span></td>
-                      <td>$23.80</td>
-                      <td>$23.80</td>
+                      <td>{this.state.food_recipe_purchase.title}</td>
+                      <td>1 <span className="plus-icon">{this.state.food_recipe_purchase.qty > 1 ? "+" : ""}</span></td>
+                      <td>${this.state.food_recipe_purchase.price}</td>
+                      <td>${this.state.food_recipe_purchase.amount}</td>
                     </tr>
                   </tbody>
                 </table>

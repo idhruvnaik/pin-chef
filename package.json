@@ -68,6 +68,8 @@
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.3.0",
     "rsuite": "^4.9.2",
+    "semantic-ui-react": "^2.0.3",
+    "simple-react-comments": "^1.1.0",
     "styled-components": "^5.2.1",
     "swiper": "^6.4.15",
     "web-vitals": "^1.1.0"

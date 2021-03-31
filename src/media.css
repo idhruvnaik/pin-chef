@@ -139,6 +139,38 @@
   .contact_us .feedback{
     height: 80%;
   }
+  .comment .feed .comments{
+    font-size: small;
+  }
+  .comment .feed .comments .comment-details .reply-comment img{
+    height: 20px;
+    width: 20px;
+  }
+  .comment .feed .comments .comment-details .likes-on-comment img{
+    height: 30px;
+    width: 30px;
+  }
+  .user-feed-page .user-pallet .menu-bar .home-content .comment .feed .comments .user-details .profile-img-container img{
+    height: 36px;
+    width: 36px;
+  }
+  .chef-page .shop-content .food .each_food,
+  .chef-page .shop-content .services .each_service,
+  .chef-page .shop-content .eclasses .each_class {
+    width: 88%;
+    font-size: small;
+    margin-left: 0px;
+  }
+  .chef-page .chef-content .chef-profile .chef .chef-details .other-details .desktop-icon {
+    width: 60px;
+    height: 60px;
+    bottom: 35px;
+    left: 10px;
+  }
+  .chef-profile,
+  .chef-page .chef-content .chef-profile .chef .chef-posts .switch-content li {
+    font-size: small;
+  }
 }
 @media (max-width: 380px) {
   .contact_us .feedback{
@@ -193,6 +225,9 @@
   .contact_us .feedback{
     height: 70%;
   }
+  .chef-page .chef-content .chef-profile .chef .chef-posts .switch-content li {
+    font-size: x-small;
+  }
 }
 
 @media (max-width: 280px) {
@@ -246,5 +281,14 @@
   }
   .multi-login a{
     font-size: x-small;
+  }
+  .chef-page .shop-content .food .each_food,
+  .chef-page .shop-content .services .each_service,
+  .chef-page .shop-content .eclasses .each_class {
+    width: 85%;
+    margin-left: 0px;
+  }
+  .chef-page .chef-content .chef-profile .chef .chef-posts .switch-content li {
+    font-size: xx-small;
   }
 }

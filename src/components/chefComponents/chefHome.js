@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import configureStore from "../../store";
 import { addTokenToState } from '../../services/apiOperations';
 import { connect } from "react-redux";
+import {reactLocalStorage} from 'reactjs-localstorage';
 
 import Ads from './advertises'
 import FilterDiv from './filter'
@@ -12,6 +13,7 @@ import HomeSection from './home';
 import ChefSection from './chef';
 import ShopSection from './shop';
 import StarSection from './star';
+import SettingsSection from './settings';
 
 import '../commonComponents.css'
 import '../userFeeds.css'
@@ -63,7 +65,8 @@ class ChefComponents extends React.Component {
         console.log("from user feeds");
         console.log(this);
         this.state = {
-            token: ''
+            token: '',
+            user_id: ''
         }
         // if (this.props.token_details.token){
         //     this.state.token = this.props.token_details.token.auth_token;
@@ -74,6 +77,42 @@ class ChefComponents extends React.Component {
         //         }
         //     );
         // }
+        if (this.props.token_details.token){
+            console.log("jo token male to");
+            this.state.token = this.props.token_details.token.auth_token;
+            this.state.user_id = this.props.token_details.token.id;
+            console.log(this, "from user feeds");
+        } else{
+            console.log("token na male to local storage ni value");
+            var token_details = reactLocalStorage.getObject(
+                'token_details'
+            );
+            console.log(token_details);
+            if(window.sessionStorage.getItem("userFeeds")){
+                console.log("jo reload thjayu hoy to");
+                this.props.addTokenToState(token_details);
+                this.state.token = token_details.auth_token;
+                this.state.user_id = token_details.id;
+                console.log(this, "token added to redux");
+            } else{
+                window.sessionStorage.setItem("userFeeds", true);
+                if (token_details.remember){
+                    console.log("jo reload na thayu hoy peli j vaar homepage par aave to checking remember value")
+                    console.log(token_details.remember);
+                    this.props.addTokenToState(token_details);
+                    this.state.token = token_details.auth_token;
+                    this.state.user_id = token_details.id;
+                    console.log("added token to redux");
+                } else{
+                    console.log("redirecting to login case in last scenario.");
+                    this.props.history.push(
+                        {            
+                            pathname: '/User'
+                        }
+                    );
+                }
+            }
+        }
     }
 
     showSection(element) {
@@ -110,6 +149,11 @@ class ChefComponents extends React.Component {
             ReactDOM.render(
                 <Provider store={configureStore}>
                     <StarSection {...this.state}/>
+                </Provider>, document.getElementById('menu-bar'));
+        } else{
+            ReactDOM.render(
+                <Provider store={configureStore}>
+                    <SettingsSection {...this.state}/>
                 </Provider>, document.getElementById('menu-bar'));
         }
     }

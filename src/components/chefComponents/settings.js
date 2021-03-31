@@ -1,31 +1,34 @@
 import React, { Component } from 'react';
 import ReactStars from "react-rating-stars-component";
-import UserPhoto from '../assets/images/photo2.png';
-import UserPost from '../assets/images/bannerFeed2.png';
-import PostMenu from '../assets/png_icons/Post menu icon@2x.png';
-import CommentIcon from '../assets/png_icons/Comment icon@2x.png';
-import EmptyHeart from '../assets/png_icons/Empty heart@2x.png';
-import PostShare from '../assets/png_icons/Post Share count@2x.png';
-import SmallRightArrow from '../assets/png_icons/Right green arrow.png'
-import RightArrow from '../assets/png_icons/Right green arrow@2x.png';
-import LeftBack from '../assets/png_icons/Green back arrow.png'
-import BellIcon from '../assets/svg/Notifications icon.svg'
-import Help from '../assets/svg/Help icon.svg'
-import Share from '../assets/svg/Share icon.svg'
-import Star from '../assets/svg/Rate icon.svg'
-import FAQ from '../assets/svg/Faq icon on menu.svg'
-import Terms from '../assets/svg/terms icon on menu.svg'
-import ContactUs from '../assets/svg/contact_us.svg'
-import LargeFAQ from '../assets/svg/Faq icon on menu.svg'
-import LargeTerms from '../assets/svg/terms icon on menu.svg'
-import LargeContactUs from '../assets/svg/contact_us.svg'
-import LargeDeleteAccount from '../assets/svg/Delete.svg'
-import LargeLogout from '../assets/svg/logout.svg'
-import LargeLocationSettings from '../assets/svg/location-settings.svg'
-import LargeEmailSettings from '../assets/svg/email.svg'
-import LargePhone from '../assets/svg/smartphone.svg'
-import LargeName from '../assets/svg/name.svg'
-import TermsLogo from '../assets/png_icons/terms and privacy bullet icon@2x.png'
+import UserPhoto from '../../assets/images/photo2.png';
+import UserPost from '../../assets/images/bannerFeed2.png';
+import PostMenu from '../../assets/png_icons/Post menu icon@2x.png';
+import CommentIcon from '../../assets/png_icons/Comment icon@2x.png';
+import EmptyHeart from '../../assets/png_icons/Empty heart@2x.png';
+import PostShare from '../../assets/png_icons/Post Share count@2x.png';
+import SmallRightArrow from '../../assets/png_icons/Right green arrow.png'
+import RightArrow from '../../assets/png_icons/Right green arrow@2x.png';
+import LeftBack from '../../assets/png_icons/Green back arrow.png'
+import BellIcon from '../../assets/svg/Notifications icon.svg'
+import Help from '../../assets/svg/Help icon.svg'
+import Payment from '../../assets/svg/Payment methods icon.svg'
+import Subscribe from '../../assets/svg/Subscription icon.svg'
+import Share from '../../assets/svg/Share icon.svg'
+import Star from '../../assets/svg/Rate icon.svg'
+import Detailed_info from '../../assets/svg/detailed-info.svg'
+import FAQ from '../../assets/svg/Faq icon on menu.svg'
+import Terms from '../../assets/svg/terms icon on menu.svg'
+import ContactUs from '../../assets/svg/contact_us.svg'
+import LargeFAQ from '../../assets/svg/Faq icon on menu.svg'
+import LargeTerms from '../../assets/svg/terms icon on menu.svg'
+import LargeContactUs from '../../assets/svg/contact_us.svg'
+import LargeDeleteAccount from '../../assets/svg/Delete.svg'
+import LargeLogout from '../../assets/svg/logout.svg'
+import LargeLocationSettings from '../../assets/svg/location-settings.svg'
+import LargeEmailSettings from '../../assets/svg/email.svg'
+import LargePhone from '../../assets/svg/smartphone.svg'
+import LargeName from '../../assets/svg/name.svg'
+import TermsLogo from '../../assets/png_icons/terms and privacy bullet icon@2x.png'
 import Home from './home'
 
 import Switch from "react-switch";
@@ -33,12 +36,12 @@ import { PushMenu } from 'react-push-menu';
 import Popup from 'reactjs-popup';
 import ReactDOM, { render } from 'react-dom';
 import { Provider } from "react-redux";
-import configureStore from "../store";
-import { getChefById } from '../services/apiOperations';
+import configureStore from "../../store";
+import { getChefById } from '../../services/apiOperations';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import $ from 'jquery';
 
-import { getUserData } from '../services/apiOperations';
+import { getUserData } from '../../services/apiOperations';
 
 export default class settings extends Component {
 
@@ -184,6 +187,28 @@ export default class settings extends Component {
                             </div>
                             <div className="menu_name">
                                 <h3>help</h3>
+                            </div>
+                        </div>
+                        <div className="other_things"></div>
+                    </div>
+                    <div className="setting_activity">
+                        <div className="menu_details">
+                            <div className="menu_icon">
+                                <img src={Payment}></img>
+                            </div>
+                            <div className="menu_name">
+                                <h3>payment methods</h3>
+                            </div>
+                        </div>
+                        <div className="other_things"></div>
+                    </div>
+                    <div className="setting_activity">
+                        <div className="menu_details">
+                            <div className="menu_icon">
+                                <img src={Subscribe}></img>
+                            </div>
+                            <div className="menu_name">
+                                <h3>SUBSCRIPTIONS</h3>
                             </div>
                         </div>
                         <div className="other_things"></div>
@@ -382,12 +407,21 @@ export default class settings extends Component {
                     </div>
                 </div>
                 <div className="my_profile">
+                    {console.log(this.state.user)}
                     <div className="switch-content">
                         <div>
                             <img src={LeftBack} onClick={() => this.open_menu('profile')}></img>
                         </div>
                         <div>
                             <h2>MY PROFILE</h2>
+                        </div>
+                    </div>
+                    <div className="cover-photo">
+                        <div className="banner">
+                            <img src={this.state.user && this.state.user.chef.banner_image}></img>
+                        </div>
+                        <div className="desktop-icon">
+                            <img src={this.state.user && this.state.user.chef.profile_image}></img>
                         </div>
                     </div>
                     <div className="profile_activity">
@@ -433,6 +467,18 @@ export default class settings extends Component {
                             </div>
                             <div className="menu_name">
                                 <h3>{this.state.user && this.state.user.chef.chef_details.location}</h3>
+                            </div>
+                        </div>
+                        <div className="other_things">
+                        </div>
+                    </div>
+                    <div className="profile_activity">
+                        <div className="menu_details">
+                            <div className="menu_icon">
+                                <img src={Detailed_info}></img>
+                            </div>
+                            <div className="menu_name">
+                                <h3>{this.state.user && this.state.user.chef.chef_details.background_info}</h3>
                             </div>
                         </div>
                         <div className="other_things">

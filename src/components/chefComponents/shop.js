@@ -6,6 +6,10 @@ import PostMenu from '../../assets/png_icons/Post menu icon@2x.png';
 import CommentIcon from '../../assets/png_icons/Comment icon@2x.png';
 import EmptyHeart from '../../assets/png_icons/Empty heart@2x.png';
 import PostShare from '../../assets/png_icons/Post Share count@2x.png';
+import RefreshIcon from "../../assets/png_icons/refresh-icon.png";
+import RightArrowIcon from "../../assets/png_icons/right-arrow-icon.png";
+import DownArrowIcon from "../../assets/png_icons/down-arrow-icon.png";
+import CopyIcon from "../../assets/png_icons/copy-icon.png";
 
 import $ from 'jquery';
 
@@ -106,62 +110,37 @@ export default class home extends Component {
                     {this.foods.map(function (item) {
                         return (
                             <div className="each_food">
-                                <div className="primary-details">
-                                    <div className="l-div">
-                                        <div className="profile-img-container">
-                                            <img src={item.desktop_icon}></img>
-                                        </div>
-                                        <div className="user-detail-container">
-                                            <h3>{item.user_name}</h3>
-                                            <h5>{item.user_description}</h5>
-                                        </div>
-                                    </div>
-                                    <div style={{ paddingRight: "4px" }}>
-                                        <div style={{ textAlignLast: "right" }} className="post-option">
-                                            <img src={PostMenu}></img>
-                                        </div>
-                                        <div style={{ display: "flex" }}>
-                                            <div className="recipe_rattings">5</div>
-                                            <ReactStars
-                                                count={5}
-                                                onChange={null}
-                                                isHalf={true}
-                                                activeColor="#ffd700"
-                                            />
+                                <div className="head-container">
+                                    <table>
+                                        <thead>
+                                            <th>Item</th>
+                                            <th>QTY</th>
+                                            <th>Price</th>
+                                            <th>Amount</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>item display name</td>
+                                                <td>1 <span class="plus-icon">+</span></td>
+                                                <td>$100</td>
+                                                <td>$400</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div className="food-content">
+                                    <div className="price-block">
+                                        <div className="total-price">
+                                            <h3><span>Total </span>$ 39.84</h3>
                                         </div>
                                     </div>
                                 </div>
-                                <img className="userpost" src={item.post}></img>
-                                <div className="food-price">
-                                    <b>Vegan Soft Tacos - $25</b>
-                                </div>
-                                <div className="post-activity">
-                                    <div className="l-div">
-                                        <div className="activity">
-                                            <img style={{ marginRight: "5px" }} src={Location}></img>
-                                            <p>{item.location}</p>
-                                        </div>
-                                        <div className="activity">
-                                            <p>2 Miles Away</p>
-                                        </div>
+                                <div className="bottom-block">
+                                    <h5>2 days ago</h5>
+                                    <div className="details-block">
+                                        <h5>Details</h5>
+                                        <img src={DownArrowIcon}></img>
                                     </div>
-                                    <div className="r-div">
-                                        <div className="activity">
-                                            <img src={EmptyHeart}></img>
-                                            <p>{item.likes}</p>
-                                        </div>
-                                        <div className="activity">
-                                            <img src={CommentIcon}></img>
-                                            <p>{item.comments}</p>
-                                        </div>
-                                        <div className="activity" style={{ marginRight: "0px" }}>
-                                            <img src={PostShare}></img>
-                                            <p>{item.share}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="post-content">
-                                    <p>{item.post_content}</p>
                                 </div>
                             </div>
                         )
@@ -171,62 +150,80 @@ export default class home extends Component {
                     {this.services.map(function (item) {
                         return (
                             <div className="each_service">
-                                <div className="primary-details">
-                                    <div className="l-div">
-                                        <div className="profile-img-container">
-                                            <img src={item.desktop_icon}></img>
-                                        </div>
-                                        <div className="user-detail-container">
-                                            <h3>{item.user_name}</h3>
-                                            <h5>{item.user_description}</h5>
-                                        </div>
-                                    </div>
-                                    <div style={{ paddingRight: "4px" }}>
-                                        <div style={{ textAlignLast: "right" }} className="post-option">
-                                            <img src={PostMenu}></img>
-                                        </div>
-                                        <div style={{ display: "flex" }}>
-                                            <div className="recipe_rattings">5</div>
-                                            <ReactStars
-                                                count={5}
-                                                onChange={null}
-                                                isHalf={true}
-                                                activeColor="#ffd700"
-                                            />
+                                <div className="head-container">
+                                    <table>
+                                        <thead>
+                                            <th>Item</th>
+                                            <th>QTY</th>
+                                            <th>Price</th>
+                                            <th>Amount</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>item display name</td>
+                                                <td>1 <span class="plus-icon">+</span></td>
+                                                <td>$100</td>
+                                                <td>$400</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div className="food-content">
+                                    <div className="price-block">
+                                        <div className="total-price">
+                                            <h3><span>Total </span>$ 39.84</h3>
                                         </div>
                                     </div>
                                 </div>
-                                <img className="userpost" src={item.post}></img>
-                                <div className="food-price">
-                                    <b>Vegan Soft Tacos - $25</b>
-                                </div>
-                                <div className="post-activity">
-                                    <div className="l-div">
-                                        <div className="activity">
-                                            <img style={{ marginRight: "5px" }} src={Location}></img>
-                                            <p>{item.location}</p>
-                                        </div>
-                                        <div className="activity">
-                                            <p>2 Miles Away</p>
-                                        </div>
-                                    </div>
-                                    <div className="r-div">
-                                        <div className="activity">
-                                            <img src={EmptyHeart}></img>
-                                            <p>{item.likes}</p>
-                                        </div>
-                                        <div className="activity">
-                                            <img src={CommentIcon}></img>
-                                            <p>{item.comments}</p>
-                                        </div>
-                                        <div className="activity" style={{ marginRight: "0px" }}>
-                                            <img src={PostShare}></img>
-                                            <p>{item.share}</p>
-                                        </div>
+                                <div className="bottom-block">
+                                    <h5>2 days ago</h5>
+                                    <div className="details-block">
+                                        <h5>Details</h5>
+                                        <img src={DownArrowIcon}></img>
                                     </div>
                                 </div>
-                                <div className="post-content">
-                                    <p>{item.post_content}</p>
+                            </div>
+                        )
+                    })}
+                </div>
+                <div className="eclasses sec" id="e-master-class-sec">
+                    {this.services.map(function (item) {
+                        return (
+                            <div className="each_class">
+                                <div className="head-container">
+                                    <table>
+                                        <thead>
+                                            <th>Item</th>
+                                            <th>QTY</th>
+                                            <th>Price</th>
+                                            <th>Amount</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>item display name</td>
+                                                <td>1 <span class="plus-icon">+</span></td>
+                                                <td>$100</td>
+                                                <td>$400</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div className="food-content">
+                                    <div className="price-block">
+                                        <div className="total-price">
+                                            <h3><span>Total </span>$ 39.84</h3>
+                                        </div>
+                                    </div>
+                                    <div className="url-block">
+                                        Live Stream Link: www.youtube.com/pinchef
+                                    </div>
+                                </div>
+                                <div className="bottom-block">
+                                    <h5>2 days ago</h5>
+                                    <div className="details-block">
+                                        <h5>Details</h5>
+                                        <img src={DownArrowIcon}></img>
+                                    </div>
                                 </div>
                             </div>
                         )

@@ -10,6 +10,47 @@
             display: block;
           }
         }
+        .comment{
+          .feed{
+            .comments{
+              margin-top: 10px;
+              display: flex;
+              // padding: 10px;
+              .user-details{
+                width: 20%;
+                margin-right: 5px;
+                .user-detail-container{
+                  color: #061402;
+                  margin-bottom: 5px;
+                }
+                .profile-img-container{
+                  width: 100%;
+                  img{
+                    width: 50px;
+                    border-radius: 50%;
+                    height: 50px;
+                  }
+                }
+              }
+              .actual-comment{
+                width: 50%;
+                text-align: left;
+                margin-top: 20px;
+              }
+              .comment-details{
+                width: 25%;
+                div{
+                  margin-bottom: 3px;
+                }
+                .likes-on-comment{
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                }
+              }
+            }
+          }
+        }
       }
       .chef-content {
         .all_chefs,

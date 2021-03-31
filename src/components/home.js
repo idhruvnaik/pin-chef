@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import ReactStars from "react-rating-stars-component";
 import ReactDOM, { render } from 'react-dom';
 import { Provider } from "react-redux";
+import CommentsBlock from 'simple-react-comments';
+import CommentExampleComment from './comments'
 import configureStore from "../store";
 
 import NoFeeds from '../assets/svg/NoFeedPost';
@@ -16,13 +18,16 @@ import Time from '../assets/svg/time-2.svg';
 import Recipe_time from '../assets/svg/recipe-time.svg';
 import Food from '../assets/png_icons/mexicanFood.png';
 import LocationIcon from '../assets/svg/Location.svg';
+import LeftBack from '../assets/png_icons/Green back arrow.png';
+import ReplyComment from '../assets/svg/reply_comment.svg';
+import FullHeartComment from '../assets/svg/full-heart-comment.svg'
 
 import MasterShare from '../assets/png_icons/Masterclass Share btn@2x.png'
 import BookClass from '../assets/svg/Book masterclass.svg'
 import MasterclassTime from '../assets/png_icons/Masterclass Time icon.png'
 import MasterclassClockIcon from '../assets/png_icons/Masterclass clock icon.png'
 
-import { getAllChef, getAllPosts, likePost, getAllRecipes, getAllMasterClasses, unlikePost, unlikeRecipe, likeRecipe } from '../services/apiOperations';
+import { getAllChef, getAllPosts, likePost, getAllRecipes, getAllMasterClasses, unlikePost, unlikeRecipe, likeRecipe, getCommentsByPostID } from '../services/apiOperations';
 
 import $ from 'jquery';
 
@@ -40,12 +45,15 @@ export default class home extends Component {
         this.like_unlike_recipe = this.like_unlike_recipe.bind(this);
         this.showTime = this.showTime.bind(this);
         this.makeTimer = this.makeTimer.bind(this);
+        this.open_comments = this.open_comments.bind(this);
         this.render = this.render.bind(this);
         this.state = {
             chefs: [],
             feeds: [],
             recipes: [],
-            master_classes: []
+            master_classes: [],
+            comments: [],
+            comment: {}
         }
         this.makeTimer();
         this.ratingChanged = (newRating) => {
@@ -173,6 +181,23 @@ export default class home extends Component {
         }
     }
 
+    async open_comments(section, parent_section, data) {
+        console.log(section);
+        console.log("comments loaded");
+        var item_siblings = $('#' + section).siblings();
+        item_siblings.each(function () {
+            $(this).css('display', 'none');
+        })
+        $('#' + section).css("display", "block");
+        let comments = await getCommentsByPostID(data._id, this.token);
+        this.setState({
+            comment: data
+        })
+        this.setState({
+            comments: comments
+        })
+    }
+
     componentDidMount() {
         this.initialize_chefs();
         this.initialize_feeds();
@@ -181,14 +206,14 @@ export default class home extends Component {
     }
 
     async like_unlike_post(e) {
-        if (e.target.className == "false" ){
+        if (e.target.className == "false") {
             let result = await likePost(this.user_id, e.target.id, this.token);
-            if (result.status && result.status == false){
+            if (result.status && result.status == false) {
                 console.log(result.message);
-            } else{
+            } else {
                 let feeds = [...this.state.feeds];
                 feeds.map((feed) => {
-                    if(feed._id == e.target.id){
+                    if (feed._id == e.target.id) {
                         feed.likes = feed.likes + 1;
                         feed.is_like = true;
                     }
@@ -199,12 +224,12 @@ export default class home extends Component {
             }
         } else {
             let result = await unlikePost(this.user_id, e.target.id, this.token);
-            if (result.status && result.status == false){
+            if (result.status && result.status == false) {
                 console.log(result.message);
-            } else{
+            } else {
                 let feeds = [...this.state.feeds];
                 feeds.map((feed) => {
-                    if(feed._id == e.target.id){
+                    if (feed._id == e.target.id) {
                         feed.likes = feed.likes - 1;
                         feed.is_like = false;
                     }
@@ -224,7 +249,7 @@ export default class home extends Component {
             } else {
                 let recipes = [...this.state.recipes];
                 recipes.map((recipe) => {
-                    if(recipe._id == e.target.id){
+                    if (recipe._id == e.target.id) {
                         recipe.likes = recipe.likes + 1;
                         recipe.is_like = true;
                     }
@@ -240,7 +265,7 @@ export default class home extends Component {
             } else {
                 let recipes = [...this.state.recipes];
                 recipes.map((recipe) => {
-                    if(recipe._id == e.target.id){
+                    if (recipe._id == e.target.id) {
                         recipe.likes = recipe.likes - 1;
                         recipe.is_like = false;
                     }
@@ -252,9 +277,9 @@ export default class home extends Component {
         }
     }
 
-    makeTimer(){
+    makeTimer() {
         setInterval(() => {
-          this.initialize_feeds();
+            this.initialize_feeds();
         }, 60000)
     }
 
@@ -262,13 +287,13 @@ export default class home extends Component {
         var date1 = new Date(datetime);
         var date2 = new Date();
         var diffInMs = Math.abs(date2 - date1);
-        if ((diffInMs / (1000 * 60 * 60 * 24)) > 0){
+        if ((diffInMs / (1000 * 60 * 60 * 24)) > 0) {
             return (diffInMs / (1000 * 60 * 60 * 24)).toFixed(1) + " days ago";
-        } else if((diffInMs / (1000 * 60 * 60)) > 0){
+        } else if ((diffInMs / (1000 * 60 * 60)) > 0) {
             return (diffInMs / (1000 * 60 * 60)).toFixed(1) + " hours ago";
-        } else if ((diffInMs / (1000 * 60)) > 0){
+        } else if ((diffInMs / (1000 * 60)) > 0) {
             return (diffInMs / (1000 * 60)).toFixed(1) + " mins ago";
-        } else{
+        } else {
             return (diffInMs / 1000).toFixed(2) + " seconds ago ";
         }
     }
@@ -320,7 +345,7 @@ export default class home extends Component {
                                             <span>{item.likes}</span>
                                         </div>
                                         <div className="activity">
-                                            <img src={CommentIcon}></img>
+                                            <img src={CommentIcon} onClick={() => this.open_comments("comment-sec", "feed-sec", item)}></img>
                                             <span>{item.comments}</span>
                                         </div>
                                         <div className="activity">
@@ -465,6 +490,127 @@ export default class home extends Component {
                             </div>
                         )
                     })}
+                </div>
+                <div className="comment sec" id="comment-sec">
+                    {console.log(this.state)}
+                    <div className="switch-content">
+                        <div>
+                            <img src={LeftBack}></img>
+                        </div>
+                        <div>
+                            <h2>COMMENTS</h2>
+                        </div>
+                    </div>
+                    <div className="feed" id={this.state.comment._id}>
+                        <div className="primary-details">
+                            <div className="l-div">
+                                <div className="profile-img-container">
+                                    <img src={this.state.comment.chef && this.state.comment.chef.profile_image}></img>
+                                </div>
+                                <div className="user-detail-container">
+                                    <h3>{this.state.comment.chef && this.state.comment.chef.user_name}</h3>
+                                    <h5>{this.state.comment.chef && this.state.comment.chef.chef_details.position}</h5>
+                                </div>
+                            </div>
+                            <div style={{ paddingRight: "4px" }}>
+                                <div className="post-option" style={{ textAlignLast: "right" }}><img src={PostMenu}></img></div>
+                                {/* <div style={{ display: "flex" }}>
+                                            <div className="feed_rattings">{item.rate}</div>
+                                            <ReactStars
+                                                count={5}
+                                                value={item.rate}
+                                                onChange={null}
+                                                isHalf={true}
+                                                edit={false}
+                                                activeColor="#ffd700"
+                                            />
+                                        </div> */}
+                            </div>
+                        </div>
+                        <div className="post-image">
+                            <img className="userpost" src={this.state.comment.post_content && this.state.comment.post_content}></img>
+                        </div>
+                        {this.state.comments.map((item) => {
+                            <div className="comments">
+                                <div className="user-details">
+                                    <div className="user-detail-container">
+                                        <h5>{item.commenter_name}</h5>
+                                    </div>
+                                    <div className="profile-img-container">
+                                        <img src={item.commenter_profile}></img>
+                                    </div>
+                                </div>
+                                <div className="actual-comment">
+                                    {item.comment}
+                                </div>
+                                <div className="comment-details">
+                                    <div>2 hrs ago</div>
+                                    <div className="reply-comment">
+                                        <img src={ReplyComment}></img>
+                                    </div>
+                                    <div className="likes-on-comment">
+                                        <span>10 likes </span>
+                                        <img src={FullHeartComment}></img>
+                                    </div>
+                                </div>
+                            </div>
+                        })}
+                        {/* <CommentsBlock
+                            comments={this.state.comments}
+                            signinUrl={'/User'}
+                            // comments={[
+                            //     {
+                            //         authorUrl: CommentIcon,
+                            //         avatarUrl: "http://35.175.243.253:8080/public?path=C:/Users/Administrator/Desktop/pinChef_Backend/uploads/605725bffc5a6814d0155004/profile/banner/605725bffc5a6814d0155004-1616324367377.jpg",
+                            //         createdAt: new Date(),
+                            //         fullName: 'test_1',
+                            //         text: "abcvf",
+                            //     },
+                            // ]}
+                            isLoggedIn={true}
+                            onSubmit={text => {
+                                console.log(text);
+                                this.setState({
+                                    comments: [
+                                        ...this.state.comments,
+                                        {
+                                            authorUrl: CommentIcon,
+                                            avatarUrl: "http://35.175.243.253:8080/public?path=C:/Users/Administrator/Desktop/pinChef_Backend/uploads/605725bffc5a6814d0155004/profile/banner/605725bffc5a6814d0155004-1616324367377.jpg",
+                                            createdAt: new Date(),
+                                            fullName: 'BhagDKBose',
+                                            text: text,
+                                        },
+                                    ],
+                                });
+                            }}
+                        // styles={[
+                        //         comment: () => ({
+                        //           border: "none",
+                        //           textAlign: "left"
+                        //         }),
+                        //     ]}
+                        // reactRouter={true} // set to true if you are using react-router
+                        // onSubmit={text => {
+                        //     if (text.length > 0) {
+                        //         this.setState({
+                        //             comments: [
+                        //                 ...this.state.comments,
+                        //                 {
+                        //                     authorUrl: '#',
+                        //                     avatarUrl: '#avatarUrl',
+                        //                     createdAt: new Date(),
+                        //                     fullName: 'Name',
+                        //                     text,
+                        //                 },
+                        //             ],
+                        //         });
+                        //         console.log('submit:', text);
+                        //     }
+                        // }}
+
+                        /> */}
+                        {/* <CommentExampleComment /> */}
+                    </div>
                 </div>
             </div>
         );

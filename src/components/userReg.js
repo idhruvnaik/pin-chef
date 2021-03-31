@@ -143,7 +143,12 @@ class UserReg extends React.Component {
                     }
                 }
             }else{
-                $('#errorMessage')[0].innerHTML = result.message;
+                if (result.message.includes("401")){
+                    $('#errorMessage')[0].innerHTML = "User is not exists or not authorized to perform this action.";
+                }else{
+                    $('#errorMessage')[0].innerHTML = result.message;
+                }
+                
                 console.log(result.message);
             }
         }

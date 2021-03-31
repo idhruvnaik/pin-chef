@@ -783,27 +783,40 @@ ul.switch-content-1 li {
   height: 90%;
 }
 
-.purchase-detail, .food-service-purchase-detail {
+.purchase-detail, .food-service-purchase-detail, #comment-sec {
   display: none;
 }
-.purchase-detail .switch-content, .food-service-purchase-detail .switch-content{
+.purchase-detail .switch-content, 
+.food-service-purchase-detail .switch-content,
+#comment-sec .switch-content{
   justify-content: center;
   color: green;
   display: flex;
   margin-bottom: 20px;
 }
-.purchase-detail .switch-content div:first-child, .food-service-purchase-detail .switch-content div:first-child{
+.purchase-detail .switch-content div:first-child, 
+.food-service-purchase-detail .switch-content div:first-child,
+#comment-sec .switch-content div:first-child{
   text-align-last: left;
   width: 10%;
   cursor: pointer;
 }
-.purchase-detail .switch-content div:last-child, .food-service-purchase-detail .switch-content div:last-child {
+.purchase-detail .switch-content div:last-child, 
+.food-service-purchase-detail .switch-content div:last-child,
+#comment-sec .switch-content div:last-child {
   width: 80%;
   display: flex;
   justify-content: center;
   margin-right: 10%;
 }
-
+#comment-sec{
+  height: 100%;
+  width: 100%;
+}
+#comment-sec .feed {
+  height: 91%;
+  overflow: auto;
+}
 
 
 

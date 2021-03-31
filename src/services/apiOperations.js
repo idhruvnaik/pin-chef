@@ -29,6 +29,7 @@ const like_food_endpoint = "/food/like"
 const unlike_food_endpoint = "/food/unlike"
 const like_service_endpoint = "/service/like"
 const unlike_service_endpoint = "/service/unlike"
+const post_by_id = "/post-comment/post"
 
 
 async function make_rest_call(apiURL, method, body, headers){
@@ -505,6 +506,23 @@ export const unfollowChef = async(user_id, chef_id, token)=>{
     }
     try{
         let resp = await make_rest_call(apiURL, 'DELETE', data, headers);
+        return resp;
+    }
+    catch(err){
+        return {
+            status: false,
+            message: err.message
+        }
+    }
+}
+
+export const getCommentsByPostID = async(post_id, token)=>{
+    let apiURL = apiHost + post_by_id + "/" + post_id;
+    var headers = {
+        "Authorization": "Bearer " + token
+    };
+    try{
+        let resp = await make_rest_call(apiURL, 'GET', {}, headers);
         return resp;
     }
     catch(err){
