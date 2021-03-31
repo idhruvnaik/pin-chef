@@ -30,6 +30,8 @@ const unlike_food_endpoint = "/food/unlike"
 const like_service_endpoint = "/service/like"
 const unlike_service_endpoint = "/service/unlike"
 const post_by_id = "/post-comment/post"
+const chef_posts_endpoint = "/post/chef"
+const rate_review_endpoint = "/rate-review"
 
 
 async function make_rest_call(apiURL, method, body, headers){
@@ -518,6 +520,40 @@ export const unfollowChef = async(user_id, chef_id, token)=>{
 
 export const getCommentsByPostID = async(post_id, token)=>{
     let apiURL = apiHost + post_by_id + "/" + post_id;
+    var headers = {
+        "Authorization": "Bearer " + token
+    };
+    try{
+        let resp = await make_rest_call(apiURL, 'GET', {}, headers);
+        return resp;
+    }
+    catch(err){
+        return {
+            status: false,
+            message: err.message
+        }
+    }
+}
+
+export const getAllPostsByChefID = async(chef_id, token)=>{
+    let apiURL = apiHost + chef_posts_endpoint + "/" + chef_id;
+    var headers = {
+        "Authorization": "Bearer " + token
+    };
+    try{
+        let resp = await make_rest_call(apiURL, 'GET', {}, headers);
+        return resp;
+    }
+    catch(err){
+        return {
+            status: false,
+            message: err.message
+        }
+    }
+}
+
+export const getRattingsChefID = async(chef_id, token)=>{
+    let apiURL = apiHost + rate_review_endpoint + "/" + chef_id;
     var headers = {
         "Authorization": "Bearer " + token
     };

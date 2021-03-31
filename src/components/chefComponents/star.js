@@ -8,6 +8,9 @@ import EmptyHeart from '../../assets/png_icons/Empty heart@2x.png';
 import PostShare from '../../assets/png_icons/Post Share count@2x.png';
 import Time from '../../assets/png_icons/time recipe@2x.png';
 import Recipe_time from '../../assets/png_icons/time recipe.png';
+import LeftBack from '../../assets/png_icons/Green back arrow.png'
+import FullStar from '../../assets/svg/Star clicked on.svg'
+import { getRattingsChefID } from '../../services/apiOperations';
 
 import $ from 'jquery';
 
@@ -16,368 +19,118 @@ export default class home extends Component {
     constructor(props) {
         super(props);
 
-        this.feeds = [
-            {
-                id: 1,
-                desktop_icon: UserPhoto,
-                user_name: "Jenah Stephonson",
-                user_description: "Home chef",
-                post: UserPost,
-                likes: 0,
-                comments: 0,
-                share: 0,
-                location: "Miami, FL",
-                time: "45 min ago",
-                post_content: "It was great night as we were at catering for a wedding. Thank you all of the staff that helped us to make event such a wonderful and delicious."
-            },
-            {
-                id: 2,
-                desktop_icon: UserPhoto,
-                user_name: "Jenah Stephonson",
-                user_description: "Home chef",
-                post: UserPost,
-                likes: 0,
-                comments: 0,
-                share: 0,
-                location: "Miami, FL",
-                time: "45 min ago",
-                post_content: "It was great night as we were at catering for a wedding. Thank you all of the staff that helped us to make event such a wonderful and delicious."
-            }
-        ]
+        this.token = this.props.token;
+        this.user_id = this.props.user_id;
+        this.initialize_rattings = this.initialize_rattings.bind(this);
 
-        this.recipes = [
-            {
-                id: 1,
-                desktop_icon: UserPhoto,
-                user_name: "Jenah Stephonson",
-                user_description: "Home chef",
-                post: UserPost,
-                recipe_name: "Beef Taco",
-                recipe_type: "Mexican",
-                likes: 0,
-                comments: 0,
-                share: 0,
-                location: "Miami, FL",
-                time: "45 min ago",
-                post_content: "It was great night as we were at catering for a wedding. Thank you all of the staff that helped us to make event such a wonderful and delicious."
-            },
-            {
-                id: 2,
-                desktop_icon: UserPhoto,
-                user_name: "Jenah Stephonson",
-                user_description: "Home chef",
-                post: UserPost,
-                recipe_name: "Beef Taco",
-                recipe_type: "Mexican",
-                likes: 0,
-                comments: 0,
-                share: 0,
-                location: "Miami, FL",
-                time: "45 min ago",
-                post_content: "It was great night as we were at catering for a wedding. Thank you all of the staff that helped us to make event such a wonderful and delicious."
-            }
-        ]
-
-        this.foods = [
-            {
-                id: 1,
-                desktop_icon: UserPhoto,
-                user_name: "Jenah Stephonson",
-                user_description: "Home chef",
-                post: UserPost,
-                likes: 0,
-                comments: 0,
-                share: 0,
-                location: "Miami, FL",
-                time: "45 min ago",
-                rattings: "5.6",
-                delivery_status: "Delivery + Pick up/Takeaway",
-                post_content: "It was great night as we were at catering for a wedding. Thank you all of the staff that helped us to make event such a wonderful and delicious."
-            },
-            {
-                id: 2,
-                desktop_icon: UserPhoto,
-                user_name: "Jenah Stephonson",
-                user_description: "Home chef",
-                post: UserPost,
-                likes: 0,
-                comments: 0,
-                share: 0,
-                location: "Miami, FL",
-                time: "45 min ago",
-                rattings: "5.6",
-                delivery_status: "Delivery + Pick up/Takeaway",
-                post_content: "It was great night as we were at catering for a wedding. Thank you all of the staff that helped us to make event such a wonderful and delicious."
-            }
-        ]
-
-        this.purchases = [
-            {
-                id: 1,
-                desktop_icon: UserPhoto,
-                user_name: "Jenah Stephonson",
-                user_description: "Home chef",
-                post: UserPost,
-                likes: 0,
-                comments: 0,
-                share: 0,
-                location: "Miami, FL",
-                time: "45 min ago",
-                rattings: "5.6",
-                delivery_status: "Delivery + Pick up/Takeaway",
-                post_content: "It was great night as we were at catering for a wedding. Thank you all of the staff that helped us to make event such a wonderful and delicious."
-            },
-            {
-                id: 2,
-                desktop_icon: UserPhoto,
-                user_name: "Jenah Stephonson",
-                user_description: "Home chef",
-                post: UserPost,
-                likes: 0,
-                comments: 0,
-                share: 0,
-                location: "Miami, FL",
-                time: "45 min ago",
-                rattings: "5.6",
-                delivery_status: "Delivery + Pick up/Takeaway",
-                post_content: "It was great night as we were at catering for a wedding. Thank you all of the staff that helped us to make event such a wonderful and delicious."
-            }
-        ]
-
+        this.state = {
+            rattings: {}
+        }
         this.ratingChanged = (newRating) => {
             document.querySelector('.each_service .primary-details .rattings .given_rattings').innerHTML = newRating;
         };
 
-        this.active = (e) => {
-            var element = e.target.id;
-            $(".sec").hide();
-            $("#" + element + "-sec").show();
-            $('.nav-active').removeClass('nav-active');
-            e.target.classList.add('nav-active');
-        }
+    }
 
+    async initialize_rattings(){
+        let ratting_result = await getRattingsChefID(this.user_id, this.token);
+        if(ratting_result.status && ratting_result.status == false){
+            this.setState({
+                rattings: {}});
+        } else{
+            this.setState({
+                rattings: ratting_result});
+        }
+    }
+
+    componentDidMount() {
+        this.initialize_rattings();
     }
 
     render() {
         return (
             <div className="star-content">
-                <ul className="switch-content">
-                    <li onClick={this.active} className="nav-active" id="star-feed">Feeds</li>
-                    <li onClick={this.active} className="" id="star-recipe">Recipes</li>
-                    <li onClick={this.active} className="" id="food-service">Foods & Services</li>
-                    <li onClick={this.active} className="" id="my-purchase">My Purchases</li>
-                </ul>
-                <div className="feeds_2 sec active" id="star-feed-sec">
-                    {this.feeds.map(function (item) {
-                        return (
-                            <div className="feed">
-                                <div className="primary-details">
-                                    <div className="l-div">
-                                        <div className="profile-img-container">
-                                            <img src={item.desktop_icon}></img>
-                                        </div>
-                                        <div className="user-detail-container">
-                                            <h3>{item.user_name}</h3>
-                                            <h5>{item.user_description}</h5>
-                                        </div>
-                                    </div>
-                                    <div className="post-option"><img src={PostMenu}></img></div>
-                                </div>
-                                <div className="post-image">
-                                    <img className="userpost" src={item.post}></img>
-                                </div>
-                                <div className="post-activity">
-                                    <div className="l-div">
-                                        <div className="activity">
-                                            <img src={EmptyHeart}></img>
-                                            <span>{item.likes}</span>
-                                        </div>
-                                        <div className="activity">
-                                            <img src={CommentIcon}></img>
-                                            <span>{item.comments}</span>
-                                        </div>
-                                        <div className="activity">
-                                            <img src={PostShare}></img>
-                                            <span>{item.share}</span>
-                                        </div>
-                                    </div>
-                                    <div className="r-div">
-                                        <div className="activity">
-                                            <img src={Location}></img>
-                                            <span>{item.location}</span>
-                                        </div>
-                                        <div className="activity">
-                                            <img src={Time}></img>
-                                            <span>{item.time}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="post-content">{item.post_content}</div>
-                            </div>
-                        )
-                    })}
+                <div className="switch-content">
+                    <div>
+                        <h2>Ratings & Reviews</h2>
+                    </div>
                 </div>
-                <div className="recipes_2 sec" id="star-recipe-sec">
-                    {this.recipes.map(function (item) {
-                        return (
-                            <div className="recipe">
-                                <div className="primary-details">
-                                    <div className="l-div">
-                                        <div className="profile-img-container">
-                                            <img src={item.desktop_icon}></img>
-                                        </div>
-                                        <div className="user-detail-container">
-                                            <h3>{item.user_name}</h3>
-                                            <h5>{item.user_description}</h5>
-                                        </div>
-                                    </div>
-                                    <div style={{ paddingRight: "4px" }}>
-                                        <div style={{ textAlignLast: "right" }} className="post-option">
-                                            <img src={PostMenu}></img>
-                                        </div>
-                                        <div style={{ display: "flex" }}>
-                                            <div className="recipe_rattings">5</div>
-                                            <ReactStars
-                                                count={5}
-                                                onChange={null}
-                                                isHalf={true}
-                                                activeColor="#ffd700"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                                <img className="userpost" src={item.post}></img>
-                                <div className="post-activity" style={{ display: "flex" }}>
-                                    <div className="recipe_details">
-                                        <div>
-                                            <h4>{item.recipe_name}</h4>
-                                            <h5>({item.recipe_type})</h5>
-                                        </div>
-                                        <div className="time">
-                                            <img src={Recipe_time}></img>
-                                            <span>{item.time}</span>
-                                        </div>
-                                    </div>
-                                    <div className="activities">
-                                        <div className="activity">
-                                            <img src={PostShare}></img>
-                                            <p>{item.share}</p>
-                                        </div>
-                                        <div className="activity">
-                                            <img src={CommentIcon}></img>
-                                            <p>{item.comments}</p>
-                                        </div>
-                                        <div className="activity">
-                                            <img src={EmptyHeart}></img>
-                                            <p>{item.likes}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="post-content">
-                                    <h4 style={{ color: "green" }}>Ingredients</h4>
-                                    <p>{item.post_content}</p>
-                                </div>
-                            </div>
-                        )
-                    })}
-                </div>
-                <div className="foodservices sec" id="food-service-sec">
-                    {this.foods.map(function (item) {
-                        return (
-                            <div className="each_food">
-                                <div className="primary-details">
-                                    <div className="l-div">
-                                        <div className="profile-img-container">
-                                            <img src={item.desktop_icon}></img>
-                                        </div>
-                                        <div className="user-detail-container">
-                                            <h3>{item.user_name}</h3>
-                                            <h5>{item.user_description}</h5>
-                                        </div>
-                                    </div>
-                                    <div style={{ paddingRight: "4px" }}>
-                                        <div style={{ textAlignLast: "right" }} className="post-option">
-                                            <img src={PostMenu}></img>
-                                        </div>
-                                        <div style={{ display: "flex" }}>
-                                            <div className="recipe_rattings">5</div>
-                                            <ReactStars
-                                                count={5}
-                                                onChange={null}
-                                                isHalf={true}
-                                                activeColor="#ffd700"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                                <img className="userpost" src={item.post}></img>
-                                <div className="food-price">
-                                    <b>Vegan Soft Tacos - $25</b>
-                                </div>
-                                <div className="post-activity">
-                                    <div className="l-div">
-                                        <div className="activity">
-                                            <img style={{ marginRight: "5px" }} src={Location}></img>
-                                            <p>{item.location}</p>
-                                        </div>
-                                        <div className="activity">
-                                            <p>2 Miles Away</p>
-                                        </div>
-                                    </div>
-                                    <div className="r-div">
-                                        <div className="activity">
-                                            <img src={EmptyHeart}></img>
-                                            <p>{item.likes}</p>
-                                        </div>
-                                        <div className="activity">
-                                            <img src={CommentIcon}></img>
-                                            <p>{item.comments}</p>
-                                        </div>
-                                        <div className="activity" style={{ marginRight: "0px" }}>
-                                            <img src={PostShare}></img>
-                                            <p>{item.share}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="post-content">
-                                    <p>{item.post_content}</p>
-                                </div>
-                            </div>
-                        )
-                    })}
-                </div>
-                <div className="my_purchases sec" id="my-purchase-sec">
-                    {this.purchases.map(function (item) {
-                        return (
-                            <div className="item">
-                                <div className="primary-details">
-                                    <div className="l-div">
-                                        <div className="profile-img-container">
-                                            <img src={item.desktop_icon}></img>
-                                        </div>
-                                        <div className="user-detail-container">
-                                            <h3>{item.user_name}</h3>
-                                            <h5>{item.user_description}</h5>
-                                        </div>
-                                    </div>
-                                    <div style={{ paddingRight: "4px" }}>
-                                        <div style={{ textAlignLast: "right" }}>
-                                            <img src={PostMenu}></img>
-                                        </div>
-                                        <div style={{ display: "flex" }}>
-                                            <div className="recipe_rattings">5</div>
-                                            <ReactStars
-                                                count={5}
-                                                onChange={null}
-                                                isHalf={true}
-                                                activeColor="#ffd700"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        )
-                    })}
+                <div className="chef-rattings">
+                    <h5>Ratings and Reviews left for you.</h5>
+                    <div className="each_ratting">
+                        <b>Service</b>
+                        <div className="ratting-xqn">
+                            <ReactStars
+                                count={5}
+                                value={4.5}
+                                size={24}
+                                onChange={null}
+                                isHalf={true}
+                                edit={false}
+                                activeColor="#ffd700"
+                                // fullIcon={<i className="fa fa-star" style={{backgroundColor: "green"}}><img src={FullStar}></img></i>}
+                                // renderStarIcon={() => <span></span>}
+                                // filledIcon={FullStar}
+                                // halfIcon={FullStar}
+                            />
+                            <span className="ratting-in-written">{this.state.rattings.avgServiceRate}</span>
+                        </div>
+                    </div>
+                    <div className="each_ratting">
+                        <b>Food</b>
+                        <div className="ratting-xqn">
+                            <ReactStars
+                                count={5}
+                                value={this.state.rattings.avgFoodRate}
+                                size={24}
+                                onChange={null}
+                                isHalf={true}
+                                edit={false}
+                                activeColor="#ffd700"
+                                // filledIcon={FullStar}
+                                // halfIcon={FullStar}
+                            />
+                            <span className="ratting-in-written">{this.state.rattings.avgFoodRate}</span>
+                        </div>
+                    </div>
+                    <div className="each_ratting">
+                        <b>Personality</b>
+                        <div className="ratting-xqn">
+                            <ReactStars
+                                count={5}
+                                value={this.state.rattings.avgPersonalityRate}
+                                size={24}
+                                onChange={null}
+                                isHalf={true}
+                                edit={false}
+                                activeColor="#ffd700"
+                                // filledIcon={FullStar}
+                                // halfIcon={FullStar}
+                            />
+                            <span className="ratting-in-written">{this.state.rattings.avgPersonalityRate}</span>
+                        </div>
+                    </div>
+                    <div className="each_ratting">
+                        <b>Presentation</b>
+                        <div className="ratting-xqn">
+                            <ReactStars
+                                count={5}
+                                value={this.state.rattings.avgPresentationRate}
+                                size={24}
+                                onChange={null}
+                                isHalf={true}
+                                edit={false}
+                                activeColor="#ffd700"
+                                // filledIcon={FullStar}
+                                // halfIcon={FullStar}
+                            />
+                            <span className="ratting-in-written">{this.state.rattings.avgPresentationRate}</span>
+                        </div>
+                    </div>
+                    <div className="each_ratting">
+                        <b>Rating Average  </b>
+                        <span className="ratting-in-written">{this.state.rattings.avgRate}</span>
+                    </div>
                 </div>
             </div>
         );
