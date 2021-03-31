@@ -7,6 +7,9 @@ import { connect } from "react-redux";
 // import { useHistory  } from 'react-router-dom';
 
 import SendChat from '../../assets/svg/Send chat to chef.svg'
+import ExpandNotification from '../../assets/svg/􀆉 Back btn.svg'
+import DownArrow from '../../assets/png_icons/down-arrow-icon.png'
+import LocationIcon from '../../assets/svg/Location outlined.svg'
 import ShareProfile from '../../assets/svg/Share chef profile icon.svg'
 import $ from 'jquery';
 
@@ -169,7 +172,21 @@ class chef extends React.Component {
                                     </ul>
                                 </div>
                                 <div id="notifications-sec">
-                                    this is notification section
+                                    <div className="notification">
+                                        <div className="user-icon">
+                                            <img src="http://35.175.243.253:8080/public?path=C:/Users/Administrator/Desktop/pinChef_Backend/uploads/605725bffc5a6814d0155004/profile/605725bffc5a6814d0155004-1616324109069.jpg"></img>
+                                        </div>
+                                        <div className="notification-details">
+                                            <div className="notification-type">
+                                                <h5>Matt Wilson</h5>
+                                                <h5>New Food Order</h5>
+                                            </div>
+                                            <div className="notification-time">
+                                                <span>13 October, 2020- 1:24 PM</span>
+                                                <img src={ExpandNotification}></img>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

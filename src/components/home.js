@@ -21,6 +21,8 @@ import LocationIcon from '../assets/svg/Location.svg';
 import LeftBack from '../assets/png_icons/Green back arrow.png';
 import ReplyComment from '../assets/svg/reply_comment.svg';
 import FullHeartComment from '../assets/svg/full-heart-comment.svg'
+import AddComment from '../assets/svg/Send btn.svg'
+import Sticker from '../assets/svg/Sticker btn.svg'
 
 import MasterShare from '../assets/png_icons/Masterclass Share btn@2x.png'
 import BookClass from '../assets/svg/Book masterclass.svg'
@@ -528,33 +530,45 @@ export default class home extends Component {
                             </div>
                         </div>
                         <div className="post-image">
+
                             <img className="userpost" src={this.state.comment.post_content && this.state.comment.post_content}></img>
                         </div>
-                        {this.state.comments.map((item) => {
-                            <div className="comments">
-                                <div className="user-details">
-                                    <div className="user-detail-container">
-                                        <h5>{item.commenter_name}</h5>
+                        <div className="comments-on-post">
+                            {this.state.comments.length > 0 && this.state.comments.map((item) => {
+                                return (
+                                    <div className="comments">
+                                        <div className="user-details">
+                                            <div className="user-detail-container">
+                                                <h5>{item.commenter_name}</h5>
+                                            </div>
+                                            <div className="profile-img-container">
+                                                <img src={item.commenter_profile}></img>
+                                            </div>
+                                        </div>
+                                        <div className="actual-comment">
+                                            {item.comment}
+                                        </div>
+                                        <div className="comment-details">
+                                            <div>2 hrs ago</div>
+                                            <div className="reply-comment">
+                                                <img src={ReplyComment}></img>
+                                            </div>
+                                            <div className="likes-on-comment">
+                                                <span>10 likes </span>
+                                                <img src={FullHeartComment}></img>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className="profile-img-container">
-                                        <img src={item.commenter_profile}></img>
-                                    </div>
-                                </div>
-                                <div className="actual-comment">
-                                    {item.comment}
-                                </div>
-                                <div className="comment-details">
-                                    <div>2 hrs ago</div>
-                                    <div className="reply-comment">
-                                        <img src={ReplyComment}></img>
-                                    </div>
-                                    <div className="likes-on-comment">
-                                        <span>10 likes </span>
-                                        <img src={FullHeartComment}></img>
-                                    </div>
-                                </div>
+                                )
+                            })}
+                        </div>
+                        <div className="add-comment">
+                            <div className="write-comment">
+                                <input type="text" placeholder="Enter comment"></input>
+                                <img src={Sticker}></img>
                             </div>
-                        })}
+                            <img src={AddComment}></img>
+                        </div>
                         {/* <CommentsBlock
                             comments={this.state.comments}
                             signinUrl={'/User'}
