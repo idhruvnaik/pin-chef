@@ -220,7 +220,7 @@ export default class home extends Component {
                                         <div style={{ textAlignLast: "right" }} className="post-option">
                                             <img src={PostMenu}></img>
                                         </div>
-                                        <div style={{ display: "flex" }}>
+                                        <div style={{ display: "flex", justifyContent: "flex-end" }}>
                                             <div className="recipe_rattings">{item.rate}</div>
                                             <ReactStars
                                                 count={5}

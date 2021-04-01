@@ -21,6 +21,7 @@ import LocationIcon from '../assets/svg/Location.svg';
 import LeftBack from '../assets/png_icons/Green back arrow.png';
 import ReplyComment from '../assets/svg/reply_comment.svg';
 import FullHeartComment from '../assets/svg/full-heart-comment.svg'
+import EmptyHeartComment from '../assets/svg/Empty Comment like.svg'
 import AddComment from '../assets/svg/Send btn.svg'
 import Sticker from '../assets/svg/Sticker btn.svg'
 
@@ -29,7 +30,7 @@ import BookClass from '../assets/svg/Book masterclass.svg'
 import MasterclassTime from '../assets/png_icons/Masterclass Time icon.png'
 import MasterclassClockIcon from '../assets/png_icons/Masterclass clock icon.png'
 
-import { getAllChef, getAllPosts, likePost, getAllRecipes, getAllMasterClasses, unlikePost, unlikeRecipe, likeRecipe, getCommentsByPostID } from '../services/apiOperations';
+import { getAllChef, getAllPosts, likePost, getAllRecipes, getAllMasterClasses, unlikePost, unlikeRecipe, likeRecipe, getCommentsByPostID, addLikeToComment, removeLikeToComment } from '../services/apiOperations';
 
 import $ from 'jquery';
 
@@ -48,6 +49,7 @@ export default class home extends Component {
         this.showTime = this.showTime.bind(this);
         this.makeTimer = this.makeTimer.bind(this);
         this.open_comments = this.open_comments.bind(this);
+        this.like_unlike_Comment = this.like_unlike_Comment.bind(this);
         this.render = this.render.bind(this);
         this.state = {
             chefs: [],
@@ -191,9 +193,12 @@ export default class home extends Component {
             $(this).css('display', 'none');
         })
         $('#' + section).css("display", "block");
-        let comments = await getCommentsByPostID(data._id, this.token);
+        let comments = await getCommentsByPostID(data._id, this.user_id, this.token);
         this.setState({
             comment: data
+        })
+        comments.map((item) => {
+            item.createdAt = this.showTime(item.createdAt);
         })
         this.setState({
             comments: comments
@@ -296,6 +301,43 @@ export default class home extends Component {
             return (diffInMs / (1000 * 60)).toFixed(1) + " mins ago";
         } else {
             return (diffInMs / 1000).toFixed(2) + " seconds ago ";
+        }
+    }
+
+    async like_unlike_Comment(e) {
+        console.log(e.target.id);
+        if (e.target.className == "false") {
+            let result = await addLikeToComment(this.user_id, e.target.id, this.token);
+            if (result.status && result.status == false) {
+                console.log(result.message);
+            } else {
+                let comments = [...this.state.comments];
+                comments.map((comment) => {
+                    if (comment._id == e.target.id) {
+                        comment.likes = comment.likes + 1;
+                        comment.is_like = true;
+                    }
+                })
+                this.setState({
+                    comments: comments
+                })
+            }
+        } else {
+            let result = await removeLikeToComment(this.user_id, e.target.id, this.token);
+            if (result.status && result.status == false) {
+                console.log(result.message);
+            } else {
+                let comments = [...this.state.comments];
+                comments.map((comment) => {
+                    if (comment._id == e.target.id) {
+                        comment.likes = comment.likes - 1;
+                        comment.is_like = false;
+                    }
+                })
+                this.setState({
+                    comments: comments
+                })
+            }
         }
     }
 
@@ -548,13 +590,13 @@ export default class home extends Component {
                                             {item.comment}
                                         </div>
                                         <div className="comment-details">
-                                            <div>2 hrs ago</div>
+                                            <div>{item.createdAt}</div>
                                             <div className="reply-comment">
                                                 <img src={ReplyComment}></img>
                                             </div>
                                             <div className="likes-on-comment">
-                                                <span>10 likes </span>
-                                                <img src={FullHeartComment}></img>
+                                                <span>{item.likes} likes </span>
+                                                <img className={item.is_like.toString()} src={item.is_like ? FullHeartComment : EmptyHeartComment} id={item._id} onClick={this.like_unlike_Comment}></img>
                                             </div>
                                         </div>
                                     </div>

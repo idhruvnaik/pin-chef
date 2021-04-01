@@ -608,7 +608,7 @@ ul.switch-content-1 li {
 }
 .each_food .food-price,
 .each_service .food-price {
-  width: 60%;
+  width: 50%;
   position: relative;
   bottom: 20px;
   background-color: white;

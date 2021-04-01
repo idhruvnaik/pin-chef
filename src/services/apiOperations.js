@@ -32,6 +32,12 @@ const unlike_service_endpoint = "/service/unlike"
 const post_by_id = "/post-comment/post"
 const chef_posts_endpoint = "/post/chef"
 const rate_review_endpoint = "/rate-review"
+const like_comment_endpoint = "/post-comment/like"
+const unlike_comment_endpoint = "/post-comment/unlike"
+const recipe_by_chef_endpoint = "/recipe/chef"
+const food_by_chef_endpoint = "/food/chef"
+const service_by_chef_endpoint = "/service/chef"
+const eclass_by_chef_endpoint = "/e-class/chef"
 
 
 async function make_rest_call(apiURL, method, body, headers){
@@ -155,8 +161,42 @@ export const getAllRecipes = async(user_id, token)=>{
     }
 }
 
+export const getAllRecipesByChef = async(user_id, token)=>{
+    let apiURL = apiHost + recipe_by_chef_endpoint + "/" + user_id;
+    var headers = {
+        "Authorization": "Bearer " + token
+    };
+    try{
+        let resp = await make_rest_call(apiURL, 'GET', {}, headers);
+        return resp;
+    }
+    catch(err){
+        return {
+            status: false,
+            message: err.message
+        }
+    }
+}
+
 export const getAllMasterClasses = async(token)=>{
     let apiURL = apiHost + e_class_endpoint;
+    var headers = {
+        "Authorization": "Bearer " + token
+    };
+    try{
+        let resp = await make_rest_call(apiURL, 'GET', {}, headers);
+        return resp;
+    }
+    catch(err){
+        return {
+            status: false,
+            message: err.message
+        }
+    }
+}
+
+export const getAllMasterClassesByChef = async(user_id, token)=>{
+    let apiURL = apiHost + eclass_by_chef_endpoint + "/" + user_id;
     var headers = {
         "Authorization": "Bearer " + token
     };
@@ -189,8 +229,42 @@ export const getAllFood = async(user_id, token)=>{
     }
 }
 
+export const getAllFoodByFood = async(user_id, token)=>{
+    let apiURL = apiHost + food_by_chef_endpoint + "/" + user_id;
+    var headers = {
+        "Authorization": "Bearer " + token
+    };
+    try{
+        let resp = await make_rest_call(apiURL, 'GET', {}, headers);
+        return resp;
+    }
+    catch(err){
+        return {
+            status: false,
+            message: err.message
+        }
+    }
+}
+
 export const getAllServices = async(user_id, token)=>{
     let apiURL = apiHost + service_endpoint + "/" + user_id;
+    var headers = {
+        "Authorization": "Bearer " + token
+    };
+    try{
+        let resp = await make_rest_call(apiURL, 'GET', {}, headers);
+        return resp;
+    }
+    catch(err){
+        return {
+            status: false,
+            message: err.message
+        }
+    }
+}
+
+export const getAllServicesByChef = async(user_id, token)=>{
+    let apiURL = apiHost + service_by_chef_endpoint + "/" + user_id;
     var headers = {
         "Authorization": "Bearer " + token
     };
@@ -518,8 +592,8 @@ export const unfollowChef = async(user_id, chef_id, token)=>{
     }
 }
 
-export const getCommentsByPostID = async(post_id, token)=>{
-    let apiURL = apiHost + post_by_id + "/" + post_id;
+export const getCommentsByPostID = async(post_id, user_id, token)=>{
+    let apiURL = apiHost + post_by_id + "/" + post_id + "/" + user_id;
     var headers = {
         "Authorization": "Bearer " + token
     };
@@ -559,6 +633,48 @@ export const getRattingsChefID = async(chef_id, token)=>{
     };
     try{
         let resp = await make_rest_call(apiURL, 'GET', {}, headers);
+        return resp;
+    }
+    catch(err){
+        return {
+            status: false,
+            message: err.message
+        }
+    }
+}
+
+export const addLikeToComment = async(user_id, comment_id, token)=>{
+    let apiURL = apiHost + like_comment_endpoint;
+    var headers = {
+        "Authorization": "Bearer " + token
+    };
+    var data = {
+        comment_id: comment_id,
+	    user_id: user_id
+    }
+    try{
+        let resp = await make_rest_call(apiURL, 'POST', data, headers);
+        return resp;
+    }
+    catch(err){
+        return {
+            status: false,
+            message: err.message
+        }
+    }
+}
+
+export const removeLikeToComment = async(user_id, comment_id, token)=>{
+    let apiURL = apiHost + unlike_comment_endpoint;
+    var headers = {
+        "Authorization": "Bearer " + token
+    };
+    var data = {
+        comment_id: comment_id,
+	    user_id: user_id
+    }
+    try{
+        let resp = await make_rest_call(apiURL, 'POST', data, headers);
         return resp;
     }
     catch(err){

@@ -8,8 +8,10 @@ import configureStore from "../../store";
 
 import NoFeeds from '../../assets/svg/NoFeedPost';
 import NoPostsByChef from '../../assets/svg/NoPostsByChef'
-import NoRecipes from '../../assets/svg/NoRecipesPosts';
-import NoClasses from '../../assets/svg/NoMasterClassPost';
+import NoRecipesByChef from '../../assets/svg/NoRecipesByChef'
+import NoFoodByChef from '../../assets/svg/NoFoodByChef'
+import NoServicesByChef from '../../assets/svg/NoServicesByChef'
+import NoMasterClassByChef from '../../assets/svg/NoMasterclassByChef';
 import UserPhoto from "../../assets/images/photo2.png";
 import UserPost from "../../assets/images/bannerFeed2.png";
 import PostMenu from "../../assets/png_icons/Post menu icon@2x.png";
@@ -23,7 +25,7 @@ import Food from '../../assets/png_icons/mexicanFood.png';
 import LocationIcon from '../../assets/svg/Location.svg';
 
 import MasterShare from "../../assets/png_icons/Masterclass Share btn@2x.png";
-import BookClass from "../../assets/png_icons/Book Masterclass icon.png";
+import BookClass from '../../assets/svg/Book masterclass.svg'
 import MasterclassTime from "../../assets/png_icons/Masterclass Time icon.png";
 import MasterclassClockIcon from "../../assets/png_icons/Masterclass clock icon.png";
 
@@ -35,7 +37,7 @@ import DescriptionIcon from "../../assets/images/description-icon.png";
 import ImageUploadIcon from "../../assets/images/image-upload.png";
 import LocationPlusIcon from "../../assets/images/location-plus-icon.png";
 
-import { getAllChef, getAllPosts, likePost, getAllPostsByChefID, getChefById, getAllRecipes, getAllMasterClasses, unlikePost, unlikeRecipe, likeRecipe, getCommentsByPostID } from '../../services/apiOperations';
+import { getAllChef, getAllPosts, likePost, getAllPostsByChefID, getChefById, getAllRecipesByChef, getAllFoodByFood, getAllMasterClasses, unlikePost, unlikeRecipe, likeRecipe, getAllServicesByChef, unlikeFood, likeFood, unlikeService, likeService, getAllMasterClassesByChef } from '../../services/apiOperations';
 import $ from "jquery";
 import { Button } from "rsuite";
 
@@ -46,14 +48,23 @@ export default class home extends Component {
     this.user_id = this.props.user_id;
     this.onDrop = this.onDrop.bind(this);
     this.initialize_feeds = this.initialize_feeds.bind(this);
+    this.initialize_recipes = this.initialize_recipes.bind(this);
     this.initialize_my_feeds = this.initialize_my_feeds.bind(this);
+    this.initialize_services = this.initialize_services.bind(this);
     this.initialize_chefs = this.initialize_chefs.bind(this);
     this.showTime = this.showTime.bind(this);
     this.like_unlike_post = this.like_unlike_post.bind(this);
+    this.like_unlike_recipe = this.like_unlike_recipe.bind(this);
+    this.like_unlike_food = this.like_unlike_food.bind(this);
+    this.like_unlike_service = this.like_unlike_service.bind(this);
     this.state = {
       isPaneOpenLeft: false,
       pictures: [],
-      feeds: []
+      feeds: [],
+      recipes: [],
+      food: [],
+      services: [],
+      master_classes: []
     }
 
     this.feeds = [
@@ -223,9 +234,9 @@ export default class home extends Component {
     };
 
     this.active_posts = (e) => {
-      if (e.target.innerHTML == "My Posts"){
+      if (e.target.innerHTML == "My Posts") {
         this.initialize_my_feeds();
-      } else{
+      } else {
         this.initialize_feeds();
       }
       $(".post-active").removeClass("post-active");
@@ -320,10 +331,184 @@ export default class home extends Component {
     }
   }
 
+  async initialize_recipes() {
+    if (this.token) {
+      let recipe_result = await getAllRecipesByChef(this.user_id, this.token);
+      let chef_result = await getChefById(this.user_id, this.token);
+      if (chef_result.status && chef_result.status == false) {
+        ReactDOM.render(
+          <Provider store={configureStore}>
+            <h1>Could not get details of chef.</h1>
+          </Provider>, document.getElementById('recipe-sec'));
+      } else {
+        if (recipe_result.length > 0) {
+          if (recipe_result.status == false) {
+            ReactDOM.render(
+              <Provider store={configureStore}>
+                <NoRecipesByChef />
+              </Provider>, document.getElementById('recipe-sec'));
+          } else {
+            recipe_result.map((item) => {
+              item.chef = chef_result.chef;
+            })
+            this.setState({
+              recipes: recipe_result
+            });
+          }
+        } else {
+          ReactDOM.render(
+            <Provider store={configureStore}>
+              <NoRecipesByChef />
+            </Provider>, document.getElementById('recipe-sec'));
+        }
+      }
+    }
+  }
+
+  async initialize_food() {
+    if (this.token) {
+      let food_result = await getAllFoodByFood(this.user_id, this.token);
+      let chef_result = await getChefById(this.user_id, this.token);
+      if (chef_result.status && chef_result.status == false) {
+        ReactDOM.render(
+          <Provider store={configureStore}>
+            <h1>Could not get details of chef.</h1>
+          </Provider>, document.getElementById('food-sec'));
+      } else {
+        if (food_result.length > 0) {
+          if (food_result.status == false) {
+            ReactDOM.render(
+              <Provider store={configureStore}>
+                <NoFoodByChef />
+              </Provider>, document.getElementById('food-sec'));
+          } else {
+            food_result.map((item) => {
+              item.chef = chef_result.chef;
+            })
+            this.setState({
+              food: food_result
+            });
+          }
+        } else {
+          ReactDOM.render(
+            <Provider store={configureStore}>
+              <NoFoodByChef />
+            </Provider>, document.getElementById('food-sec'));
+        }
+      }
+    }
+  }
+
+  async initialize_services() {
+    if (this.token) {
+      let service_result = await getAllServicesByChef(this.user_id, this.token);
+      let chef_result = await getChefById(this.user_id, this.token);
+      if (chef_result.status && chef_result.status == false) {
+        ReactDOM.render(
+          <Provider store={configureStore}>
+            <h1>Could not get details of chef.</h1>
+          </Provider>, document.getElementById('services-sec'));
+      } else {
+        if (service_result.length > 0) {
+          if (service_result.status == false) {
+            ReactDOM.render(
+              <Provider store={configureStore}>
+                <NoServicesByChef />
+              </Provider>, document.getElementById('services-sec'));
+          } else {
+            service_result.map((item) => {
+              item.chef = chef_result.chef;
+            })
+            this.setState({
+              services: service_result
+            });
+          }
+        } else {
+          ReactDOM.render(
+            <Provider store={configureStore}>
+              <NoServicesByChef />
+            </Provider>, document.getElementById('services-sec'));
+        }
+      }
+    }
+  }
+
+  async initialize_e_master_class() {
+    if (this.token) {
+      let master_class_result = await getAllMasterClassesByChef(this.user_id, this.token);
+      let chef_result = await getChefById(this.user_id, this.token);
+      if (chef_result.status && chef_result.status == false) {
+        ReactDOM.render(
+          <Provider store={configureStore}>
+            <h1>Could not get details of chef.</h1>
+          </Provider>, document.getElementById('e-master-class-sec'));
+      } else {
+        if (master_class_result.length > 0) {
+          if (master_class_result.status == false) {
+            ReactDOM.render(
+              <Provider store={configureStore}>
+                <NoMasterClassByChef />
+              </Provider>, document.getElementById('e-master-class-sec'));
+          } else {
+            master_class_result.map((item) => {
+              item.chef = chef_result.chef;
+            })
+            this.setState({
+              master_classes: master_class_result
+            });
+          }
+        } else {
+          ReactDOM.render(
+            <Provider store={configureStore}>
+              <NoMasterClassByChef />
+            </Provider>, document.getElementById('e-master-class-sec'));
+        }
+      }
+    }
+  }
+
+  async like_unlike_food(e) {
+    if (e.target.className == "false") {
+      let result = await likeFood(this.user_id, e.target.id, this.token);
+      if (result.status && result.status == false) {
+        console.log(result.message);
+      } else {
+        let food = [...this.state.food];
+        food.map((each_food) => {
+          if (each_food._id == e.target.id) {
+            each_food.likes = each_food.likes + 1;
+            each_food.is_like = true;
+          }
+        })
+        this.setState({
+          food: food
+        })
+      }
+    } else {
+      let result = await unlikeFood(this.user_id, e.target.id, this.token);
+      if (result.status && result.status == false) {
+        console.log(result.message);
+      } else {
+        let food = [...this.state.food];
+        food.map((each_food) => {
+          if (each_food._id == e.target.id) {
+            each_food.likes = each_food.likes - 1;
+            each_food.is_like = false;
+          }
+        })
+        this.setState({
+          food: food
+        })
+      }
+    }
+  }
+
   componentDidMount() {
     this.initialize_feeds();
-    // this.initialize_recipes();
-    // this.initialize_e_master_class();
+    this.initialize_recipes();
+    this.initialize_food();
+    this.initialize_services();
+    this.initialize_e_master_class();
   }
 
   showTime(datetime) {
@@ -372,6 +557,78 @@ export default class home extends Component {
         })
         this.setState({
           feeds: feeds
+        })
+      }
+    }
+  }
+
+  async like_unlike_recipe(e) {
+    if (e.target.className == "false") {
+      let result = await likeRecipe(this.user_id, e.target.id, this.token);
+      if (result.status && result.status == false) {
+        console.log(result.message);
+      } else {
+        let recipes = [...this.state.recipes];
+        recipes.map((recipe) => {
+          if (recipe._id == e.target.id) {
+            recipe.likes = recipe.likes + 1;
+            recipe.is_like = true;
+          }
+        })
+        this.setState({
+          recipes: recipes
+        })
+      }
+    } else {
+      let result = await unlikeRecipe(this.user_id, e.target.id, this.token);
+      if (result.status && result.status == false) {
+        console.log(result.message);
+      } else {
+        let recipes = [...this.state.recipes];
+        recipes.map((recipe) => {
+          if (recipe._id == e.target.id) {
+            recipe.likes = recipe.likes - 1;
+            recipe.is_like = false;
+          }
+        })
+        this.setState({
+          recipes: recipes
+        })
+      }
+    }
+  }
+
+  async like_unlike_service(e) {
+    if (e.target.className == "false") {
+      let result = await likeService(this.user_id, e.target.id, this.token);
+      if (result.status && result.status == false) {
+        console.log(result.message);
+      } else {
+        let services = [...this.state.services];
+        services.map((service) => {
+          if (service._id == e.target.id) {
+            service.likes = service.likes + 1;
+            service.is_like = true;
+          }
+        })
+        this.setState({
+          services: services
+        })
+      }
+    } else {
+      let result = await unlikeService(this.user_id, e.target.id, this.token);
+      if (result.status && result.status == false) {
+        console.log(result.message);
+      } else {
+        let services = [...this.state.services];
+        services.map((service) => {
+          if (service._id == e.target.id) {
+            service.likes = service.likes - 1;
+            service.is_like = false;
+          }
+        })
+        this.setState({
+          services: services
         })
       }
     }
@@ -518,17 +775,17 @@ export default class home extends Component {
           </SlidingPane>
         </div>
         <div className="recipes sec" id="recipe-sec">
-          {this.recipes.map(function (item) {
+          {this.state.recipes.map((item) => {
             return (
               <div className="recipe">
                 <div className="primary-details">
                   <div className="l-div">
                     <div className="profile-img-container">
-                      <img src={item.desktop_icon}></img>
+                      <img src={item.chef && item.chef.profile_image}></img>
                     </div>
                     <div className="user-detail-container">
-                      <h3>{item.user_name}</h3>
-                      <h5>{item.user_description}</h5>
+                      <h3>{item.chef && item.chef.name}</h3>
+                      <h5>{item.chef && item.chef.chef_details.position}</h5>
                     </div>
                   </div>
                   <div style={{ paddingRight: "4px" }}>
@@ -539,26 +796,28 @@ export default class home extends Component {
                       <img src={PostMenu}></img>
                     </div>
                     <div style={{ display: "flex" }}>
-                      <div className="recipe_rattings">5</div>
+                      <div className="recipe_rattings">{item.rate}</div>
                       <ReactStars
                         count={5}
                         onChange={null}
+                        value={item.rate}
                         isHalf={true}
+                        edit={false}
                         activeColor="#ffd700"
                       />
                     </div>
                   </div>
                 </div>
-                <img className="userpost" src={item.post}></img>
+                <img className="userpost" src={item.recipe_content}></img>
                 <div className="post-activity">
                   <div className="recipe_details">
                     <div>
-                      <h4>{item.recipe_name}</h4>
-                      <h5>({item.recipe_type})</h5>
+                      <h4>{item.food_name}</h4>
+                      <h5>({item.cuisine_type.join(", ")})</h5>
                     </div>
                     <div className="time">
                       <img src={Recipe_time}></img>
-                      <span>{item.time}</span>
+                      <span>Total: {item.total_time}</span>
                     </div>
                   </div>
                   <div className="activities">
@@ -571,14 +830,14 @@ export default class home extends Component {
                       <p>{item.comments}</p>
                     </div>
                     <div className="activity">
-                      <img src={EmptyHeart}></img>
+                      <img src={item.is_like ? FullHeart : EmptyHeart} id={item._id} className={item.is_like.toString()} onClick={this.like_unlike_recipe}></img>
                       <p>{item.likes}</p>
                     </div>
                   </div>
                 </div>
                 <div className="post-content">
                   <h4 style={{ color: "green" }}>Ingredients</h4>
-                  <p>{item.post_content}</p>
+                  <p>{item.ingredients}</p>
                 </div>
               </div>
             );
@@ -677,17 +936,17 @@ export default class home extends Component {
           </div>
         </div>
         <div className="food sec" id="food-sec">
-          {this.foods.map(function (item) {
+          {this.state.food.map((item) => {
             return (
               <div className="each_food">
                 <div className="primary-details">
                   <div className="l-div">
                     <div className="profile-img-container">
-                      <img src={item.desktop_icon}></img>
+                      <img src={item.chef.profile_image}></img>
                     </div>
                     <div className="user-detail-container">
-                      <h3>{item.user_name}</h3>
-                      <h5>{item.user_description}</h5>
+                      <h3>{item.chef.user_name}</h3>
+                      <h5>{item.chef.chef_details.position}</h5>
                     </div>
                   </div>
                   <div style={{ paddingRight: "4px" }}>
@@ -697,29 +956,34 @@ export default class home extends Component {
                     >
                       <img src={PostMenu}></img>
                     </div>
-                    <div style={{ display: "flex" }}>
-                      <div className="recipe_rattings">5</div>
+                    <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                      <div className="recipe_rattings">{item.rate}</div>
                       <ReactStars
                         count={5}
+                        value={item.rate}
                         onChange={null}
+                        edit={false}
                         isHalf={true}
                         activeColor="#ffd700"
                       />
                     </div>
+                    <div>
+                      <i>{item.available.delivery ? "Delivery" : ''} {item.available.pickup ? "+ Pick up/Takeaway" : ''}</i>
+                    </div>
                   </div>
                 </div>
                 <div className="user-post-container">
-                  <img className="userpost" src={item.post}></img>
+                  <img className="userpost" src={item.food_content}></img>
                   <img className="shopping-cart" src={ShoppingCart}></img>
                 </div>
 
                 <div className="food-price">
-                  <b>Vegan Soft Tacos - $25</b>
+                  <b>{item.food_name} - ${item.price}</b>
                 </div>
                 <div className="post-activity">
                   <div className="l-div">
                     <div className="activity">
-                      <img style={{ marginRight: "5px" }} src={Location}></img>
+                      <img style={{ marginRight: "5px" }} src={LocationIcon}></img>
                       <p>{item.location}</p>
                     </div>
                     <div className="activity">
@@ -728,7 +992,7 @@ export default class home extends Component {
                   </div>
                   <div className="r-div">
                     <div className="activity">
-                      <img src={EmptyHeart}></img>
+                      <img src={item.is_like ? FullHeart : EmptyHeart} id={item._id} onClick={this.like_unlike_food} className={item.is_like.toString()}></img>
                       <p>{item.likes}</p>
                     </div>
                     <div className="activity">
@@ -742,24 +1006,24 @@ export default class home extends Component {
                   </div>
                 </div>
                 <div className="post-content">
-                  <p>{item.post_content}</p>
+                  <p>{item.description}</p>
                 </div>
               </div>
             );
           })}
         </div>
         <div className="services sec" id="services-sec">
-          {this.foods.map(function (item) {
+          {this.state.services.map((item) => {
             return (
               <div className="each_food">
                 <div className="primary-details">
                   <div className="l-div">
                     <div className="profile-img-container">
-                      <img src={item.desktop_icon}></img>
+                      <img src={item.chef.profile_image}></img>
                     </div>
                     <div className="user-detail-container">
-                      <h3>{item.user_name}</h3>
-                      <h5>{item.user_description}</h5>
+                      <h3>{item.chef.user_name}</h3>
+                      <h5>{item.chef.chef_details.position}</h5>
                     </div>
                   </div>
                   <div style={{ paddingRight: "4px" }}>
@@ -770,10 +1034,12 @@ export default class home extends Component {
                       <img src={PostMenu}></img>
                     </div>
                     <div style={{ display: "flex" }}>
-                      <div className="recipe_rattings">5</div>
+                      <div className="recipe_rattings">{item.rate}</div>
                       <ReactStars
                         count={5}
                         onChange={null}
+                        value={item.rate}
+                        edit={false}
                         isHalf={true}
                         activeColor="#ffd700"
                       />
@@ -781,25 +1047,22 @@ export default class home extends Component {
                   </div>
                 </div>
                 <div className="user-post-container">
-                  <img className="userpost" src={item.post}></img>
+                  <img className="userpost" src={item.service_content}></img>
                 </div>
 
                 <div className="food-price">
-                  <b>Vegan Soft Tacos - $25</b>
+                  <b>{item.service_type} - ${item.price}</b>
                 </div>
                 <div className="post-activity">
                   <div className="l-div">
                     <div className="activity">
-                      <img style={{ marginRight: "5px" }} src={Location}></img>
+                      <img style={{ marginRight: "5px" }} src={LocationIcon}></img>
                       <p>{item.location}</p>
-                    </div>
-                    <div className="activity">
-                      <p>2 Miles Away</p>
                     </div>
                   </div>
                   <div className="r-div">
                     <div className="activity">
-                      <img src={EmptyHeart}></img>
+                      <img src={item.is_like ? FullHeart : EmptyHeart} id={item._id} onClick={this.like_unlike_service} className={item.is_like.toString()}></img>
                       <p>{item.likes}</p>
                     </div>
                     <div className="activity">
@@ -813,38 +1076,36 @@ export default class home extends Component {
                   </div>
                 </div>
                 <div className="post-content">
-                  <p>{item.post_content}</p>
+                  <p>{item.description}</p>
                 </div>
               </div>
             );
           })}
         </div>
         <div className="e-masterclass sec" id="e-master-class-sec">
-          {this.emaster_classes.map(function (item) {
+          {this.state.master_classes.map((item) => {
             return (
               <div className="order">
                 <div className="order-details">
-                  <h3>{item.recipe_name}</h3>
+                  <h3>{item.title}</h3>
                   <div className="img-container">
-                    <img className="recipe-image" src={item.recipe_image}></img>
+                    <img className="recipe-image" src={item.mclass_content}></img>
                     <img className="share-btn" src={MasterShare}></img>
                   </div>
                   <div className="recipe-type">
-                    <span className="cuisine-name">{item.recipe_type}</span>
-                    <span>{item.recipe_diet}</span>
+                    <span className="cuisine-name">{item.cuisine}</span>
+                    <span>{item.dietary}</span>
                   </div>
                 </div>
                 <div className="order_content">
                   <div className="user_details">
                     <img src={BookClass}></img>
-                    <h4>{item.chef_name}</h4>
-                    <img src={item.chef_desktop_icon}></img>
+                    <h4>{item.chef && item.chef.name}</h4>
+                    <img src={item.chef && item.chef.profile_image}></img>
                   </div>
                   <div className="order_description">
-                    <p>{item.recipe_description}</p>
-                    <p>
-                      <b>Ingredients:</b> {item.ingredients}
-                    </p>
+                    <p>{item.description}</p>
+                    <p><b>Ingredients:</b> {item.ingredients}</p>
                   </div>
                   <div className="other_details">
                     <div className="price-detail">
@@ -853,8 +1114,8 @@ export default class home extends Component {
                     </div>
                     <div className="class_date_time">
                       <img src={MasterclassTime}></img>
-                      <span>{item.date} -</span>
-                      <div className="time">{item.time}</div>
+                      <span>{item.start_date} -</span>
+                      <div className="time">{item.start_time}</div>
                     </div>
                     <div className="remaining_time">
                       <img src={MasterclassClockIcon}></img>
@@ -862,7 +1123,7 @@ export default class home extends Component {
                     </div>
                   </div>
                   <div className="ticket_status">
-                    Available Tickets <b>{item.available_tickets}</b>
+                    Available Tickets <b>{item.ticket_group_number}</b>
                   </div>
                 </div>
               </div>

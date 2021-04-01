@@ -169,7 +169,7 @@
   }
   .chef-profile,
   .chef-page .chef-content .chef-profile .chef .chef-posts .switch-content li,
-  .chef-page .home-content .feed-filters {
+  .chef-page .home-content .feed-filters button {
     font-size: small;
   }
 }
@@ -229,7 +229,7 @@
   .chef-page .chef-content .chef-profile .chef .chef-posts .switch-content li {
     font-size: x-small;
   }
-  .chef-page .home-content .feed-filters {
+  .chef-page .home-content .feed-filters button {
     font-size: xx-small;
   }
 }
