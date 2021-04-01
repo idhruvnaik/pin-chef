@@ -16,9 +16,9 @@ import StarSection from './star';
 import SettingsSection from './settings';
 
 import '../commonComponents.css'
-import '../userFeeds.css'
+// import '../userFeeds.css'
 import '../chef-feed.scss'
-import '../user-feeds.scss'
+// import '../user-feeds.scss'
 import '../common.scss'
 import '../media.scss'
 

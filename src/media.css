@@ -168,7 +168,8 @@
     left: 10px;
   }
   .chef-profile,
-  .chef-page .chef-content .chef-profile .chef .chef-posts .switch-content li {
+  .chef-page .chef-content .chef-profile .chef .chef-posts .switch-content li,
+  .chef-page .home-content .feed-filters {
     font-size: small;
   }
 }
@@ -227,6 +228,9 @@
   }
   .chef-page .chef-content .chef-profile .chef .chef-posts .switch-content li {
     font-size: x-small;
+  }
+  .chef-page .home-content .feed-filters {
+    font-size: xx-small;
   }
 }
 

@@ -2,16 +2,25 @@ import React, { Component } from "react";
 import ReactStars from "react-rating-stars-component";
 import SlidingPane from "react-sliding-pane";
 import "react-sliding-pane/dist/react-sliding-pane.css";
+import ReactDOM, { render } from 'react-dom';
+import { Provider } from "react-redux";
+import configureStore from "../../store";
 
+import NoFeeds from '../../assets/svg/NoFeedPost';
+import NoPostsByChef from '../../assets/svg/NoPostsByChef'
+import NoRecipes from '../../assets/svg/NoRecipesPosts';
+import NoClasses from '../../assets/svg/NoMasterClassPost';
 import UserPhoto from "../../assets/images/photo2.png";
 import UserPost from "../../assets/images/bannerFeed2.png";
 import PostMenu from "../../assets/png_icons/Post menu icon@2x.png";
-import CommentIcon from "../../assets/png_icons/Comment icon@2x.png";
-import EmptyHeart from "../../assets/png_icons/Empty heart@2x.png";
-import PostShare from "../../assets/png_icons/Post Share count@2x.png";
-import Time from "../../assets/png_icons/time recipe@2x.png";
-import Recipe_time from "../../assets/png_icons/time recipe.png";
-import Food from "../../assets/png_icons/mexicanFood.png";
+import CommentIcon from '../../assets/svg/Comment icon.svg';
+import EmptyHeart from '../../assets/svg/Like button empty.svg';
+import FullHeart from '../../assets/svg/Like button full.svg';
+import PostShare from '../../assets/svg/Post Share count.svg';
+import Time from '../../assets/svg/time-2.svg';
+import Recipe_time from '../../assets/svg/recipe-time.svg';
+import Food from '../../assets/png_icons/mexicanFood.png';
+import LocationIcon from '../../assets/svg/Location.svg';
 
 import MasterShare from "../../assets/png_icons/Masterclass Share btn@2x.png";
 import BookClass from "../../assets/png_icons/Book Masterclass icon.png";
@@ -23,20 +32,28 @@ import PlusIcon from "../../assets/images/plus-button.png";
 import PostIcon from "../../assets/images/post-icon.png";
 import GalleryIcon from "../../assets/images/gallery-icon.png";
 import DescriptionIcon from "../../assets/images/description-icon.png";
-import LocationIcon from "../../assets/images/location-icon.png";
 import ImageUploadIcon from "../../assets/images/image-upload.png";
 import LocationPlusIcon from "../../assets/images/location-plus-icon.png";
 
+import { getAllChef, getAllPosts, likePost, getAllPostsByChefID, getChefById, getAllRecipes, getAllMasterClasses, unlikePost, unlikeRecipe, likeRecipe, getCommentsByPostID } from '../../services/apiOperations';
 import $ from "jquery";
 import { Button } from "rsuite";
 
 export default class home extends Component {
   constructor(props) {
     super(props);
+    this.token = this.props.token;
+    this.user_id = this.props.user_id;
     this.onDrop = this.onDrop.bind(this);
+    this.initialize_feeds = this.initialize_feeds.bind(this);
+    this.initialize_my_feeds = this.initialize_my_feeds.bind(this);
+    this.initialize_chefs = this.initialize_chefs.bind(this);
+    this.showTime = this.showTime.bind(this);
+    this.like_unlike_post = this.like_unlike_post.bind(this);
     this.state = {
       isPaneOpenLeft: false,
-      pictures: []
+      pictures: [],
+      feeds: []
     }
 
     this.feeds = [
@@ -193,10 +210,26 @@ export default class home extends Component {
 
     this.active = (e) => {
       var element = e.target.id;
+      if (element == "feed") {
+        $('.feed-filters').css("display", "block");
+      }
+      else {
+        $('.feed-filters').css("display", "none");
+      }
       $(".sec").hide();
       $("#" + element + "-sec").show();
       $(".nav-active").removeClass("nav-active");
       e.target.classList.add("nav-active");
+    };
+
+    this.active_posts = (e) => {
+      if (e.target.innerHTML == "My Posts"){
+        this.initialize_my_feeds();
+      } else{
+        this.initialize_feeds();
+      }
+      $(".post-active").removeClass("post-active");
+      e.target.classList.add("post-active");
     };
   }
 
@@ -206,9 +239,151 @@ export default class home extends Component {
     });
   }
 
+  async initialize_chefs() {
+    let chef_result = await getAllChef(this.user_id, this.token);
+    if (chef_result.length > 0) {
+      if (chef_result.status == false) {
+        return [];
+      } else {
+        return chef_result;
+      }
+    } else {
+      return [];
+    }
+  }
+
+  async initialize_feeds() {
+    if (this.token) {
+      let post_result = await getAllPosts(this.user_id, this.token);
+      let chef_result = await this.initialize_chefs();
+      if (chef_result.length > 0) {
+        if (post_result.length > 0) {
+          if (post_result.status == false) {
+            console.log(post_result.message);
+            ReactDOM.render(
+              <Provider store={configureStore}>
+                <NoFeeds />
+              </Provider>, document.getElementById('feed-sec'));
+          } else {
+            post_result.map((item) => {
+              let chef_details = chef_result.find(chef => chef._id == item.chef_id);
+              item.chef = chef_details;
+              item.createdAt = this.showTime(item.createdAt);
+            })
+          }
+        }
+
+        this.setState({
+          feeds: post_result
+        });
+      } else {
+        ReactDOM.render(
+          <Provider store={configureStore}>
+            <NoFeeds />
+          </Provider>, document.getElementById('feed-sec'));
+      }
+    }
+  }
+
+  async initialize_my_feeds() {
+    if (this.token) {
+      let post_result = await getAllPostsByChefID(this.user_id, this.token);
+      let chef_result = await getChefById(this.user_id, this.token);
+      if (chef_result.status && chef_result.status == false) {
+        ReactDOM.render(
+          <Provider store={configureStore}>
+            <h1>Could not get details of chef.</h1>
+          </Provider>, document.getElementById('feed-sec'));
+      } else {
+        if (post_result.length > 0) {
+          if (post_result.status == false) {
+            ReactDOM.render(
+              <Provider store={configureStore}>
+                <NoPostsByChef />
+              </Provider>, document.getElementById('feed-sec'));
+          } else {
+            post_result.map((item) => {
+              item.chef = chef_result.chef;
+              item.createdAt = this.showTime(item.createdAt);
+            })
+            this.setState({
+              feeds: post_result
+            });
+          }
+        } else {
+          ReactDOM.render(
+            <Provider store={configureStore}>
+              <NoPostsByChef />
+            </Provider>, document.getElementById('feed-sec'));
+        }
+      }
+    }
+  }
+
+  componentDidMount() {
+    this.initialize_feeds();
+    // this.initialize_recipes();
+    // this.initialize_e_master_class();
+  }
+
+  showTime(datetime) {
+    var date1 = new Date(datetime);
+    var date2 = new Date();
+    var diffInMs = Math.abs(date2 - date1);
+    if ((diffInMs / (1000 * 60 * 60 * 24)) > 0) {
+      return (diffInMs / (1000 * 60 * 60 * 24)).toFixed(1) + " days ago";
+    } else if ((diffInMs / (1000 * 60 * 60)) > 0) {
+      return (diffInMs / (1000 * 60 * 60)).toFixed(1) + " hours ago";
+    } else if ((diffInMs / (1000 * 60)) > 0) {
+      return (diffInMs / (1000 * 60)).toFixed(1) + " mins ago";
+    } else {
+      return (diffInMs / 1000).toFixed(2) + " seconds ago ";
+    }
+  }
+
+  async like_unlike_post(e) {
+    if (e.target.className == "false") {
+      let result = await likePost(this.user_id, e.target.id, this.token);
+      if (result.status && result.status == false) {
+        console.log(result.message);
+      } else {
+        let feeds = [...this.state.feeds];
+        feeds.map((feed) => {
+          if (feed._id == e.target.id) {
+            feed.likes = feed.likes + 1;
+            feed.is_like = true;
+          }
+        })
+        this.setState({
+          feeds: feeds
+        })
+      }
+    } else {
+      let result = await unlikePost(this.user_id, e.target.id, this.token);
+      if (result.status && result.status == false) {
+        console.log(result.message);
+      } else {
+        let feeds = [...this.state.feeds];
+        feeds.map((feed) => {
+          if (feed._id == e.target.id) {
+            feed.likes = feed.likes - 1;
+            feed.is_like = false;
+          }
+        })
+        this.setState({
+          feeds: feeds
+        })
+      }
+    }
+  }
+
   render() {
     return (
       <div className="home-content">
+        <div className="feed-filters">
+          <button type="button" className="post-active" onClick={this.active_posts}>ALL</button>
+          <button type="button" className="" onClick={this.active_posts}>My Posts</button>
+        </div>
         <ul className="switch-content">
           <li onClick={this.active} className="nav-active" id="feed">
             Feeds
@@ -227,17 +402,17 @@ export default class home extends Component {
           </li>
         </ul>
         <div className="feeds sec active" id="feed-sec">
-          {this.feeds.map(function (item) {
+          {this.state.feeds.map((item) => {
             return (
               <div className="feed">
                 <div className="primary-details">
                   <div className="l-div">
                     <div className="profile-img-container">
-                      <img src={item.desktop_icon}></img>
+                      <img src={item.chef && item.chef.profile_image}></img>
                     </div>
                     <div className="user-detail-container">
-                      <h3>{item.user_name}</h3>
-                      <h5>{item.user_description}</h5>
+                      <h3>{item.chef && item.chef.user_name}</h3>
+                      <h5>{item.chef && item.chef.chef_details.position}</h5>
                     </div>
                   </div>
                   <div className="post-option">
@@ -245,12 +420,12 @@ export default class home extends Component {
                   </div>
                 </div>
                 <div className="post-image">
-                  <img className="userpost" src={item.post}></img>
+                  <img className="userpost" src={item.post_content && item.post_content}></img>
                 </div>
                 <div className="post-activity">
                   <div className="l-div">
                     <div className="activity">
-                      <img src={EmptyHeart}></img>
+                      <img src={item.is_like ? FullHeart : EmptyHeart} id={item._id} className={item.is_like.toString()} onClick={this.like_unlike_post}></img>
                       <span>{item.likes}</span>
                     </div>
                     <div className="activity">
@@ -261,19 +436,27 @@ export default class home extends Component {
                       <img src={PostShare}></img>
                       <span>{item.share}</span>
                     </div>
+                    <div className="activity">
+                      <div>
+                        <img src={LocationIcon}></img>
+                      </div>
+                      <div>
+                        <span>{item.location}</span>
+                      </div>
+                    </div>
                   </div>
                   <div className="r-div">
                     <div className="activity">
-                      <img src={Location}></img>
-                      <span>{item.location}</span>
-                    </div>
-                    <div className="activity">
-                      <img src={Time}></img>
-                      <span>{item.time}</span>
+                      <div>
+                        <img src={Time}></img>
+                      </div>
+                      <div>
+                        <span>{item.createdAt}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div className="post-content">{item.post_content}</div>
+                <div className="post-content">{item.description}</div>
               </div>
             );
           })}
@@ -405,92 +588,92 @@ export default class home extends Component {
               <img className="create-feed-btn" src={PlusIcon}></img>
             </Button>
             <SlidingPane
-            className="pop-up-recipes"
-            overlayClassName="some-custom-overlay-class"
-            isOpen={this.state.isRecipePopup}
-            from={"bottom"}
-            title="Create a Recipe"
-            subtitle=""
-            width="100%"
-            onRequestClose={() => {
-              this.setState({ isRecipePopup: false });
-            }}
-            onAfterOpen={() => {
-              $('.slide-pane__header').css("background-color", "#5B5353");
-              $('.slide-pane__header').css("color", "white");
-              $('.slide-pane__header').css("border-radius", "15px");
-              $('.slide-pane__header').css("border-bottom-left-radius", "0px");
-            }}
-          >
-            <div className="pop-up-feed">
-              <div className="pop-up-pad">
-                <div className="popup-content">
-                  <div className="form-container">
-                    <div className="form-group height img-field">
-                      <div class="image-upload">
-                        <label for="file-input">
-                          
-                          <img src={ImageUploadIcon} />
-                        </label>
-                        <input id="file-input" type="file" />
+              className="pop-up-recipes"
+              overlayClassName="some-custom-overlay-class"
+              isOpen={this.state.isRecipePopup}
+              from={"bottom"}
+              title="Create a Recipe"
+              subtitle=""
+              width="100%"
+              onRequestClose={() => {
+                this.setState({ isRecipePopup: false });
+              }}
+              onAfterOpen={() => {
+                $('.slide-pane__header').css("background-color", "#5B5353");
+                $('.slide-pane__header').css("color", "white");
+                $('.slide-pane__header').css("border-radius", "15px");
+                $('.slide-pane__header').css("border-bottom-left-radius", "0px");
+              }}
+            >
+              <div className="pop-up-feed">
+                <div className="pop-up-pad">
+                  <div className="popup-content">
+                    <div className="form-container">
+                      <div className="form-group height img-field">
+                        <div class="image-upload">
+                          <label for="file-input">
+
+                            <img src={ImageUploadIcon} />
+                          </label>
+                          <input id="file-input" type="file" />
+                        </div>
                       </div>
-                    </div>
-                    <div className="form-group">
-                      <label>Food Name <sup>*</sup></label>
-                      <input placeholder="Enter Food title" type="text" />
-                    </div>
-                    <div className="form-group">
-                    <label>Food Name <sup>*</sup></label>
-                      <select>
-                        <option>Indian</option>
-                        <option>South Indian</option>
-                      </select>
-                    </div>
-                    <div className="form-group">
-                      <label>Number of Servings <sup>*</sup></label>
-                      <input placeholder="Enter Number of Servings" type="number" />
-                    </div>
-                    <div className="form-group">
-                      <label>Prep Time <sup>*</sup></label>
-                      <input placeholder="Enter Number of Servings" type="number" />
-                    </div>
-                    <div className="form-group">
-                      <label>Cooking time <sup>*</sup></label>
-                      <input placeholder="Enter Number of Servings" type="number" />
-                    </div>
-                    <div className="form-group">
-                      <label>Ingredients <sup>*</sup></label>
-                      <input placeholder="Write post description" className="description-field" type="textarea" />
-                    </div>
-                    <div className="form-group">
-                      <label>Instructions <sup>*</sup></label>
-                      <input placeholder="Write post description" className="description-field" type="textarea" />
-                    </div>
-                    <div className="form-group">
-                      <label>Instructions <sup>*</sup></label>
-                      <input placeholder="Write post description" className="description-field" type="textarea" />
-                    </div>
-                    <div className="form-group">
-                      <label>Required tools (optional)</label>
-                      <input placeholder="Write post description" className="description-field" type="textarea" />
-                    </div>
-                    <div className="form-group radio-group">
-                      <label>Dates</label>
-                      <ul>
+                      <div className="form-group">
+                        <label>Food Name <sup>*</sup></label>
+                        <input placeholder="Enter Food title" type="text" />
+                      </div>
+                      <div className="form-group">
+                        <label>Food Name <sup>*</sup></label>
+                        <select>
+                          <option>Indian</option>
+                          <option>South Indian</option>
+                        </select>
+                      </div>
+                      <div className="form-group">
+                        <label>Number of Servings <sup>*</sup></label>
+                        <input placeholder="Enter Number of Servings" type="number" />
+                      </div>
+                      <div className="form-group">
+                        <label>Prep Time <sup>*</sup></label>
+                        <input placeholder="Enter Number of Servings" type="number" />
+                      </div>
+                      <div className="form-group">
+                        <label>Cooking time <sup>*</sup></label>
+                        <input placeholder="Enter Number of Servings" type="number" />
+                      </div>
+                      <div className="form-group">
+                        <label>Ingredients <sup>*</sup></label>
+                        <input placeholder="Write post description" className="description-field" type="textarea" />
+                      </div>
+                      <div className="form-group">
+                        <label>Instructions <sup>*</sup></label>
+                        <input placeholder="Write post description" className="description-field" type="textarea" />
+                      </div>
+                      <div className="form-group">
+                        <label>Instructions <sup>*</sup></label>
+                        <input placeholder="Write post description" className="description-field" type="textarea" />
+                      </div>
+                      <div className="form-group">
+                        <label>Required tools (optional)</label>
+                        <input placeholder="Write post description" className="description-field" type="textarea" />
+                      </div>
+                      <div className="form-group radio-group">
+                        <label>Dates</label>
+                        <ul>
                           <li><input type="radio" name="level" />Easy</li>
                           <li><input type="radio" name="level" />Medium</li>
                           <li><input type="radio" name="level" />Hard</li>
-                      </ul>
+                        </ul>
+                      </div>
                     </div>
-                  </div>
-                  <div className="popup-footer">
-                    <button className="footer-btn light">Cancel</button>
-                    <button className="footer-btn dark">Post</button>
+                    <div className="popup-footer">
+                      <button className="footer-btn light">Cancel</button>
+                      <button className="footer-btn dark">Post</button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </SlidingPane>
+            </SlidingPane>
           </div>
         </div>
         <div className="food sec" id="food-sec">

@@ -201,7 +201,6 @@ export default class home extends Component {
     }
 
     componentDidMount() {
-        this.initialize_chefs();
         this.initialize_feeds();
         this.initialize_recipes();
         this.initialize_e_master_class();

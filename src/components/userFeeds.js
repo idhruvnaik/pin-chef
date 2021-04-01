@@ -90,7 +90,6 @@ class UserFeeds extends React.Component {
                 this.state.user_id = token_details.id;
                 console.log(this, "token added to redux");
             } else{
-                window.sessionStorage.setItem("userFeeds", true);
                 if (token_details.remember){
                     console.log("jo reload na thayu hoy peli j vaar homepage par aave to checking remember value")
                     console.log(token_details.remember);
@@ -151,6 +150,10 @@ class UserFeeds extends React.Component {
 
     like_post(e){
         console.log(e);
+    }
+
+    componentDidMount() {
+        window.sessionStorage.setItem("userFeeds", true);
     }
 
     // async initialize_chefs(){

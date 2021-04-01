@@ -33,9 +33,7 @@ import configureStore from "./store";
 
 ReactDOM.render(
   <Provider store={configureStore}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>,
+    <App />
   </Provider>,
   document.getElementById('root')
 );
