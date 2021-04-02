@@ -14,7 +14,7 @@
       }
       }
     }
-    .feeds, .recipes {
+    .feeds, .recipes, .food, .services {
       .btn-container {
         width: 100%;
         text-align: right;
@@ -510,6 +510,23 @@
               align-items: center;
             }
           }
+          ul.food-radio-group{
+            flex-direction: column;
+            align-items: flex-start;
+            div{
+              display: flex;
+              align-items: center;
+              span.label{
+                width: 150px;
+              }
+              &:first-child{
+                margin-right: 10px;
+              }
+              .form-control.money-field{
+                visibility: unset;
+              }
+            }
+          }
           label{
             margin-bottom: 10px;
             sup{
@@ -533,6 +550,9 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            height: 200px;
+            border-radius: 10px;
+            border: 1px solid #514949;
             .image-upload {
               label {
                 img {

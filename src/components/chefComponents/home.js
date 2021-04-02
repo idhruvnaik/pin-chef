@@ -219,6 +219,14 @@ export default class home extends Component {
       this.setState({ isRecipePopup: true });
     };
 
+    this.toggleFoodPopup = () => {
+      this.setState({ isFoodPopup: true });
+    };
+
+    this.toggleServicedPopup = () => {
+      this.setState({ isServicePopup: true });
+    };
+
     this.active = (e) => {
       var element = e.target.id;
       if (element == "feed") {
@@ -1011,6 +1019,118 @@ export default class home extends Component {
               </div>
             );
           })}
+          <div className="btn-container">
+            <Button onClick={this.toggleFoodPopup}>
+              <img className="create-feed-btn" src={PlusIcon}></img>
+            </Button>
+            <SlidingPane
+              className="pop-up-recipes"
+              overlayClassName="some-custom-overlay-class"
+              isOpen={this.state.isFoodPopup}
+              from={"bottom"}
+              title="Create a Food for sale"
+              subtitle=""
+              width="100%"
+              onRequestClose={() => {
+                this.setState({ isFoodPopup: false });
+              }}
+              onAfterOpen={() => {
+                $('.slide-pane__header').css("background-color", "#5B5353");
+                $('.slide-pane__header').css("color", "white");
+                $('.slide-pane__header').css("border-radius", "15px");
+                $('.slide-pane__header').css("border-bottom-left-radius", "0px");
+              }}
+            >
+              <div className="pop-up-feed">
+                <div className="pop-up-pad">
+                  <div className="popup-content">
+                    <div className="form-container">
+                      <div className="form-group height img-field">
+                        <div class="image-upload">
+                          <label for="file-input">
+
+                            <img src={ImageUploadIcon} />
+                          </label>
+                          <input id="file-input" type="file" />
+                        </div>
+                      </div>
+                      <div className="form-group">
+                        <label>Food Item Name <sup>*</sup></label>
+                        <input placeholder="Enter Food title" type="text" />
+                      </div>
+                      <div className="form-group">
+                        <label>Cuisine Type <sup>*</sup></label>
+                        <select>
+                          <option selected>Select an option</option>
+                          <option>Indian</option>
+                          <option>South Indian</option>
+                        </select>
+                      </div>
+                      <div className="form-group">
+                        <label>Diet type <sup>*</sup></label>
+                        <select>
+                          <option selected>Select an option</option>
+                          <option>Indian</option>
+                          <option>South Indian</option>
+                        </select>
+                      </div>
+                      <div className="form-group">
+                        <label>Description & Ingredients</label>
+                        <input placeholder="Write the description, Ingredients, portion size" className="description-field" type="textarea" />
+                      </div>
+                      <div className="form-group">
+                        <label>Service Days and Hours</label>
+                        <select>
+                          <option selected>Available  days and hours</option>
+                          <option>Indian</option>
+                          <option>South Indian</option>
+                        </select>
+                      </div>
+                      <div className="form-group">
+                        <label>Price <sup>*</sup></label>
+                        <input placeholder="Enter Food title" type="number" />
+                      </div>
+                      <div className="form-group radio-group">
+                        <label>Available for Services <sup> *</sup></label>
+                        <ul className="food-radio-group">
+                          <li>
+                            <div>
+                              <input type="radio" name="level" />
+                              <span className="label">Pick Up/Takeaway</span>
+                            </div>
+                          </li>
+                          <li>
+                            <div>
+                              <input type="radio" name="level" />
+                              <span>Delivery</span>
+                            </div>
+                            <div>
+                              <span className="label">Fee $</span>
+                              <input type="number" className="form-control money-field" />
+                            </div>
+                          </li>
+                          <li>
+                            <div>
+                              <input type="radio" name="level" />
+                              <span>Shipping</span>
+                            </div>
+                            <div>
+                              <span className="label">Fee $</span>
+                              <input type="number" className="form-control money-field" />
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div className="popup-footer">
+                      <button className="footer-btn light">Cancel</button>
+                      <button className="footer-btn dark">Post</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </SlidingPane>
+          </div>
         </div>
         <div className="services sec" id="services-sec">
           {this.state.services.map((item) => {
@@ -1081,6 +1201,75 @@ export default class home extends Component {
               </div>
             );
           })}
+          <div className="btn-container">
+            <Button onClick={this.toggleServicedPopup}>
+              <img className="create-feed-btn" src={PlusIcon}></img>
+            </Button>
+            <SlidingPane
+              className="pop-up-recipes"
+              overlayClassName="some-custom-overlay-class"
+              isOpen={this.state.isServicePopup}
+              from={"bottom"}
+              title="Create a Food for sale"
+              subtitle=""
+              width="100%"
+              onRequestClose={() => {
+                this.setState({ isServicePopup: false });
+              }}
+              onAfterOpen={() => {
+                $('.slide-pane__header').css("background-color", "#5B5353");
+                $('.slide-pane__header').css("color", "white");
+                $('.slide-pane__header').css("border-radius", "15px");
+                $('.slide-pane__header').css("border-bottom-left-radius", "0px");
+              }}
+            >
+              <div className="pop-up-feed">
+                <div className="pop-up-pad">
+                  <div className="popup-content">
+                    <div className="form-container">
+                      <div className="form-group height img-field">
+                        <div class="image-upload">
+                          <label for="file-input">
+
+                            <img src={ImageUploadIcon} />
+                          </label>
+                          <input id="file-input" type="file" />
+                        </div>
+                      </div>
+                      <div className="form-group">
+                        <label>Service type <sup>*</sup></label>
+                        <select>
+                          <option selected>Select a service type</option>
+                          <option>Indian</option>
+                          <option>South Indian</option>
+                        </select>
+                      </div>
+                      <div className="form-group">
+                        <label>Full Description about service</label>
+                        <input placeholder="Write the description, Ingredients, portion size" className="description-field" type="textarea" />
+                      </div>
+                      <div className="form-group">
+                        <label>Service Days and Hours</label>
+                        <select>
+                          <option selected>Available  days and hours</option>
+                          <option>Indian</option>
+                          <option>South Indian</option>
+                        </select>
+                      </div>
+                      <div className="form-group">
+                        <label>Price <sup>*</sup></label>
+                        <input placeholder="Enter Food title" type="number" />
+                      </div>
+                    </div>
+                    <div className="popup-footer">
+                      <button className="footer-btn light">Cancel</button>
+                      <button className="footer-btn dark">Post</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </SlidingPane>
+          </div>
         </div>
         <div className="e-masterclass sec" id="e-master-class-sec">
           {this.state.master_classes.map((item) => {
