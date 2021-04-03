@@ -14,6 +14,8 @@ import CommentIcon from '../assets/svg/Comment icon.svg';
 import EmptyHeart from '../assets/svg/Like button empty.svg';
 import FullHeart from '../assets/svg/Like button full.svg';
 import PostShare from '../assets/svg/Post Share count.svg';
+import AvailableTickets from '../assets/svg/available-tickets.svg'
+import SoldOut from '../assets/svg/Sold Out.svg'
 import Time from '../assets/svg/time-2.svg';
 import Recipe_time from '../assets/svg/recipe-time.svg';
 import Food from '../assets/png_icons/mexicanFood.png';
@@ -30,7 +32,7 @@ import BookClass from '../assets/svg/Book masterclass.svg'
 import MasterclassTime from '../assets/png_icons/Masterclass Time icon.png'
 import MasterclassClockIcon from '../assets/png_icons/Masterclass clock icon.png'
 
-import { getAllChef, getAllPosts, likePost, getAllRecipes, getAllMasterClasses, unlikePost, unlikeRecipe, likeRecipe, getCommentsByPostID, addLikeToComment, removeLikeToComment } from '../services/apiOperations';
+import { getAllChef, getAllPosts, likePost, getAllRecipes, getAllMasterClasses, unlikePost, unlikeRecipe, likeRecipe, getCommentsByPostID, addLikeToComment, removeLikeToComment, addCommentToPost } from '../services/apiOperations';
 
 import $ from 'jquery';
 
@@ -50,6 +52,8 @@ export default class home extends Component {
         this.makeTimer = this.makeTimer.bind(this);
         this.open_comments = this.open_comments.bind(this);
         this.like_unlike_Comment = this.like_unlike_Comment.bind(this);
+        this.add_comment = this.add_comment.bind(this);
+        this.backToParent = this.backToParent.bind(this);
         this.render = this.render.bind(this);
         this.state = {
             chefs: [],
@@ -170,9 +174,11 @@ export default class home extends Component {
                         master_class_result.map(function (item) {
                             let chef_details = chef_result.find(chef => chef._id == item.chef_id);
                             item.chef = chef_details;
+                            item.start_date = new Date(item.start_date).toDateString();
                         })
                     }
                 }
+                console.log(master_class_result);
                 this.setState({
                     master_classes: master_class_result
                 });
@@ -293,19 +299,50 @@ export default class home extends Component {
         var date1 = new Date(datetime);
         var date2 = new Date();
         var diffInMs = Math.abs(date2 - date1);
-        if ((diffInMs / (1000 * 60 * 60 * 24)) > 0) {
-            return (diffInMs / (1000 * 60 * 60 * 24)).toFixed(1) + " days ago";
-        } else if ((diffInMs / (1000 * 60 * 60)) > 0) {
-            return (diffInMs / (1000 * 60 * 60)).toFixed(1) + " hours ago";
-        } else if ((diffInMs / (1000 * 60)) > 0) {
-            return (diffInMs / (1000 * 60)).toFixed(1) + " mins ago";
-        } else {
+        if ((diffInMs / 1000) < 60){
             return (diffInMs / 1000).toFixed(2) + " seconds ago ";
+        } else if ((diffInMs / (1000 * 60)) < 60) {
+            return (diffInMs / (1000 * 60)).toFixed(1) + " mins ago";
+        } else if ((diffInMs / (1000 * 60 * 60)) < 24) {
+            return (diffInMs / (1000 * 60 * 60)).toFixed(1) + " hours ago";
+        } else {
+            return (diffInMs / (1000 * 60 * 60 * 24)).toFixed(1) + " days ago";
+        }
+    }
+
+    async add_comment(e) {
+        var comment = $('.comment-content')[0].value;
+        console.log(comment);
+        let result = await addCommentToPost(e.target.id, this.user_id, comment, this.token);
+        if (result.status && result.status == false) {
+            console.log(result.message);
+        } else {
+            // let comments = [...this.state.comments];
+            // comments.map((comment) => {
+            //     if (comment._id == e.target.id) {
+            //         comment.likes = comment.likes + 1;
+            //         comment.is_like = true;
+            //     }
+            // })
+            // this.setState({
+            //     comments: comments
+            // })
+            let comments = await getCommentsByPostID(e.target.id, this.user_id, this.token);
+            if (comments.status && comments.status == false) {
+                console.log(comments.message);
+            } else{
+                comments.map((item) => {
+                    item.createdAt = this.showTime(item.createdAt);
+                })
+                this.setState({
+                    comments: comments
+                })
+                $('.comment-content')[0].value = null;
+            }
         }
     }
 
     async like_unlike_Comment(e) {
-        console.log(e.target.id);
         if (e.target.className == "false") {
             let result = await addLikeToComment(this.user_id, e.target.id, this.token);
             if (result.status && result.status == false) {
@@ -341,6 +378,12 @@ export default class home extends Component {
         }
     }
 
+    backToParent(){
+        console.log("back to parent");
+        $('#feed-sec').css("display", "block");
+        $('#comment-sec').css("display", "none");
+    }
+
     render() {
         return (
             <div className="home-content" >
@@ -365,7 +408,7 @@ export default class home extends Component {
                                     </div>
                                     <div style={{ paddingRight: "4px" }}>
                                         <div className="post-option" style={{ textAlignLast: "right" }}><img src={PostMenu}></img></div>
-                                        {/* <div style={{ display: "flex" }}>
+                                        <div style={{ display: "flex" }}>
                                             <div className="feed_rattings">{item.rate}</div>
                                             <ReactStars
                                                 count={5}
@@ -375,7 +418,7 @@ export default class home extends Component {
                                                 edit={false}
                                                 activeColor="#ffd700"
                                             />
-                                        </div> */}
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="post-image">
@@ -504,8 +547,10 @@ export default class home extends Component {
                                 <div className="order_content">
                                     <div className="user_details">
                                         <img src={BookClass}></img>
-                                        <h4>{item.chef && item.chef.name}</h4>
-                                        <img src={item.chef && item.chef.profile_image}></img>
+                                        <div style={{display: "flex"}}>
+                                            <h4>{item.chef && item.chef.name}</h4>
+                                            <img src={item.chef && item.chef.profile_image}></img>
+                                        </div>
                                     </div>
                                     <div className="order_description">
                                         <p>{item.description}</p>
@@ -518,16 +563,25 @@ export default class home extends Component {
                                         </div>
                                         <div className="class_date_time">
                                             <img src={MasterclassTime}></img>
-                                            <span>{item.start_date} -</span>
+                                            <span>{item.start_date} </span>
+                                            <span>- </span>
                                             <div className="time">{item.start_time}</div>
                                         </div>
                                         <div className="remaining_time">
                                             <img src={MasterclassClockIcon}></img>
-                                            <div>{item.remaining_time}</div>
+                                            <div>{item.duration}</div>
                                         </div>
                                     </div>
                                     <div className="ticket_status">
-                                        Available Tickets <b>{item.ticket_group_number}</b>
+                                        <div>
+                                            Available Tickets 
+                                        </div>
+                                        <div>
+                                            <img src={item.ticket_group_number > 0 ? AvailableTickets : SoldOut}></img>
+                                        </div>
+                                        <div>
+                                            <b>{item.ticket_group_number > 0 ? item.ticket_group_number : ''}</b>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -535,10 +589,9 @@ export default class home extends Component {
                     })}
                 </div>
                 <div className="comment sec" id="comment-sec">
-                    {console.log(this.state)}
                     <div className="switch-content">
                         <div>
-                            <img src={LeftBack}></img>
+                            <img src={LeftBack} onClick={() => this.backToParent()}></img>
                         </div>
                         <div>
                             <h2>COMMENTS</h2>
@@ -605,10 +658,10 @@ export default class home extends Component {
                         </div>
                         <div className="add-comment">
                             <div className="write-comment">
-                                <input type="text" placeholder="Enter comment"></input>
+                                <input className="comment-content" type="text" placeholder="Enter comment"></input>
                                 <img src={Sticker}></img>
                             </div>
-                            <img src={AddComment}></img>
+                            <img src={AddComment} id={this.state.comment._id} onClick={this.add_comment}></img>
                         </div>
                         {/* <CommentsBlock
                             comments={this.state.comments}

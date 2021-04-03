@@ -222,7 +222,7 @@ class UserReg extends React.Component {
                                     <div className="symbol">
                                         <img src={Email}></img>
                                     </div>
-                                    <div>
+                                    <div style={{backgroundColor: "white"}}>
                                         <div id="errorMessage"></div>
                                         <input type="text" id="username" placeholder="ex: johndoe@pinchef.io"></input>
                                     </div>

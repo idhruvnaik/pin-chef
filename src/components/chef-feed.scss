@@ -392,9 +392,8 @@
               .notification-details{
                 width: 75%;
                 height: 50px;
-                border-style: none none dashed none;
-                border-color: #707070;
-                // border-bottom-style: dashed solid;
+                border-bottom: 1px dashed rgba(81, 73, 73, .42);
+                background-clip: padding-box; /* Firefox 4+, Opera, Chrome */
                 .notification-type{
                   display: flex;
                   justify-content: space-between;

@@ -54,7 +54,7 @@ ul {
   list-style-type: none;
 }
 ul.switch-content {
-  justify-content: space-between;
+  justify-content: space-around;
   display: flex;
   padding: 5px;
   align-items: center;
@@ -178,6 +178,7 @@ ul.switch-content-1 li {
   border-radius: 50%;
   width: 100%;
   height: 100%;
+  box-shadow: 2px 2px 5px #707070;
 }
 .user-feed-page .user-pallet .menu-bar .home-content .primary-details .user-detail-container,
 .user-feed-page .user-pallet .menu-bar .star-content .primary-details .user-detail-container {
@@ -414,6 +415,7 @@ ul.switch-content-1 li {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
+  margin-top: 10px;
 }
 .other_details .price-detail {
   display: flex;
@@ -423,7 +425,7 @@ ul.switch-content-1 li {
   color: #707070;
 }
 .class_date_time {
-  margin-left: 20px;
+  margin-left: 10px;
   padding-left: 8px;
   border-left: 1px solid #ffcf54;
   display: flex;
@@ -438,6 +440,7 @@ ul.switch-content-1 li {
 }
 .class_date_time .time {
   font-size: 12px;
+  margin-left: 5px;
 }
 .remaining_time {
   border-left: 1px solid #ffcf54;
@@ -449,6 +452,7 @@ ul.switch-content-1 li {
 }
 .remaining_time img {
   height: 15px;
+  margin-right: 10px;
 }
 .ticket_status {
   text-align: right;
@@ -648,6 +652,8 @@ ul.switch-content-1 li {
   padding-left: 5%;
   padding-right: 5%;
   cursor: pointer;
+  height: 55px;
+  align-items: center;
 }
 .settings-content .profile .setting_activity .menu_details .menu_name,
 .settings-content .help .help_activity .menu_details .menu_name{
@@ -656,17 +662,20 @@ ul.switch-content-1 li {
 .settings-content .profile .setting_activity .menu_details .menu_icon{
   margin-right: 30px;
   height: 100%;
+  margin-top: 10px;
 }
 .settings-content .help .help_activity .menu_details .menu_icon,
 .settings-content .my_profile .profile_activity .menu_details .menu_icon{
   margin-right: 20px;
   height: 100%;
+  margin-top: 10px;
 }
 .settings-content .profile .setting_activity .menu_details,
 .settings-content .help .help_activity .menu_details,
 .settings-content .my_profile .profile_activity .menu_details{
   display: flex;
   width: 70%;
+  align-items: center;
 }
 
 

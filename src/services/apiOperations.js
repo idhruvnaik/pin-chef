@@ -38,6 +38,7 @@ const recipe_by_chef_endpoint = "/recipe/chef"
 const food_by_chef_endpoint = "/food/chef"
 const service_by_chef_endpoint = "/service/chef"
 const eclass_by_chef_endpoint = "/e-class/chef"
+const comment_endpoint = "/post-comment"
 
 
 async function make_rest_call(apiURL, method, body, headers){
@@ -672,6 +673,28 @@ export const removeLikeToComment = async(user_id, comment_id, token)=>{
     var data = {
         comment_id: comment_id,
 	    user_id: user_id
+    }
+    try{
+        let resp = await make_rest_call(apiURL, 'POST', data, headers);
+        return resp;
+    }
+    catch(err){
+        return {
+            status: false,
+            message: err.message
+        }
+    }
+}
+
+export const addCommentToPost = async(post_id, commenter_id, comment, token)=>{
+    let apiURL = apiHost + comment_endpoint;
+    var headers = {
+        "Authorization": "Bearer " + token
+    };
+    var data = {
+        post_id: post_id,
+	    commenter_id: commenter_id,
+        comment: comment
     }
     try{
         let resp = await make_rest_call(apiURL, 'POST', data, headers);

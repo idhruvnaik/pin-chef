@@ -177,6 +177,9 @@
   .contact_us .feedback{
     height: 75%;
   }
+  .other_details, .class_date_time span, .class_date_time .time{
+    font-size: xx-small;
+  }
 }
 @media (max-height: 570px) {
   .all_chefs .chef, .following_chefs .chef{
@@ -294,5 +297,8 @@
   }
   .chef-page .chef-content .chef-profile .chef .chef-posts .switch-content li {
     font-size: xx-small;
+  }
+  .settings-content .profile .setting_activity .menu_details .menu_name h3 {
+    font-size: 12px;
   }
 }

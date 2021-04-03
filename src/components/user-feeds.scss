@@ -9,6 +9,15 @@
           &.active {
             display: block;
           }
+          .ticket_status{
+            display: flex;
+            justify-content: flex-end;
+            align-items: end;
+            div:nth-child(2){
+              margin-left: 30px;
+              margin-right: 10px;
+            }
+          }
         }
         .comment{
           .feed{
@@ -36,7 +45,11 @@
                 .actual-comment{
                   width: 50%;
                   text-align: left;
-                  margin-top: 20px;
+                  padding-top: 20px;
+                  // border-top: dashed;
+                  border-top: 1px dashed rgba(70, 64, 64, .42);
+                  // border-color: #464040;
+                  background-clip: padding-box; /* Firefox 4+, Opera, Chrome */
                 }
                 .comment-details{
                   width: 25%;
@@ -64,9 +77,19 @@
               .write-comment{
                 display: flex;
                 width: 100%;
+                border: 1px solid black;
+                border-radius: 40px;
+                background-color: white;
                 input{
                   width: 100%;
+                  border: none;
+                  border-radius: 35px;
+                  padding-left: 20px;
+                  height: 55px;
                 }
+              }
+              img{
+                cursor: pointer;
               }
             }
           }

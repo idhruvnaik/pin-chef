@@ -680,8 +680,21 @@ export default class home extends Component {
                       <h5>{item.chef && item.chef.chef_details.position}</h5>
                     </div>
                   </div>
-                  <div className="post-option">
-                    <img src={PostMenu}></img>
+                  <div style={{paddingRight: "4px"}}>
+                    <div className="post-option" style={{ textAlignLast: "right" }}>
+                      <img src={PostMenu}></img>
+                    </div>
+                    <div style={{ display: "flex" }}>
+                      <div className="feed_rattings">{item.rate}</div>
+                      <ReactStars
+                        count={5}
+                        value={item.rate}
+                        onChange={null}
+                        isHalf={true}
+                        edit={false}
+                        activeColor="#ffd700"
+                      />
+                    </div>
                   </div>
                 </div>
                 <div className="post-image">
