@@ -39,6 +39,7 @@ const food_by_chef_endpoint = "/food/chef"
 const service_by_chef_endpoint = "/service/chef"
 const eclass_by_chef_endpoint = "/e-class/chef"
 const comment_endpoint = "/post-comment"
+const feed_image_endpoint = "/post-images"
 
 
 async function make_rest_call(apiURL, method, body, headers){
@@ -698,6 +699,47 @@ export const addCommentToPost = async(post_id, commenter_id, comment, token)=>{
     }
     try{
         let resp = await make_rest_call(apiURL, 'POST', data, headers);
+        return resp;
+    }
+    catch(err){
+        return {
+            status: false,
+            message: err.message
+        }
+    }
+}
+
+export const AddPost = async(chef_id, description, location, token)=>{
+    let apiURL = apiHost + posts_endpoint;
+    var headers = {
+        "Authorization": "Bearer " + token
+    };
+    var data = {
+        chef_id: chef_id,
+	    description: description,
+        location: location
+    }
+    try{
+        let resp = await make_rest_call(apiURL, 'POST', data, headers);
+        return resp;
+    }
+    catch(err){
+        return {
+            status: false,
+            message: err.message
+        }
+    }
+}
+
+export const AddImageToPost = async(post_id, image, token)=>{
+    let apiURL = apiHost + feed_image_endpoint + "/" + post_id;
+    var headers = {
+        "Authorization": "Bearer " + token
+    };
+    var bodyFormData = new FormData();
+    bodyFormData.append('upload', image);
+    try{
+        let resp = await make_rest_call(apiURL, 'POST', bodyFormData, headers);
         return resp;
     }
     catch(err){

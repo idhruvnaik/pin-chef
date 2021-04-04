@@ -5,6 +5,8 @@ import "react-sliding-pane/dist/react-sliding-pane.css";
 import ReactDOM, { render } from 'react-dom';
 import { Provider } from "react-redux";
 import configureStore from "../../store";
+import ReactCrop from 'react-image-crop';
+import 'react-image-crop/dist/ReactCrop.css';
 
 import NoFeeds from '../../assets/svg/NoFeedPost';
 import NoPostsByChef from '../../assets/svg/NoPostsByChef'
@@ -37,7 +39,7 @@ import DescriptionIcon from "../../assets/images/description-icon.png";
 import ImageUploadIcon from "../../assets/images/image-upload.png";
 import LocationPlusIcon from "../../assets/images/location-plus-icon.png";
 
-import { getAllChef, getAllPosts, likePost, getAllPostsByChefID, getChefById, getAllRecipesByChef, getAllFoodByFood, getAllMasterClasses, unlikePost, unlikeRecipe, likeRecipe, getAllServicesByChef, unlikeFood, likeFood, unlikeService, likeService, getAllMasterClassesByChef } from '../../services/apiOperations';
+import { getAllChef, getAllPosts, likePost, AddPost, AddImageToPost, getAllPostsByChefID, getChefById, getAllRecipesByChef, getAllFoodByFood, getAllMasterClasses, unlikePost, unlikeRecipe, likeRecipe, getAllServicesByChef, unlikeFood, likeFood, unlikeService, likeService, getAllMasterClassesByChef } from '../../services/apiOperations';
 import $ from "jquery";
 import { Button } from "rsuite";
 
@@ -57,6 +59,13 @@ export default class home extends Component {
     this.like_unlike_recipe = this.like_unlike_recipe.bind(this);
     this.like_unlike_food = this.like_unlike_food.bind(this);
     this.like_unlike_service = this.like_unlike_service.bind(this);
+    this.get_preview = this.get_preview.bind(this);
+    this.makeClientCrop = this.makeClientCrop.bind(this);
+    this.getCroppedImg = this.getCroppedImg.bind(this);
+    this.onImageLoaded = this.onImageLoaded.bind(this);
+    this.onCropChange = this.onCropChange.bind(this);
+    this.onCropComplete = this.onCropComplete.bind(this);
+    this.CreateFeed = this.CreateFeed.bind(this);
     this.state = {
       isPaneOpenLeft: false,
       pictures: [],
@@ -64,7 +73,13 @@ export default class home extends Component {
       recipes: [],
       food: [],
       services: [],
-      master_classes: []
+      master_classes: [],
+      src: null,
+      crop: {
+        unit: 'px',
+        height: 250,
+        aspect: 16 / 9,
+      }
     }
 
     this.feeds = [
@@ -256,6 +271,10 @@ export default class home extends Component {
     this.setState({
       pictures: this.state.pictures.concat(pictureFiles)
     });
+  }
+
+  onImageLoaded(image) {
+    this.imageRef = image;
   }
 
   async initialize_chefs() {
@@ -517,20 +536,21 @@ export default class home extends Component {
     this.initialize_food();
     this.initialize_services();
     this.initialize_e_master_class();
+    // document.getElementById("file-input").addEventListener("change", this.get_preview);
   }
 
   showTime(datetime) {
     var date1 = new Date(datetime);
     var date2 = new Date();
     var diffInMs = Math.abs(date2 - date1);
-    if ((diffInMs / (1000 * 60 * 60 * 24)) > 0) {
-      return (diffInMs / (1000 * 60 * 60 * 24)).toFixed(1) + " days ago";
-    } else if ((diffInMs / (1000 * 60 * 60)) > 0) {
-      return (diffInMs / (1000 * 60 * 60)).toFixed(1) + " hours ago";
-    } else if ((diffInMs / (1000 * 60)) > 0) {
-      return (diffInMs / (1000 * 60)).toFixed(1) + " mins ago";
-    } else {
+    if ((diffInMs / 1000) < 60) {
       return (diffInMs / 1000).toFixed(2) + " seconds ago ";
+    } else if ((diffInMs / (1000 * 60)) < 60) {
+      return (diffInMs / (1000 * 60)).toFixed(1) + " mins ago";
+    } else if ((diffInMs / (1000 * 60 * 60)) < 24) {
+      return (diffInMs / (1000 * 60 * 60)).toFixed(1) + " hours ago";
+    } else {
+      return (diffInMs / (1000 * 60 * 60 * 24)).toFixed(1) + " days ago";
     }
   }
 
@@ -642,6 +662,99 @@ export default class home extends Component {
     }
   }
 
+  get_preview(e) {
+    console.log(e, "invoke thayu");
+    console.log(document.getElementById('file-input').files[0]);
+    var selectedFile = document.getElementById('file-input').files[0];
+    var reader = new FileReader();
+    // $('.image-preview img')[0].title = selectedFile.name;
+    reader.onload = (event) => {
+      // $('.image-preview img')[0].src = event.target.result;
+      this.setState({ src: event.target.result })
+    };
+    reader.readAsDataURL(selectedFile);
+    // $('.image-preview img')[0].src = e.target.value;//document.getElementById('file-input').files[0].name;
+  }
+
+
+
+  onCropComplete(crop) {
+    this.makeClientCrop(crop);
+  };
+
+  onCropChange(crop, percentCrop) {
+    // You could also use percentCrop:
+    // this.setState({ crop: percentCrop });
+    this.setState({ crop });
+  };
+
+  async CreateFeed() {
+    console.log("from create feed");
+    var description = $('#feed-description')[0].value;
+    var location = $('.location input')[0].value;
+    var feed_image = $('#feed-crop')[0].src;
+    console.log(feed_image, "feed image");
+    console.log(this.state.croppedImageUrl, "urllll");
+    let result = await AddPost(this.user_id, description, location, this.token);
+    if (result.status && result.status == false) {
+      console.log(result.message);
+    } else {
+      var post_id = result.post_id;
+      let image_result = await AddImageToPost(post_id, this.state.croppedImageUrl, this.token);
+      if (image_result.status && image_result.status == false) {
+        console.log(image_result.message);
+      } else {
+        this.setState({ isPaneOpenLeft: false });
+      }
+    }
+  }
+  async makeClientCrop(crop) {
+    if (this.imageRef && crop.width && crop.height) {
+      const croppedImageUrl = await this.getCroppedImg(
+        this.imageRef,
+        crop,
+        'newFile.jpeg'
+      );
+      this.setState({ croppedImageUrl });
+    }
+  }
+
+  getCroppedImg(image, crop, fileName) {
+    const canvas = document.createElement('canvas');
+    const scaleX = image.naturalWidth / image.width;
+    const scaleY = image.naturalHeight / image.height;
+    canvas.width = crop.width;
+    canvas.height = crop.height;
+    const ctx = canvas.getContext('2d');
+
+    ctx.drawImage(
+      image,
+      crop.x * scaleX,
+      crop.y * scaleY,
+      crop.width * scaleX,
+      crop.height * scaleY,
+      0,
+      0,
+      crop.width,
+      crop.height
+    );
+
+    return canvas.toDataURL("image/jpeg");
+    // return new Promise((resolve, reject) => {
+    //   canvas.toBlob(blob => {
+    //     if (!blob) {
+    //       //reject(new Error('Canvas is empty'));
+    //       console.error('Canvas is empty');
+    //       return;
+    //     }
+    //     blob.name = fileName;
+    //     window.URL.revokeObjectURL(this.fileUrl);
+    //     this.fileUrl = window.URL.createObjectURL(blob);
+    //     resolve(this.fileUrl);
+    //   }, 'image/jpeg');
+    // });
+  }
+
   render() {
     return (
       <div className="home-content">
@@ -680,7 +793,7 @@ export default class home extends Component {
                       <h5>{item.chef && item.chef.chef_details.position}</h5>
                     </div>
                   </div>
-                  <div style={{paddingRight: "4px"}}>
+                  <div style={{ paddingRight: "4px" }}>
                     <div className="post-option" style={{ textAlignLast: "right" }}>
                       <img src={PostMenu}></img>
                     </div>
@@ -775,20 +888,37 @@ export default class home extends Component {
                         <label for="file-input">
                           <img src={ImageUploadIcon} />
                         </label>
-                        <input id="file-input" type="file" className="description-field" />
+                        <input id="file-input" type="file" className="description-field" accept=".jpg,.png,.PNG,.jpeg" onChange={this.get_preview} />
                       </div>
                     </div>
+                    {this.state.src && (
+                      <ReactCrop
+                        src={this.state.src}
+                        crop={this.state.crop}
+                        ruleOfThirds
+                        onImageLoaded={this.onImageLoaded}
+                        onComplete={this.onCropComplete}
+                        onChange={this.onCropChange}
+                        locked={true}
+                      />
+                    )}
+                    {this.state.croppedImageUrl && (
+                      <img alt="Crop" style={{ maxWidth: '100%' }} src={this.state.croppedImageUrl} style={{display: "none"}} id="feed-crop" />
+                    )}
+                    {/* <div className="image-preview">
+                      <img src={null}></img>
+                    </div> */}
                     <div className="form-group">
-                      <input placeholder="Write post description" className="description-field" type="textarea" />
+                      <input placeholder="Write post description" className="description-field" id="feed-description" type="textarea" />
                     </div>
                     <div className="form-group location">
                       <img src={LocationPlusIcon} className="location-img"></img>
-                      <input placeholder="Write post description" type="text" />
+                      <input placeholder="Location" type="text" />
                     </div>
                   </div>
                   <div className="popup-footer">
                     <button className="footer-btn light">Cancel</button>
-                    <button className="footer-btn dark">Post</button>
+                    <button className="footer-btn dark" onClick={this.CreateFeed}>Post</button>
                   </div>
                 </div>
               </div>

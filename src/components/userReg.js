@@ -6,11 +6,12 @@ import { connect } from "react-redux";
 import { addToken } from "../services/actions";
 import Popup from 'reactjs-popup';
 import {reactLocalStorage} from 'reactjs-localstorage';
+import './userReg.scss';
 import './userReg.css';
-import Email from '../assets/png_icons/Email icon.png';
+import Email from '../assets/svg/Email icon.svg';
 import showPassword from '../assets/png_icons/Show password icon.png';
 import HidePassword from '../assets/png_icons/Hide password icon.png';
-import Password from '../assets/png_icons/Password icon.png'
+import Password from '../assets/svg/Password icon.svg'
 
 import AppleIcon from '../assets/svg/AppleSignin'
 import FbIcon from '../assets/svg/FacebookSignin'
@@ -84,7 +85,7 @@ class UserReg extends React.Component {
         registerBtn.classList.remove('active');
         registerform.style.opacity='0';
         $('#note').css("display", "block");
-        $('.multi-login').css("display", "block");
+        $('.multi-login').css("display", "flex");
     };
     change_user(){
         var user = document.querySelector('#user_choice span').innerHTML;
@@ -189,16 +190,18 @@ class UserReg extends React.Component {
             $('.active_password')[0].src = showPassword;
             $('.active_password').removeClass('active_password');
             $('#loginform #password')[0].type = "text";
+            $('.password_input .symbol').css("padding-top", "24px");
         }else{
             $('#loginform #password')[0].type = "password";
             $('#active_password').addClass('active_password');
             $('.active_password')[0].src = HidePassword;
+            $('.password_input .symbol').css("padding-top", "22px");
         }
     };
 
     render(){
         return (
-            <div className="outer-layout" style={{backgroundColor: "#555", backgroundImage: "none" }}>
+            <div className="outer-layout user-reg-page" style={{backgroundColor: "#555", backgroundImage: "none" }}>
                 <div className="container">
                     <div className="login-register">
                         <div className="form-headers">
@@ -222,7 +225,7 @@ class UserReg extends React.Component {
                                     <div className="symbol">
                                         <img src={Email}></img>
                                     </div>
-                                    <div style={{backgroundColor: "white"}}>
+                                    <div>
                                         <div id="errorMessage"></div>
                                         <input type="text" id="username" placeholder="ex: johndoe@pinchef.io"></input>
                                     </div>
@@ -232,11 +235,13 @@ class UserReg extends React.Component {
                                 </div>
                                 <div className="password_input">
                                     <div>
-                                        <img src={Password}></img>
-                                    </div>
-                                    <input type="password" id="password" placeholder="ex: PinChefisthebest!"></input>
-                                    <div className="symbol">
-                                        <img src={HidePassword} id="active_password" className="active_password" onClick={this.ShowPassword}></img>
+                                        <div>
+                                            <img src={Password}></img>
+                                        </div>
+                                        <input type="password" id="password" placeholder="ex: PinChefisthebest!"></input>
+                                        <div className="symbol">
+                                            <img src={HidePassword} id="active_password" className="active_password" onClick={this.ShowPassword}></img>
+                                        </div>
                                     </div>
                                 </div>
                                 <input type="submit" value="Continue" className="submit"></input>

@@ -28,7 +28,7 @@
   .upper-bar .r-div svg{
     height: 30px;
   }
-  .login-register, .otp-container .login-register{
+  .user-reg-page .container .login-register, .otp-container .login-register{
     width: 95%;
   }
   ::-webkit-scrollbar {
@@ -86,7 +86,7 @@
   .post-option img{
     height: 5px;
   }
-  .login-register, .otp-container .login-register{
+  .user-reg-page .container .login-register, .otp-container .login-register{
     width: 95%;
   }
   .verify_otp button{
@@ -110,7 +110,7 @@
     font-size: 3em;
     padding-top: 7px;
   }
-  .form-headers .nav-buttons{
+  .user-reg-page .container .login-register .form-headers .nav-buttons{
     font-size: 13px;
   }
   ::placeholder {
@@ -125,11 +125,11 @@
   #forgot {
     height: 45px;
   }
-  .multi-login {
+  .user-reg-page .container .login-register .multi-login {
     padding-left: 5%;
     padding-right: 5%;
   }
-  .multi-login div svg:nth-child(1), .multi-login div svg:nth-child(2), .multi-login div svg:nth-child(3){
+  .user-reg-page .container .login-register .multi-login div svg:nth-child(1), .user-reg-page .container .login-register .multi-login div svg:nth-child(2), .user-reg-page .container .login-register .multi-login div svg:nth-child(3){
     height: 30px;
     width: 30px;
   }
@@ -172,6 +172,10 @@
   .chef-page .home-content .feed-filters button {
     font-size: small;
   }
+  .recipe .userpost {
+    width: 100%;
+    height: 200px;
+  }
 }
 @media (max-width: 380px) {
   .contact_us .feedback{
@@ -185,7 +189,7 @@
   .all_chefs .chef, .following_chefs .chef{
     height: 55%;
   }
-  .login-register, .otp-container .login-register{
+  .user-reg-page .container .login-register, .otp-container .login-register{
     width: 95%;
   }
 }
@@ -217,7 +221,7 @@
   .help_activity .menu_icon img{
     width: 35px;
   }
-  .login-register{
+  .user-reg-page .container .login-register{
     font-size: 12px;
   }
   .order_content .user_details img:first-child{
@@ -282,11 +286,11 @@
     font-size: 2em;
     padding-top: 7px;
   }
-  .form-headers .nav-buttons{
+  .user-reg-page .container .login-register .form-headers .nav-buttons{
     font-size: 13px;
     text-align: center;
   }
-  .multi-login a{
+  .user-reg-page .container .login-register .multi-login a{
     font-size: x-small;
   }
   .chef-page .shop-content .food .each_food,
