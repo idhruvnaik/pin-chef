@@ -544,7 +544,7 @@ export default class home extends Component {
     var date2 = new Date();
     var diffInMs = Math.abs(date2 - date1);
     if ((diffInMs / 1000) < 60) {
-      return (diffInMs / 1000).toFixed(2) + " seconds ago ";
+      return (diffInMs / 1000).toFixed(2) + " secs ago ";
     } else if ((diffInMs / (1000 * 60)) < 60) {
       return (diffInMs / (1000 * 60)).toFixed(1) + " mins ago";
     } else if ((diffInMs / (1000 * 60 * 60)) < 24) {
@@ -689,12 +689,9 @@ export default class home extends Component {
   };
 
   async CreateFeed() {
-    console.log("from create feed");
     var description = $('#feed-description')[0].value;
     var location = $('.location input')[0].value;
     var feed_image = $('#feed-crop')[0].src;
-    console.log(feed_image, "feed image");
-    console.log(this.state.croppedImageUrl, "urllll");
     let result = await AddPost(this.user_id, description, location, this.token);
     if (result.status && result.status == false) {
       console.log(result.message);
@@ -739,20 +736,20 @@ export default class home extends Component {
       crop.height
     );
 
-    return canvas.toDataURL("image/jpeg");
-    // return new Promise((resolve, reject) => {
-    //   canvas.toBlob(blob => {
-    //     if (!blob) {
-    //       //reject(new Error('Canvas is empty'));
-    //       console.error('Canvas is empty');
-    //       return;
-    //     }
-    //     blob.name = fileName;
-    //     window.URL.revokeObjectURL(this.fileUrl);
-    //     this.fileUrl = window.URL.createObjectURL(blob);
-    //     resolve(this.fileUrl);
-    //   }, 'image/jpeg');
-    // });
+    return new Promise((resolve, reject) => {
+      canvas.toBlob(blob => {
+        if (!blob) {
+          //reject(new Error('Canvas is empty'));
+          console.error('Canvas is empty');
+          return;
+        }
+        blob.name = fileName;
+        window.URL.revokeObjectURL(this.fileUrl);
+        this.fileUrl = window.URL.createObjectURL(blob);
+        blob.uri = this.fileUrl;
+        resolve(blob);
+      }, 'image/jpeg');
+    });
   }
 
   render() {
@@ -872,6 +869,9 @@ export default class home extends Component {
               $('.slide-pane__header').css("color", "white");
               $('.slide-pane__header').css("border-radius", "15px");
               $('.slide-pane__header').css("border-bottom-left-radius", "0px");
+              if(window.screen.width > 1100){
+                $('.pop-up-feeds').css('width', "50%");
+              }
             }}
           >
             <div className="pop-up-feed">
@@ -1013,6 +1013,9 @@ export default class home extends Component {
                 $('.slide-pane__header').css("color", "white");
                 $('.slide-pane__header').css("border-radius", "15px");
                 $('.slide-pane__header').css("border-bottom-left-radius", "0px");
+                if(window.screen.width > 1100){
+                  $('.pop-up-recipes').css('width', "50%");
+                }
               }}
             >
               <div className="pop-up-feed">
@@ -1167,7 +1170,7 @@ export default class home extends Component {
               <img className="create-feed-btn" src={PlusIcon}></img>
             </Button>
             <SlidingPane
-              className="pop-up-recipes"
+              className="pop-up-food"
               overlayClassName="some-custom-overlay-class"
               isOpen={this.state.isFoodPopup}
               from={"bottom"}
@@ -1182,6 +1185,9 @@ export default class home extends Component {
                 $('.slide-pane__header').css("color", "white");
                 $('.slide-pane__header').css("border-radius", "15px");
                 $('.slide-pane__header').css("border-bottom-left-radius", "0px");
+                if(window.screen.width > 1100){
+                  $('.pop-up-food').css('width', "50%");
+                }
               }}
             >
               <div className="pop-up-feed">
@@ -1349,7 +1355,7 @@ export default class home extends Component {
               <img className="create-feed-btn" src={PlusIcon}></img>
             </Button>
             <SlidingPane
-              className="pop-up-recipes"
+              className="pop-up-services"
               overlayClassName="some-custom-overlay-class"
               isOpen={this.state.isServicePopup}
               from={"bottom"}
@@ -1364,6 +1370,9 @@ export default class home extends Component {
                 $('.slide-pane__header').css("color", "white");
                 $('.slide-pane__header').css("border-radius", "15px");
                 $('.slide-pane__header').css("border-bottom-left-radius", "0px");
+                if(window.screen.width > 1100){
+                  $('.pop-up-services').css('width', "50%");
+                }
               }}
             >
               <div className="pop-up-feed">

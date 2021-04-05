@@ -43,6 +43,9 @@
   .user-feed-page .user-pallet .menu-bar .star-content .my_purchases .item{
     width: 92%;
   }
+  .pop-up-feeds{
+    width: 100%;
+  }
 }
 
 @media (max-width: 481px) {

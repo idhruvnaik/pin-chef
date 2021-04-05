@@ -15,6 +15,12 @@
       }
     }
     .feeds, .recipes, .food, .services {
+      .feed{
+        .post-content{
+          width: 100%;
+          overflow-wrap: anywhere;
+        }
+      }
       .btn-container {
         width: 100%;
         text-align: right;
@@ -615,6 +621,15 @@
   justify-content: center;
 }
 .pop-up-feeds{
+  border-radius: 15px;
+}
+.pop-up-recipes{
+  border-radius: 15px;
+}
+.pop-up-food{
+  border-radius: 15px;
+}
+.pop-up-services{
   border-radius: 15px;
 }
 .slide-pane__header{
