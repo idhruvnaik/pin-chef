@@ -62,7 +62,7 @@ export default class home extends Component {
                         <div className="ratting-xqn">
                             <ReactStars
                                 count={5}
-                                value={4.5}
+                                value={this.state.rattings.avgServiceRate}
                                 size={24}
                                 onChange={null}
                                 isHalf={true}

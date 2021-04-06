@@ -46,6 +46,10 @@
   .pop-up-feeds{
     width: 100%;
   }
+  .chef-page .home-content .e-masterclass .order .order-details .r-div .each-content img,
+  .chef-page .home-content .e-masterclass .order .ticket_content .ticket-link img {
+    height: 30px;
+  }
 }
 
 @media (max-width: 481px) {
@@ -61,7 +65,9 @@
   }
   .recipe, .recipe_2,
   .user-feed-page .user-pallet .menu-bar .star-content .my_purchases .item .head-container  h3,
-  .user-feed-page .user-pallet .menu-bar .star-content .my_purchases .item .head-container .r-div h3{
+  .user-feed-page .user-pallet .menu-bar .star-content .my_purchases .item .head-container .r-div h3,
+  .chef-page .home-content .each_recipe .post-activity .time span,
+  .chef-page .home-content .each_recipe .post-activity .recipe_details div:first-child{
     font-size: small;
   }
   .user-feed-page .user-pallet .menu-bar .star-content .my_purchases .item{
@@ -76,7 +82,7 @@
   .all_chefs .chef, .following_chefs .chef{
     height: 45%;
   }
-  .activity img{
+  .activity img, .chef-page .home-content .each_recipe .post-activity .activities .activity img{
     width: 22px;
     margin-top: 2px;
   }
@@ -179,6 +185,10 @@
     width: 100%;
     height: 200px;
   }
+  .chef-page .home-content .e-masterclass .order .order-details .r-div .each-content img,
+  .chef-page .home-content .e-masterclass .order .ticket_content .ticket-link img {
+    height: 20px;
+  }
 }
 @media (max-width: 380px) {
   .contact_us .feedback{
@@ -251,7 +261,16 @@
     width: 90px;
     object-fit: contain;
   }
-  b, .all_chefs .chef , .following_chefs .chef, .each_food, .each_food .activity:last-child p, .each_service, .each_service .activity:last-child p, .recipe, .recipe_2{
+  b, 
+  .all_chefs .chef , 
+  .following_chefs .chef, 
+  .each_food, 
+  .each_food .activity:last-child p, 
+  .each_service, 
+  .each_service .activity:last-child p, 
+  .recipe, .recipe_2, 
+  .chef-page .home-content .each_recipe .post-activity .time span,
+  .chef-page .home-content .each_recipe .post-activity .recipe_details div:first-child{
     font-size: x-small;
   }
   .each_food .food-price, .each_service .food-price{
@@ -293,7 +312,8 @@
     font-size: 13px;
     text-align: center;
   }
-  .user-reg-page .container .login-register .multi-login a{
+  .user-reg-page .container .login-register .multi-login a,
+  .chef-page .home-content .e-masterclass .order .ticket_content .ticket-number{
     font-size: x-small;
   }
   .chef-page .shop-content .food .each_food,
@@ -307,5 +327,12 @@
   }
   .settings-content .profile .setting_activity .menu_details .menu_name h3 {
     font-size: 12px;
+  }
+  .chef-page .home-content .e-masterclass .order .order-details .r-div .each-content img,
+  .chef-page .home-content .e-masterclass .order .ticket_content .ticket-link img {
+    height: 14px;
+  }
+  .chef-page .home-content .e-masterclass .order{
+    width: 92%;
   }
 }

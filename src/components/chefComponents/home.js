@@ -6,6 +6,7 @@ import ReactDOM, { render } from 'react-dom';
 import { Provider } from "react-redux";
 import configureStore from "../../store";
 import ReactCrop from 'react-image-crop';
+import SelectSearch from 'react-select-search';
 import 'react-image-crop/dist/ReactCrop.css';
 
 import NoFeeds from '../../assets/svg/NoFeedPost';
@@ -21,12 +22,23 @@ import CommentIcon from '../../assets/svg/Comment icon.svg';
 import EmptyHeart from '../../assets/svg/Like button empty.svg';
 import FullHeart from '../../assets/svg/Like button full.svg';
 import PostShare from '../../assets/svg/Post Share count.svg';
+import LeftBack from '../../assets/png_icons/Green back arrow.png'
 import Time from '../../assets/svg/time-2.svg';
 import Recipe_time from '../../assets/svg/recipe-time.svg';
 import Food from '../../assets/png_icons/mexicanFood.png';
 import LocationIcon from '../../assets/svg/Location.svg';
+import BackRecipe from '../../assets/svg/Back btn recipe.svg'
+import ServingIcon from '../../assets/svg/Serving icon.svg'
+import ScreeningInfo from '../../assets/svg/My screenings info.svg'
+import OrderTime from '../../assets/svg/Icon ionic-ios-timer.svg'
+import ClassStartTime from '../../assets/svg/Masterclass starts in.svg'
+import DurationIcon from '../../assets/svg/sand-clock.svg'
+import CancleMasterClass from '../../assets/svg/Cancel masterclass.svg'
+import TicketPriceIcon from '../../assets/svg/Ticket price icon.svg'
+import MasterClassLink from '../../assets/svg/Go to masterclass link icon.svg'
+import TicketIcon from '../../assets/svg/ticket icon.svg'
 
-import MasterShare from "../../assets/png_icons/Masterclass Share btn@2x.png";
+import MasterShare from "../../assets/svg/Icon awesome-share.svg";
 import BookClass from '../../assets/svg/Book masterclass.svg'
 import MasterclassTime from "../../assets/png_icons/Masterclass Time icon.png";
 import MasterclassClockIcon from "../../assets/png_icons/Masterclass clock icon.png";
@@ -66,6 +78,9 @@ export default class home extends Component {
     this.onCropChange = this.onCropChange.bind(this);
     this.onCropComplete = this.onCropComplete.bind(this);
     this.CreateFeed = this.CreateFeed.bind(this);
+    this.open_menu = this.open_menu.bind(this);
+    this.open_recipe = this.open_recipe.bind(this);
+    this.like_unlike_current_recipe = this.like_unlike_current_recipe.bind(this);
     this.state = {
       isPaneOpenLeft: false,
       pictures: [],
@@ -79,7 +94,12 @@ export default class home extends Component {
         unit: 'px',
         height: 250,
         aspect: 16 / 9,
-      }
+      },
+      options: [
+        { name: 'Swedish', value: 'sv' },
+        { name: 'English', value: 'en' },
+      ],
+      current_recipe: {}
     }
 
     this.feeds = [
@@ -626,6 +646,55 @@ export default class home extends Component {
     }
   }
 
+  async like_unlike_current_recipe(e, recipe_id) {
+    console.log(e, "like unlike current recipe");
+    if (e == false) {
+      let result = await likeRecipe(this.user_id, recipe_id, this.token);
+      if (result.status && result.status == false) {
+        console.log(result.message);
+      } else {
+        let current_recipe = this.state.current_recipe;
+        // let recipes = [...this.state.recipes];
+        current_recipe.likes = current_recipe.likes + 1;
+        current_recipe.is_like = true;
+        // recipes.map((recipe) => {
+        //   if (recipe._id == recipe_id) {
+        //     recipe.likes = recipe.likes + 1;
+        //     recipe.is_like = true;
+        //   }
+        // })
+        this.setState({
+          current_recipe: current_recipe
+        })
+        // this.setState({
+        //   recipes: recipes
+        // })
+      }
+    } else {
+      let result = await unlikeRecipe(this.user_id, recipe_id, this.token);
+      if (result.status && result.status == false) {
+        console.log(result.message);
+      } else {
+        // let recipes = [...this.state.recipes];
+        let current_recipe = this.state.current_recipe;
+        current_recipe.likes = current_recipe.likes - 1;
+        current_recipe.is_like = false;
+        // recipes.map((recipe) => {
+        //   if (recipe._id == recipe_id) {
+        //     recipe.likes = recipe.likes - 1;
+        //     recipe.is_like = false;
+        //   }
+        // })
+        // this.setState({
+        //   recipes: recipes
+        // })
+        this.setState({
+          current_recipe: current_recipe
+        })
+      }
+    }
+  }
+
   async like_unlike_service(e) {
     if (e.target.className == "false") {
       let result = await likeService(this.user_id, e.target.id, this.token);
@@ -752,6 +821,24 @@ export default class home extends Component {
     });
   }
 
+  open_menu(section, header_flag) {
+    var menu_siblings = $('.' + section).siblings();
+    menu_siblings.each(function () {
+      $(this).css('display', 'none');
+    })
+    $('.' + section).css('display', 'block');
+    if (header_flag) {
+      $('.home-content .switch-content').css("display", "flex");
+    }
+  }
+
+  open_recipe(menu, current_recipe_id) {
+    let recipe_details = this.state.recipes.find(recipe => recipe._id == current_recipe_id);
+    recipe_details.createdAt = this.showTime(recipe_details.createdAt);
+    this.setState({ current_recipe: recipe_details });
+    this.open_menu(menu, false);
+  }
+
   render() {
     return (
       <div className="home-content">
@@ -869,7 +956,7 @@ export default class home extends Component {
               $('.slide-pane__header').css("color", "white");
               $('.slide-pane__header').css("border-radius", "15px");
               $('.slide-pane__header').css("border-bottom-left-radius", "0px");
-              if(window.screen.width > 1100){
+              if (window.screen.width > 1100) {
                 $('.pop-up-feeds').css('width', "50%");
               }
             }}
@@ -903,7 +990,7 @@ export default class home extends Component {
                       />
                     )}
                     {this.state.croppedImageUrl && (
-                      <img alt="Crop" style={{ maxWidth: '100%' }} src={this.state.croppedImageUrl} style={{display: "none"}} id="feed-crop" />
+                      <img alt="Crop" style={{ maxWidth: '100%' }} src={this.state.croppedImageUrl} style={{ display: "none" }} id="feed-crop" />
                     )}
                     {/* <div className="image-preview">
                       <img src={null}></img>
@@ -988,7 +1075,10 @@ export default class home extends Component {
                 </div>
                 <div className="post-content">
                   <h4 style={{ color: "green" }}>Ingredients</h4>
-                  <p>{item.ingredients}</p>
+                  <div className="actual-ingredients">
+                    <p>{item.ingredients} ertyuiodsfytryuiyioyoiytuiytryurefdyutryutrfgdfcdscxdfscxdsxzdsxzcdfszxcfdsxzcfdsxzcfdsxzcfdsxzfddsxzfddsdfdszxdredsxzredsx</p> &nbsp;&nbsp;&nbsp;
+                    <img src={BackRecipe} onClick={() => this.open_recipe('each_recipe', item._id)}></img>
+                  </div>
                 </div>
               </div>
             );
@@ -1013,7 +1103,7 @@ export default class home extends Component {
                 $('.slide-pane__header').css("color", "white");
                 $('.slide-pane__header').css("border-radius", "15px");
                 $('.slide-pane__header').css("border-bottom-left-radius", "0px");
-                if(window.screen.width > 1100){
+                if (window.screen.width > 1100) {
                   $('.pop-up-recipes').css('width', "50%");
                 }
               }}
@@ -1035,8 +1125,22 @@ export default class home extends Component {
                         <label>Food Name <sup>*</sup></label>
                         <input placeholder="Enter Food title" type="text" />
                       </div>
+                      <SelectSearch
+                        options={this.state.options}
+                        search={true}
+                        value="sv"
+                        name="language"
+                        placeholder="Choose your language"
+                      />
                       <div className="form-group">
-                        <label>Food Name <sup>*</sup></label>
+                        <label>Cuisine Type <sup>*</sup></label>
+                        <select>
+                          <option>Indian</option>
+                          <option>South Indian</option>
+                        </select>
+                      </div>
+                      <div className="form-group">
+                        <label>Diet Type</label>
                         <select>
                           <option>Indian</option>
                           <option>South Indian</option>
@@ -1044,34 +1148,30 @@ export default class home extends Component {
                       </div>
                       <div className="form-group">
                         <label>Number of Servings <sup>*</sup></label>
-                        <input placeholder="Enter Number of Servings" type="number" />
+                        <input placeholder="2" type="number" />
                       </div>
                       <div className="form-group">
                         <label>Prep Time <sup>*</sup></label>
-                        <input placeholder="Enter Number of Servings" type="number" />
+                        <input placeholder="10 mins" type="number" />
                       </div>
                       <div className="form-group">
-                        <label>Cooking time <sup>*</sup></label>
-                        <input placeholder="Enter Number of Servings" type="number" />
+                        <label>Cook Time <sup>*</sup></label>
+                        <input placeholder="40 mins" className="description-field" type="textarea" />
                       </div>
                       <div className="form-group">
                         <label>Ingredients <sup>*</sup></label>
-                        <input placeholder="Write post description" className="description-field" type="textarea" />
+                        <input placeholder="Write all the ingredients" className="description-field" type="textarea" />
                       </div>
                       <div className="form-group">
                         <label>Instructions <sup>*</sup></label>
-                        <input placeholder="Write post description" className="description-field" type="textarea" />
-                      </div>
-                      <div className="form-group">
-                        <label>Instructions <sup>*</sup></label>
-                        <input placeholder="Write post description" className="description-field" type="textarea" />
+                        <input placeholder="Write step by step instructions as simple as possible" className="description-field" type="textarea" />
                       </div>
                       <div className="form-group">
                         <label>Required tools (optional)</label>
-                        <input placeholder="Write post description" className="description-field" type="textarea" />
+                        <input placeholder="Write down the tools needed to make this food" className="description-field" type="textarea" />
                       </div>
                       <div className="form-group radio-group">
-                        <label>Dates</label>
+                        <label>Difficulty cooking level <sup>*</sup></label>
                         <ul>
                           <li><input type="radio" name="level" />Easy</li>
                           <li><input type="radio" name="level" />Medium</li>
@@ -1087,6 +1187,95 @@ export default class home extends Component {
                 </div>
               </div>
             </SlidingPane>
+          </div>
+        </div>
+        <div className="each_recipe">
+          <div className="switch-content">
+            <div>
+              <img src={LeftBack} onClick={() => this.open_menu('recipes', true)}></img>
+            </div>
+            <div>
+              <h2>{this.state.current_recipe.food_name}</h2>
+            </div>
+          </div>
+          <div className="primary-details">
+            <div className="l-div">
+              <div className="profile-img-container">
+                <img src={this.state.current_recipe.chef && this.state.current_recipe.chef.profile_image}></img>
+              </div>
+              <div className="user-detail-container">
+                <h3>{this.state.current_recipe.chef && this.state.current_recipe.chef.user_name}</h3>
+                <h5>{this.state.current_recipe.chef && this.state.current_recipe.chef.chef_details.position}</h5>
+              </div>
+            </div>
+            <div style={{ paddingRight: "4px" }}>
+              <div style={{ display: "flex" }}>
+                <div className="feed_rattings">{this.state.current_recipe.rate}</div>
+                <ReactStars
+                  count={5}
+                  value={this.state.current_recipe.rate}
+                  onChange={null}
+                  isHalf={true}
+                  edit={false}
+                  activeColor="#ffd700"
+                />
+              </div>
+            </div>
+          </div>
+          <div className="post-image">
+            <img className="userpost" src={this.state.current_recipe.recipe_content && this.state.current_recipe.recipe_content}></img>
+          </div>
+          <div className="post-activity">
+            <div className="recipe_details">
+              <div>
+                <h4>{this.state.current_recipe.food_name}</h4>
+                <h5>({this.state.current_recipe.cuisine_type && this.state.current_recipe.cuisine_type.join(", ")})</h5>
+              </div>
+              <div className="time">
+                <img src={Recipe_time}></img>
+                <span>Total: {this.state.current_recipe.total_time}</span>
+              </div>
+              <div className="time">
+                <img src={Recipe_time}></img>
+                <span>Prep: {this.state.current_recipe.prep_time}</span>
+              </div>
+              <div className="time">
+                <img src={ServingIcon}></img>
+                <span>Serving #- &nbsp; {this.state.current_recipe.total_time}</span>
+              </div>
+            </div>
+            <div className="activities">
+              <div className="activity">
+                <img src={PostShare}></img>
+                <p>{this.state.current_recipe.share}</p>
+              </div>
+              <div className="activity">
+                <img src={CommentIcon}></img>
+                <p>{this.state.current_recipe.comments}</p>
+              </div>
+              <div className="activity">
+                <img src={this.state.current_recipe.is_like ? FullHeart : EmptyHeart} onClick={() => this.like_unlike_current_recipe(this.state.current_recipe.is_like, this.state.current_recipe._id)}></img>
+                <p>{this.state.current_recipe.likes}</p>
+              </div>
+            </div>
+          </div>
+          <div className="post-content">
+            <h4 style={{ color: "green" }}>Ingredients</h4>
+            <div className="actual-ingredients">
+              <p>{this.state.current_recipe.ingredients}</p>
+            </div>
+          </div>
+          <div className="post-content">
+            <h4 style={{ color: "green" }}>Instructions</h4>
+            <div className="actual-ingredients">
+              <p>{this.state.current_recipe.instructions}</p>
+            </div>
+          </div>
+          <div className="post-content">
+            <h4 style={{ color: "green" }}>Required Tools</h4>
+            <div className="actual-ingredients">
+              <p>{this.state.current_recipe.required_tools}</p>
+            </div>
           </div>
         </div>
         <div className="food sec" id="food-sec">
@@ -1185,7 +1374,7 @@ export default class home extends Component {
                 $('.slide-pane__header').css("color", "white");
                 $('.slide-pane__header').css("border-radius", "15px");
                 $('.slide-pane__header').css("border-bottom-left-radius", "0px");
-                if(window.screen.width > 1100){
+                if (window.screen.width > 1100) {
                   $('.pop-up-food').css('width', "50%");
                 }
               }}
@@ -1370,7 +1559,7 @@ export default class home extends Component {
                 $('.slide-pane__header').css("color", "white");
                 $('.slide-pane__header').css("border-radius", "15px");
                 $('.slide-pane__header').css("border-bottom-left-radius", "0px");
-                if(window.screen.width > 1100){
+                if (window.screen.width > 1100) {
                   $('.pop-up-services').css('width', "50%");
                 }
               }}
@@ -1424,47 +1613,77 @@ export default class home extends Component {
           </div>
         </div>
         <div className="e-masterclass sec" id="e-master-class-sec">
+          {console.log(this.state.master_classes)}
           {this.state.master_classes.map((item) => {
             return (
               <div className="order">
-                <div className="order-details">
-                  <h3>{item.title}</h3>
-                  <div className="img-container">
-                    <img className="recipe-image" src={item.mclass_content}></img>
-                    <img className="share-btn" src={MasterShare}></img>
-                  </div>
-                  <div className="recipe-type">
-                    <span className="cuisine-name">{item.cuisine}</span>
-                    <span>{item.dietary}</span>
+                <div className="order-info">
+                  <img src={ScreeningInfo}></img>
+                  <div>
+                    Posted On {item.createdAt}
                   </div>
                 </div>
-                <div className="order_content">
-                  <div className="user_details">
-                    <img src={BookClass}></img>
-                    <h4>{item.chef && item.chef.name}</h4>
-                    <img src={item.chef && item.chef.profile_image}></img>
-                  </div>
-                  <div className="order_description">
-                    <p>{item.description}</p>
-                    <p><b>Ingredients:</b> {item.ingredients}</p>
-                  </div>
-                  <div className="other_details">
-                    <div className="price-detail">
-                      <span>$ </span>
-                      <span className="price">{item.price}</span>
-                    </div>
-                    <div className="class_date_time">
-                      <img src={MasterclassTime}></img>
-                      <span>{item.start_date} -</span>
-                      <div className="time">{item.start_time}</div>
-                    </div>
-                    <div className="remaining_time">
-                      <img src={MasterclassClockIcon}></img>
-                      <div>{item.remaining_time}</div>
+                <div className="order-details">
+                  <div className="l-div">
+                    <h3>{item.title}</h3>
+                    <div className="img-container">
+                      <img className="recipe-image" src={item.mclass_content}></img>
                     </div>
                   </div>
-                  <div className="ticket_status">
-                    Available Tickets <b>{item.ticket_group_number}</b>
+                  <div className="r-div">
+                    <div className="each-content">
+                      <img src={OrderTime}></img>
+                      <div className="text-content">
+                        2 h/ 49 m/ 20 sec left
+                      </div>
+                    </div>
+                    <div className="each-content">
+                      <img src={ClassStartTime}></img>
+                      <div className="text-content">
+                        {item.start_date}  -  {item.start_time}
+                      </div>
+                    </div>
+                    <div className="each-content">
+                      <img src={DurationIcon}></img>
+                      <div className="text-content">
+                        {item.duration}
+                      </div>
+                    </div>
+                    <div className="each-content">
+                      <img src={CancleMasterClass}></img>
+                      <div className="text-content">
+                        <b>Cancel Masterclass</b>
+                      </div>
+                    </div>
+                    <div className="each-content">
+                      <img src={MasterShare}></img>
+                      <div className="text-content">
+                        <b>Share Post</b>
+                      </div>
+                    </div>
+                    <div className="each-content">
+                      <img src={TicketPriceIcon}></img>
+                      <div className="text-content">
+                        <b>Ticket price: ${item.price}</b>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="ticket_content">
+                  <div className="ticket-link">
+                    <img src={MasterClassLink}></img>
+                    <div>
+                      pinchef/io/cookingplov.io
+                    </div>
+                  </div>
+                  <div>
+                    Bought Tickets
+                  </div>
+                  <div className="ticket-number">
+                    <img src={TicketIcon}></img>
+                    <div>
+                      {item.ticket_group_number}
+                    </div>
                   </div>
                 </div>
               </div>
