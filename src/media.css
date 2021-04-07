@@ -189,6 +189,12 @@
   .chef-page .home-content .e-masterclass .order .ticket_content .ticket-link img {
     height: 20px;
   }
+  .user-reg-page .container .login-register .form-group #loginform .username_container{
+    padding-left: 25%;
+  }
+  .user-reg-page .container .login-register .form-group #loginform .password_container{
+    padding-left: 7%;
+  }
 }
 @media (max-width: 380px) {
   .contact_us .feedback{
@@ -334,5 +340,8 @@
   }
   .chef-page .home-content .e-masterclass .order{
     width: 92%;
+  }
+  .user-reg-page .container .login-register .form-group #loginform .username_container{
+    padding-left: 30%;
   }
 }
