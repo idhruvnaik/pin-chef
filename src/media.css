@@ -195,6 +195,15 @@
   .user-reg-page .container .login-register .form-group #loginform .password_container{
     padding-left: 7%;
   }
+  .chef-page .home-content .e-masterclass .order .ticket_content .ticket-number{
+    font-size: x-small;
+  }
+  .chef-page .home-content .e-masterclass .order{
+    width: 94%;
+  }
+  .chef-page .home-content .e-masterclass .order .ticket_content .ticket-number img{
+    height: 26px;
+  }
 }
 @media (max-width: 380px) {
   .contact_us .feedback{
@@ -257,6 +266,12 @@
   }
   .chef-page .home-content .feed-filters button {
     font-size: xx-small;
+  }
+  .chef-page .home-content .e-masterclass .order .ticket_content .ticket-number img{
+    height: 18px;
+  }
+  .chef-page .home-content .e-masterclass .order{
+    width: 93%;
   }
 }
 

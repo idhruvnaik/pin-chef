@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 // import { useHistory  } from 'react-router-dom';
 
 import SendChat from '../../assets/svg/Send chat to chef.svg'
-import ExpandNotification from '../../assets/svg/􀆉 Back btn.svg'
+import ExpandNotification from '../../assets/svg/Profile Back btn.svg'
 import DownArrow from '../../assets/png_icons/down-arrow-icon.png'
 import LocationIcon from '../../assets/svg/Location outlined.svg'
 import ShareProfile from '../../assets/svg/Share chef profile icon.svg'

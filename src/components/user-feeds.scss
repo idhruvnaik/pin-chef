@@ -96,11 +96,148 @@
         }
       }
       .chef-content {
+        width: 100%;
+        height: 100%;
         .all_chefs,
         .following_chefs {
           display: none;
           &.active {
             display: block;
+          }
+        }
+        .chef-profile{
+          .chef{
+            .chef-details{
+              .banner-image{
+                height: 200px;
+                img{
+                  width: 100%;
+                  height: 100%;
+                }
+              }
+              .other-details{
+                display: flex;
+                .desktop-icon{
+                  width: 100px;
+                  height: 100px;
+                  position: relative;
+                  bottom: 55px;
+                  left: 20px;
+                  img{
+                    border-radius: 50%;
+                    width: 100%;
+                    height: 100%;
+                  }
+                  h4{
+                    color: #3F8F22;
+                  }
+                }
+                .about-chef{
+                  margin-top: 5px;
+                  width: 80%;
+                  margin-left: 5%;
+                  text-align: left;
+                  .name-followers{
+                    display: flex;
+                    justify-content: space-between;
+                    h4{
+                      color: #3F8F22;
+                    }
+                  }
+    
+                }
+              }
+              .chef-ratting{
+                display: flex;
+                padding: 10px;
+                align-items: center;
+              }
+              .chef_bg_details{
+                padding: 10px;
+                text-align: justify;
+              }
+            }
+            .chef-posts{
+              width: 100%;
+              .switch-content{
+                justify-content: space-evenly;
+                width: 95%;
+                margin-bottom: 20px;
+                .active{
+                  border: 1px solid #d4d4d4;
+                  border-radius: 10px;
+                  background-color: #D9D9D9;
+                }
+                li{
+                  padding-left: 25px;
+                  padding-right: 25px;
+                  font-size: 20px;
+                  font-weight: 700;
+                  background-color: white;
+                  color: #464040;
+                }
+              }
+              #photos-sec{
+                width: 100%;
+                vertical-align: top;
+                .each_photo{
+                  position: relative;
+                  display: inline-block;
+                  width: 33%;
+                  min-width: 33%;
+                  height: 130px;
+                  img{
+                    width: 100%;
+                    height: 100%;
+                  }
+                }
+              }
+              #notifications-sec{
+                display: none;
+                .notification{
+                  display: flex;
+                  .user-icon{
+                    width: 15%;
+                    height: 50px;
+                    margin-right: 5px;
+                    img{
+                      width: 100%;
+                      height: 100%;
+                      max-width: 50px;
+                      max-height: 50px;
+                      border-radius: 50%;
+                    }
+                  }
+                  .notification-details{
+                    width: 75%;
+                    height: 50px;
+                    border-bottom: 1px dashed rgba(81, 73, 73, .42);
+                    background-clip: padding-box; /* Firefox 4+, Opera, Chrome */
+                    .notification-type{
+                      display: flex;
+                      justify-content: space-between;
+                    }
+                    .notification-time{
+                      display: flex;
+                      justify-content: space-between;
+                      img{
+                        cursor: pointer;
+                      }
+                    }
+                  }
+                }
+              }
+              #info-sec{
+                display: none;
+                text-align: justify;
+                padding: 10px;
+                ul{
+                  li{
+                    margin-bottom: 10px;
+                  }
+                }
+              }
+            }
           }
         }
       }

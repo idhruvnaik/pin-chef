@@ -749,3 +749,20 @@ export const AddImageToPost = async(post_id, image, token)=>{
         }
     }
 }
+
+export const DeleteMasterClass = async(class_id, token)=>{
+    let apiURL = apiHost + e_class_endpoint + "/" + class_id;
+    var headers = {
+        "Authorization": "Bearer " + token
+    };
+    try{
+        let resp = await make_rest_call(apiURL, 'DELETE', {}, headers);
+        return resp;
+    }
+    catch(err){
+        return {
+            status: false,
+            message: err.message
+        }
+    }
+}

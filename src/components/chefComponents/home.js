@@ -7,6 +7,8 @@ import { Provider } from "react-redux";
 import configureStore from "../../store";
 import ReactCrop from 'react-image-crop';
 import SelectSearch from 'react-select-search';
+import Popup from 'reactjs-popup';
+import TimePicker from 'react-time-picker';
 import 'react-image-crop/dist/ReactCrop.css';
 
 import NoFeeds from '../../assets/svg/NoFeedPost';
@@ -37,6 +39,10 @@ import CancleMasterClass from '../../assets/svg/Cancel masterclass.svg'
 import TicketPriceIcon from '../../assets/svg/Ticket price icon.svg'
 import MasterClassLink from '../../assets/svg/Go to masterclass link icon.svg'
 import TicketIcon from '../../assets/svg/ticket icon.svg'
+import SetNotification from '../../assets/svg/Set notification btn.svg'
+import CancelNotification from '../../assets/svg/Cancel notification btn.svg'
+import TurnOffNotifications from '../../assets/svg/tunr off notification modal icon.svg'
+import SetNotificationIcon from '../../assets/svg/modal TIme icon.svg'
 
 import MasterShare from "../../assets/svg/Icon awesome-share.svg";
 import BookClass from '../../assets/svg/Book masterclass.svg'
@@ -51,9 +57,11 @@ import DescriptionIcon from "../../assets/images/description-icon.png";
 import ImageUploadIcon from "../../assets/images/image-upload.png";
 import LocationPlusIcon from "../../assets/images/location-plus-icon.png";
 
-import { getAllChef, getAllPosts, likePost, AddPost, AddImageToPost, getAllPostsByChefID, getChefById, getAllRecipesByChef, getAllFoodByFood, getAllMasterClasses, unlikePost, unlikeRecipe, likeRecipe, getAllServicesByChef, unlikeFood, likeFood, unlikeService, likeService, getAllMasterClassesByChef } from '../../services/apiOperations';
+import { getAllChef, getAllPosts, likePost, AddPost, AddImageToPost, getAllPostsByChefID, getChefById, getAllRecipesByChef, getAllFoodByFood, getAllMasterClasses, unlikePost, unlikeRecipe, likeRecipe, getAllServicesByChef, unlikeFood, likeFood, unlikeService, likeService, getAllMasterClassesByChef, DeleteMasterClass } from '../../services/apiOperations';
 import $ from "jquery";
 import { Button } from "rsuite";
+
+// const [value, onChange] = useState('10:00');
 
 export default class home extends Component {
   constructor(props) {
@@ -81,6 +89,8 @@ export default class home extends Component {
     this.open_menu = this.open_menu.bind(this);
     this.open_recipe = this.open_recipe.bind(this);
     this.like_unlike_current_recipe = this.like_unlike_current_recipe.bind(this);
+    this.cancel_master_class = this.cancel_master_class.bind(this);
+    this.turn_on_off_notifications = this.turn_on_off_notifications.bind(this);
     this.state = {
       isPaneOpenLeft: false,
       pictures: [],
@@ -731,6 +741,10 @@ export default class home extends Component {
     }
   }
 
+  turn_on_off_notifications(notification_flag) {
+    console.log(notification_flag);
+  }
+
   get_preview(e) {
     console.log(e, "invoke thayu");
     console.log(document.getElementById('file-input').files[0]);
@@ -782,6 +796,17 @@ export default class home extends Component {
         'newFile.jpeg'
       );
       this.setState({ croppedImageUrl });
+    }
+  }
+
+  async cancel_master_class(class_id, close_popup) {
+    console.log(class_id);
+    let result = await DeleteMasterClass(class_id, this.token);
+    if (result.status && result.status == false) {
+      console.log(result.message);
+    } else {
+      this.initialize_e_master_class();
+      close_popup();
     }
   }
 
@@ -1620,7 +1645,7 @@ export default class home extends Component {
                 <div className="order-info">
                   <img src={ScreeningInfo}></img>
                   <div>
-                    Posted On {item.createdAt}
+                    Posted On {new Date(item.createdAt).getDate()}/{new Date(item.createdAt).getMonth() + 1}/{new Date(item.createdAt).getFullYear()}&nbsp;{new Date(item.createdAt).getUTCHours()}:{new Date(item.createdAt).getUTCMinutes()}
                   </div>
                 </div>
                 <div className="order-details">
@@ -1640,7 +1665,7 @@ export default class home extends Component {
                     <div className="each-content">
                       <img src={ClassStartTime}></img>
                       <div className="text-content">
-                        {item.start_date}  -  {item.start_time}
+                        {new Date(item.start_date).getDate()}.{new Date(item.start_date).getMonth()}.{new Date(item.start_date).getFullYear()}  -  {item.start_time}
                       </div>
                     </div>
                     <div className="each-content">
@@ -1649,12 +1674,36 @@ export default class home extends Component {
                         {item.duration}
                       </div>
                     </div>
-                    <div className="each-content">
-                      <img src={CancleMasterClass}></img>
-                      <div className="text-content">
-                        <b>Cancel Masterclass</b>
-                      </div>
-                    </div>
+                    <Popup
+                      trigger={
+                        <div style={{ cursor: "pointer" }} className="each-content">
+                          <img src={CancleMasterClass}></img>
+                          <div className="text-content">
+                            <b>Cancel Masterclass</b>
+                          </div>
+                        </div>}
+                      position="center center"
+                      closeOnDocumentClick
+                      modal
+                      nested
+                    >
+                      {close => (
+                        <div className="masterclass-popup">
+                          <div className="confirmation">
+                            <h3>Cancel Masterclass</h3>
+                          </div>
+                          <div className="question">
+                            Explain your emergency and refund info to customers.
+                          </div>
+                          <div className="customer-message">
+                            <input type="text" placeholder="Enter message to customers"></input>
+                          </div>
+                          <div className="actions">
+                            <button type="button" onClick={() => this.cancel_master_class(item._id, close)}>Ok</button>
+                          </div>
+                        </div>
+                      )}
+                    </Popup>
                     <div className="each-content">
                       <img src={MasterShare}></img>
                       <div className="text-content">
@@ -1668,6 +1717,40 @@ export default class home extends Component {
                       </div>
                     </div>
                   </div>
+                  <Popup
+                    trigger={
+                      <div className="final-div">
+                        <img src={item.notification ? SetNotification : CancelNotification}></img>
+                      </div>}
+                    position="center center"
+                    closeOnDocumentClick
+                    modal
+                    nested
+                  >
+                    {close => (
+                      <div className="notification-popup">
+                        <div className="confirmation" style={{ display: "flex", justifyContent: "space-between" }}>
+                          <h3>{item.notification ? "Set notification time" : "Turn off Notification"}</h3>
+                          <img src={item.notification ? SetNotificationIcon : TurnOffNotifications}></img>
+                        </div>
+                        <div className="question" style={{ padding: item.notification ? "5px" : "50px" }}>
+                          {item.notification ? "" : "Are you sure you want to turn off your notification?"}
+                        </div>
+                        <div className="pick-time" style={{display: item.notification ? "block": "none"}}>
+                          <TimePicker
+                            // onChange={onChange}
+                            value={"10:00"}
+                            isOpen={true}
+                            className="custom-time-picker"
+                          />
+                        </div>
+                        <div className="actions">
+                          <button type="button" onClick={close}>Cancle</button>
+                          <button type="button" onClick={() => this.turn_on_off_notifications(item.notification)}>{item.notification ? "Ok" : "YES"}</button>
+                        </div>
+                      </div>
+                    )}
+                  </Popup>
                 </div>
                 <div className="ticket_content">
                   <div className="ticket-link">
