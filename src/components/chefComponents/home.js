@@ -56,6 +56,7 @@ import GalleryIcon from "../../assets/images/gallery-icon.png";
 import DescriptionIcon from "../../assets/images/description-icon.png";
 import ImageUploadIcon from "../../assets/images/image-upload.png";
 import LocationPlusIcon from "../../assets/images/location-plus-icon.png";
+import UploadImage from "../../assets/images/upload-option.png";
 
 import { getAllChef, getAllPosts, likePost, AddPost, AddImageToPost, getAllPostsByChefID, getChefById, getAllRecipesByChef, getAllFoodByFood, getAllMasterClasses, unlikePost, unlikeRecipe, likeRecipe, getAllServicesByChef, unlikeFood, likeFood, unlikeService, likeService, getAllMasterClassesByChef, DeleteMasterClass } from '../../services/apiOperations';
 import $ from "jquery";
@@ -499,6 +500,10 @@ export default class home extends Component {
 
     this.toggleServicedPopup = () => {
       this.setState({ isServicePopup: true });
+    };
+
+    this.toggleEmasterClassPopup = () => {
+      this.setState({ isEmasterClassPopup: true });
     };
 
     this.active = (e) => {
@@ -1835,7 +1840,6 @@ export default class home extends Component {
           </div>
         </div>
         <div className="e-masterclass sec" id="e-master-class-sec">
-          {console.log(this.state.master_classes)}
           {this.state.master_classes.map((item) => {
             return (
               <div className="order">
@@ -1969,6 +1973,111 @@ export default class home extends Component {
               </div>
             );
           })}
+          <div className="btn-container">
+            <Button onClick={this.toggleEmasterClassPopup}>
+              <img className="create-feed-btn" src={PlusIcon}></img>
+            </Button>
+            <SlidingPane
+              className="pop-up-services"
+              overlayClassName="some-custom-overlay-class"
+              isOpen={this.state.isEmasterClassPopup}
+              from={"bottom"}
+              title="Create a e-Masterclass"
+              subtitle=""
+              width="100%"
+              onRequestClose={() => {
+                this.setState({ isEmasterClassPopup: false });
+              }}
+              onAfterOpen={() => {
+                $('.slide-pane__header').css("background-color", "#5B5353");
+                $('.slide-pane__header').css("color", "white");
+                $('.slide-pane__header').css("border-radius", "15px");
+                $('.slide-pane__header').css("border-bottom-left-radius", "0px");
+                if (window.screen.width > 1100) {
+                  $('.pop-up-services').css('width', "50%");
+                }
+              }}
+            >
+              <div className="pop-up-feed e-master-class">
+                <div className="pop-up-pad">
+                  <div className="popup-content">
+                    <div className="form-container">
+                      <div className="form-group height">
+                        <div className="image-field-container">
+                          <div class="image-upload">
+                            <label for="file-input">
+                              <img src={UploadImage} />
+                            </label>
+                            <input id="file-input" type="file" />
+                          </div>
+                          <div className="name-field-container">
+                            <div className="form-group">
+                              <label>Masterclass Title <sup>*</sup></label>
+                              <input placeholder="Enter Food title" type="text" />
+                            </div>
+                            <div className="form-group">
+                              <label>Cuisine <sup>*</sup></label>
+                              <SelectSearch options={this.state.options} labelField="username" searchable={true} searchBy="username" />
+                            </div>
+                            <div className="form-group">
+                              <label>Dietary <sup>*</sup></label>
+                              <SelectSearch options={this.state.options} labelField="username" searchable={true} searchBy="username" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="form-group">
+                        <label>Description <sup>*</sup></label>
+                        <input placeholder="Write the description, Ingredients, portion size" className="description-field" type="textarea" />
+                      </div>
+                      <div className="form-group">
+                        <label>Ingredients List <sup>*</sup></label>
+                        <input placeholder="Write the description, Ingredients, portion size" className="description-field" type="textarea" />
+                      </div>
+                      <div className="form-group radio-group">
+                        <label>Start Date <sup>*</sup></label>
+                        <ul>
+                          <li><input type="radio" name="date" />Select Date</li>
+                          <li><input type="radio" name="date" />Upon request</li>
+                        </ul>
+                      </div>
+                      <div className="form-group">
+                        <label>Start Time <sup>*</sup></label>
+                        <SelectSearch options={this.state.options} labelField="username" searchable={true} searchBy="username" />
+                      </div>
+                      <div className="form-group">
+                        <label>Class Duration <sup>*</sup></label>
+                        <SelectSearch options={this.state.options} labelField="username" searchable={true} searchBy="username" />
+                      </div>
+                      <div className="form-group">
+                        <label>Masterclass Location <sup>*</sup></label>
+                        <SelectSearch options={this.state.options} labelField="username" searchable={true} searchBy="username" />
+                      </div>
+                      <div className="form-group">
+                        <label>Ticket/Group Number <sup>*</sup></label>
+                        <SelectSearch options={this.state.options} labelField="username" searchable={true} searchBy="username" />
+                      </div>
+                      <div className="form-group">
+                        <label>Price <sup>*</sup></label>
+                        <input placeholder="Enter Food title" type="number" />
+                      </div>
+                      <div className="form-group radio-group">
+                        <label>Class-Video Type <sup>*</sup></label>
+                        <ul>
+                          <li><input type="radio" name="video" />Pre recoded video</li>
+                          <li><input type="radio" name="date" />Live stream</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div className="popup-footer">
+                      <button className="footer-btn light">Cancel</button>
+                      <button className="footer-btn dark">Post</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </SlidingPane>
+          </div>
         </div>
       </div>
     );
