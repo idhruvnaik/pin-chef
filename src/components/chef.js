@@ -9,6 +9,7 @@ import { connect } from "react-redux";
 import LocationIcon from '../assets/svg/Location.svg';
 import ExpandNotification from '../assets/svg/Profile Back btn.svg'
 import expandIcon from '../assets/svg/Icon ionic-ios-arrow-back.svg'
+import LeftBack from '../assets/png_icons/Green back arrow.png'
 
 import $ from 'jquery';
 
@@ -149,15 +150,15 @@ class chef extends React.Component {
         })
         $('.' + section).css('display', 'block');
         if (header_flag) {
-            $('.home-content .switch-content').css("display", "flex");
+            $('.chef-content .switch-content').css("display", "flex");
         }
     }
 
     open_chef_profile(e) {
-        console.log(e);
+        console.log(e, "open chef profile");
         let chef_details = this.state.chefs.find(chef => chef._id == e.target.id);
         // chef_details.createdAt = this.showTime(chef_details.createdAt);
-        this.setState({ chefs: chef_details });
+        this.setState({ chef: chef_details });
         this.getAllPosts(e.target.id);
         this.open_menu("chef-profile", false);
     }
@@ -172,9 +173,9 @@ class chef extends React.Component {
                 <div className="all_chefs sec active" id="all-chef-sec">
                     {this.state.chefs && this.state.chefs.length > 0 && this.state.chefs.map((item) => {
                         return (
-                            <div className="chef" id={item._id} onClick={this.open_chef_profile}>
+                            <div className="chef">
                                 <div className="chef_details">
-                                    <img src={item.profile_image}></img>
+                                    <img src={item.profile_image} id={item._id} onClick={this.open_chef_profile}></img>
                                     <ReactStars
                                         count={5}
                                         onChange={null}
@@ -216,7 +217,7 @@ class chef extends React.Component {
                         return (
                             <div className="chef" id={item._id}>
                                 <div className="chef_details">
-                                    <img src={item.profile_image}></img>
+                                    <img src={item.profile_image} id={item._id} onClick={this.open_chef_profile}></img>
                                     <ReactStars
                                         count={5}
                                         onChange={null}
@@ -254,35 +255,48 @@ class chef extends React.Component {
                     })}
                 </div>
                 <div className="chef-profile" id="chef-profile-sec">
+                    {console.log(this.state)}
                     <div className="chef">
                         <div className="chef-details">
+                            <ul class="switch-content">
+                                <div>
+                                    <img src={LeftBack} onClick={() => this.open_menu("all_chefs", true)}></img>
+                                </div>
+                                <div>
+                                    <li class="chef-profile-header">Profile</li>
+                                </div>
+                                <div class="chef-profile-activities">
+                                    <div><img src="/static/media/Send chat to chef.4777d89f.svg"></img></div>
+                                    <div><img src="/static/media/Share chef profile icon.dd5f10d6.svg"></img></div>
+                                </div>
+                            </ul>
                             <div className="banner-image">
-                                <img src={this.state.chef.chef && this.state.chef.chef.banner_image}></img>
+                                <img src={this.state.chef && this.state.chef.banner_image}></img>
                             </div>
                             <div className="other-details">
                                 <div className="desktop-icon">
-                                    <img src={this.state.chef.chef && this.state.chef.chef.profile_image}></img>
-                                    <h4>{this.state.chef.chef && this.state.chef.chef.chef_details.service_location}</h4>
+                                    <img src={this.state.chef && this.state.chef.profile_image}></img>
+                                    <h4>{this.state.chef.chef_details && this.state.chef.chef_details.service_location}</h4>
                                 </div>
                                 <div className="about-chef">
                                     <div className="name-followers">
-                                        <h3>Matt Wilson</h3>
+                                        <h3>{this.state.chef && this.state.chef.name}</h3>
                                         <h4>{this.state.chef && this.state.chef.followerCount} Followers</h4>
                                     </div>
                                     <div>
-                                        {this.state.chef.chef && this.state.chef.chef.chef_details.position}
+                                        {this.state.chef.chef_details && this.state.chef.chef_details.position}
                                     </div>
                                     <div>
-                                        {this.state.chef.chef && this.state.chef.chef.chef_details.specialty.join(", ")}
+                                        {this.state.chef.chef_details && this.state.chef.chef_details.specialty.join(", ")}
                                     </div>
-                                    <div>{this.state.chef.chef && this.state.chef.chef.chef_details.sort_intro}</div>
+                                    <div>{this.state.chef.chef_details && this.state.chef.chef_details.sort_intro}</div>
                                 </div>
                             </div>
                             <div className="chef-ratting">
-                                {this.state.chef.chef && this.state.chef.chef.chef_details.rate}/5.0 &nbsp;&nbsp;&nbsp;
+                                {this.state.chef.chef_details && this.state.chef.chef_details.rate}/5.0 &nbsp;&nbsp;&nbsp;
                                 <ReactStars
                                     count={5}
-                                    value={this.state.chef.chef && this.state.chef.chef.chef_details.rate}
+                                    value={this.state.chef.chef_details && this.state.chef.chef_details.rate}
                                     size={24}
                                     onChange={null}
                                     isHalf={true}
@@ -291,7 +305,7 @@ class chef extends React.Component {
                                 />
                             </div>
                             <div className="chef_bg_details">
-                                {this.state.chef.chef && this.state.chef.chef.chef_details.background_info}
+                                {this.state.chef.chef_details && this.state.chef.chef_details.background_info}
                             </div>
                         </div>
                         <div className="chef-posts">
@@ -308,7 +322,6 @@ class chef extends React.Component {
                             </ul>
                             <div>
                                 <div id="photos-sec">
-                                    {console.log(this.state)}
                                     {this.state.posts.length > 0 && this.state.posts.map((item) => {
                                         return (
                                             <div className="each_photo">
@@ -320,16 +333,16 @@ class chef extends React.Component {
                                 <div id="info-sec">
                                     <ul>
                                         <li>
-                                            <b>PERSONAL SUMMARY: </b>{this.state.chef.chef && this.state.chef.chef.chef_details.background_info}
+                                            <b>PERSONAL SUMMARY: </b>{this.state.chef.chef_details && this.state.chef.chef_details.background_info}
                                         </li>
                                         <li>
-                                            <b>DOB: </b>{this.state.chef.chef && this.state.chef.chef.chef_details.date_of_birth}
+                                            <b>DOB: </b>{this.state.chef.chef_details && new Date(this.state.chef.chef_details.date_of_birth).toDateString()}
                                         </li>
                                         <li>
-                                            <b>POSITION: </b>{this.state.chef.chef && this.state.chef.chef.chef_details.position}
+                                            <b>POSITION: </b>{this.state.chef.chef_details && this.state.chef.chef_details.position}
                                         </li>
                                         <li>
-                                            <b>LANGUAGES: </b>{this.state.chef.chef && this.state.chef.chef.chef_details.languages.join(", ")}
+                                            <b>LANGUAGES: </b>{this.state.chef.chef_details && this.state.chef.chef_details.languages.join(", ")}
                                         </li>
                                         <li>
                                             <b>AVAILABLILTY: </b>Full time

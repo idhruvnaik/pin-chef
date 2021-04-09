@@ -204,6 +204,15 @@
   .chef-page .home-content .e-masterclass .order .ticket_content .ticket-number img{
     height: 26px;
   }
+  .user-feed-page .user-pallet .menu-bar .shop-content .services .each_service .add-cart{
+    bottom: 55px;
+  }
+  .user-feed-page .user-pallet .menu-bar .shop-content .services .each_service .add-cart img{
+    height: 30px;
+  }
+  .shop-content .switch-content img{
+    height: 30px;
+  }
 }
 @media (max-width: 380px) {
   .contact_us .feedback{
@@ -358,5 +367,11 @@
   }
   .user-reg-page .container .login-register .form-group #loginform .username_container{
     padding-left: 30%;
+  }
+  .user-feed-page .user-pallet .menu-bar .shop-content .services .each_service .add-cart{
+    bottom: 40px;
+  }
+  .user-feed-page .user-pallet .menu-bar .shop-content .services .each_service .add-cart img{
+    height: 25px;
   }
 }

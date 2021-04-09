@@ -106,8 +106,27 @@
           }
         }
         .chef-profile{
+          height: 100%;
+          overflow: auto;
+          display: none;
           .chef{
             .chef-details{
+              .switch-content{
+                justify-content: space-between;
+                img{
+                  cursor: pointer;
+                }
+                .chef-profile-header{
+                  color: #464040;
+                  font-size: 33px;
+                }
+                .chef-profile-activities{
+                  display: flex;
+                  div{
+                    margin-right: 10px;
+                  }
+                }
+              }
               .banner-image{
                 height: 200px;
                 img{
@@ -282,6 +301,15 @@
                   align-items: flex-start;
                   text-align: left;
                 }
+              }
+            }
+            .add-cart{
+              justify-content: flex-end;
+              display: flex;
+              position: relative;
+              bottom: 85px;
+              img{
+                cursor: pointer;
               }
             }
           }

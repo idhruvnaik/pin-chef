@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="50.952" height="44.326" viewBox="0 0 50.952 44.326">
+  <g id="Cart" transform="translate(-329 -36)">
+    <g id="add-to-cart-2" transform="translate(329 36)">
+      <path id="Path_27414" data-name="Path 27414" d="M53.678,14.482a3.616,3.616,0,0,0-2.8-1.318H14.469L13.42,7.917A3.637,3.637,0,0,0,9.862,5H6.814a1.814,1.814,0,0,0,0,3.628H9.862s5.527,27.585,5.57,27.684a5.443,5.443,0,0,0,5.242,4.065H45.547a5.451,5.451,0,0,0,5.345-4.414l3.555-18.485a3.616,3.616,0,0,0-.769-3Z" transform="translate(-3.561 -3.561)" fill="#193802"/>
+      <path id="Path_28166" data-name="Path 28166" d="M53.678,14.482a3.616,3.616,0,0,0-2.8-1.318H14.469L13.42,7.917A3.637,3.637,0,0,0,9.862,5H6.814a1.814,1.814,0,0,0,0,3.628H9.862s5.527,27.585,5.57,27.684a5.443,5.443,0,0,0,5.242,4.065H45.547a5.451,5.451,0,0,0,5.345-4.414l3.555-18.485a3.616,3.616,0,0,0-.769-3Z" transform="translate(-5 -5)" fill="#469a09"/>
+      <g id="Group_1285" data-name="Group 1285" transform="translate(13.672 32.813)">
+        <circle id="Ellipse_1099" data-name="Ellipse 1099" cx="5.757" cy="5.757" r="5.757" transform="translate(0)" fill="#2b2929"/>
+        <circle id="Ellipse_1100" data-name="Ellipse 1100" cx="5.757" cy="5.757" r="5.757" transform="translate(18.709)" fill="#2b2929"/>
+      </g>
+      <circle id="Ellipse_986" data-name="Ellipse 986" cx="5.757" cy="5.757" r="5.757" transform="translate(12.952 31.662)" fill="#5e5e5e"/>
+      <circle id="Ellipse_987" data-name="Ellipse 987" cx="5.757" cy="5.757" r="5.757" transform="translate(31.662 31.662)" fill="#5e5e5e"/>
+    </g>
+    <text id="_0" data-name="0" transform="translate(355.709 65.757)" fill="#fff" stroke="rgba(0,0,0,0)" stroke-width="1" font-size="25" font-family="Montserrat-Bold, Montserrat" font-weight="700"><tspan x="-8.488" y="0">0</tspan></text>
+  </g>
+</svg>

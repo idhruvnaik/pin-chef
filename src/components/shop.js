@@ -11,6 +11,8 @@ import EmptyHeart from '../assets/svg/Like button empty.svg';
 import FullHeart from '../assets/svg/Like button full.svg';
 import PostShare from '../assets/svg/Post Share count.svg';
 import LocationIcon from '../assets/svg/Location.svg';
+import AddToCart from '../assets/svg/add-to-cart on icon.svg'
+import Cart from '../assets/svg/Cart.svg'
 
 import NoServices from '../assets/svg/NoServicesPost';
 import $ from 'jquery';
@@ -198,9 +200,10 @@ export default class home extends Component {
     render() {
         return (
             <div className="shop-content">
-                <ul className="switch-content">
+                <ul className="switch-content" style={{justifyContent: "space-between", paddingRight: "30px", paddingLeft: "30px"}}>
                     <li onClick={this.active} className="nav-active" id="food">Food</li>
                     <li onClick={this.active} className="" id="service">Services</li>
+                    <li><img src={Cart}></img></li>
                 </ul>
                 <div className="food sec active" id="food-sec">
                     {this.state.food.length > 0 && this.state.food.map((item) => {
@@ -304,6 +307,9 @@ export default class home extends Component {
                                 <img className="userpost" src={item.service_content}></img>
                                 <div className="food-price">
                                     <b>{item.service_type} - ${item.price}</b>
+                                </div>
+                                <div className="add-cart">
+                                    <img src={AddToCart}></img>
                                 </div>
                                 <div className="post-activity">
                                     <div className="l-div">

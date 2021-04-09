@@ -98,7 +98,7 @@ class chef extends React.Component {
                                 </div>
                                 <div className="about-chef">
                                     <div className="name-followers">
-                                        <h3>Matt Wilson</h3>
+                                        <h3>{this.state.chef && this.state.chef.name}</h3>
                                         <h4>{this.state.chef && this.state.chef.followerCount} Followers</h4>
                                     </div>
                                     <div>
@@ -140,7 +140,6 @@ class chef extends React.Component {
                             </ul>
                             <div>
                                 <div id="photos-sec">
-                                    {console.log(this.state)}
                                     {this.state.posts.length > 0 && this.state.posts.map((item) => {
                                         return (
                                             <div className="each_photo">
