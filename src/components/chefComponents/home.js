@@ -6,10 +6,10 @@ import ReactDOM, { render } from 'react-dom';
 import { Provider } from "react-redux";
 import configureStore from "../../store";
 import ReactCrop from 'react-image-crop';
-import SelectSearch from 'react-select-search';
 import Popup from 'reactjs-popup';
 import TimePicker from 'react-time-picker';
 import 'react-image-crop/dist/ReactCrop.css';
+import SelectSearch from "react-dropdown-select";
 
 import NoFeeds from '../../assets/svg/NoFeedPost';
 import NoPostsByChef from '../../assets/svg/NoPostsByChef'
@@ -56,6 +56,7 @@ import GalleryIcon from "../../assets/images/gallery-icon.png";
 import DescriptionIcon from "../../assets/images/description-icon.png";
 import ImageUploadIcon from "../../assets/images/image-upload.png";
 import LocationPlusIcon from "../../assets/images/location-plus-icon.png";
+import UploadImage from "../../assets/images/upload-option.png";
 
 import { getAllChef, getAllPosts, likePost, AddPost, AddImageToPost, getAllPostsByChefID, getChefById, getAllRecipesByChef, getAllFoodByFood, getAllMasterClasses, unlikePost, unlikeRecipe, likeRecipe, getAllServicesByChef, unlikeFood, likeFood, unlikeService, likeService, getAllMasterClassesByChef, DeleteMasterClass } from '../../services/apiOperations';
 import $ from "jquery";
@@ -106,8 +107,237 @@ export default class home extends Component {
         aspect: 16 / 9,
       },
       options: [
-        { name: 'Swedish', value: 'sv' },
-        { name: 'English', value: 'en' },
+        {
+          id: 1,
+          name: "Leanne Graham",
+          username: "Bret",
+          email: "Sincere@april.biz",
+          address: {
+            street: "Kulas Light",
+            suite: "Apt. 556",
+            city: "Gwenborough",
+            zipcode: "92998-3874",
+            geo: {
+              lat: "-37.3159",
+              lng: "81.1496"
+            }
+          },
+          phone: "1-770-736-8031 x56442",
+          website: "hildegard.org",
+          company: {
+            name: "Romaguera-Crona",
+            catchPhrase: "Multi-layered client-server neural-net",
+            bs: "harness real-time e-markets"
+          }
+        },
+        {
+          id: 2,
+          disabled: true,
+          name: "Ervin Howell",
+          username: "Antonette",
+          email: "Shanna@melissa.tv",
+          address: {
+            street: "Victor Plains",
+            suite: "Suite 879",
+            city: "Wisokyburgh",
+            zipcode: "90566-7771",
+            geo: {
+              lat: "-43.9509",
+              lng: "-34.4618"
+            }
+          },
+          phone: "010-692-6593 x09125",
+          website: "anastasia.net",
+          company: {
+            name: "Deckow-Crist",
+            catchPhrase: "Proactive didactic contingency",
+            bs: "synergize scalable supply-chains"
+          }
+        },
+        {
+          id: 3,
+          name: "Clementine Bauch",
+          username: "Samantha",
+          email: "Nathan@yesenia.net",
+          address: {
+            street: "Douglas Extension",
+            suite: "Suite 847",
+            city: "McKenziehaven",
+            zipcode: "59590-4157",
+            geo: {
+              lat: "-68.6102",
+              lng: "-47.0653"
+            }
+          },
+          phone: "1-463-123-4447",
+          website: "ramiro.info",
+          company: {
+            name: "Romaguera-Jacobson",
+            catchPhrase: "Face to face bifurcated interface",
+            bs: "e-enable strategic applications"
+          }
+        },
+        {
+          id: 4,
+          name: "Patricia Lebsack",
+          username: "Karianne",
+          email: "Julianne.OConner@kory.org",
+          address: {
+            street: "Hoeger Mall",
+            suite: "Apt. 692",
+            city: "South Elvis",
+            zipcode: "53919-4257",
+            geo: {
+              lat: "29.4572",
+              lng: "-164.2990"
+            }
+          },
+          phone: "493-170-9623 x156",
+          website: "kale.biz",
+          company: {
+            name: "Robel-Corkery",
+            catchPhrase: "Multi-tiered zero tolerance productivity",
+            bs: "transition cutting-edge web services"
+          }
+        },
+        {
+          id: 5,
+          name: "Chelsey Dietrich",
+          username: "Kamren",
+          email: "Lucio_Hettinger@annie.ca",
+          address: {
+            street: "Skiles Walks",
+            suite: "Suite 351",
+            city: "Roscoeview",
+            zipcode: "33263",
+            geo: {
+              lat: "-31.8129",
+              lng: "62.5342"
+            }
+          },
+          phone: "(254)954-1289",
+          website: "demarco.info",
+          company: {
+            name: "Keebler LLC",
+            catchPhrase: "User-centric fault-tolerant solution",
+            bs: "revolutionize end-to-end systems"
+          }
+        },
+        {
+          id: 6,
+          name: "Mrs. Dennis Schulist",
+          username: "Leopoldo_Corkery",
+          email: "Karley_Dach@jasper.info",
+          address: {
+            street: "Norberto Crossing",
+            suite: "Apt. 950",
+            city: "South Christy",
+            zipcode: "23505-1337",
+            geo: {
+              lat: "-71.4197",
+              lng: "71.7478"
+            }
+          },
+          phone: "1-477-935-8478 x6430",
+          website: "ola.org",
+          company: {
+            name: "Considine-Lockman",
+            catchPhrase: "Synchronised bottom-line interface",
+            bs: "e-enable innovative applications"
+          }
+        },
+        {
+          id: 7,
+          name: "Kurtis Weissnat",
+          username: "Elwyn.Skiles",
+          email: "Telly.Hoeger@billy.biz",
+          address: {
+            street: "Rex Trail",
+            suite: "Suite 280",
+            city: "Howemouth",
+            zipcode: "58804-1099",
+            geo: {
+              lat: "24.8918",
+              lng: "21.8984"
+            }
+          },
+          phone: "210.067.6132",
+          website: "elvis.io",
+          company: {
+            name: "Johns Group",
+            catchPhrase: "Configurable multimedia task-force",
+            bs: "generate enterprise e-tailers"
+          }
+        },
+        {
+          id: 8,
+          name: "Nicholas Runolfsdottir V",
+          username: "Maxime_Nienow",
+          email: "Sherwood@rosamond.me",
+          address: {
+            street: "Ellsworth Summit",
+            suite: "Suite 729",
+            city: "Aliyaview",
+            zipcode: "45169",
+            geo: {
+              lat: "-14.3990",
+              lng: "-120.7677"
+            }
+          },
+          phone: "586.493.6943 x140",
+          website: "jacynthe.com",
+          company: {
+            name: "Abernathy Group",
+            catchPhrase: "Implemented secondary concept",
+            bs: "e-enable extensible e-tailers"
+          }
+        },
+        {
+          id: 9,
+          name: "Glenna Reichert",
+          username: "Delphine",
+          email: "Chaim_McDermott@dana.io",
+          address: {
+            street: "Dayna Park",
+            suite: "Suite 449",
+            city: "Bartholomebury",
+            zipcode: "76495-3109",
+            geo: {
+              lat: "24.6463",
+              lng: "-168.8889"
+            }
+          },
+          phone: "(775)976-6794 x41206",
+          website: "conrad.com",
+          company: {
+            name: "Yost and Sons",
+            catchPhrase: "Switchable contextually-based project",
+            bs: "aggregate real-time technologies"
+          }
+        },
+        {
+          id: 10,
+          name: "Clementina DuBuque",
+          username: "Moriah.Stanton",
+          email: "Rey.Padberg@karina.biz",
+          address: {
+            street: "Kattie Turnpike",
+            suite: "Suite 198",
+            city: "Lebsackbury",
+            zipcode: "31428-2261",
+            geo: {
+              lat: "-38.2386",
+              lng: "57.2232"
+            }
+          },
+          phone: "024-648-3804",
+          website: "ambrose.net",
+          company: {
+            name: "Hoeger LLC",
+            catchPhrase: "Centralized empowering task-force",
+            bs: "target end-to-end models"
+          }
+        }
       ],
       current_recipe: {}
     }
@@ -270,6 +500,10 @@ export default class home extends Component {
 
     this.toggleServicedPopup = () => {
       this.setState({ isServicePopup: true });
+    };
+
+    this.toggleEmasterClassPopup = () => {
+      this.setState({ isEmasterClassPopup: true });
     };
 
     this.active = (e) => {
@@ -1150,26 +1384,14 @@ export default class home extends Component {
                         <label>Food Name <sup>*</sup></label>
                         <input placeholder="Enter Food title" type="text" />
                       </div>
-                      <SelectSearch
-                        options={this.state.options}
-                        search={true}
-                        value="sv"
-                        name="language"
-                        placeholder="Choose your language"
-                      />
+
                       <div className="form-group">
                         <label>Cuisine Type <sup>*</sup></label>
-                        <select>
-                          <option>Indian</option>
-                          <option>South Indian</option>
-                        </select>
+                        <SelectSearch options={this.state.options} labelField="username" searchable={true} searchBy="username" />
                       </div>
                       <div className="form-group">
                         <label>Diet Type</label>
-                        <select>
-                          <option>Indian</option>
-                          <option>South Indian</option>
-                        </select>
+                        <SelectSearch options={this.state.options} labelField="username" searchable={true} searchBy="username" />
                       </div>
                       <div className="form-group">
                         <label>Number of Servings <sup>*</sup></label>
@@ -1423,19 +1645,11 @@ export default class home extends Component {
                       </div>
                       <div className="form-group">
                         <label>Cuisine Type <sup>*</sup></label>
-                        <select>
-                          <option selected>Select an option</option>
-                          <option>Indian</option>
-                          <option>South Indian</option>
-                        </select>
+                        <SelectSearch options={this.state.options} labelField="username" searchable={true} searchBy="username" />
                       </div>
                       <div className="form-group">
                         <label>Diet type <sup>*</sup></label>
-                        <select>
-                          <option selected>Select an option</option>
-                          <option>Indian</option>
-                          <option>South Indian</option>
-                        </select>
+                        <SelectSearch options={this.state.options} labelField="username" searchable={true} searchBy="username" />
                       </div>
                       <div className="form-group">
                         <label>Description & Ingredients</label>
@@ -1443,11 +1657,7 @@ export default class home extends Component {
                       </div>
                       <div className="form-group">
                         <label>Service Days and Hours</label>
-                        <select>
-                          <option selected>Available  days and hours</option>
-                          <option>Indian</option>
-                          <option>South Indian</option>
-                        </select>
+                        <SelectSearch options={this.state.options} labelField="username" searchable={true} searchBy="username" />
                       </div>
                       <div className="form-group">
                         <label>Price <sup>*</sup></label>
@@ -1604,11 +1814,7 @@ export default class home extends Component {
                       </div>
                       <div className="form-group">
                         <label>Service type <sup>*</sup></label>
-                        <select>
-                          <option selected>Select a service type</option>
-                          <option>Indian</option>
-                          <option>South Indian</option>
-                        </select>
+                        <SelectSearch options={this.state.options} labelField="username" searchable={true} searchBy="username" />
                       </div>
                       <div className="form-group">
                         <label>Full Description about service</label>
@@ -1616,11 +1822,7 @@ export default class home extends Component {
                       </div>
                       <div className="form-group">
                         <label>Service Days and Hours</label>
-                        <select>
-                          <option selected>Available  days and hours</option>
-                          <option>Indian</option>
-                          <option>South Indian</option>
-                        </select>
+                        <SelectSearch options={this.state.options} labelField="username" searchable={true} searchBy="username" />
                       </div>
                       <div className="form-group">
                         <label>Price <sup>*</sup></label>
@@ -1638,7 +1840,6 @@ export default class home extends Component {
           </div>
         </div>
         <div className="e-masterclass sec" id="e-master-class-sec">
-          {console.log(this.state.master_classes)}
           {this.state.master_classes.map((item) => {
             return (
               <div className="order">
@@ -1736,7 +1937,7 @@ export default class home extends Component {
                         <div className="question" style={{ padding: item.notification ? "5px" : "50px" }}>
                           {item.notification ? "" : "Are you sure you want to turn off your notification?"}
                         </div>
-                        <div className="pick-time" style={{display: item.notification ? "block": "none"}}>
+                        <div className="pick-time" style={{ display: item.notification ? "block" : "none" }}>
                           <TimePicker
                             // onChange={onChange}
                             value={"10:00"}
@@ -1772,6 +1973,111 @@ export default class home extends Component {
               </div>
             );
           })}
+          <div className="btn-container">
+            <Button onClick={this.toggleEmasterClassPopup}>
+              <img className="create-feed-btn" src={PlusIcon}></img>
+            </Button>
+            <SlidingPane
+              className="pop-up-services"
+              overlayClassName="some-custom-overlay-class"
+              isOpen={this.state.isEmasterClassPopup}
+              from={"bottom"}
+              title="Create a e-Masterclass"
+              subtitle=""
+              width="100%"
+              onRequestClose={() => {
+                this.setState({ isEmasterClassPopup: false });
+              }}
+              onAfterOpen={() => {
+                $('.slide-pane__header').css("background-color", "#5B5353");
+                $('.slide-pane__header').css("color", "white");
+                $('.slide-pane__header').css("border-radius", "15px");
+                $('.slide-pane__header').css("border-bottom-left-radius", "0px");
+                if (window.screen.width > 1100) {
+                  $('.pop-up-services').css('width', "50%");
+                }
+              }}
+            >
+              <div className="pop-up-feed e-master-class">
+                <div className="pop-up-pad">
+                  <div className="popup-content">
+                    <div className="form-container">
+                      <div className="form-group height">
+                        <div className="image-field-container">
+                          <div class="image-upload">
+                            <label for="file-input">
+                              <img src={UploadImage} />
+                            </label>
+                            <input id="file-input" type="file" />
+                          </div>
+                          <div className="name-field-container">
+                            <div className="form-group">
+                              <label>Masterclass Title <sup>*</sup></label>
+                              <input placeholder="Enter Food title" type="text" />
+                            </div>
+                            <div className="form-group">
+                              <label>Cuisine <sup>*</sup></label>
+                              <SelectSearch options={this.state.options} labelField="username" searchable={true} searchBy="username" />
+                            </div>
+                            <div className="form-group">
+                              <label>Dietary <sup>*</sup></label>
+                              <SelectSearch options={this.state.options} labelField="username" searchable={true} searchBy="username" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="form-group">
+                        <label>Description <sup>*</sup></label>
+                        <input placeholder="Write the description, Ingredients, portion size" className="description-field" type="textarea" />
+                      </div>
+                      <div className="form-group">
+                        <label>Ingredients List <sup>*</sup></label>
+                        <input placeholder="Write the description, Ingredients, portion size" className="description-field" type="textarea" />
+                      </div>
+                      <div className="form-group radio-group">
+                        <label>Start Date <sup>*</sup></label>
+                        <ul>
+                          <li><input type="radio" name="date" />Select Date</li>
+                          <li><input type="radio" name="date" />Upon request</li>
+                        </ul>
+                      </div>
+                      <div className="form-group">
+                        <label>Start Time <sup>*</sup></label>
+                        <SelectSearch options={this.state.options} labelField="username" searchable={true} searchBy="username" />
+                      </div>
+                      <div className="form-group">
+                        <label>Class Duration <sup>*</sup></label>
+                        <SelectSearch options={this.state.options} labelField="username" searchable={true} searchBy="username" />
+                      </div>
+                      <div className="form-group">
+                        <label>Masterclass Location <sup>*</sup></label>
+                        <SelectSearch options={this.state.options} labelField="username" searchable={true} searchBy="username" />
+                      </div>
+                      <div className="form-group">
+                        <label>Ticket/Group Number <sup>*</sup></label>
+                        <SelectSearch options={this.state.options} labelField="username" searchable={true} searchBy="username" />
+                      </div>
+                      <div className="form-group">
+                        <label>Price <sup>*</sup></label>
+                        <input placeholder="Enter Food title" type="number" />
+                      </div>
+                      <div className="form-group radio-group">
+                        <label>Class-Video Type <sup>*</sup></label>
+                        <ul>
+                          <li><input type="radio" name="video" />Pre recoded video</li>
+                          <li><input type="radio" name="date" />Live stream</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div className="popup-footer">
+                      <button className="footer-btn light">Cancel</button>
+                      <button className="footer-btn dark">Post</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </SlidingPane>
+          </div>
         </div>
       </div>
     );
