@@ -40,6 +40,10 @@ const service_by_chef_endpoint = "/service/chef"
 const eclass_by_chef_endpoint = "/e-class/chef"
 const comment_endpoint = "/post-comment"
 const feed_image_endpoint = "/post-images"
+const recipe_comment_endpoint = "/recipe-comment"
+const recipe_comment_by_id_endpoint  = "/recipe-comment/recipe"
+const like_recipe_comment_endpoint = "/recipe-comment/like"
+const unlike_recipe_comment_endpoint = "/recipe-comment/unlike"
 
 
 async function make_rest_call(apiURL, method, body, headers){
@@ -709,6 +713,87 @@ export const addCommentToPost = async(post_id, commenter_id, comment, token)=>{
     }
 }
 
+export const getCommentsByRecipeID = async(recipe_id, user_id, token)=>{
+    let apiURL = apiHost + recipe_comment_by_id_endpoint + "/" + recipe_id + "/" + user_id;
+    var headers = {
+        "Authorization": "Bearer " + token
+    };
+    try{
+        let resp = await make_rest_call(apiURL, 'GET', {}, headers);
+        return resp;
+    }
+    catch(err){
+        return {
+            status: false,
+            message: err.message
+        }
+    }
+}
+
+export const addCommentToRecipe = async(recipe_id, commenter_id, comment, token)=>{
+    let apiURL = apiHost + recipe_comment_endpoint;
+    var headers = {
+        "Authorization": "Bearer " + token
+    };
+    var data = {
+        recipe_id: recipe_id,
+	    commenter_id: commenter_id,
+        comment: comment
+    }
+    try{
+        let resp = await make_rest_call(apiURL, 'POST', data, headers);
+        return resp;
+    }
+    catch(err){
+        return {
+            status: false,
+            message: err.message
+        }
+    }
+}
+
+export const addLikeToRecipeComment = async(user_id, comment_id, token)=>{
+    let apiURL = apiHost + like_recipe_comment_endpoint;
+    var headers = {
+        "Authorization": "Bearer " + token
+    };
+    var data = {
+        comment_id: comment_id,
+	    user_id: user_id
+    }
+    try{
+        let resp = await make_rest_call(apiURL, 'POST', data, headers);
+        return resp;
+    }
+    catch(err){
+        return {
+            status: false,
+            message: err.message
+        }
+    }
+}
+
+export const removeLikeFromRecipeComment = async(user_id, comment_id, token)=>{
+    let apiURL = apiHost + unlike_recipe_comment_endpoint;
+    var headers = {
+        "Authorization": "Bearer " + token
+    };
+    var data = {
+        comment_id: comment_id,
+	    user_id: user_id
+    }
+    try{
+        let resp = await make_rest_call(apiURL, 'POST', data, headers);
+        return resp;
+    }
+    catch(err){
+        return {
+            status: false,
+            message: err.message
+        }
+    }
+}
+
 export const AddPost = async(chef_id, description, location, token)=>{
     let apiURL = apiHost + posts_endpoint;
     var headers = {
@@ -757,6 +842,40 @@ export const DeleteMasterClass = async(class_id, token)=>{
     };
     try{
         let resp = await make_rest_call(apiURL, 'DELETE', {}, headers);
+        return resp;
+    }
+    catch(err){
+        return {
+            status: false,
+            message: err.message
+        }
+    }
+}
+
+export const AddItemToCart = async(data, token)=>{
+    let apiURL = apiHost + cart_endpoint;
+    var headers = {
+        "Authorization": "Bearer " + token
+    };
+    try{
+        let resp = await make_rest_call(apiURL, 'POST', data, headers);
+        return resp;
+    }
+    catch(err){
+        return {
+            status: false,
+            message: err.message
+        }
+    }
+}
+
+export const getItemFromCart = async(user_id, item, token)=>{
+    let apiURL = apiHost + cart_endpoint + "/" + item + "/" + user_id;
+    var headers = {
+        "Authorization": "Bearer " + token
+    };
+    try{
+        let resp = await make_rest_call(apiURL, 'GET', {}, headers);
         return resp;
     }
     catch(err){

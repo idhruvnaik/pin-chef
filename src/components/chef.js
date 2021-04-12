@@ -154,12 +154,12 @@ class chef extends React.Component {
         }
     }
 
-    open_chef_profile(e) {
-        console.log(e, "open chef profile");
-        let chef_details = this.state.chefs.find(chef => chef._id == e.target.id);
-        // chef_details.createdAt = this.showTime(chef_details.createdAt);
+    open_chef_profile(chef_id, source) {
+        console.log(chef_id, "open chef profile");
+        let chef_details = this.state.chefs.find(chef => chef._id == chef_id);
+        chef_details.source = source
         this.setState({ chef: chef_details });
-        this.getAllPosts(e.target.id);
+        this.getAllPosts(chef_id);
         this.open_menu("chef-profile", false);
     }
 
@@ -175,7 +175,7 @@ class chef extends React.Component {
                         return (
                             <div className="chef">
                                 <div className="chef_details">
-                                    <img src={item.profile_image} id={item._id} onClick={this.open_chef_profile}></img>
+                                    <img src={item.profile_image} onClick={() => this.open_chef_profile(item._id, "all_chefs")}></img>
                                     <ReactStars
                                         count={5}
                                         onChange={null}
@@ -217,7 +217,7 @@ class chef extends React.Component {
                         return (
                             <div className="chef" id={item._id}>
                                 <div className="chef_details">
-                                    <img src={item.profile_image} id={item._id} onClick={this.open_chef_profile}></img>
+                                    <img src={item.profile_image} onClick={() => this.open_chef_profile(item._id, "following_chefs")}></img>
                                     <ReactStars
                                         count={5}
                                         onChange={null}
@@ -255,12 +255,11 @@ class chef extends React.Component {
                     })}
                 </div>
                 <div className="chef-profile" id="chef-profile-sec">
-                    {console.log(this.state)}
                     <div className="chef">
                         <div className="chef-details">
                             <ul class="switch-content">
                                 <div>
-                                    <img src={LeftBack} onClick={() => this.open_menu("all_chefs", true)}></img>
+                                    <img src={LeftBack} onClick={() => this.open_menu(this.state.chef.source, true)}></img>
                                 </div>
                                 <div>
                                     <li class="chef-profile-header">Profile</li>

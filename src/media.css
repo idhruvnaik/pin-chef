@@ -50,6 +50,9 @@
   .chef-page .home-content .e-masterclass .order .ticket_content .ticket-link img {
     height: 30px;
   }
+  .terms_privacy_policy .policies .policy img {
+    width: 100%;
+  }
 }
 
 @media (max-width: 481px) {
@@ -67,7 +70,8 @@
   .user-feed-page .user-pallet .menu-bar .star-content .my_purchases .item .head-container  h3,
   .user-feed-page .user-pallet .menu-bar .star-content .my_purchases .item .head-container .r-div h3,
   .chef-page .home-content .each_recipe .post-activity .time span,
-  .chef-page .home-content .each_recipe .post-activity .recipe_details div:first-child{
+  .chef-page .home-content .each_recipe .post-activity .recipe_details div:first-child,
+  #popup-root .popup-content .menu {
     font-size: small;
   }
   .user-feed-page .user-pallet .menu-bar .star-content .my_purchases .item{
@@ -151,11 +155,11 @@
   .comment .feed .comments{
     font-size: small;
   }
-  .comment .feed .comments .comment-details .reply-comment img{
+  .comment .feed .comments .comment-details .reply-comment .comment-symbols div:first-child img{
     height: 20px;
     width: 20px;
   }
-  .comment .feed .comments .comment-details .likes-on-comment img{
+  .comment .feed .comments .comment-details .reply-comment .comment-symbols div:last-child img{
     height: 30px;
     width: 30px;
   }
@@ -210,8 +214,11 @@
   .user-feed-page .user-pallet .menu-bar .shop-content .services .each_service .add-cart img{
     height: 30px;
   }
-  .shop-content .switch-content img{
-    height: 30px;
+  .user-feed-page .user-pallet .menu-bar .shop-content .switch-content img{
+    height: 25px;
+  }
+  .user-feed-page .user-pallet .menu-bar .shop-content .switch-content .number_of_food_services{
+    bottom: 17px;
   }
 }
 @media (max-width: 380px) {
@@ -233,7 +240,8 @@
 @media (max-width: 320px) {
   /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
   .user-feed-page .user-pallet .menu-bar .star-content .my_purchases .item .head-container  h3,
-  .user-feed-page .user-pallet .menu-bar .star-content .my_purchases .item .head-container .r-div h3{
+  .user-feed-page .user-pallet .menu-bar .star-content .my_purchases .item .head-container .r-div h3,
+  #popup-root .popup-content .menu {
     font-size: x-small;
   }
   .user-feed-page .user-pallet .menu-bar .star-content .my_purchases .item{
@@ -304,7 +312,7 @@
     font-size: x-small;
   }
   .each_food .food-price, .each_service .food-price{
-    bottom: 15px;
+    bottom: 13px;
   }
   .user-feed-page .user-pallet .menu-bar ul.switch-content li {
     font-size: 10px;
@@ -343,7 +351,8 @@
     text-align: center;
   }
   .user-reg-page .container .login-register .multi-login a,
-  .chef-page .home-content .e-masterclass .order .ticket_content .ticket-number{
+  .chef-page .home-content .e-masterclass .order .ticket_content .ticket-number,
+  #popup-root .popup-content .menu {
     font-size: x-small;
   }
   .chef-page .shop-content .food .each_food,

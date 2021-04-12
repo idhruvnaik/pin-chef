@@ -85,7 +85,7 @@ class chef extends React.Component {
                         </div>
                     </div>
                 </ul>
-                <div className="chef-profile" id="chef-profile-sec">
+                <div className="chef-profile-page" id="chef-profile-sec">
                     <div className="chef">
                         <div className="chef-details">
                             <div className="banner-image">

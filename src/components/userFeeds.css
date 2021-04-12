@@ -803,8 +803,12 @@ ul.switch-content-1 li {
   height: 90%;
 }
 
-.purchase-detail, .food-service-purchase-detail, #comment-sec {
+.purchase-detail, .food-service-purchase-detail, #outer-comment-sec {
   display: none;
+}
+#outer-comment-sec {
+  height: 100%;
+  width: 100%;
 }
 .purchase-detail .switch-content, 
 .food-service-purchase-detail .switch-content,
@@ -924,3 +928,10 @@ ul.switch-content-1 li {
 /* .contact_us_container{
   height: 100%;
 } */
+
+
+.comment .feed .comments .comment-details .reply-comment{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
