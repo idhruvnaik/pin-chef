@@ -107,13 +107,13 @@ class UserReg extends React.Component {
         }
     }
 
-    async get_password(){
+    async get_password() {
         var username = document.querySelector('#loginform #username').value;
-        if (username){
+        if (username) {
             let result = await forgotPassword(username, this.token);
             console.log(result, "from get password");
             console.log(result.status);
-            console.log(typeof(result.status));
+            console.log(typeof (result.status));
             if (result.status == false) {
                 if (result.message.includes("401")) {
                     $('#errorMessage')[0].innerHTML = "User is not exists or not authorized to perform this action.";
@@ -123,7 +123,7 @@ class UserReg extends React.Component {
             } else {
                 console.log("succeed");
             }
-        } else{
+        } else {
             $('#errorMessage')[0].innerHTML = "For forgot password Username/Email ID is necessary.";
         }
         console.log(username, "from forgot password");
@@ -228,7 +228,7 @@ class UserReg extends React.Component {
             $('.password_input .symbol').css("padding-top", "22px");
         }
     };
-    open_terms(){
+    open_terms() {
         this.setState({
             isTCPopup: true
         })
@@ -279,9 +279,10 @@ class UserReg extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div style={{display: "flex", justifyContent: "space-evenly"}}>
-                                    <div id="signin_storage" style={{display: "flex"}}>
-                                        <input type="radio" name="user_sign_in" id="storeToken" onClick={this.save_token.bind(this)}></input>Keep me signed in
+                                <div style={{ display: "flex", justifyContent: "space-between", padding: "10px", alignItems: "center" }}>
+                                    <div id="signin_storage" style={{ display: "flex", position: "relative"}}>
+                                        <input type="radio" name="user_sign_in" id="storeToken" style={{ visibility: "hidden", height: "0" }} onClick={this.save_token.bind(this)}></input>
+                                        <span style={{ width: "190px", position: "absolute", color: "#fff" }}>Keep me signed in</span>
                                     </div>
                                     <div>
                                         <input type="submit" value="Continue" className="submit"></input>
