@@ -44,6 +44,7 @@ const recipe_comment_endpoint = "/recipe-comment"
 const recipe_comment_by_id_endpoint  = "/recipe-comment/recipe"
 const like_recipe_comment_endpoint = "/recipe-comment/like"
 const unlike_recipe_comment_endpoint = "/recipe-comment/unlike"
+const forgot_password_endpoint = "/account/forgot-password"
 
 
 async function make_rest_call(apiURL, method, body, headers){
@@ -876,6 +877,26 @@ export const getItemFromCart = async(user_id, item, token)=>{
     };
     try{
         let resp = await make_rest_call(apiURL, 'GET', {}, headers);
+        return resp;
+    }
+    catch(err){
+        return {
+            status: false,
+            message: err.message
+        }
+    }
+}
+
+export const forgotPassword = async(user_name, token)=>{
+    let apiURL = apiHost + forgot_password_endpoint;
+    var headers = {
+        "Authorization": "Bearer " + token
+    };
+    var data = {
+        user_name: user_name
+    }
+    try{
+        let resp = await make_rest_call(apiURL, 'PATCH', data, headers);
         return resp;
     }
     catch(err){

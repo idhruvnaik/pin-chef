@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import SlidingPane from "react-sliding-pane";
 import { withRouter } from 'react-router-dom';
 import { useSpring, animated } from "react-spring";
-import { verifyLogin, registerUser, addTokenToState } from '../services/apiOperations';
+import { verifyLogin, registerUser, addTokenToState, forgotPassword } from '../services/apiOperations';
 import { connect } from "react-redux";
 import { addToken } from "../services/actions";
 import Popup from 'reactjs-popup';
@@ -52,6 +52,7 @@ class UserReg extends React.Component {
         this.login_user = this.login_user.bind(this);
         this.ShowPassword = this.ShowPassword.bind(this);
         this.open_terms = this.open_terms.bind(this);
+        this.get_password = this.get_password.bind(this);
         this.state = {
             isTCPopup: false
         }
@@ -106,6 +107,27 @@ class UserReg extends React.Component {
         }
     }
 
+    async get_password(){
+        var username = document.querySelector('#loginform #username').value;
+        if (username){
+            let result = await forgotPassword(username, this.token);
+            console.log(result, "from get password");
+            console.log(result.status);
+            console.log(typeof(result.status));
+            if (result.status == false) {
+                if (result.message.includes("401")) {
+                    $('#errorMessage')[0].innerHTML = "User is not exists or not authorized to perform this action.";
+                } else {
+                    $('#errorMessage')[0].innerHTML = result.message;
+                }
+            } else {
+                console.log("succeed");
+            }
+        } else{
+            $('#errorMessage')[0].innerHTML = "For forgot password Username/Email ID is necessary.";
+        }
+        console.log(username, "from forgot password");
+    }
     async login_user(event) {
         event.preventDefault();
         let username = document.querySelector('#loginform #username').value;
@@ -257,7 +279,14 @@ class UserReg extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <input type="submit" value="Continue" className="submit"></input>
+                                <div style={{display: "flex", justifyContent: "space-evenly"}}>
+                                    <div id="signin_storage" style={{display: "flex"}}>
+                                        <input type="radio" name="user_sign_in" id="storeToken" onClick={this.save_token.bind(this)}></input>Keep me signed in
+                                    </div>
+                                    <div>
+                                        <input type="submit" value="Continue" className="submit"></input>
+                                    </div>
+                                </div>
                             </form>
                             <form action="" id="registerform" onSubmit={this.register_user}>
                                 <label htmlFor="email">Email</label>
@@ -286,10 +315,10 @@ class UserReg extends React.Component {
                                 <FbIcon /> &nbsp;
                                 <GoogleIcon /> &nbsp;
                             </div>
-                            <a href="" style={{ color: "#FFD54F", textShadow: "2px 2px grey", textDecoration: "none", cursor: "pointer" }}>FORGOT PASSWORD</a>
+                            <span style={{ color: "#FFD54F", textShadow: "2px 2px grey", textDecoration: "none", cursor: "pointer" }} onClick={this.get_password}>FORGOT PASSWORD</span>
                         </div>
                         <div id="note">
-                            Signing In or Signing Up means you accept our <u onClick={this.open_terms}><b>Terms/Conditions</b></u> &amp; <u onClick={this.open_terms}><b>Privacy Policy</b></u>
+                            Signing In or Signing Up means you accept our <span onClick={this.open_terms}><u><b>Terms/Conditions</b></u> &amp; <u><b>Privacy Policy</b></u></span>
                         </div>
                         <SlidingPane
                             className="pop-up-services"
