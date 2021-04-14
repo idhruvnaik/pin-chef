@@ -45,6 +45,8 @@ const recipe_comment_by_id_endpoint  = "/recipe-comment/recipe"
 const like_recipe_comment_endpoint = "/recipe-comment/like"
 const unlike_recipe_comment_endpoint = "/recipe-comment/unlike"
 const forgot_password_endpoint = "/account/forgot-password"
+const resend_otp_endpoint = "/resend-otp"
+const reset_password_endpoint = "/account/password"
 
 
 async function make_rest_call(apiURL, method, body, headers){
@@ -887,16 +889,48 @@ export const getItemFromCart = async(user_id, item, token)=>{
     }
 }
 
-export const forgotPassword = async(user_name, token)=>{
+export const forgotPassword = async(user_name)=>{
     let apiURL = apiHost + forgot_password_endpoint;
-    var headers = {
-        "Authorization": "Bearer " + token
-    };
     var data = {
         user_name: user_name
     }
     try{
-        let resp = await make_rest_call(apiURL, 'PATCH', data, headers);
+        let resp = await make_rest_call(apiURL, 'PATCH', data, {});
+        return resp;
+    }
+    catch(err){
+        return {
+            status: false,
+            message: err.message
+        }
+    }
+}
+
+export const resetOTP = async(user_name)=>{
+    let apiURL = apiHost + resend_otp_endpoint;
+    var data = {
+        user_name: user_name
+    }
+    try{
+        let resp = await make_rest_call(apiURL, 'PATCH', data, {});
+        return resp;
+    }
+    catch(err){
+        return {
+            status: false,
+            message: err.message
+        }
+    }
+}
+
+export const resetPaasword = async(user_name, password)=>{
+    let apiURL = apiHost + resend_otp_endpoint;
+    var data = {
+        user_name: user_name,
+        new_password: password
+    }
+    try{
+        let resp = await make_rest_call(apiURL, 'PATCH', data, {});
         return resp;
     }
     catch(err){

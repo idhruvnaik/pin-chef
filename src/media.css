@@ -53,6 +53,10 @@
   .terms_privacy_policy .policies .policy img {
     width: 100%;
   }
+  .forgot-passwword-page .fp-container .login-register,
+  .reset-passwword-page .rp-container .login-register {
+    width: 100%;
+  }
 }
 
 @media (max-width: 481px) {
@@ -220,6 +224,10 @@
   .user-feed-page .user-pallet .menu-bar .shop-content .switch-content .number_of_food_services{
     bottom: 17px;
   }
+  .user-reg-page .container .login-register .form-group #loginform .kept_sign_in {
+    font-size: small;
+    padding: 10px 12px;
+  }
 }
 @media (max-width: 380px) {
   .contact_us .feedback{
@@ -278,9 +286,14 @@
   .contact_us .feedback{
     height: 70%;
   }
-  .chef-page .chef-content .chef-profile .chef .chef-posts .switch-content li {
+  .chef-page .chef-content .chef-profile .chef .chef-posts .switch-content li,
+  .user-reg-page .container .login-register .form-group #loginform .kept_sign_in {
     font-size: x-small;
   }
+  .user-reg-page .container .login-register .form-group .submit{
+    width: 100px;
+  }
+
   .chef-page .home-content .feed-filters button {
     font-size: xx-small;
   }
@@ -382,5 +395,13 @@
   }
   .user-feed-page .user-pallet .menu-bar .shop-content .services .each_service .add-cart img{
     height: 25px;
+  }
+  .user-reg-page .container .login-register .form-group #loginform .kept_sign_in #signin_storage span,
+  .user-reg-page .container .login-register .form-group .submit {
+    font-size: x-small;
+  }
+  .user-reg-page .container .login-register .form-group .submit{
+    width: 80px;
+    padding: 0px;
   }
 }

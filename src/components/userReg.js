@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import SlidingPane from "react-sliding-pane";
 import { withRouter } from 'react-router-dom';
 import { useSpring, animated } from "react-spring";
-import { verifyLogin, registerUser, addTokenToState, forgotPassword } from '../services/apiOperations';
+import { verifyLogin, registerUser, addTokenToState } from '../services/apiOperations';
 import { connect } from "react-redux";
 import { addToken } from "../services/actions";
 import Popup from 'reactjs-popup';
@@ -108,31 +108,36 @@ class UserReg extends React.Component {
     }
 
     async get_password() {
-        var username = document.querySelector('#loginform #username').value;
-        if (username) {
-            let result = await forgotPassword(username, this.token);
-            console.log(result, "from get password");
-            console.log(result.status);
-            console.log(typeof (result.status));
-            if (result.status == false) {
-                if (result.message.includes("401")) {
-                    $('#errorMessage')[0].innerHTML = "User is not exists or not authorized to perform this action.";
-                } else {
-                    $('#errorMessage')[0].innerHTML = result.message;
-                }
-            } else {
-                console.log("succeed");
+        this.props.history.push(
+            {            
+                pathname: '/User/ForgotPassword'
             }
-        } else {
-            $('#errorMessage')[0].innerHTML = "For forgot password Username/Email ID is necessary.";
-        }
-        console.log(username, "from forgot password");
+        );
+        // var username = document.querySelector('#loginform #username').value;
+        // if (username) {
+        //     let result = await forgotPassword(username, this.token);
+        //     console.log(result, "from get password");
+        //     console.log(result.status);
+        //     console.log(typeof (result.status));
+        //     if (result.status == false) {
+        //         if (result.message.includes("401")) {
+        //             $('#errorMessage')[0].innerHTML = "User is not exists or not authorized to perform this action.";
+        //         } else {
+        //             $('#errorMessage')[0].innerHTML = result.message;
+        //         }
+        //     } else {
+        //         console.log("succeed");
+        //     }
+        // } else {
+        //     $('#errorMessage')[0].innerHTML = "For forgot password Username/Email ID is necessary.";
+        // }
+        // console.log(username, "from forgot password");
     }
     async login_user(event) {
         event.preventDefault();
         let username = document.querySelector('#loginform #username').value;
         let password = document.querySelector('#loginform #password').value;
-        let remember = document.querySelector('#forgot #signin_storage #storeToken').checked;
+        let remember = document.querySelector('.kept_sign_in #signin_storage #storeToken').checked;
         console.log(this);
         let result = await verifyLogin(username, password, remember)
         if (result) {
@@ -279,10 +284,10 @@ class UserReg extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div style={{ display: "flex", justifyContent: "space-between", padding: "10px", alignItems: "center" }}>
-                                    <div id="signin_storage" style={{ display: "flex", position: "relative"}}>
-                                        <input type="radio" name="user_sign_in" id="storeToken" style={{ visibility: "hidden", height: "0" }} onClick={this.save_token.bind(this)}></input>
-                                        <span style={{ width: "190px", position: "absolute", color: "#fff" }}>Keep me signed in</span>
+                                <div className="kept_sign_in">
+                                    <div id="signin_storage">
+                                        <input type="radio" name="user_sign_in" id="storeToken" onClick={this.save_token.bind(this)} ></input>
+                                        <span>Keep me signed in</span>
                                     </div>
                                     <div>
                                         <input type="submit" value="Continue" className="submit"></input>
@@ -305,11 +310,11 @@ class UserReg extends React.Component {
                                 <input type="submit" value="Continue" className="submit"></input>
                             </form>
                         </div>
-                        <div id="forgot">
+                        {/* <div id="forgot">
                             <div id="signin_storage">
                                 <input type="radio" name="user_sign_in" id="storeToken" onClick={this.save_token.bind(this)}></input>Keep me signed in
                             </div>
-                        </div>
+                        </div> */}
                         <div className="multi-login">
                             <div>
                                 <AppleIcon /> &nbsp;

@@ -158,6 +158,24 @@
                             }  
                         }                      
                     }
+                    .kept_sign_in{
+                        display: flex;
+                        justify-content: space-between;
+                        padding: 10px 30px;
+                        align-items: baseline;
+                        #signin_storage{
+                            display: flex;
+                            #storeToken{
+                                height: 0px;
+                                visibility: hidden;
+                            }
+                            span{
+                                position: absolute;
+                                color: #fff;
+                                margin-left: 20px;
+                            }
+                        }
+                    }
                 }
                 #registerform {
                     left:750px;
@@ -189,33 +207,34 @@
                     }
                 } 
             }
-            #forgot {
-                position: relative;
-                height: 60px;
-                margin-left: auto;
-                margin-right: auto;
-                text-align: right;
-                padding-top: 3%;
-                margin-top: -300px;
-                display: flex;
-                justify-content: space-between;
-                padding-left: 20px;
-                padding-right: 20px;
-                transition: all .5s ease;
-                #signin_storage{
-                    font-family: Montserrat;
-                    color: white;
-                    input{
-                        margin-right: 10px;
-                    }
-                }
-            }
+            // #forgot {
+            //     position: relative;
+            //     height: 60px;
+            //     margin-left: auto;
+            //     margin-right: auto;
+            //     text-align: right;
+            //     padding-top: 3%;
+            //     margin-top: -300px;
+            //     display: flex;
+            //     justify-content: space-between;
+            //     padding-left: 20px;
+            //     padding-right: 20px;
+            //     transition: all .5s ease;
+            //     #signin_storage{
+            //         font-family: Montserrat;
+            //         color: white;
+            //         input{
+            //             margin-right: 10px;
+            //         }
+            //     }
+            // }
             .multi-login{
                 display: flex;
                 justify-content: space-between;
                 padding-left: 10%;
                 padding-right: 10%;
                 align-items: center;
+                margin-top: -265px;
             }
             #note{
                 font-weight: 100;

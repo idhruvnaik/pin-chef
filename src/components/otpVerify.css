@@ -48,8 +48,23 @@ form, #forgot-panel {
 .heading{
     margin-top: 40px;
     margin-bottom: 40px;
+    display: flex;
+    justify-content: center;
 }
-
+.heading div:first-child {
+    text-align-last: left;
+    width: 10%;
+}
+.heading div:first-child img {
+    height: 15px;
+    cursor: pointer;
+}
+.heading div:last-child {
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    margin-right: 10%;
+}
 .user_mail{
     color: white;
     margin-bottom: 40px;
@@ -86,6 +101,19 @@ form, #forgot-panel {
     font-family: Montserrat;
     font-size: 16px;
 }
+.verify_otp {
+    width: 3.5em;
+    height: 50px;
+    background-color: white;
+    border-radius: 24px;
+}
+.verify_otp img{
+    width: 74%;
+    height: 100%;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+}
 /* .verify_otp{
     background-image: url(../assets/png_icons/incorrect\ pin\ icon.png);
 } */
@@ -93,4 +121,44 @@ form, #forgot-panel {
     margin-top: 20%;
     color: #FFD54F;
     text-shadow: 1px 1px black;
+    cursor: pointer;
+}
+.resend-otp-popup{
+    width: 200px;
+    height: 200px;
+    border-radius: 25px;
+    background-color: white;
+    box-shadow: 2px 2px 5px #707070;
+    padding: 20px 0px 0px 20px;
+}
+.resend-otp-popup .icon{
+    width: 100%;
+    height: 20%;
+    padding: 5px;
+    left: 34%;
+    position: relative;
+}
+.resend-otp-popup .icon img{
+    height: 90%;
+}
+.resend-otp-popup .pop-up-instructions{
+    padding: 10px;
+    height: 50%;
+}
+.resend-otp-popup .actions{
+    display: flex;
+    height: 6%;
+    justify-content: flex-end;
+    align-items: center;
+}
+.resend-otp-popup .actions button{
+    margin-right: 0px;
+    background-color: #469A21;
+    color: white;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    font-size: 16px;
+    font-weight: 700;
+    box-shadow: 2px 2px 5px #707070;
 }
