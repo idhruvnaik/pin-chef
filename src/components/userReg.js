@@ -51,6 +51,7 @@ class UserReg extends React.Component {
         this.change_user = this.change_user.bind(this);
         this.login_user = this.login_user.bind(this);
         this.ShowPassword = this.ShowPassword.bind(this);
+        this.ShowRegistrationPassword = this.ShowRegistrationPassword.bind(this);
         this.open_terms = this.open_terms.bind(this);
         this.get_password = this.get_password.bind(this);
         this.state = {
@@ -113,25 +114,6 @@ class UserReg extends React.Component {
                 pathname: '/User/ForgotPassword'
             }
         );
-        // var username = document.querySelector('#loginform #username').value;
-        // if (username) {
-        //     let result = await forgotPassword(username, this.token);
-        //     console.log(result, "from get password");
-        //     console.log(result.status);
-        //     console.log(typeof (result.status));
-        //     if (result.status == false) {
-        //         if (result.message.includes("401")) {
-        //             $('#errorMessage')[0].innerHTML = "User is not exists or not authorized to perform this action.";
-        //         } else {
-        //             $('#errorMessage')[0].innerHTML = result.message;
-        //         }
-        //     } else {
-        //         console.log("succeed");
-        //     }
-        // } else {
-        //     $('#errorMessage')[0].innerHTML = "For forgot password Username/Email ID is necessary.";
-        // }
-        // console.log(username, "from forgot password");
     }
     async login_user(event) {
         event.preventDefault();
@@ -148,15 +130,7 @@ class UserReg extends React.Component {
                         'token_details',
                         result
                     );
-                    console.log(result);
-                    console.log(this);
                     this.props.addTokenToState(result);
-                    // this.props.history.push(
-                    //     {            
-                    //         pathname: '/Verifyotp',
-                    //         email: document.querySelector('#loginform #username').value
-                    //     }
-                    // );
                     if (result.roleID == 2) {
                         this.props.history.push(
                             {
@@ -173,16 +147,16 @@ class UserReg extends React.Component {
 
                 } else {
                     if (result.roleID == 2) {
-                        $('#errorMessage')[0].innerHTML = "User is not user";
+                        $('#loginform #errorMessage')[0].innerHTML = "User is not user";
                     } else {
-                        $('#errorMessage')[0].innerHTML = "User is not Chef";
+                        $('#loginform #errorMessage')[0].innerHTML = "User is not Chef";
                     }
                 }
             } else {
                 if (result.message.includes("401")) {
-                    $('#errorMessage')[0].innerHTML = "User is not exists or not authorized to perform this action.";
+                    $('#loginform #errorMessage')[0].innerHTML = "User is not exists or not authorized to perform this action.";
                 } else {
-                    $('#errorMessage')[0].innerHTML = result.message;
+                    $('#loginform #errorMessage')[0].innerHTML = result.message;
                 }
 
                 console.log(result.message);
@@ -192,26 +166,57 @@ class UserReg extends React.Component {
 
     async register_user(event) {
         event.preventDefault();
-        var data = {
-            "email": document.querySelector('#registerform #email').value,
-            "user_name": document.querySelector('#registerform #user_id').value,
-            "password": document.querySelector('#registerform #password').value,
-            "roleID": user_role,
-            "default_sub_type": "basic"
-        }
-        console.log(data);
-        let resp = await registerUser(data);
-        console.group("from register_user");
-        console.log(resp);
-        console.log(this);
-        this.props.addTokenToState(resp);
-        // const dispatch = useDispatch(() => dispatch(addToken()));
-        this.props.history.push(
-            {
-                pathname: '/Verifyotp',
-                email: document.querySelector('#registerform #email').value
+        let email = document.querySelector('#registerform #username').value;
+        console.log(email, "from register user");
+        var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        if(re.test(email)){
+            let username = re.exec(email)[1];
+            var data = {
+                email: email,
+                user_name: username,
+                password: document.querySelector('#registerform #password').value,
+                roleID: user_role
             }
-        );
+            console.log(data);
+            let result = await registerUser(data);
+            if (result) {
+                if (result.status == false) {
+                    $('#registerform #errorMessage')[0].innerHTML = result.message;
+                } else{
+                    if (result.auth_token) {
+                        result.remember = false;
+                        result.roleID = user_role;
+                        console.log(result);
+                        delete result["otp"];                        
+                        reactLocalStorage.setObject(
+                            'token_details',
+                            result
+                        );
+                        this.props.addTokenToState(result);
+                        if (user_role == 1){
+                            this.props.history.push(
+                                {
+                                    pathname: '/Verifyotp',
+                                    email: email,
+                                    redirect: "/User/CreateProfile"
+                                }
+                            );
+                        } else{
+                            this.props.history.push(
+                                {
+                                    pathname: '/Verifyotp',
+                                    email: email,
+                                    redirect: "/Chef/CreateProfile"
+                                }
+                            );
+                        }
+                    }
+                }
+            }
+        } else{
+            $('#registerform #errorMessage')[0].innerHTML = "Invalid Email ID.";
+        }
+        // this.props.addTokenToState(resp);
     };
     save_token(a) {
         if (a.ctrlKey || a.metaKey) {
@@ -220,17 +225,30 @@ class UserReg extends React.Component {
         }
     };
     ShowPassword() {
-        console.log("show password");
         if ($('.active_password').length > 0) {
             $('.active_password')[0].src = showPassword;
             $('.active_password').removeClass('active_password');
             $('#loginform #password')[0].type = "text";
-            $('.password_input .symbol').css("padding-top", "24px");
+            $('#loginform .password_input .symbol').css("padding-top", "24px");
         } else {
             $('#loginform #password')[0].type = "password";
             $('#active_password').addClass('active_password');
             $('.active_password')[0].src = HidePassword;
-            $('.password_input .symbol').css("padding-top", "22px");
+            $('#loginform .password_input .symbol').css("padding-top", "22px");
+        }
+    };
+    ShowRegistrationPassword() {
+        console.log("show password");
+        if ($('.registration_password').length > 0) {
+            $('.registration_password')[0].src = showPassword;
+            $('.registration_password').removeClass('registration_password');
+            $('#registerform #password')[0].type = "text";
+            $('#registerform .password_input .symbol').css("padding-top", "24px");
+        } else {
+            $('#registerform #password')[0].type = "password";
+            $('#registration_password').addClass('registration_password');
+            $('.registration_password')[0].src = HidePassword;
+            $('#registerform .password_input .symbol').css("padding-top", "22px");
         }
     };
     open_terms() {
@@ -295,33 +313,44 @@ class UserReg extends React.Component {
                                 </div>
                             </form>
                             <form action="" id="registerform" onSubmit={this.register_user}>
-                                <label htmlFor="email">Email</label>
-                                <div className="email_input">
-                                    <input type="text" id="email" placeholder="Enter email address" required></input>
+                                <div className="username_container">
+                                    <label htmlFor="email">Email/ID</label>
                                 </div>
-                                <label htmlFor="password">Password</label>
-                                <div className="reg_password_input">
-                                    <input type="password" id="password" placeholder="Enter Password"></input>
+                                <div className="user_input">
+                                    <div className="name_container">
+                                        <div className="symbol">
+                                            <img src={Email}></img>
+                                        </div>
+                                        <div>
+                                            <div id="errorMessage"></div>
+                                            <input type="text" id="username" placeholder="Enter email address" required></input>
+                                        </div>
+                                    </div>
                                 </div>
-                                <label htmlFor="user_id">User ID-Nickname</label>
-                                <div className="reg_user_input">
-                                    <input type="text" id="user_id" placeholder="ex: JohnDoe23"></input>
+                                <div className="password_container">
+                                    <label htmlFor="password">Password</label>
+                                </div>
+                                <div className="password_input">
+                                    <div>
+                                        <div>
+                                            <img src={Password}></img>
+                                        </div>
+                                        <input type="password" id="password" placeholder="Enter Password" required></input>
+                                        <div className="symbol">
+                                            <img src={HidePassword} id="registration_password" className="registration_password" onClick={this.ShowRegistrationPassword}></img>
+                                        </div>
+                                    </div>
                                 </div>
                                 <input type="submit" value="Continue" className="submit"></input>
                             </form>
                         </div>
-                        {/* <div id="forgot">
-                            <div id="signin_storage">
-                                <input type="radio" name="user_sign_in" id="storeToken" onClick={this.save_token.bind(this)}></input>Keep me signed in
-                            </div>
-                        </div> */}
                         <div className="multi-login">
                             <div>
                                 <AppleIcon /> &nbsp;
                                 <FbIcon /> &nbsp;
                                 <GoogleIcon /> &nbsp;
                             </div>
-                            <span style={{ color: "#FFD54F", textShadow: "2px 2px grey", textDecoration: "none", cursor: "pointer" }} onClick={this.get_password}>FORGOT PASSWORD</span>
+                            <span id="forgot" style={{ color: "#FFD54F", textShadow: "2px 2px grey", textDecoration: "none", cursor: "pointer" }} onClick={this.get_password}>FORGOT PASSWORD</span>
                         </div>
                         <div id="note">
                             Signing In or Signing Up means you accept our <span onClick={this.open_terms}><u><b>Terms/Conditions</b></u> &amp; <u><b>Privacy Policy</b></u></span>

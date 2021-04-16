@@ -1,15 +1,16 @@
-.reset-passwword-page{
+.user-profile-page{
     font-family: Montserrat;
     .rp-container * {
         box-sizing: border-box;
-        font-family: Montserrat;
+        // font-family: Montserrat;
     }
     .rp-container{
         width: 90%;
-        margin-top: 10%;
-        margin-bottom: 7%;
+        margin-top: 5%;
+        margin-bottom: 5%;
         margin-left: 5%;
-        height: 96%;
+        height: 100%;
+        font-family: Montserrat;
         .login-register {
             height: 100%;
             width: 50%;
@@ -27,7 +28,7 @@
         .login-register{
             .heading{
                 margin-top: 40px;
-                margin-bottom: 60px;
+                margin-bottom: 20px;
                 display: flex;
                 justify-content: center;
                 padding-left: 10px;
@@ -44,6 +45,14 @@
                     display: flex;
                     justify-content: center;
                     margin-right: 10%;
+                    font-weight: 1000;
+                }
+            }
+            .profile-iamge-container{
+                margin-bottom: 10px;
+                img{
+                    height: 100%;
+                    cursor: pointer;
                 }
             }
             form input {
@@ -68,27 +77,12 @@
                     div {
                         background-color: white;
                         height: 100%;
-                        display: flex;
                         border-top-right-radius: 30px;
                         border-bottom-right-radius: 30px;
-                        div {
-                            width: 50px;
-                            background-color: white;
-                            padding-left: 10px;
-                        }
-                        div:first-child {
-                            padding-top: 18px;
-                        }
                         input {
-                            text-align: left;
+                            text-align: center;
                             padding-left: 20px;
-                            height: 63px;
-                        }
-                        .password_symbol {
-                            padding-top: 22px;
-                            padding-right: 8px;
-                            border-top-right-radius: 100px;
-                            border-bottom-right-radius: 30px;
+                            height: 55px;
                         }
                     }
                 }
@@ -102,49 +96,38 @@
                     display: flex;
                     padding-left: 30px;
                     margin-bottom: 20px;
-                    // box-shadow: 2px 2px 5px #707070;
                     .name_container{
-                        display: flex;
                         background-color: white;
                         width: 100%;
+                        display: flex;
                         border-top-left-radius: 30px;
                         border-bottom-left-radius: 30px;
-                        .symbol{
-                            width: 50px;
-                            background-color: white;
-                            border-top-left-radius: 30px;
-                            border-bottom-left-radius: 30px;
-                            img{
-                                margin-top: 15px;
-                            }
-                        }
-                        .user_symbol{
-                            padding-top: 22px;
-                            padding-right: 8px;
-                            border-top-right-radius: 100px;
-                            border-bottom-right-radius: 30px;
-                        }
-                        div:nth-child(2) {
+                        input{
                             width: 100%;
-                            background-color: white;
-                            div {
-                                text-align: right;
-                                padding-right: 15%;
-                                margin-right: 0px;
-                                color: red;
-                                font-size: 12px;
-                                padding-top: 3px;
-                                text-transform: uppercase;
-                                background-color: white;
-                                height: 20px;
-                                width: 100%;
-                            }
-                        }
-                        
-                        input {
-                            text-align: left;
+                            text-align: center;
                             padding-left: 20px;
-                            padding-bottom: 19px;
+                            height: 55px;
+                        }
+                        .symbol{
+                            width: 100%;
+                            .react-tel-input {
+                                .flag-dropdown {
+                                    border: none;
+                                    border-top-left-radius: 30px;
+                                    border-bottom-left-radius: 30px;
+                                    background-color: white;
+                                    width: 55px;
+                                    .selected-flag{
+                                        border-top-left-radius: 30px;
+                                        border-bottom-left-radius: 30px;
+                                        background-color: white;
+                                        width: 55px;
+                                        .flag {
+                                            left: 33%;
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -161,9 +144,8 @@
                         font-family: Montserrat;
                         border-radius: 20px;
                         background-color: #BF2612;
-                        position: relative;
-                        top: 90px;
                         box-shadow: 2px 2px 5px #707070;
+                        margin-top: 30px;
                     }
                 }
             }

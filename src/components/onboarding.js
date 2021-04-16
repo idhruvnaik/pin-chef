@@ -24,7 +24,6 @@ import OnboardingUser1 from '../assets/svg/OnboardingUser1';
 // import OnboardingUser3 from '../../assets/svg/OnboardingUser3';
 // import OnboardingUser4 from '../../assets/svg/OnboardingUser4';
 import GlobalStyles from '../styles/GlobalStyles';
-import './onboarding.css'
 import FinalLogo from '../assets/images/Logo-small.png'
 import Home from '../assets/png_icons/Home.png'
 import Home_selected from '../assets/png_icons/Home_selected.png'
@@ -37,6 +36,9 @@ import User2 from '../assets/png_icons/user Onboarding 2 image.png'
 import User3 from '../assets/png_icons/user Onboarding 3 image.png'
 import User4 from '../assets/png_icons/User Onboarding 4 image.png'
 import Carousel from 'react-elastic-carousel';
+
+import $ from 'jquery';
+import './onboarding.css'
 
 
 const users = [
@@ -131,10 +133,30 @@ export default function Onboarding(props) {
     });
   };
 
+  function change_css(currentItem, pageIndex){
+    console.log(currentItem, "from function");
+    console.log(pageIndex, "from function");
+    // $('.rec-dot').css('background-color', 'white');
+    // $('.rec-dot').css('box-shadow', 'none');
+    // $('.rec-dot_active').css('background-color', '#FFCF54');
+  }
+
   return (
     <div className="outer-layout" style={{background: "linear-gradient( 184deg, white,#464040 92%)"}}>
       <CommonHeader />
-      <Carousel className="onboarding-portal" breakPoints={breakPoints} showArrows={false}>
+      <Carousel 
+        className="onboarding-portal" 
+        breakPoints={breakPoints} 
+        showArrows={false} 
+        initialActiveIndex={0} 
+        enableMouseSwipe={true} 
+        autoTabIndexVisibleItems={true} 
+        focusOnSelect={true}
+        onChange={(currentItem, pageIndex) => change_css(currentItem, pageIndex)}
+        onNextStart={(currentItem, nextItem) =>
+          console.log(currentItem, nextItem, "from onnextstart of slider")
+        }
+      >
         <div className="chef-portal">
           <img src={User1}></img>
           <div className="content">

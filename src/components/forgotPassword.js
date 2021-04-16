@@ -41,7 +41,8 @@ class ForgotPassword extends React.Component {
                 this.props.history.push(
                     {            
                         pathname: '/Verifyotp',
-                        email: result.email
+                        email: result.email,
+                        redirect: "/User/ResetPassword"
                     }
                 );
             }

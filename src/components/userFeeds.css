@@ -268,7 +268,7 @@ ul.switch-content-1 li {
   text-align: left;
   font-size: 14px;
   line-height: 21px;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
 }
 
 .userpost {
@@ -657,8 +657,9 @@ ul.switch-content-1 li {
 .settings-content .my_profile .profile_activity{
   display: flex;
   justify-content: space-between;
-  margin-bottom: 30px;
-  border-bottom: 1px solid lightgreen;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed rgba(70, 64, 64, 0.42);
   color: #5B5353;
   padding-left: 5%;
   padding-right: 5%;

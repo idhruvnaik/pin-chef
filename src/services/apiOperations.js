@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { addToken, removeToken, signIn} from './actions';
 
 const apiHost = "http://35.175.243.253:8080/api"
+// const apiHost = "https://pinchef.io:8080/api"
 const registration_endpoint = "/auth/user"
 const login_endpoint = "/auth/login"
 const otp_endpoint = "/account/verify-otp"
@@ -94,7 +95,10 @@ export const registerUser= async(data)=>{
         let resp = await make_rest_call(apiURL, 'POST', data, {});
         return resp;
     } catch (error){
-        console.log(error);
+        return {
+            status: false,
+            message: error.message
+        };
     }
 }
 
@@ -924,7 +928,7 @@ export const resetOTP = async(user_name)=>{
 }
 
 export const resetPaasword = async(user_name, password)=>{
-    let apiURL = apiHost + resend_otp_endpoint;
+    let apiURL = apiHost + reset_password_endpoint;
     var data = {
         user_name: user_name,
         new_password: password

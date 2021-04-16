@@ -87,6 +87,7 @@
                         text-align-last: left;
                         margin-bottom: 5px;
                         padding-left: 80px;
+                        text-align: left;
                     }
                     .user_input{
                         display: flex;
@@ -126,6 +127,7 @@
                         text-align-last: left;
                         margin-bottom: 5px;
                         padding-left: 20px;
+                        text-align: left;
                     }
                     .password_input{
                         padding-right: 50px;
@@ -180,22 +182,102 @@
                 #registerform {
                     left:750px;
                     opacity: 0;
-                    input{
-                        margin-bottom: 20px;
-                        box-shadow: 1px 1px black;
+                    font-family: Montserrat;
+                    .username_container{
+                        text-align-last: left;
+                        margin-bottom: 5px;
+                        padding-left: 80px;
+                        text-align: left;
                     }
-                    .email_input{
+                    .user_input{
+                        display: flex;
                         padding-left: 50px;
-                        input{
+                        margin-bottom: 20px;
+                        .name_container{
+                            display: flex;
+                            background-color: white;
+                            width: 100%;
                             border-top-left-radius: 30px;
                             border-bottom-left-radius: 30px;
+                            .symbol{
+                                width: 50px;
+                                background-color: white;
+                                border-top-left-radius: 30px;
+                                border-bottom-left-radius: 30px;
+                                img{
+                                    margin-top: 18px;
+                                }
+                            }
+                            div:nth-child(2) {
+                                width: 100%;
+                                background-color: white;
+                                div {
+                                    text-align: right;
+                                    padding-right: 15%;
+                                    color: red;
+                                    font-size: 12px;
+                                    padding-top: 3px;
+                                    text-transform: uppercase;
+                                    background-color: white;
+                                    height: 20px;
+                                    width: 100%;
+                                }
+                            }
+                            input {
+                                text-align: left;
+                                padding-left: 20px;
+                                padding-bottom: 19px;
+                            }
                         }
+                    }
+                    .password_container {
+                        text-align-last: left;
+                        margin-bottom: 5px;
+                        padding-left: 20px;
+                        text-align: left;
+                    }
+                    .password_input{
+                        padding-right: 50px;
+                        margin-bottom: 20px;
+                        height: 100%;
+                        div{
+                            background-color: white;
+                            height: 100%;
+                            display: flex;
+                            border-top-right-radius: 30px;
+                            border-bottom-right-radius: 30px;
+                            div{
+                                width: 50px;
+                                background-color: white;
+                                padding-left: 10px;
+                            }
+                            input{
+                                text-align: left;
+                                padding-left: 20px;
+                                height: 63px;
+                            }
+                            .symbol{
+                                padding-top: 22px;
+                                padding-right: 8px;
+                                border-top-right-radius: 80px;
+                                border-bottom-right-radius: 30px;
+                            }
+                            div:first-child{
+                                padding-top: 18px;
+                            }  
+                        }                      
+                    }
+                    .submit{
+                        margin-top: 20px;
                     }
                     .reg_password_input{
                         padding-right: 50px;
                         #password{
                             border-top-right-radius: 30px;
                             border-bottom-right-radius: 30px;
+                            height: 55px;
+                            text-align: left;
+                            padding-left: 20px;
                         }
                     }
                     .reg_user_input{
@@ -207,34 +289,13 @@
                     }
                 } 
             }
-            // #forgot {
-            //     position: relative;
-            //     height: 60px;
-            //     margin-left: auto;
-            //     margin-right: auto;
-            //     text-align: right;
-            //     padding-top: 3%;
-            //     margin-top: -300px;
-            //     display: flex;
-            //     justify-content: space-between;
-            //     padding-left: 20px;
-            //     padding-right: 20px;
-            //     transition: all .5s ease;
-            //     #signin_storage{
-            //         font-family: Montserrat;
-            //         color: white;
-            //         input{
-            //             margin-right: 10px;
-            //         }
-            //     }
-            // }
             .multi-login{
                 display: flex;
                 justify-content: space-between;
                 padding-left: 10%;
                 padding-right: 10%;
                 align-items: center;
-                margin-top: -265px;
+                margin-top: -250px;
             }
             #note{
                 font-weight: 100;

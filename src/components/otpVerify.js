@@ -28,6 +28,7 @@ class VerifyOTP extends React.Component {
         if (this.props.location.email) {
             // this.email = this.props.token_details.token.user_name;
             this.email = this.props.location.email;
+            this.redirect = this.props.location.redirect;
         } else {
             this.props.history.push(
                 {
@@ -43,6 +44,7 @@ class VerifyOTP extends React.Component {
             otp: '',
             resend_otp_flag: false
         };
+        console.log(this);
     }
 
     handleChange(otp) {
@@ -66,7 +68,7 @@ class VerifyOTP extends React.Component {
             } else {
                 this.props.history.push(
                     {
-                        pathname: '/User/ResetPassword',
+                        pathname: this.redirect,
                         email: username
                     }
                 );

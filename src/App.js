@@ -8,6 +8,7 @@ import VerifyOtp from './components/otpVerify'
 import ChefComponents from './components/chefComponents/chefHome'
 import ForgotPassword from './components/forgotPassword'
 import ResetPassword from './components/resetPassword'
+import UserProfile from './components/userProfile'
 import $ from 'jquery';
 // import CommonComponents from './components/commonComponents'
 
@@ -35,6 +36,7 @@ function App() {
           <Switch>
               <Route path='/Chef/Home' component={ChefComponents} />
               <Route path='/VerifyOTP' component={VerifyOtp} />
+              <Route path='/User/CreateProfile' component={UserProfile} />
               <Route path='/User/ResetPassword' component={ResetPassword} />
               <Route path='/User/ForgotPassword' component={ForgotPassword} />
               <Route path='/User' component={UserReg} />

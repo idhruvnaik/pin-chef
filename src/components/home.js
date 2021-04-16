@@ -390,7 +390,6 @@ export default class home extends Component {
                     {this.state.feeds.length > 0 && this.state.feeds.map((item) => {
                         return (
                             <div className="feed" id={item._id}>
-                                {console.log(item)}
                                 <div className="primary-details">
                                     <div className="l-div">
                                         <div className="profile-img-container">
