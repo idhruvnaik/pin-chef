@@ -112,7 +112,7 @@ ul.switch-content-1 li {
 .each_service {
   width: calc(100% - 20px);
   margin-bottom: 20px;
-  padding: 0px 10px;
+  padding: 0px 8px;
 }
 /* .each_food .primary-details div:last-child img,
 .each_service .primary-details div:last-child img {
@@ -266,7 +266,7 @@ ul.switch-content-1 li {
 .user-feed-page .user-pallet .menu-bar .home-content .feeds .post-content,
 .user-feed-page .user-pallet .menu-bar .star-content .feeds_2 .post-content {
   text-align: left;
-  font-size: 14px;
+  font-size: 13px;
   line-height: 21px;
   overflow-wrap: break-word;
 }

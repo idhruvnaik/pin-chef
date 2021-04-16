@@ -48,6 +48,7 @@ const unlike_recipe_comment_endpoint = "/recipe-comment/unlike"
 const forgot_password_endpoint = "/account/forgot-password"
 const resend_otp_endpoint = "/resend-otp"
 const reset_password_endpoint = "/account/password"
+const set_user_profile_endpoint = "/profile"
 
 
 async function make_rest_call(apiURL, method, body, headers){
@@ -935,6 +936,27 @@ export const resetPaasword = async(user_name, password)=>{
     }
     try{
         let resp = await make_rest_call(apiURL, 'PATCH', data, {});
+        return resp;
+    }
+    catch(err){
+        return {
+            status: false,
+            message: err.message
+        }
+    }
+}
+
+export const CreateUserProfile = async(user_id, image, username, mobile_no, token)=>{
+    let apiURL = apiHost + set_user_profile_endpoint + "/" + user_id;
+    var headers = {
+        "Authorization": "Bearer " + token
+    };
+    var bodyFormData = new FormData();
+    bodyFormData.append('upload', image);
+    bodyFormData.append('name', username);
+    bodyFormData.append('mobile', mobile_no);
+    try{
+        let resp = await make_rest_call(apiURL, 'POST', bodyFormData, headers);
         return resp;
     }
     catch(err){

@@ -9,6 +9,7 @@
     background: linear-gradient( 184deg, white,#464040 92%);
     height: 100%;
     position: relative;
+    font-family: Montserrat;
 }
 .chef-portal {
     border: 1px solid #0370a7;
@@ -17,7 +18,7 @@
     margin-right: 10px;
     width: calc(100% - 80px);
     padding: 40px 20px 0px 20px;
-    box-shadow: 0 0 10px #464040;
+    box-shadow: 3px 7px 7px #464040;
     background-color: white;
 }
 .content {
@@ -31,11 +32,12 @@
 }
 .start button{
     background-color: transparent;
-    color: lightgreen;
+    color: #3F8F22;
     font-weight: 800;
     font-size: large;
     border: none;
     text-shadow: 2px 2px    black;
+    font-family: Montserrat;
 }
 .start{
     margin-right: 5%;
@@ -45,35 +47,41 @@
     bottom: 80px;
     right: 10px;
 }
-.ewJlEB {
+.rec-carousel-wrapper {
     width: calc(100% - 50px) !important;
 }
 button.rec-dot{
     box-shadow: none;
     background-color: white;
 }
-button.cJeRRR{
+button.rec-dot_active{
     background-color: #FFCF54;
     box-shadow: none;
 }
-button.cJeRRR:hover, button.cJeRRR:focus{
+button.rec-dot_active:hover, button.rec-dot_active:focus{
     box-shadow: none;
 }
-.rec-carousel-item:focus {
+/* .rec-carousel-item:focus {
     outline: none;
     box-shadow: inset 0 0 1px 1px red;
-}
-.tXlBS{
-    margin-top: 10px;
+} */
+.rec-item-wrapper{
+    margin-top: 15px;
     cursor: pointer;
 }
-.tXlBS:hover{
+.rec-item-wrapper:hover{
     margin-top: 0px;
 }
 .chef-portal:hover{
     height: 410px;
 }
-div.bkVSTc {
+.rec-carousel-item-visible .rec-item-wrapper{
+    margin-top: 0px;
+}
+.rec-carousel-item-visible .rec-item-wrapper .chef-portal{
+    height: 420px;
+}
+div.rec-pagination {
     position: fixed;
     bottom: 80px;
 }

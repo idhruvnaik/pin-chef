@@ -65,7 +65,6 @@
                 }
                 .submit {
                     font-weight: 700;
-                    text-transform: uppercase;
                     font-size: 1em;
                     text-align: center;
                     color: rgba(255,255,255, 1);
@@ -76,13 +75,10 @@
                     font-family: Montserrat;
                     border-radius: 20px;
                     background-color:#BF2612;
-                
+                    box-shadow: 2px 2px 5px #707070;
                 }
                 #loginform{
                     left:0px;
-                    label {
-                        text-transform: uppercase;
-                    }
                     .username_container{
                         text-align-last: left;
                         margin-bottom: 5px;
@@ -299,8 +295,7 @@
             }
             #note{
                 font-weight: 100;
-                font-family: Montserrat;
-                padding: 10px;
+                padding: 20px 102px 10px 102px;
                 span{
                     cursor: pointer;
                 }

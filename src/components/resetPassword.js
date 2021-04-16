@@ -6,8 +6,8 @@ import './resetPassword.scss'
 import OtpInput from 'react-otp-input';
 import IncorrectPin from '../assets/png_icons/incorrect pin icon.png'
 import FPBack from '../assets/svg/fp-back-icon.svg';
-import showPassword from '../assets/png_icons/Show password icon.png';
-import HidePassword from '../assets/png_icons/Hide password icon.png';
+import showPassword from '../assets/svg/show password.svg';
+import HidePassword from '../assets/svg/Hide password.svg';
 import Password from '../assets/svg/Password icon.svg'
 import $ from 'jquery';
 
@@ -23,15 +23,15 @@ const mapDispatchToProps = dispatch => ({
 class ResetPassword extends React.Component {
     constructor(props) {
         super(props);
-        if (this.props.location.email) {
-            this.email = this.props.location.email;
-        } else {
-            this.props.history.push(
-                {
-                    pathname: '/User'
-                }
-            );
-        }
+        // if (this.props.location.email) {
+        //     this.email = this.props.location.email;
+        // } else {
+        //     this.props.history.push(
+        //         {
+        //             pathname: '/User'
+        //         }
+        //     );
+        // }
         this.reset_password = this.reset_password.bind(this);
         this.back_to_login = this.back_to_login.bind(this);
         this.ShowPassword = this.ShowPassword.bind(this);
@@ -81,7 +81,7 @@ class ResetPassword extends React.Component {
             $('.' + parentClass + ' .active_password').removeClass('active_password');
             $('#loginform #' + input_id)[0].type = "text";
             if(parentClass == "password_symbol"){
-                $('.'+ input_id +'_input .symbol').css("padding-top", "24px");
+                $('.'+ input_id +'_input .symbol').css("padding-top", "26px");
             }
         } else {
             $('#loginform #' + input_id)[0].type = "password";
