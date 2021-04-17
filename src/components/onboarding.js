@@ -10,31 +10,17 @@ import { BrowserRouter as Router, Switch, Route, /*Link*/ } from 'react-router-d
 // import LinearGradient from 'react-native-linear-gradient';
 // import {RFValue} from './onboard';
 // import Logo from '../../assets/svg/Logo';
-// import OnboardingChef1 from '../../assets/svg/OnboardingChef1';
-import OnboardingChef2 from '../assets/svg/OnboardingChef2';
-import OnboardingChef3 from '../assets/svg/OnboardingChef3';
-import OnboardingChef1 from '../assets/svg/OnboardingChef1'
-import OnboardingChef4 from '../assets/svg/OnboardingChef4';
 import CommonComponents from './commonComponents'
 import CommonHeader from './commonHeader'
 import CommonFooter from './commonFooter'
-import User from '../assets/svg/User';
-import OnboardingUser1 from '../assets/svg/OnboardingUser1';
-// import OnboardingUser2 from '../../assets/svg/OnboardingUser2';
-// import OnboardingUser3 from '../../assets/svg/OnboardingUser3';
-// import OnboardingUser4 from '../../assets/svg/OnboardingUser4';
-import GlobalStyles from '../styles/GlobalStyles';
-import FinalLogo from '../assets/images/Logo-small.png'
-import Home from '../assets/png_icons/Home.png'
-import Home_selected from '../assets/png_icons/Home_selected.png'
-import Chef from '../assets/png_icons/Chef.png'
-import Shop from '../assets/png_icons/Shop.png'
-import Star from '../assets/png_icons/Star.png'
-import Settings from '../assets/png_icons/Settings.png'
-import User1 from '../assets/png_icons/User onbaording 1 image.png'
-import User2 from '../assets/png_icons/user Onboarding 2 image.png'
-import User3 from '../assets/png_icons/user Onboarding 3 image.png'
-import User4 from '../assets/png_icons/User Onboarding 4 image.png'
+import User1 from '../assets/svg/User onbaording 1 image.svg'
+import User2 from '../assets/svg/user Onboarding 2 image.svg'
+import User3 from '../assets/svg/user Onboarding 3 image.svg'
+import User4 from '../assets/svg/User Onboarding 4 image.svg'
+import chef1 from '../assets/svg/Chef Onboarding 1.svg'
+import chef2 from '../assets/svg/Chef 2nd onboarding icon.svg'
+import chef3 from '../assets/svg/Chef Onboarding 3.svg'
+import chef4 from '../assets/svg/Chefs onboarding 4.svg'
 import Carousel from 'react-elastic-carousel';
 
 import $ from 'jquery';
@@ -102,22 +88,7 @@ const breakPoints = [
   { width: 1200, itemsToShow: 4, itemsToScroll: 2 }
 ];
 
-export default function Onboarding(props) {
-  function _renderSkipButton() {
-    return (
-      <text
-        style={{
-          marginTop: 10,
-          fontFamily: GlobalStyles.font.fontFamilyBold,
-          fontSize: 18,
-          color: GlobalStyles.color.white,
-          fontWeight: '100',
-        }}>
-        Skip
-      </text>
-    );
-  };
-  
+export default function Onboarding(props) {  
   function start_flow() {
     console.log("to shuru kare");
     console.log(props);
@@ -128,18 +99,47 @@ export default function Onboarding(props) {
     //     </Switch>
     //   </Router>
     // );
-    props.history.push({
-      pathname:"/Homepage",
-    });
+    if($('.start button')[0].innerHTML == "START"){
+      props.history.push({
+        pathname:"/Homepage",
+      });
+    } else{
+      // goto(1);
+    }
   };
 
   function change_css(currentItem, pageIndex){
     console.log(currentItem, "from function");
     console.log(pageIndex, "from function");
+    console.log(window.screen.width);
+    var child_count = $('.rec-pagination')[0].childElementCount;
+    // if(window.screen.width > 1200){
+      if(pageIndex == (child_count - 1)){
+        $('.start button')[0].innerHTML = "START";
+      } else{
+        $('.start button')[0].innerHTML = "SKIP";
+      }
+    // } else if(window.screen.width <= 1024){
+    //   if(pageIndex == 2){
+    //     $('.start button')[0].innerHTML = "START";
+    //   } else{
+    //     $('.start button')[0].innerHTML = "SKIP";
+    //   }
+    // } else if(window.screen.width < 600){
+    //   if(pageIndex == 7){
+    //     $('.start button')[0].innerHTML = "START";
+    //   } else{
+    //     $('.start button')[0].innerHTML = "SKIP";
+    //   }
+    // }
     // $('.rec-dot').css('background-color', 'white');
     // $('.rec-dot').css('box-shadow', 'none');
     // $('.rec-dot_active').css('background-color', '#FFCF54');
   }
+
+  // function goto({ target }) {
+  //   this.carousel.goTo(Number(target.value))
+  // }
 
   return (
     <div className="outer-layout" style={{background: "linear-gradient( 184deg, white,#464040 92%)"}}>
@@ -153,9 +153,11 @@ export default function Onboarding(props) {
         autoTabIndexVisibleItems={true} 
         focusOnSelect={true}
         onChange={(currentItem, pageIndex) => change_css(currentItem, pageIndex)}
+        onResize={currentBreakPoint => console.log(currentBreakPoint, "current breakpoint")}
         onNextStart={(currentItem, nextItem) =>
           console.log(currentItem, nextItem, "from onnextstart of slider")
         }
+        // ref={ref => (carousel = ref)}
       >
         <div className="chef-portal">
           <img src={User1}></img>
@@ -199,7 +201,7 @@ export default function Onboarding(props) {
         </div>  
 
         <div className="chef-portal">
-          <img src={User1}></img>
+          <img src={chef1}></img>
           <div className="content">
           {chef.map(function(item) {
               if (item.title == "Title 1"){
@@ -209,7 +211,7 @@ export default function Onboarding(props) {
           </div>
         </div>
         <div className="chef-portal">
-          <img src={User2}></img>
+          <img src={chef2}></img>
           <div className="content">
           {chef.map(function(item) {
               if (item.title == "Title 2"){
@@ -219,7 +221,7 @@ export default function Onboarding(props) {
           </div>
         </div>
         <div className="chef-portal">
-          <img src={User3}></img>
+          <img src={chef3}></img>
           <div className="content">
           {chef.map(function(item) {
               if (item.title == "Title 3"){
@@ -229,7 +231,7 @@ export default function Onboarding(props) {
           </div>
         </div>
         <div className="chef-portal">
-          <img src={User4}></img>
+          <img src={chef4}></img>
           <div className="content">
           {chef.map(function(item) {
               if (item.title == "Title 4"){
@@ -240,7 +242,7 @@ export default function Onboarding(props) {
         </div>
       </Carousel>
       <div className="start">
-        <button type="button" onClick={start_flow}>START</button>
+        <button type="button" onClick={start_flow}>SKIP</button>
       </div>
       <CommonFooter />
     </div>

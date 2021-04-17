@@ -1,6 +1,3 @@
-@font-face {
-  /* font-family: Montserrat; */
-}
 .onboarding-portal {
   display: flex;
   padding: 55px 20px 0px;
@@ -9,19 +6,20 @@
   justify-content: center;
 }
 .outer-layout {
-  background: linear-gradient(184deg, white, #464040 92%);
-  height: 100%;
-  position: relative;
+    background: linear-gradient( 184deg, white,#464040 92%);
+    height: 100%;
+    position: relative;
+    font-family: Montserrat;
 }
 .chef-portal {
-  border: 1px solid #0370a7;
-  border-radius: 20px;
-  height: 380px;
-  margin-right: 10px;
-  width: calc(100% - 80px);
-  padding: 40px 20px 0px 20px;
-  box-shadow: 0 0 10px #464040;
-  background-color: white;
+    border: 1px solid #0370a7;
+    border-radius: 20px;
+    height: 380px;
+    margin-right: 10px;
+    width: calc(100% - 80px);
+    padding: 40px 20px 0px 20px;
+    box-shadow: 3px 7px 7px #464040;
+    background-color: white;
 }
 .content {
   margin-top: 30px;
@@ -29,55 +27,61 @@
 /* .chef-portal:first-child, .chef-portal:last-child {
     min-height: 450px;
 } */
-.chef-portal img {
-  height: 40%;
+.chef-portal img{
+    height: 40%;
 }
-.start button {
-  background-color: transparent;
-  color: lightgreen;
-  font-weight: 800;
-  font-size: large;
-  border: none;
-  text-shadow: 2px 2px black;
+.start button{
+    background-color: transparent;
+    color: #3F8F22;
+    font-weight: 800;
+    font-size: large;
+    border: none;
+    text-shadow: 2px 2px    black;
+    font-family: Montserrat;
 }
-.start {
-  margin-right: 5%;
-  display: flex;
-  flex-direction: row-reverse;
-  position: fixed;
-  bottom: 80px;
-  right: 10px;
+.start{
+    margin-right: 5%;
+    display: flex;
+    flex-direction: row-reverse;
+    position: fixed;
+    bottom: 80px;
+    right: 10px;
 }
-.ewJlEB {
-  width: calc(100% - 50px) !important;
+.rec-carousel-wrapper {
+    width: calc(100% - 50px) !important;
 }
 button.rec-dot {
   box-shadow: none;
   background-color: white;
 }
-button.cJeRRR {
-  background-color: #ffcf54;
-  box-shadow: none;
+button.rec-dot_active{
+    background-color: #FFCF54;
+    box-shadow: none;
 }
-button.cJeRRR:hover,
-button.cJeRRR:focus {
-  box-shadow: none;
+button.rec-dot_active:hover, button.rec-dot_active:focus{
+    box-shadow: none;
 }
-.rec-carousel-item:focus {
-  outline: none;
-  box-shadow: inset 0 0 1px 1px red;
+/* .rec-carousel-item:focus {
+    outline: none;
+    box-shadow: inset 0 0 1px 1px red;
+} */
+.rec-item-wrapper{
+    margin-top: 15px;
+    cursor: pointer;
 }
-.tXlBS {
-  margin-top: 10px;
-  cursor: pointer;
-}
-.tXlBS:hover {
-  margin-top: 0px;
+.rec-item-wrapper:hover{
+    margin-top: 0px;
 }
 .chef-portal:hover {
   height: 410px;
 }
-div.bkVSTc {
-  position: fixed;
-  bottom: 80px;
+.rec-carousel-item-visible .rec-item-wrapper{
+    margin-top: 0px;
+}
+.rec-carousel-item-visible .rec-item-wrapper .chef-portal{
+    height: 420px;
+}
+div.rec-pagination {
+    position: fixed;
+    bottom: 80px;
 }

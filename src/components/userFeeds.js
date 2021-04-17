@@ -68,9 +68,6 @@ class UserFeeds extends React.Component {
             user_id: ''
         }
         this.state.like_post = this.like_post;
-
-        console.log("setting session variable");
-        console.log(this, "from userrrrrrrrrrrfeeds");
     
         if (this.props.token_details.token){
             console.log("jo token male to");

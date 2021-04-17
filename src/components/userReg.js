@@ -10,8 +10,8 @@ import { reactLocalStorage } from 'reactjs-localstorage';
 import './userReg.scss';
 import './userReg.css';
 import Email from '../assets/svg/Email icon.svg';
-import showPassword from '../assets/png_icons/Show password icon.png';
-import HidePassword from '../assets/png_icons/Hide password icon.png';
+import showPassword from '../assets/svg/show password.svg';
+import HidePassword from '../assets/svg/Hide password.svg';
 import Password from '../assets/svg/Password icon.svg'
 import TermsLogo from '../assets/png_icons/terms and privacy bullet icon@2x.png'
 import Terms from '../assets/svg/terms icon on menu.svg'
@@ -229,7 +229,7 @@ class UserReg extends React.Component {
             $('.active_password')[0].src = showPassword;
             $('.active_password').removeClass('active_password');
             $('#loginform #password')[0].type = "text";
-            $('#loginform .password_input .symbol').css("padding-top", "24px");
+            $('#loginform .password_input .symbol').css("padding-top", "26px");
         } else {
             $('#loginform #password')[0].type = "password";
             $('#active_password').addClass('active_password');
@@ -243,7 +243,7 @@ class UserReg extends React.Component {
             $('.registration_password')[0].src = showPassword;
             $('.registration_password').removeClass('registration_password');
             $('#registerform #password')[0].type = "text";
-            $('#registerform .password_input .symbol').css("padding-top", "24px");
+            $('#registerform .password_input .symbol').css("padding-top", "26px");
         } else {
             $('#registerform #password')[0].type = "password";
             $('#registration_password').addClass('registration_password');
@@ -277,7 +277,7 @@ class UserReg extends React.Component {
                         <div className="form-group">
                             <form action='' id="loginform" onSubmit={this.login_user}>
                                 <div className="username_container">
-                                    <label htmlFor="username">email/id</label>
+                                    <label htmlFor="username">Email/ID</label>
                                 </div>
                                 <div className="user_input">
                                     <div className="symbol">
@@ -289,7 +289,7 @@ class UserReg extends React.Component {
                                     </div>
                                 </div>
                                 <div className="password_container">
-                                    <label htmlFor="password">password</label>
+                                    <label htmlFor="password">Password</label>
                                 </div>
                                 <div className="password_input">
                                     <div>
@@ -314,7 +314,7 @@ class UserReg extends React.Component {
                             </form>
                             <form action="" id="registerform" onSubmit={this.register_user}>
                                 <div className="username_container">
-                                    <label htmlFor="email">Email/ID</label>
+                                    <label htmlFor="email">Email</label>
                                 </div>
                                 <div className="user_input">
                                     <div className="name_container">
