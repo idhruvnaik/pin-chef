@@ -1,6 +1,6 @@
 .onboarding-portal {
     display: flex;
-    padding: 55px 20px 0px;
+    padding: 45px 20px 0px;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
@@ -9,7 +9,7 @@
     background: linear-gradient( 184deg, white,#464040 92%);
     height: 100%;
     position: relative;
-    font-family: Montserrat;
+    font-family: custom-fonts-bold;
 }
 .chef-portal {
     border: 1px solid #0370a7;
@@ -18,7 +18,7 @@
     margin-right: 10px;
     width: calc(100% - 80px);
     padding: 40px 20px 0px 20px;
-    box-shadow: 3px 7px 7px #464040;
+    box-shadow: 3px -1px 7px 2px #464040;
     background-color: white;
 }
 .content {
@@ -37,7 +37,7 @@
     font-size: large;
     border: none;
     text-shadow: 2px 2px    black;
-    font-family: Montserrat;
+    font-family: custom-fonts-bold;
 }
 .start{
     margin-right: 5%;
@@ -68,15 +68,18 @@ button.rec-dot_active:hover, button.rec-dot_active:focus{
 .rec-item-wrapper{
     margin-top: 15px;
     cursor: pointer;
+    padding-top: 10px;
 }
 .rec-item-wrapper:hover{
     margin-top: 0px;
+    padding-top: 10px;
 }
 .chef-portal:hover{
     height: 410px;
 }
 .rec-carousel-item-visible .rec-item-wrapper{
     margin-top: 0px;
+    padding-top: 10px;
 }
 .rec-carousel-item-visible .rec-item-wrapper .chef-portal{
     height: 420px;

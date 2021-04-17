@@ -22,7 +22,8 @@
             .form-headers{
                 display: flex;
                 justify-content: center;
-                margin-top: 50px;
+                margin-top: 25px;
+                margin-bottom: 25px;
                 padding-left: 5px;
                 .nav-buttons{
                     width: 72%;
@@ -37,14 +38,24 @@
                 }
             }
             #user_choice{
-                margin-bottom: 5%;
-                color: #FFCF54;
-                text-align: right;
-                text-decoration: underline;
+                margin-top: 5%;
                 margin-right: 20px;
-                span{
-                    color: #FFCF54;
+                display: flex;
+                justify-content: flex-end;
+                div{
+                    background-color: #469A21;
+                    padding: 7px 10px 7px 10px;
+                    align-items: center;
+                    display: flex;
                     cursor: pointer;
+                    border-radius: 25px;
+                    box-shadow: 2px 2px 5px #707070;
+                    span{
+                        color: white;
+                    }
+                    img{
+                        margin-left: 5px;
+                    }
                 }
             }
             .form-group{
@@ -72,10 +83,11 @@
                     width: 120px;
                     height: 35px;
                     border: none;
-                    font-family: Montserrat;
+                    font-family: custom-fonts-bold;
                     border-radius: 20px;
                     background-color:#BF2612;
                     box-shadow: 2px 2px 5px #707070;
+                    opacity: 1;
                 }
                 #loginform{
                     left:0px;
@@ -178,7 +190,7 @@
                 #registerform {
                     left:750px;
                     opacity: 0;
-                    font-family: Montserrat;
+                    font-family: custom-fonts-bold;
                     .username_container{
                         text-align-last: left;
                         margin-bottom: 5px;
@@ -296,6 +308,7 @@
             #note{
                 font-weight: 100;
                 padding: 20px 102px 10px 102px;
+                font-family: custom-fonts;
                 span{
                     cursor: pointer;
                 }

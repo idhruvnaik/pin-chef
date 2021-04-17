@@ -52,19 +52,35 @@ const set_user_profile_endpoint = "/profile"
 
 
 async function make_rest_call(apiURL, method, body, headers){
-    let res = await axios(
-        {
-            url:apiURL,
-            method:method,
-            headers: headers,
-            data: body
+    try{
+        let res = await axios(
+            {
+                url:apiURL,
+                method:method,
+                headers: headers,
+                data: body
+            }
+        )
+        if(res.status == 200){
+            return res.data;
+        }else{
+            return false;
         }
-    )
-    if(res.status == 200){
-        return res.data;
-    }else{
-        return false;
+    } catch (error){
+        if(error.response.data){
+            if(error.response.data.message){
+                return {
+                    status: false,
+                    message: error.response.data.message
+                }
+            }
+        }
+        return {
+            status: false,
+            message: error.message
+        };
     }
+    
 }
 
 export const verifyLogin= async(username, password, remember)=>{

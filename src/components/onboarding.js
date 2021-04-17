@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 // import OwlCarousel from 'react-owl-carousel';
 // import 'owl.carousel/dist/assets/owl.carousel.css';
@@ -88,163 +88,151 @@ const breakPoints = [
   { width: 1200, itemsToShow: 4, itemsToScroll: 2 }
 ];
 
-export default function Onboarding(props) {  
-  function start_flow() {
-    console.log("to shuru kare");
-    console.log(props);
-    // return (
-    //   <Router>
-    //     <Switch>
-    //       <Route path='/Homepage' component={()=><UserFeeds/>} />
-    //     </Switch>
-    //   </Router>
-    // );
+export default class Onboarding extends Component {  
+  constructor(props){
+    super(props);
+    this.state = {
+        otp: '' 
+    };
+    this.start_flow = this.start_flow.bind(this);
+    this.change_css = this.change_css.bind(this);
+    this.change_wrapper = this.change_wrapper.bind(this);
+    this.goto = this.goto.bind(this)
+  }
+  start_flow() {
     if($('.start button')[0].innerHTML == "START"){
-      props.history.push({
-        pathname:"/Homepage",
-      });
+      this.props.history.push(
+        {            
+            pathname: "/Homepage"
+        }
+      );
     } else{
-      // goto(1);
+      this.goto();
     }
   };
 
-  function change_css(currentItem, pageIndex){
-    console.log(currentItem, "from function");
-    console.log(pageIndex, "from function");
-    console.log(window.screen.width);
+  change_css(currentItem, pageIndex){
     var child_count = $('.rec-pagination')[0].childElementCount;
-    // if(window.screen.width > 1200){
-      if(pageIndex == (child_count - 1)){
-        $('.start button')[0].innerHTML = "START";
-      } else{
-        $('.start button')[0].innerHTML = "SKIP";
-      }
-    // } else if(window.screen.width <= 1024){
-    //   if(pageIndex == 2){
-    //     $('.start button')[0].innerHTML = "START";
-    //   } else{
-    //     $('.start button')[0].innerHTML = "SKIP";
-    //   }
-    // } else if(window.screen.width < 600){
-    //   if(pageIndex == 7){
-    //     $('.start button')[0].innerHTML = "START";
-    //   } else{
-    //     $('.start button')[0].innerHTML = "SKIP";
-    //   }
-    // }
-    // $('.rec-dot').css('background-color', 'white');
-    // $('.rec-dot').css('box-shadow', 'none');
-    // $('.rec-dot_active').css('background-color', '#FFCF54');
+    if(pageIndex == (child_count - 1)){
+      $('.start button')[0].innerHTML = "START";
+    } else{
+      $('.start button')[0].innerHTML = "SKIP";
+    }
   }
 
-  // function goto({ target }) {
-  //   this.carousel.goTo(Number(target.value))
-  // }
+  goto() {
+    this.carousel.goTo(7);
+  }
 
-  return (
-    <div className="outer-layout" style={{background: "linear-gradient( 184deg, white,#464040 92%)"}}>
-      <CommonHeader />
-      <Carousel 
-        className="onboarding-portal" 
-        breakPoints={breakPoints} 
-        showArrows={false} 
-        initialActiveIndex={0} 
-        enableMouseSwipe={true} 
-        autoTabIndexVisibleItems={true} 
-        focusOnSelect={true}
-        onChange={(currentItem, pageIndex) => change_css(currentItem, pageIndex)}
-        onResize={currentBreakPoint => console.log(currentBreakPoint, "current breakpoint")}
-        onNextStart={(currentItem, nextItem) =>
-          console.log(currentItem, nextItem, "from onnextstart of slider")
-        }
-        // ref={ref => (carousel = ref)}
-      >
-        <div className="chef-portal">
-          <img src={User1}></img>
-          <div className="content">
-          {users.map(function(item) {
-              if (item.title == "Title 1"){
-                return <strong>{item.text}</strong>;
-              }
-          })}
-          </div>
-        </div>
-        <div className="chef-portal">
-          <img src={User2}></img>
-          <div className="content">
-          {users.map(function(item) {
-              if (item.title == "Title 2"){
-                return <strong>{item.text}</strong>;
-              }
-          })}
-          </div>
-        </div>
-        <div className="chef-portal">
-          <img src={User3}></img>
-          <div className="content">
-          {users.map(function(item) {
-              if (item.title == "Title 3"){
-                return <strong>{item.text}</strong>;
-              }
-          })}
-          </div>
-        </div>
-        <div className="chef-portal">
-          <img src={User4}></img>
-          <div className="content">
-          {users.map(function(item) {
-              if (item.title == "Title 4"){
-                return <strong>{item.text}</strong>;
-              }
-          })}
-          </div>
-        </div>  
+  change_wrapper(){
+    $('.rec-item-wrapper').css("padding-top", "10px");
+  }
 
-        <div className="chef-portal">
-          <img src={chef1}></img>
-          <div className="content">
-          {chef.map(function(item) {
-              if (item.title == "Title 1"){
-                return <strong>{item.text}</strong>;
-              }
-          })}
+  render() {
+    return (
+      <div className="outer-layout" style={{background: "linear-gradient( 184deg, white,#464040 92%)"}} onLoad={this.change_wrapper}>
+        <CommonHeader />
+        <Carousel ref={ref => (this.carousel = ref)}
+          className="onboarding-portal" 
+          breakPoints={breakPoints} 
+          showArrows={false} 
+          initialActiveIndex={0} 
+          enableMouseSwipe={true} 
+          autoTabIndexVisibleItems={true} 
+          focusOnSelect={true}
+          onChange={(currentItem, pageIndex) => this.change_css(currentItem, pageIndex)}
+          // onResize={currentBreakPoint => console.log(currentBreakPoint, "current breakpoint")}
+          onNextStart={(currentItem, nextItem) =>
+            console.log(currentItem, nextItem, "from onnextstart of slider")
+          }
+        >
+          <div className="chef-portal">
+            <img src={User1}></img>
+            <div className="content">
+            {users.map(function(item) {
+                if (item.title == "Title 1"){
+                  return <strong>{item.text}</strong>;
+                }
+            })}
+            </div>
           </div>
-        </div>
-        <div className="chef-portal">
-          <img src={chef2}></img>
-          <div className="content">
-          {chef.map(function(item) {
-              if (item.title == "Title 2"){
-                return <strong>{item.text}</strong>;
-              }
-          })}
+          <div className="chef-portal">
+            <img src={User2}></img>
+            <div className="content">
+            {users.map(function(item) {
+                if (item.title == "Title 2"){
+                  return <strong>{item.text}</strong>;
+                }
+            })}
+            </div>
           </div>
-        </div>
-        <div className="chef-portal">
-          <img src={chef3}></img>
-          <div className="content">
-          {chef.map(function(item) {
-              if (item.title == "Title 3"){
-                return <strong>{item.text}</strong>;
-              }
-          })}
+          <div className="chef-portal">
+            <img src={User3}></img>
+            <div className="content">
+            {users.map(function(item) {
+                if (item.title == "Title 3"){
+                  return <strong>{item.text}</strong>;
+                }
+            })}
+            </div>
           </div>
-        </div>
-        <div className="chef-portal">
-          <img src={chef4}></img>
-          <div className="content">
-          {chef.map(function(item) {
-              if (item.title == "Title 4"){
-                return <strong>{item.text}</strong>;
-              }
-          })}
+          <div className="chef-portal">
+            <img src={User4}></img>
+            <div className="content">
+            {users.map(function(item) {
+                if (item.title == "Title 4"){
+                  return <strong>{item.text}</strong>;
+                }
+            })}
+            </div>
+          </div>  
+
+          <div className="chef-portal">
+            <img src={chef1}></img>
+            <div className="content">
+            {chef.map(function(item) {
+                if (item.title == "Title 1"){
+                  return <strong>{item.text}</strong>;
+                }
+            })}
+            </div>
           </div>
+          <div className="chef-portal">
+            <img src={chef2}></img>
+            <div className="content">
+            {chef.map(function(item) {
+                if (item.title == "Title 2"){
+                  return <strong>{item.text}</strong>;
+                }
+            })}
+            </div>
+          </div>
+          <div className="chef-portal">
+            <img src={chef3}></img>
+            <div className="content">
+            {chef.map(function(item) {
+                if (item.title == "Title 3"){
+                  return <strong>{item.text}</strong>;
+                }
+            })}
+            </div>
+          </div>
+          <div className="chef-portal">
+            <img src={chef4}></img>
+            <div className="content">
+            {chef.map(function(item) {
+                if (item.title == "Title 4"){
+                  return <strong>{item.text}</strong>;
+                }
+            })}
+            </div>
+          </div>
+        </Carousel>
+        <div className="start">
+          <button type="button" onClick={this.start_flow}>SKIP</button>
         </div>
-      </Carousel>
-      <div className="start">
-        <button type="button" onClick={start_flow}>SKIP</button>
+        <CommonFooter />
       </div>
-      <CommonFooter />
-    </div>
-  );
+    );
+  }
 }

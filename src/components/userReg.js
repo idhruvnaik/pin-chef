@@ -13,6 +13,7 @@ import Email from '../assets/svg/Email icon.svg';
 import showPassword from '../assets/svg/show password.svg';
 import HidePassword from '../assets/svg/Hide password.svg';
 import Password from '../assets/svg/Password icon.svg'
+import RoleChangeIcon from '../assets/svg/role-change-icon.svg'
 import TermsLogo from '../assets/png_icons/terms and privacy bullet icon@2x.png'
 import Terms from '../assets/svg/terms icon on menu.svg'
 import LeftBack from '../assets/png_icons/Green back arrow.png'
@@ -100,10 +101,10 @@ class UserReg extends React.Component {
     change_user() {
         var user = document.querySelector('#user_choice span').innerHTML;
         if (user.startsWith('I AM A CHEF')) {
-            document.querySelector('#user_choice span').innerHTML = "LOOKING FOR CHEF >";
+            document.querySelector('#user_choice span').innerHTML = "LOOKING FOR CHEF ";
             user_role = 2;
         } else {
-            document.querySelector('#user_choice span').innerHTML = "I AM A CHEF >";
+            document.querySelector('#user_choice span').innerHTML = "I AM A CHEF ";
             user_role = 1;
         }
     }
@@ -262,6 +263,14 @@ class UserReg extends React.Component {
             <div className="outer-layout user-reg-page" style={{ backgroundColor: "#555", backgroundImage: "none" }}>
                 <div className="container">
                     <div className="login-register">
+                        <div id="user_choice">
+                            <div onClick={this.change_user}>
+                                <span>
+                                    I AM A CHEF 
+                                </span>
+                                <img src={RoleChangeIcon}></img>
+                            </div>
+                        </div>
                         <div className="form-headers">
                             <div style={{ width: "20%" }}>
                                 <Mail />
@@ -270,9 +279,6 @@ class UserReg extends React.Component {
                                 <button id="loginBtn" className='active' onClick={this.login} >SIGN IN </button>
                                 <button id="registerBtn" onClick={this.registration}>SIGN UP</button>
                             </div>
-                        </div>
-                        <div id="user_choice">
-                            <span onClick={this.change_user}>I AM A CHEF &gt;</span>
                         </div>
                         <div className="form-group">
                             <form action='' id="loginform" onSubmit={this.login_user}>

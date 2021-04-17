@@ -401,7 +401,7 @@ export default class home extends Component {
                                         </div>
                                     </div>
                                     <div style={{ paddingRight: "4px" }}>
-                                        <div className="post-option" style={{ textAlignLast: "right" }}>
+                                        <div className="post-option" style={{ textAlignLast: "right", textAlign: "right" }}>
                                             <Popup
                                                 trigger={<img src={PostMenu} style={{cursor: "pointer"}}></img>}
                                                 position="left top"
