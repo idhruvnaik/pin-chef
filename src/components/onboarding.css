@@ -22,7 +22,7 @@
     background-color: white;
 }
 .content {
-    margin-top: 30px;
+  margin-top: 30px;
 }
 /* .chef-portal:first-child, .chef-portal:last-child {
     min-height: 450px;
@@ -50,9 +50,9 @@
 .rec-carousel-wrapper {
     width: calc(100% - 50px) !important;
 }
-button.rec-dot{
-    box-shadow: none;
-    background-color: white;
+button.rec-dot {
+  box-shadow: none;
+  background-color: white;
 }
 button.rec-dot_active{
     background-color: #FFCF54;
@@ -74,8 +74,8 @@ button.rec-dot_active:hover, button.rec-dot_active:focus{
     margin-top: 0px;
     padding-top: 10px;
 }
-.chef-portal:hover{
-    height: 410px;
+.chef-portal:hover {
+  height: 410px;
 }
 .rec-carousel-item-visible .rec-item-wrapper{
     margin-top: 0px;

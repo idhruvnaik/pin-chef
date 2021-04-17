@@ -16,7 +16,13 @@
 }
 
 .radio-group li {
-  margin-bottom: 15px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: flex-start;
+}
+.radio-group li span{
+  text-align: left;
+  margin-left: 10px;
 }
 input[type="radio"] {
   cursor: pointer;
