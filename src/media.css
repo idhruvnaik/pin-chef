@@ -1,7 +1,8 @@
 @media (max-width: 1024px) {
   /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
   .onboarding-portal .chef-portal {
-    max-height: 400px;
+    max-height: 380px;
+    font-size: 13px;
   }
   .user-feed-page .user-pallet .filter-div,
   .user-feed-page .user-pallet .pinchef-content {
@@ -59,6 +60,25 @@
   }
   .user-profile-page .rp-container .login-register{
     width: 80%;
+  }
+}
+@media (max-width: 1024px) and (max-height: 725px) {
+  .onboarding-portal .chef-portal {
+    max-height: 350px;
+    font-size: 11px;
+  }
+}
+@media (max-width: 1024px) and (max-height: 635px) {
+  .onboarding-portal .chef-portal {
+    max-height: 300px;
+    font-size: 11px;
+  }
+}
+@media (max-width: 1024px) and (max-height: 586px) {
+  .onboarding-portal .chef-portal {
+    max-height: 250px;
+    font-size: 11px;
+    width: calc(100% - 120px);
   }
 }
 @media (min-width: 482px) and (max-width: 540px) {
@@ -248,10 +268,11 @@
     padding: 10px 12px;
   }
   div.rec-pagination {
-    bottom: 110px;
+    top: 5px;
   }
   .start{
     right: 30%;
+    top: 5px;
   }  
   .user-profile-page .rp-container .login-register{
     width: 100%;

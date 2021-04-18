@@ -4,6 +4,7 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    /* height: 60%; */
 }
 .outer-layout {
     background: linear-gradient( 184deg, white,#464040 92%);
@@ -14,7 +15,7 @@
 .chef-portal {
     border: 1px solid #0370a7;
     border-radius: 20px;
-    height: 380px;
+    /* height: 380px; */
     margin-right: 10px;
     width: calc(100% - 80px);
     padding: 40px 20px 0px 20px;
@@ -43,8 +44,7 @@
     margin-right: 5%;
     display: flex;
     flex-direction: row-reverse;
-    position: fixed;
-    bottom: 80px;
+    position: relative;
     right: 10px;
 }
 .rec-carousel-wrapper {
@@ -85,6 +85,6 @@ button.rec-dot_active:hover, button.rec-dot_active:focus{
     height: 420px;
 }
 div.rec-pagination {
-    position: fixed;
-    bottom: 80px;
+    position: relative;
+    top: 5%;
 }
