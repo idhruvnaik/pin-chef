@@ -74,7 +74,10 @@ class UserProfile extends React.Component {
                             </div>
                         </div>
                         <div className="profile-iamge-container">
-                            <img src={ProfileImage}></img>
+                            <input type="file" id="upload" hidden />
+                            <label for="upload">
+                                <img src={ProfileImage}></img>
+                            </label>
                         </div>
                         <form action='' id="loginform" onSubmit={this.create_profile}>
                             <div className="username_container">
