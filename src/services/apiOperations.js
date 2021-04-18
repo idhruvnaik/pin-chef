@@ -67,7 +67,7 @@ async function make_rest_call(apiURL, method, body, headers){
             return false;
         }
     } catch (error){
-        if(error.response.data){
+        if(error.response && error.response.data){
             if(error.response.data.message){
                 return {
                     status: false,
