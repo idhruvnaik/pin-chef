@@ -23,15 +23,15 @@ const mapDispatchToProps = dispatch => ({
 class ResetPassword extends React.Component {
     constructor(props) {
         super(props);
-        // if (this.props.location.email) {
-        //     this.email = this.props.location.email;
-        // } else {
-        //     this.props.history.push(
-        //         {
-        //             pathname: '/User'
-        //         }
-        //     );
-        // }
+        if (this.props.location.email) {
+            this.email = this.props.location.email;
+        } else {
+            this.props.history.push(
+                {
+                    pathname: '/User'
+                }
+            );
+        }
         this.reset_password = this.reset_password.bind(this);
         this.back_to_login = this.back_to_login.bind(this);
         this.ShowPassword = this.ShowPassword.bind(this);
@@ -86,7 +86,7 @@ class ResetPassword extends React.Component {
         } else {
             $('#loginform #' + input_id)[0].type = "password";
             $('.' + parentClass + ' #active_password').addClass('active_password');
-            $('.active_password')[0].src = HidePassword;
+            $('.' + parentClass + ' .active_password')[0].src = HidePassword;
             if(parentClass == "password_symbol"){
                 $('.'+ input_id +'_input .symbol').css("padding-top", "22px");
             }

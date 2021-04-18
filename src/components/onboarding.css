@@ -46,6 +46,7 @@
     flex-direction: row-reverse;
     position: relative;
     right: 10px;
+    top: -2%;
 }
 .rec-carousel-wrapper {
     width: calc(100% - 50px) !important;
@@ -86,5 +87,5 @@ button.rec-dot_active:hover, button.rec-dot_active:focus{
 }
 div.rec-pagination {
     position: relative;
-    top: 5%;
+    top: 0%;
 }
