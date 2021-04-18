@@ -3,6 +3,7 @@ import { resetPaasword, addTokenToState, CreateUserProfile } from '../services/a
 import { connect } from "react-redux";
 import FPBack from '../assets/svg/fp-back-icon.svg';
 import ProfileImage from '../assets/svg/profile-image.svg';
+import DeletePhoto from '../assets/svg/Delete photo.svg'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import './userProfile.scss'
@@ -20,18 +21,20 @@ const mapDispatchToProps = dispatch => ({
 class UserProfile extends React.Component {
     constructor(props) {
         super(props);
-        // if (this.props.token_details.token) {
-        //     this.token = this.props.token_details.token.auth_token;
-        //     this.user_id = this.props.token_details.token.id;
-        // } else {
-        //     this.props.history.push(
-        //         {
-        //             pathname: '/User'
-        //         }
-        //     );
-        // }
+        if (this.props.token_details.token) {
+            this.token = this.props.token_details.token.auth_token;
+            this.user_id = this.props.token_details.token.id;
+        } else {
+            this.props.history.push(
+                {
+                    pathname: '/User'
+                }
+            );
+        }
         this.create_profile = this.create_profile.bind(this);
         this.back_to_login = this.back_to_login.bind(this);
+        this.get_profile_img = this.get_profile_img.bind(this);
+        this.delete_profile_img = this.delete_profile_img.bind(this);
         this.state = {
             contr: ''
         }
@@ -40,13 +43,19 @@ class UserProfile extends React.Component {
     async create_profile(event) {
         event.preventDefault();
         var user = document.querySelector('.name_container #user').value;
-        let result = await CreateUserProfile(this.user_id, "image", user, this.state.contr, this.token);
+        if($('.profile-image-container img')[0].src == ProfileImage){
+            var image = null;
+        } else{
+            var image = document.getElementById('upload').files[0];
+        }
+        let result = await CreateUserProfile(this.user_id, image, user, this.state.contr, this.token);
         if (result.status == false) {
-            if (result.message.includes("401")) {
-                $('#errorMessage')[0].innerHTML = "User is not exists or not authorized to perform this action.";
-            } else {
-                $('#errorMessage')[0].innerHTML = result.message;
-            }
+            console.log(result.message);
+            // if (result.message.includes("401")) {
+            //     $('#errorMessage')[0].innerHTML = "User is not exists or not authorized to perform this action.";
+            // } else {
+            //     $('#errorMessage')[0].innerHTML = result.message;
+            // }
         } else {
             this.props.history.push(
                 {
@@ -54,6 +63,28 @@ class UserProfile extends React.Component {
                 }
             );
         }
+    }
+
+    delete_profile_img(e){
+        $('.profile-image-container img')[0].src=ProfileImage;
+        e.target.src = '';
+        $('.profile-image-container img').css("border-radius", "0%");
+    }
+    get_profile_img(e) {
+        var selectedFile = document.getElementById('upload').files[0];
+        var reader = new FileReader();
+        reader.onload = (event) => {
+            $('.profile-image-container img')[0].src = event.target.result;
+        };
+        $('.profile-image-container').css("border-radius", "50%");
+        $('.profile-image-container img').css("width", "100%");
+        $('.profile-image-container img').css("height", "100%");
+        $('.profile-image-container img').css("border-radius", "50%");
+        $('.delete_photo img')[0].src = DeletePhoto;
+        $('.delete_photo').css("position", "relative");
+        $('.delete_photo').css("bottom", "44px");
+        $('.delete_photo').css("left", "44px");
+        reader.readAsDataURL(selectedFile);
     }
 
     back_to_login() {
@@ -73,11 +104,16 @@ class UserProfile extends React.Component {
                                 Create Profile
                             </div>
                         </div>
-                        <div className="profile-iamge-container">
-                            <input type="file" id="upload" hidden />
-                            <label for="upload">
-                                <img src={ProfileImage}></img>
-                            </label>
+                        <div className="profile-image-container">
+                            <div>
+                                <input type="file" id="upload" hidden accept=".jpg,.png,.PNG,.jpeg" onChange={this.get_profile_img} />
+                                <label for="upload">
+                                    <img src={ProfileImage}></img>
+                                </label>
+                            </div>
+                        </div>
+                        <div className="delete_photo">
+                            <img src={null} onClick={this.delete_profile_img}></img>
                         </div>
                         <form action='' id="loginform" onSubmit={this.create_profile}>
                             <div className="username_container">

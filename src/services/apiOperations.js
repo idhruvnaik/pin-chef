@@ -845,6 +845,7 @@ export const AddImageToPost = async(post_id, image, token)=>{
     var headers = {
         "Authorization": "Bearer " + token
     };
+    console.log(image, "from add image to post");
     var bodyFormData = new FormData();
     bodyFormData.append('upload', image);
     try{

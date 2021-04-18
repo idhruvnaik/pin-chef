@@ -177,10 +177,10 @@
   .settings-content .profile .setting_activity .menu_details .menu_icon img{
     height: 65%;
   }
-  .settings-content .profile .primary-details .l-div .profile-img-container {
+  /* .settings-content .profile .primary-details .l-div .profile-img-container {
     width: 180px;
     height: 85px;
-  }
+  } */
   .settings-content .profile .primary-details .l-div .profile-img-container h1 {
     padding-right: 10px;
     font-size: 3em;

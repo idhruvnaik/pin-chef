@@ -48,11 +48,19 @@
                     font-weight: 1000;
                 }
             }
-            .profile-iamge-container{
+            .profile-image-container{
                 margin-bottom: 10px;
-                img{
-                    height: 100%;
-                    cursor: pointer;
+                // border-radius: 50%;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                div{
+                    height: 112px;
+                    width: 112px;
+                    img{
+                        height: 100%;
+                        cursor: pointer;
+                    }
                 }
             }
             form input {
