@@ -23,13 +23,16 @@
     background-color: white;
 }
 .content {
-  margin-top: 30px;
+  margin-top: 70px;
 }
 /* .chef-portal:first-child, .chef-portal:last-child {
     min-height: 450px;
 } */
 .chef-portal img{
-    height: 40%;
+    height: 50%;
+}
+.large-content img{
+    height: 46%;
 }
 .start button{
     background-color: transparent;
@@ -37,7 +40,7 @@
     font-weight: 800;
     font-size: large;
     border: none;
-    text-shadow: 2px 2px    black;
+    text-shadow: 2px 2px #464040;
     font-family: custom-fonts-bold;
 }
 .start{
@@ -46,7 +49,7 @@
     flex-direction: row-reverse;
     position: relative;
     right: 10px;
-    top: -2%;
+    top: -6%;
 }
 .rec-carousel-wrapper {
     width: calc(100% - 50px) !important;
@@ -69,18 +72,15 @@ button.rec-dot_active:hover, button.rec-dot_active:focus{
 .rec-item-wrapper{
     margin-top: 15px;
     cursor: pointer;
-    padding-top: 10px;
 }
 .rec-item-wrapper:hover{
     margin-top: 0px;
-    padding-top: 10px;
 }
 .chef-portal:hover {
   height: 410px;
 }
 .rec-carousel-item-visible .rec-item-wrapper{
     margin-top: 0px;
-    padding-top: 10px;
 }
 .rec-carousel-item-visible .rec-item-wrapper .chef-portal{
     height: 420px;
@@ -88,4 +88,10 @@ button.rec-dot_active:hover, button.rec-dot_active:focus{
 div.rec-pagination {
     position: relative;
     top: 0%;
+}
+.rec-swipable div:nth-child(3) .rec-item-wrapper .chef-portal img{
+    height: 44%;
+}
+.rec-swipable div:nth-child(3) .rec-item-wrapper .chef-portal .content{
+    margin-top: 50px;
 }

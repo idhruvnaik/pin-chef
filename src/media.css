@@ -65,13 +65,13 @@
 @media (max-height: 725px) {
   .onboarding-portal .chef-portal {
     max-height: 350px;
-    font-size: 11px;
+    font-size: 14px;
   }
 }
 @media (max-height: 635px) {
   .onboarding-portal .chef-portal {
     max-height: 300px;
-    font-size: 11px;
+    font-size: 14px;
   }
   .start{
     top: -25px;
@@ -83,14 +83,14 @@
 @media (max-height: 607px) {
   .onboarding-portal .chef-portal {
     max-height: 250px;
-    font-size: 11px;
+    font-size: 14px;
     width: calc(100% - 120px);
   }
 }
 @media (max-height: 560px) {
   .onboarding-portal .chef-portal {
     max-height: 200px;
-    font-size: 11px;
+    font-size: 14px;
     width: calc(100% - 120px);
   }
 }
@@ -334,6 +334,9 @@
   .rec-carousel-item-visible .rec-item-wrapper .chef-portal {
     height: 380px;
   }
+  .rec-swipable div:nth-child(2) .rec-item-wrapper .chef-portal .content{
+    margin-top: 40px;
+  }
 }
 @media (max-height: 570px) {
   .all_chefs .chef, .following_chefs .chef{
@@ -421,6 +424,14 @@
   }
   .onboarding-portal .rec-carousel-item-visible .rec-item-wrapper .chef-portal {
     max-height: 305px;
+  }
+  .chef-portal img,
+  .rec-swipable div:nth-child(3) .rec-item-wrapper .chef-portal img{
+    height: 35%;
+  }
+  .rec-swipable div:nth-child(2) .rec-item-wrapper .chef-portal .content,
+  .rec-swipable div:nth-child(3) .rec-item-wrapper .chef-portal .content{
+    margin-top: 35px;
   }
 }
 

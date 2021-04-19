@@ -126,6 +126,7 @@ export default class Onboarding extends Component {
 
   change_wrapper(){
     $('.rec-item-wrapper').css("padding-top", "10px");
+    $('.rec-item-wrapper').css("padding-bottom", "10px");
   }
 
   render() {
@@ -176,7 +177,7 @@ export default class Onboarding extends Component {
             })}
             </div>
           </div>
-          <div className="chef-portal">
+          <div className="chef-portal large-content">
             <img src={User4}></img>
             <div className="content">
             {users.map(function(item) {
@@ -187,7 +188,7 @@ export default class Onboarding extends Component {
             </div>
           </div>  
 
-          <div className="chef-portal">
+          <div className="chef-portal large-content">
             <img src={chef1}></img>
             <div className="content">
             {chef.map(function(item) {
@@ -197,7 +198,7 @@ export default class Onboarding extends Component {
             })}
             </div>
           </div>
-          <div className="chef-portal">
+          <div className="chef-portal large-content">
             <img src={chef2}></img>
             <div className="content">
             {chef.map(function(item) {
@@ -217,7 +218,7 @@ export default class Onboarding extends Component {
             })}
             </div>
           </div>
-          <div className="chef-portal">
+          <div className="chef-portal large-content">
             <img src={chef4}></img>
             <div className="content">
             {chef.map(function(item) {
@@ -231,7 +232,6 @@ export default class Onboarding extends Component {
         <div className="start">
           <button type="button" onClick={this.start_flow}>SKIP</button>
         </div>
-        <CommonFooter />
       </div>
     );
   }
