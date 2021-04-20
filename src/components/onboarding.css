@@ -23,18 +23,18 @@
     box-shadow: 3px -1px 7px 2px #464040;
     background-color: white;
 }
-.content {
+/* .content {
   margin-top: 70px;
-}
+} */
 /* .chef-portal:first-child, .chef-portal:last-child {
     min-height: 450px;
 } */
-.chef-portal img{
+/* .chef-portal img{
     height: 50%;
 }
 .large-content img{
     height: 46%;
-}
+} */
 .start button{
     background-color: transparent;
     color: #3F8F22;

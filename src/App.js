@@ -43,7 +43,7 @@ function App() {
               <Route path='/User' component={UserReg} />
               <Route path='/Homepage' component={UserFeeds} />
               <Route path='/CustomOnboard' component={CustomOnboarding} />
-              <Route path='/' component={Onboarding} />
+              <Route path='/' component={CustomOnboarding} />
           </Switch>
       </Router>
     </div>

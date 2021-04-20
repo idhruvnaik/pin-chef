@@ -161,7 +161,7 @@ export default class CustomOnboarding extends Component {
           </div>
           <div className="chef-portal">
             <img src={User2}></img>
-            <div className="content">
+            <div className="content large-content">
             {users.map(function(item) {
                 if (item.title == "Title 2"){
                   return <strong>{item.text}</strong>;
