@@ -26,14 +26,6 @@ import $ from 'jquery';
 // import 'reactjs-popup/dist/index.css';
 
 var user_role = 1;
-// const mapStateToProps = state => ({
-//     ...state
-// });
-
-// const mapDispatchToProps = dispatch => ({
-//     addToken: () => dispatch(addToken),
-//     donotAddToken: () => dispatch(donotAddToken)
-// });
 
 const mapStateToProps = state => ({
     ...state
@@ -55,7 +47,6 @@ class UserReg extends React.Component {
         this.ShowRegistrationPassword = this.ShowRegistrationPassword.bind(this);
         this.open_terms = this.open_terms.bind(this);
         this.get_password = this.get_password.bind(this);
-        this.save_input = this.save_input.bind(this);
         this.state = {
             isTCPopup: false
         }
@@ -110,15 +101,6 @@ class UserReg extends React.Component {
         }
     }
 
-    save_input(answer){
-        console.log(answer);
-        console.log(answer.target.value);
-        // answer.value = answer.value.toUpperCase();
-        // sessionStorage.setItem(
-        //     "answer_"+answer.placeholder, 
-        //     answer.value
-        // )
-    }
     async get_password() {
         this.props.history.push(
             {
@@ -312,7 +294,7 @@ class UserReg extends React.Component {
                                     </div>
                                     <div>
                                         <div id="errorMessage"></div>
-                                        <input type="text" id="username" placeholder="ex: johndoe@gmail.com or johndoe" autoCapitalize="off" onKeyUp={this.save_input}></input>
+                                        <input type="text" id="username" placeholder="ex: johndoe@gmail.com or johndoe" autoCapitalize="off" ></input>
                                     </div>
                                 </div>
                                 <div className="password_container">
