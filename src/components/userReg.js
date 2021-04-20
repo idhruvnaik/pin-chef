@@ -332,7 +332,7 @@ class UserReg extends React.Component {
                                         </div>
                                         <div>
                                             <div id="errorMessage"></div>
-                                            <input type="text" id="username" placeholder="Enter email address" required></input>
+                                            <input type="text" id="username" placeholder="Enter email address" autoCapitalize="off" required></input>
                                         </div>
                                     </div>
                                 </div>
