@@ -1,0 +1,48 @@
+.custom-onboard{
+    .custom-onboarding-portal{
+        height: 90%;
+        padding: 35px 20px 0px;
+        flex-wrap: wrap;
+        justify-content: center;
+        // .rec{
+        //     height: 100%;
+        // }
+        .rec-carousel{
+            min-height: 85%;
+            max-height: 85%;
+            .rec-slider-container{
+                height: 100%;
+                .rec-slider{
+                    height: 100%;
+                    .rec-swipable{
+                        height: 100%;
+                        .rec-carousel-item {
+                            height: 100%;
+                            .rec-item-wrapper{
+                                height: 100%;
+                                .chef-portal{
+                                    height: 90%;
+                                    // width: calc(100% - 40px);
+                                    img{
+                                        height: 50%;
+                                    }
+                                    .content{
+                                        margin-top: 70px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .start {
+        margin-right: 5%;
+        display: flex;
+        flex-direction: row-reverse;
+        position: relative;
+        right: 10px;
+        top: -3%;
+    }
+}
