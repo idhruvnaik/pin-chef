@@ -55,6 +55,7 @@ class UserReg extends React.Component {
         this.ShowRegistrationPassword = this.ShowRegistrationPassword.bind(this);
         this.open_terms = this.open_terms.bind(this);
         this.get_password = this.get_password.bind(this);
+        this.save_input = this.save_input.bind(this);
         this.state = {
             isTCPopup: false
         }
@@ -109,9 +110,18 @@ class UserReg extends React.Component {
         }
     }
 
+    save_input(answer){
+        console.log(answer);
+        console.log(answer.target.value);
+        // answer.value = answer.value.toUpperCase();
+        // sessionStorage.setItem(
+        //     "answer_"+answer.placeholder, 
+        //     answer.value
+        // )
+    }
     async get_password() {
         this.props.history.push(
-            {            
+            {
                 pathname: '/User/ForgotPassword'
             }
         );
@@ -121,47 +131,54 @@ class UserReg extends React.Component {
         let username = document.querySelector('#loginform #username').value;
         let password = document.querySelector('#loginform #password').value;
         let remember = document.querySelector('.kept_sign_in #signin_storage #storeToken').checked;
-        console.log(this);
-        let result = await verifyLogin(username, password, remember)
-        if (result) {
-            if (result.auth_token) {
-                if (result.roleID == user_role) {
-                    result.remember = remember;
-                    reactLocalStorage.setObject(
-                        'token_details',
-                        result
-                    );
-                    this.props.addTokenToState(result);
-                    if (result.roleID == 2) {
-                        this.props.history.push(
-                            {
-                                pathname: '/Chef/Home'
+        if (username.length > 0) {
+            if (password.length > 0) {
+                let result = await verifyLogin(username, password, remember)
+                if (result) {
+                    if (result.auth_token) {
+                        if (result.roleID == user_role) {
+                            result.remember = remember;
+                            reactLocalStorage.setObject(
+                                'token_details',
+                                result
+                            );
+                            this.props.addTokenToState(result);
+                            if (result.roleID == 2) {
+                                this.props.history.push(
+                                    {
+                                        pathname: '/Chef/Home'
+                                    }
+                                );
+                            } else {
+                                this.props.history.push(
+                                    {
+                                        pathname: '/Homepage'
+                                    }
+                                );
                             }
-                        );
-                    } else {
-                        this.props.history.push(
-                            {
-                                pathname: '/Homepage'
-                            }
-                        );
-                    }
 
-                } else {
-                    if (result.roleID == 2) {
-                        $('#loginform #errorMessage')[0].innerHTML = "User is not user";
+                        } else {
+                            if (result.roleID == 2) {
+                                $('#loginform #errorMessage')[0].innerHTML = "Select correct platform (Chef or User)";
+                            } else {
+                                $('#loginform #errorMessage')[0].innerHTML = "Select correct platform (Chef or User)";
+                            }
+                        }
                     } else {
-                        $('#loginform #errorMessage')[0].innerHTML = "User is not Chef";
+                        if (result.message.includes("401")) {
+                            $('#loginform #errorMessage')[0].innerHTML = "User is not exists or not authorized to perform this action.";
+                        } else {
+                            $('#loginform #errorMessage')[0].innerHTML = result.message;
+                        }
+
+                        console.log(result.message);
                     }
                 }
-            } else {
-                if (result.message.includes("401")) {
-                    $('#loginform #errorMessage')[0].innerHTML = "User is not exists or not authorized to perform this action.";
-                } else {
-                    $('#loginform #errorMessage')[0].innerHTML = result.message;
-                }
-
-                console.log(result.message);
+            } else{
+                $('#loginform #errorMessage')[0].innerHTML = "Enter Password alert";
             }
+        } else{
+            $('#loginform #errorMessage')[0].innerHTML = "Enter Email/ID";
         }
     }
 
@@ -170,7 +187,7 @@ class UserReg extends React.Component {
         let email = document.querySelector('#registerform #username').value;
         console.log(email, "from register user");
         var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        if(re.test(email)){
+        if (re.test(email)) {
             let username = re.exec(email)[1];
             var data = {
                 email: email,
@@ -183,18 +200,18 @@ class UserReg extends React.Component {
             if (result) {
                 if (result.status == false) {
                     $('#registerform #errorMessage')[0].innerHTML = result.message;
-                } else{
+                } else {
                     if (result.auth_token) {
                         result.remember = false;
                         result.roleID = user_role;
                         console.log(result);
-                        delete result["otp"];                        
+                        delete result["otp"];
                         reactLocalStorage.setObject(
                             'token_details',
                             result
                         );
                         this.props.addTokenToState(result);
-                        if (user_role == 1){
+                        if (user_role == 1) {
                             this.props.history.push(
                                 {
                                     pathname: '/Verifyotp',
@@ -202,7 +219,7 @@ class UserReg extends React.Component {
                                     redirect: "/User/CreateProfile"
                                 }
                             );
-                        } else{
+                        } else {
                             this.props.history.push(
                                 {
                                     pathname: '/Verifyotp',
@@ -214,15 +231,19 @@ class UserReg extends React.Component {
                     }
                 }
             }
-        } else{
+        } else {
             $('#registerform #errorMessage')[0].innerHTML = "Invalid Email ID.";
         }
         // this.props.addTokenToState(resp);
     };
     save_token(a) {
-        if (a.ctrlKey || a.metaKey) {
-            console.log("inside if");
-            document.getElementById('storeToken').checked = false;
+        console.log($(a.target).hasClass("selected"), "from save token");
+        if($(a.target).hasClass("selected")){
+            a.target.checked = false;
+            $(a.target).removeClass("selected");
+        } else{
+            document.getElementById('storeToken').checked = true;
+            $(a.target).addClass("selected")
         }
     };
     ShowPassword() {
@@ -266,7 +287,7 @@ class UserReg extends React.Component {
                         <div id="user_choice">
                             <div onClick={this.change_user}>
                                 <span>
-                                    I AM A CHEF 
+                                    I AM A CHEF
                                 </span>
                                 <img src={RoleChangeIcon}></img>
                             </div>
@@ -291,7 +312,7 @@ class UserReg extends React.Component {
                                     </div>
                                     <div>
                                         <div id="errorMessage"></div>
-                                        <input type="text" id="username" placeholder="ex: johndoe@pinchef.io"></input>
+                                        <input type="text" id="username" placeholder="ex: johndoe@gmail.com or johndoe" autoCapitalize="off" onKeyUp={this.save_input}></input>
                                     </div>
                                 </div>
                                 <div className="password_container">
@@ -310,7 +331,7 @@ class UserReg extends React.Component {
                                 </div>
                                 <div className="kept_sign_in">
                                     <div id="signin_storage">
-                                        <input type="radio" name="user_sign_in" id="storeToken" onClick={this.save_token.bind(this)} ></input>
+                                        <input type="radio" name="user_sign_in" className="" id="storeToken" onClick={this.save_token} ></input>
                                         <span>Keep me signed in</span>
                                     </div>
                                     <div>
@@ -366,7 +387,7 @@ class UserReg extends React.Component {
                             overlayClassName="some-custom-overlay-class"
                             isOpen={this.state.isTCPopup}
                             from={"bottom"}
-                            title="Terms & Conditions"
+                            title="Terms/Conditions & Privacy Policy"
                             subtitle=""
                             width="100%"
                             onRequestClose={() => {
