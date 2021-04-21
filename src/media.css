@@ -555,12 +555,6 @@
   .otp-container * { 
     font-size: small;
   }
-  .otp-container .login-register{
-    padding: 0px;
-  }
-  .actual_otp{
-    display: block;
-  }
   .each_otp_container{
     margin-left: 4px;
   }

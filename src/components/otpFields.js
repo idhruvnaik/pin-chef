@@ -21,7 +21,7 @@ export default class otps extends Component {
                 onChange={this.handleChange}
                 numInputs={6}
                 containerStyle={"each_otp_container"}
-                inputStyle={{width: "3em"}}
+                inputStyle={{width: "100%"}}
                 placeholder={"______"}
                 isInputNum={true}
             />
