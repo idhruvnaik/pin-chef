@@ -69,6 +69,9 @@ class UserReg extends React.Component {
         loginBtn.classList.remove('active');
         $('#note').css("display", "none");
         $('.multi-login').css("display", "none");
+        $('#registerform #errorMessage').html(null);
+        $('#registerform input')[0].value = null;
+        $('#registerform input')[1].value = null;
     };
 
     login() {
@@ -89,6 +92,10 @@ class UserReg extends React.Component {
         registerform.style.opacity = '0';
         $('#note').css("display", "block");
         $('.multi-login').css("display", "flex");
+        $('#loginform #errorMessage').html(null);
+        $('#loginform #passwordErrorMessage').html(null);
+        $('#loginform input')[0].value = null;
+        $('#loginform input')[1].value = null;
     };
     change_user() {
         var user = document.querySelector('#user_choice span').innerHTML;
@@ -147,7 +154,9 @@ class UserReg extends React.Component {
                             }
                         }
                     } else {
-                        if (result.message.includes("401")) {
+                        if(result.message.toLowerCase().includes("password")){
+                            $('#loginform #passwordErrorMessage')[0].innerHTML = result.message;
+                        } else if (result.message.includes("401")) {
                             $('#loginform #errorMessage')[0].innerHTML = "User is not exists or not authorized to perform this action.";
                         } else {
                             $('#loginform #errorMessage')[0].innerHTML = result.message;
@@ -157,7 +166,7 @@ class UserReg extends React.Component {
                     }
                 }
             } else{
-                $('#loginform #errorMessage')[0].innerHTML = "Enter Password alert";
+                $('#loginform #passwordErrorMessage')[0].innerHTML = "Enter Password alert";
             }
         } else{
             $('#loginform #errorMessage')[0].innerHTML = "Enter Email/ID";
@@ -181,7 +190,14 @@ class UserReg extends React.Component {
             let result = await registerUser(data);
             if (result) {
                 if (result.status == false) {
-                    $('#registerform #errorMessage')[0].innerHTML = result.message;
+                    console.log("inside status flase");
+                    console.log(result.message.includes("password"));
+                    console.log("result.message")
+                    if (result.message.toLowerCase().includes("password")){
+                        $('#registerform #passwordErrorMessage')[0].innerHTML = result.message;
+                    } else{
+                        $('#registerform #errorMessage')[0].innerHTML = result.message;
+                    }
                 } else {
                     if (result.auth_token) {
                         result.remember = false;
@@ -301,11 +317,14 @@ class UserReg extends React.Component {
                                     <label htmlFor="password">Password</label>
                                 </div>
                                 <div className="password_input">
-                                    <div>
+                                    <div className="input_container">
                                         <div>
                                             <img src={Password}></img>
                                         </div>
-                                        <input type="password" id="password" placeholder="ex: PinChefisthebest!"></input>
+                                        <div className="actual_password_input">
+                                            <div id="passwordErrorMessage"></div>
+                                            <input type="password" id="password" placeholder="ex: PinChefisthebest!"></input>
+                                        </div>
                                         <div className="symbol">
                                             <img src={HidePassword} id="active_password" className="active_password" onClick={this.ShowPassword}></img>
                                         </div>
@@ -340,11 +359,14 @@ class UserReg extends React.Component {
                                     <label htmlFor="password">Password</label>
                                 </div>
                                 <div className="password_input">
-                                    <div>
+                                    <div className="input_container">
                                         <div>
                                             <img src={Password}></img>
                                         </div>
-                                        <input type="password" id="password" placeholder="Enter Password" required></input>
+                                        <div className="actual_password_input">
+                                            <div id="passwordErrorMessage"></div>
+                                            <input type="password" id="password" placeholder="Enter Password" required></input>
+                                        </div>
                                         <div className="symbol">
                                             <img src={HidePassword} id="registration_password" className="registration_password" onClick={this.ShowRegistrationPassword}></img>
                                         </div>

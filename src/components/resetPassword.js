@@ -33,7 +33,6 @@ class ResetPassword extends React.Component {
             );
         }
         this.reset_password = this.reset_password.bind(this);
-        this.back_to_login = this.back_to_login.bind(this);
         this.ShowPassword = this.ShowPassword.bind(this);
     }
 
@@ -41,7 +40,7 @@ class ResetPassword extends React.Component {
         event.preventDefault();
         var user = document.querySelector('#loginform #user').value;
         let password = document.querySelector('#loginform #password').value;
-        let message = "Both passwords are required must be same.";
+        let message = "New & Confirm password must be the same.";
         if(user.length > 0 && password.length > 0){
             if (user != password){
                 $('#errorMessage')[0].innerHTML = message;
@@ -66,9 +65,6 @@ class ResetPassword extends React.Component {
         }
     }
 
-    back_to_login() {
-        this.props.history.goBack();
-    }
     ShowPassword(e) {
         var parentClass = e.target.parentElement.className;
         if(parentClass == "user_symbol"){
@@ -99,9 +95,6 @@ class ResetPassword extends React.Component {
                 <div className="rp-container">
                     <div className="login-register">
                         <div className="heading">
-                            <div>
-                                <img src={FPBack} onClick={this.back_to_login}></img>
-                            </div>
                             <div>
                                 Reset Password
                             </div>

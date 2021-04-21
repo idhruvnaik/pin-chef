@@ -47,7 +47,7 @@ class ForgotPassword extends React.Component {
                 );
             }
         } else {
-            $('#errorMessage')[0].innerHTML = "For forgot password Username/Email ID is necessary.";
+            $('#errorMessage')[0].innerHTML = "Enter Email or USER ID";
         }
         console.log(username, "from forgot password");
     }
@@ -80,7 +80,7 @@ class ForgotPassword extends React.Component {
                                     </div>
                                     <div>
                                         <div id="errorMessage"></div>
-                                        <input type="text" id="username" placeholder="Enter email or ID"></input>
+                                        <input type="text" id="username" placeholder="Enter email or ID" autoCapitalize="off"></input>
                                     </div>
                                 </div>
                             </div>

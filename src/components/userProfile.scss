@@ -1,18 +1,15 @@
 .user-profile-page{
-    font-family: Montserrat;
+    font-family: custom-fonts;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     .rp-container * {
         box-sizing: border-box;
-        // font-family: Montserrat;
     }
     .rp-container{
         width: 90%;
-        margin-top: 5%;
-        margin-bottom: 5%;
-        margin-left: 5%;
-        height: 100%;
-        font-family: Montserrat;
+        font-family: custom-fonts;
         .login-register {
-            height: 100%;
             width: 50%;
             margin-left: auto;
             margin-right: auto;
@@ -46,6 +43,7 @@
                     justify-content: center;
                     margin-right: 10%;
                     font-weight: 1000;
+                    font-family: custom-fonts-bold;
                 }
             }
             .profile-image-container{
@@ -72,6 +70,9 @@
                 text-align: center;
             }
             #loginform{
+                label{
+                    font-family: custom-fonts-bold;
+                }
                 .password_container {
                     text-align-last: left;
                     margin-bottom: 5px;
@@ -154,6 +155,7 @@
                         background-color: #BF2612;
                         box-shadow: 2px 2px 5px #707070;
                         margin-top: 30px;
+                        margin-bottom: 20px;
                         -webkit-appearance: none;
                     }
                 }

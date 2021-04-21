@@ -21,16 +21,20 @@ form, #forgot-panel {
     background-position:center center;
 
 } */
+.verify-otp-page{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .otp-container {
     width: 90%;
-    margin-top: 10%;
+    /* margin-top: 10%;
     margin-bottom: 7%;
     margin-left: 5%;
-    height: 96%;
+    height: 96%; */
 }
 
 .otp-container .login-register {
-    height: 90%;
     width: 40%;
     margin-left: auto;
     margin-right: auto;
@@ -59,7 +63,7 @@ form, #forgot-panel {
     height: 15px;
     cursor: pointer;
 }
-.heading div:last-child {
+.otp-container .heading div:last-child {
     width: 70%;
     display: flex;
     justify-content: center;
@@ -85,12 +89,12 @@ form, #forgot-panel {
     background-color: white;
 }
 .each_otp_container div:last-child input{
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
 }
 .each_otp_container div:first-child input{
-    border-top-left-radius: 15px;
-    border-bottom-left-radius: 15px;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
 }
 .verify_otp button{
     width: 3.5em;
@@ -118,11 +122,11 @@ form, #forgot-panel {
     background-image: url(../assets/png_icons/incorrect\ pin\ icon.png);
 } */
 .resend_email{
-    margin-top: 20%;
+    margin: 10%;
     color: #FFD54F;
-    text-shadow: 1px 1px black;
+    text-shadow: 2px 2px 5px #707070;
     cursor: pointer;
-    font-family: custom-fonts;
+    font-family: custom-fonts-bold;
 }
 .resend-otp-popup{
     width: 200px;

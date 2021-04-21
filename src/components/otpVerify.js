@@ -25,17 +25,17 @@ const mapDispatchToProps = dispatch => ({
 class VerifyOTP extends React.Component {
     constructor(props) {
         super(props);
-        if (this.props.location.email) {
-            // this.email = this.props.token_details.token.user_name;
-            this.email = this.props.location.email;
-            this.redirect = this.props.location.redirect;
-        } else {
-            this.props.history.push(
-                {
-                    pathname: '/User'
-                }
-            );
-        }
+        // if (this.props.location.email) {
+        //     // this.email = this.props.token_details.token.user_name;
+        //     this.email = this.props.location.email;
+        //     this.redirect = this.props.location.redirect;
+        // } else {
+        //     this.props.history.push(
+        //         {
+        //             pathname: '/User'
+        //         }
+        //     );
+        // }
         this.saveotp = this.saveotp.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.resend_otp = this.resend_otp.bind(this);
@@ -90,7 +90,7 @@ class VerifyOTP extends React.Component {
 
     render() {
         return (
-            <div className="outer-layout" style={{ backgroundColor: "#555", backgroundImage: "none" }}>
+            <div className="outer-layout verify-otp-page" style={{ backgroundColor: "#555", backgroundImage: "none" }}>
                 <div className="otp-container">
                     <div className="login-register">
                         <div className="heading">
