@@ -6,7 +6,7 @@ import './forgotPassword.scss'
 import OtpInput from 'react-otp-input';
 import IncorrectPin from '../assets/png_icons/incorrect pin icon.png'
 import Email from '../assets/svg/Email icon.svg';
-import EmailIcon from '../assets/svg/resend-otp-email.svg';
+import EmailIcon from '../assets/svg/Check email icon.svg';
 import FPBack from '../assets/svg/fp-back-icon.svg';
 import Popup from 'reactjs-popup';
 import $ from 'jquery';
@@ -118,8 +118,8 @@ class ForgotPassword extends React.Component {
                                         <img src={EmailIcon}></img>
                                     </div>
                                     <div className="pop-up-instructions">
-                                        OTP sent once more to your registered email. Please check your email and try again.
-                                </div>
+                                        Check your email to reset your password.
+                                    </div>
                                     <div className="actions">
                                         <button type="button" onClick={this.go_to_otp_verification}>OK</button>
                                     </div>
