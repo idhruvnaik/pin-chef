@@ -77,6 +77,9 @@
   .terms_privacy_policy .policies{
     padding-bottom: 100px;
   }
+  .each_otp_container{
+    max-width: 80%;
+  }
 }
 @media (max-width: 768px) {
   .custom-onboard .custom-onboarding-portal .rec-carousel .rec-slider-container .rec-slider .rec-swipable .rec-carousel-item .rec-item-wrapper .chef-portal .content {
@@ -361,6 +364,16 @@
   .user-reg-page .container .login-register .form-group #registerform .user_input .name_container div:nth-child(2) div {
     text-align: left;
     font-size: 9px;
+  }
+  .forgot-passwword-page .fp-container .login-register .heading div:last-child,
+  .user-profile-page .rp-container .login-register .heading div:last-child,
+  .otp-container .heading div:last-child {
+    font-size: 15pt;
+  }
+  .forgot-passwword-page .fp-container .login-register .heading div:first-child img,
+  .user-profile-page .rp-container .login-register .heading div:first-child img,
+  .heading div:first-child img {
+    height: 16px;
   }
 }
 @media (max-width: 425px) and (max-height: 824px) and (min-height: 735px){
@@ -656,5 +669,8 @@
   }
   .custom-onboard .custom-onboarding-portal .rec-carousel .rec-slider-container .rec-slider .rec-swipable .rec-carousel-item .rec-item-wrapper .chef-portal {
     width: calc(100% - 40px);
+  }
+  .verify_otp img {
+    width: 100%;
   }
 }

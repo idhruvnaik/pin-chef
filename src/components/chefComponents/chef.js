@@ -173,7 +173,7 @@ class chef extends React.Component {
                                 <div id="notifications-sec">
                                     <div className="notification">
                                         <div className="user-icon">
-                                            <img src="http://35.175.243.253:8080/public?path=C:/Users/Administrator/Desktop/pinChef_Backend/uploads/605725bffc5a6814d0155004/profile/605725bffc5a6814d0155004-1616324109069.jpg"></img>
+                                            <img src={null}></img>
                                         </div>
                                         <div className="notification-details">
                                             <div className="notification-type">

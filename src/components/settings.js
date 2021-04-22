@@ -146,6 +146,7 @@ export default class settings extends Component {
                 {/* <ul className="switch-content">
                     <li onClick={this.active} className="nav-active" id="food">MY PROFILE</li>
                 </ul> */}
+                {console.log(this.state, "user detial from settings")}
                 <div className="profile">
                     <div className="primary-details">
                         <div className="l-div">
@@ -396,7 +397,8 @@ export default class settings extends Component {
                                 <img src={LargeName}></img>
                             </div>
                             <div className="menu_name">
-                                <h3>{this.state.user && this.state.user.chef.user_name}</h3>
+                                <h3 autoCapitalize="words">{this.state.user && this.state.user.chef.user_name}</h3>
+                                {/* <input type="text" value={this.state.user && this.state.user.chef.user_name}></input> */}
                             </div>
                         </div>
                         <div className="other_things">

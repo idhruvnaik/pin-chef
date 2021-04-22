@@ -49,13 +49,14 @@ form, #forgot-panel {
     margin-bottom: 40px;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 .heading div:first-child {
     text-align-last: left;
     width: 10%;
 }
 .heading div:first-child img {
-    height: 15px;
+    height: 25px;
     cursor: pointer;
 }
 .otp-container .heading div:last-child {
@@ -63,6 +64,8 @@ form, #forgot-panel {
     display: flex;
     justify-content: center;
     margin-right: 10%;
+    text-shadow: 2px 2px 5px #707070;
+    font-size: 28pt;
 }
 .user_mail{
     color: white;
@@ -86,8 +89,8 @@ form, #forgot-panel {
 }
 .each_otp_container{
     display: flex;
-    margin-right: 10px;
-    max-width: 300px;
+    /* margin-right: 10px; */
+    max-width: 65%;
 }
 .each_otp_container div:last-child input{
     border-top-right-radius: 30px;
@@ -119,6 +122,7 @@ form, #forgot-panel {
     text-shadow: 2px 2px 5px #707070;
     cursor: pointer;
     font-family: custom-fonts-bold;
+    margin-top: 30%;
 }
 .resend-otp-popup{
     width: 200px;

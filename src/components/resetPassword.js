@@ -34,6 +34,7 @@ class ResetPassword extends React.Component {
         }
         this.reset_password = this.reset_password.bind(this);
         this.ShowPassword = this.ShowPassword.bind(this);
+        this.clear_errors = this.clear_errors.bind(this);
     }
 
     async reset_password(event) {
@@ -89,6 +90,10 @@ class ResetPassword extends React.Component {
         }
     };
 
+    clear_errors(){
+        $('#errorMessage')[0].innerHTML = null;
+    }
+
     render() {
         return (
             <div className="outer-layout reset-passwword-page" style={{ backgroundColor: "#555", backgroundImage: "none" }}>
@@ -110,7 +115,7 @@ class ResetPassword extends React.Component {
                                     </div>
                                     <div>
                                         <div id="errorMessage"></div>
-                                        <input type="password" id="user" placeholder="Enter new password"></input>
+                                        <input type="password" id="user" placeholder="Enter new password" onFocus={this.clear_errors}></input>
                                     </div>
                                     <div className="user_symbol">
                                         <img src={HidePassword} id="active_password" className="active_password" onClick={this.ShowPassword}></img>
@@ -125,7 +130,7 @@ class ResetPassword extends React.Component {
                                     <div>
                                         <img src={Password}></img>
                                     </div>
-                                    <input type="password" id="password" placeholder="Repeat new password"></input>
+                                    <input type="password" id="password" placeholder="Repeat new password" onFocus={this.clear_errors}></input>
                                     <div className="password_symbol">
                                         <img src={HidePassword} id="active_password" className="active_password" onClick={this.ShowPassword}></img>
                                     </div>

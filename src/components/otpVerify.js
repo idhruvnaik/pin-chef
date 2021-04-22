@@ -8,6 +8,7 @@ import IncorrectPin from '../assets/png_icons/incorrect pin icon.png'
 import EmailIcon from '../assets/svg/resend-otp-email.svg';
 import FPBack from '../assets/svg/fp-back-icon.svg';
 import InvalidOTP from '../assets/svg/incorrect pin icon.svg'
+import CorrectOTP from '../assets/svg/correct-otp.svg'
 import Popup from 'reactjs-popup';
 import OTP from './otpFields';
 import $ from 'jquery';
@@ -25,17 +26,17 @@ const mapDispatchToProps = dispatch => ({
 class VerifyOTP extends React.Component {
     constructor(props) {
         super(props);
-        // if (this.props.location.email) {
-        //     // this.email = this.props.token_details.token.user_name;
-        //     this.email = this.props.location.email;
-        //     this.redirect = this.props.location.redirect;
-        // } else {
-        //     this.props.history.push(
-        //         {
-        //             pathname: '/User'
-        //         }
-        //     );
-        // }
+        if (this.props.location.email) {
+            // this.email = this.props.token_details.token.user_name;
+            this.email = this.props.location.email;
+            this.redirect = this.props.location.redirect;
+        } else {
+            this.props.history.push(
+                {
+                    pathname: '/User'
+                }
+            );
+        }
         this.saveotp = this.saveotp.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.resend_otp = this.resend_otp.bind(this);
@@ -64,8 +65,12 @@ class VerifyOTP extends React.Component {
                 // submit_otp.style.width = "1.5em";
                 $('.verify_otp button').css("display", "none");
                 $('.verify_otp img').css("display", "block");
-                $('.verify_otp img').css("margin-left", "8px");
+                $('.verify_otp img')[0].src = InvalidOTP;
+                // $('.verify_otp img').css("margin-left", "8px");
             } else {
+                $('.verify_otp button').css("display", "none");
+                $('.verify_otp img').css("display", "block");
+                $('.verify_otp img')[0].src = CorrectOTP;
                 this.props.history.push(
                     {
                         pathname: this.redirect,

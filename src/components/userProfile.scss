@@ -29,11 +29,12 @@
                 display: flex;
                 justify-content: center;
                 padding-left: 10px;
+                align-items: baseline;
                 div:first-child{
                     text-align-last: left;
                     width: 10%;
                     img{
-                        height: 15px;
+                        height: 25px;
                         cursor: pointer;
                     }
                 }
@@ -44,6 +45,8 @@
                     margin-right: 10%;
                     font-weight: 1000;
                     font-family: custom-fonts-bold;
+                    text-shadow: 2px 2px 5px #707070;
+                    font-size: 28pt;
                 }
             }
             .profile-image-container{
@@ -150,7 +153,7 @@
                         width: 120px;
                         height: 35px;
                         border: none;
-                        font-family: Montserrat;
+                        font-family: custom-fonts-bold;
                         border-radius: 20px;
                         background-color: #BF2612;
                         box-shadow: 2px 2px 5px #707070;
@@ -161,5 +164,20 @@
                 }
             }
         }
+    }
+}
+.logout-popup{
+    font-family: custom-fonts-bold;
+    .confirmation{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        img{
+            height: 30px;
+        }
+    }
+    .question{
+        font-family: custom-fonts;
+        padding: 30px;
     }
 }

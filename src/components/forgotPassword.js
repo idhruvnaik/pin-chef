@@ -26,6 +26,7 @@ class ForgotPassword extends React.Component {
         this.get_password = this.get_password.bind(this);
         this.back_to_login = this.back_to_login.bind(this);
         this.go_to_otp_verification = this.go_to_otp_verification.bind(this);
+        this.clear_errors = this.clear_errors.bind(this);
         this.state = {
             email_popup_flag: false,
             current_email: null
@@ -70,7 +71,10 @@ class ForgotPassword extends React.Component {
                 redirect: "/User/ResetPassword"
             }
         );
+    }
 
+    clear_errors(){
+        $('#errorMessage')[0].innerHTML = null;
     }
 
     render() {
@@ -97,7 +101,7 @@ class ForgotPassword extends React.Component {
                                     </div>
                                     <div>
                                         <div id="errorMessage"></div>
-                                        <input type="text" id="username" placeholder="Enter email or ID" autoCapitalize="off"></input>
+                                        <input type="text" id="username" placeholder="Enter email or ID" autoCapitalize="off" onFocus={this.clear_errors}></input>
                                     </div>
                                 </div>
                             </div>
@@ -113,7 +117,7 @@ class ForgotPassword extends React.Component {
                             nested
                         >
                             {close => (
-                                <div className="resend-otp-popup">
+                                <div className="reset-password-popup">
                                     <div className="icon">
                                         <img src={EmailIcon}></img>
                                     </div>

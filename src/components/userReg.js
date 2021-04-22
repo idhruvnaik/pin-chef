@@ -47,6 +47,7 @@ class UserReg extends React.Component {
         this.ShowRegistrationPassword = this.ShowRegistrationPassword.bind(this);
         this.open_terms = this.open_terms.bind(this);
         this.get_password = this.get_password.bind(this);
+        this.clear_errors = this.clear_errors.bind(this);
         this.state = {
             isTCPopup: false
         }
@@ -276,6 +277,12 @@ class UserReg extends React.Component {
             isTCPopup: true
         })
     }
+    clear_errors(){
+        $('#registerform #errorMessage')[0].innerHTML = null;
+        $('#registerform #passwordErrorMessage')[0].innerHTML = null;
+        $('#loginform #passwordErrorMessage')[0].innerHTML = null;
+        $('#loginform #errorMessage')[0].innerHTML = null;
+    }
 
     render() {
         return (
@@ -310,7 +317,7 @@ class UserReg extends React.Component {
                                     </div>
                                     <div>
                                         <div id="errorMessage"></div>
-                                        <input type="text" id="username" placeholder="ex: johndoe@gmail.com or johndoe" autoCapitalize="off" ></input>
+                                        <input type="text" id="username" placeholder="ex: johndoe@gmail.com or johndoe" autoCapitalize="off" onFocus={this.clear_errors}></input>
                                     </div>
                                 </div>
                                 <div className="password_container">
@@ -323,7 +330,7 @@ class UserReg extends React.Component {
                                         </div>
                                         <div className="actual_password_input">
                                             <div id="passwordErrorMessage"></div>
-                                            <input type="password" id="password" placeholder="ex: PinChefisthebest!"></input>
+                                            <input type="password" id="password" placeholder="ex: PinChefisthebest!" onFocus={this.clear_errors}></input>
                                         </div>
                                         <div className="symbol">
                                             <img src={HidePassword} id="active_password" className="active_password" onClick={this.ShowPassword}></img>
@@ -351,7 +358,7 @@ class UserReg extends React.Component {
                                         </div>
                                         <div>
                                             <div id="errorMessage"></div>
-                                            <input type="text" id="username" placeholder="Enter email address" autoCapitalize="off" required></input>
+                                            <input type="text" id="username" placeholder="Enter email address" autoCapitalize="off" onFocus={this.clear_errors} required></input>
                                         </div>
                                     </div>
                                 </div>
@@ -365,7 +372,7 @@ class UserReg extends React.Component {
                                         </div>
                                         <div className="actual_password_input">
                                             <div id="passwordErrorMessage"></div>
-                                            <input type="password" id="password" placeholder="Enter Password" required></input>
+                                            <input type="password" id="password" placeholder="Enter Password" onFocus={this.clear_errors} required></input>
                                         </div>
                                         <div className="symbol">
                                             <img src={HidePassword} id="registration_password" className="registration_password" onClick={this.ShowRegistrationPassword}></img>

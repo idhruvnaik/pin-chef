@@ -3,10 +3,12 @@ import { resetPaasword, addTokenToState, CreateUserProfile } from '../services/a
 import { connect } from "react-redux";
 import FPBack from '../assets/svg/fp-back-icon.svg';
 import ProfileImage from '../assets/svg/profile-image.svg';
-import DeletePhoto from '../assets/svg/Delete photo.svg'
-import PhoneInput from 'react-phone-input-2'
-import 'react-phone-input-2/lib/style.css'
-import './userProfile.scss'
+import DeletePhoto from '../assets/svg/Delete photo.svg';
+import PhoneInput from 'react-phone-input-2';
+import LocationIcon from '../assets/svg/location-popoup.svg'
+import 'react-phone-input-2/lib/style.css';
+import './userProfile.scss';
+import Popup from 'reactjs-popup';
 import $ from 'jquery';
 
 const mapStateToProps = state => ({
@@ -35,17 +37,19 @@ class UserProfile extends React.Component {
         this.back_to_login = this.back_to_login.bind(this);
         this.get_profile_img = this.get_profile_img.bind(this);
         this.delete_profile_img = this.delete_profile_img.bind(this);
+        this.redirect_homepage = this.redirect_homepage.bind(this);
         this.state = {
-            contr: ''
+            contr: '',
+            open_location: false
         }
     }
 
     async create_profile(event) {
         event.preventDefault();
         var user = document.querySelector('.name_container #user').value;
-        if($('.profile-image-container img')[0].src == ProfileImage){
+        if ($('.profile-image-container img')[0].src == ProfileImage) {
             var image = null;
-        } else{
+        } else {
             var image = document.getElementById('upload').files[0];
         }
         let result = await CreateUserProfile(this.user_id, image, user, this.state.contr, this.token);
@@ -57,16 +61,14 @@ class UserProfile extends React.Component {
             //     $('#errorMessage')[0].innerHTML = result.message;
             // }
         } else {
-            this.props.history.push(
-                {
-                    pathname: '/Homepage'
-                }
-            );
+            this.setState({
+                open_location: true
+            });
         }
     }
 
-    delete_profile_img(e){
-        $('.profile-image-container img')[0].src=ProfileImage;
+    delete_profile_img(e) {
+        $('.profile-image-container img')[0].src = ProfileImage;
         e.target.src = '';
         $('.profile-image-container img').css("border-radius", "0%");
     }
@@ -89,6 +91,14 @@ class UserProfile extends React.Component {
 
     back_to_login() {
         this.props.history.goBack();
+    }
+
+    redirect_homepage() {
+        this.props.history.push(
+            {
+                pathname: '/Homepage'
+            }
+        );
     }
 
     render() {
@@ -139,7 +149,7 @@ class UserProfile extends React.Component {
                                 <div className="name_container">
                                     <div className="symbol">
                                         <PhoneInput
-                                            // country={'us'}
+                                            country={'us'}
                                             placeholder="XXX XXX XXXX"
                                             // countryCodeEditable={false}
                                             // enableSearch={true}
@@ -155,6 +165,29 @@ class UserProfile extends React.Component {
                         </form>
                     </div>
                 </div>
+                <Popup
+                    open={this.state.open_location}
+                    position="center center"
+                    closeOnDocumentClick
+                    modal
+                    nested
+                >
+                    {close => (
+                        <div className="logout-popup">
+                            <div className="confirmation">
+                                <h3>CONGRATULATIONS!</h3>
+                                <img src={LocationIcon}></img>
+                            </div>
+                            <div className="question">
+                                Thank you for signing up!<br />Enjoy the app. Please allow to use your location for us to help your search. 
+                            </div>
+                            <div className="actions">
+                                <button type="button" onClick={close}>CANCLE</button>
+                                <button type="button" onClick={() => this.redirect_homepage()}>Allow</button>
+                            </div>
+                        </div>
+                    )}
+                </Popup>
             </div>
         );
     }
