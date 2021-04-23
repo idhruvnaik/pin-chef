@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { resetPaasword, addTokenToState, CreateUserProfile } from '../services/apiOperations';
+import { resetPaasword, addTokenToState, CreateUserProfile, getAddressFromCoordinates } from '../services/apiOperations';
 import { connect } from "react-redux";
 import FPBack from '../assets/svg/fp-back-icon.svg';
 import ProfileImage from '../assets/svg/profile-image.svg';
@@ -40,7 +40,9 @@ class UserProfile extends React.Component {
         this.redirect_homepage = this.redirect_homepage.bind(this);
         this.state = {
             contr: '',
-            open_location: false
+            open_location: false,
+            lat: null,
+            longt: null
         }
     }
 
@@ -64,6 +66,18 @@ class UserProfile extends React.Component {
             this.setState({
                 open_location: true
             });
+            navigator.geolocation.getCurrentPosition((position) => {
+                console.log("Latitude is :", position.coords.latitude);
+                this.setState({
+                    lat: position.coords.latitude
+                });
+                console.log("Longitude is :", position.coords.longitude);
+                this.setState({
+                    longt: position.coords.longitude
+                });
+            });
+            let address = await getAddressFromCoordinates(this.state.lat, this.state.longt);
+            console.log(address);
         }
     }
 
@@ -94,16 +108,19 @@ class UserProfile extends React.Component {
     }
 
     redirect_homepage() {
-        this.props.history.push(
-            {
-                pathname: '/Homepage'
-            }
-        );
+        // this.get_location();
+        console.log(this, "from redirect homepage");
+        // this.props.history.push(
+        //     {
+        //         pathname: '/Homepage'
+        //     }
+        // );
     }
 
     render() {
         return (
             <div className="outer-layout user-profile-page" style={{ backgroundColor: "#555", backgroundImage: "none" }}>
+                {console.log(this, "from user profile creation")}
                 <div className="rp-container">
                     <div className="login-register">
                         <div className="heading">
@@ -183,7 +200,6 @@ class UserProfile extends React.Component {
                             </div>
                             <div className="actions">
                                 <button type="button" onClick={close}>CANCLE</button>
-                                <button type="button" onClick={() => this.redirect_homepage()}>Allow</button>
                             </div>
                         </div>
                     )}
@@ -193,4 +209,4 @@ class UserProfile extends React.Component {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserProfile)
+export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);

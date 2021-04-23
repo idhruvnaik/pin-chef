@@ -9,6 +9,8 @@ import ChefComponents from './components/chefComponents/chefHome'
 import ForgotPassword from './components/forgotPassword'
 import ResetPassword from './components/resetPassword'
 import UserProfile from './components/userProfile'
+import ChefProfile from './components/chefComponents/chefProfile'
+import GetLocation from './components/getLocation'
 import CustomOnboarding from './components/custom-onboarding'
 import $ from 'jquery';
 // import CommonComponents from './components/commonComponents'
@@ -35,11 +37,13 @@ function App() {
       </div> */}
       <Router>
           <Switch>
+              <Route path='/Chef/Createprofile' component={ChefProfile} />
               <Route path='/Chef/Home' component={ChefComponents} />
               <Route path='/VerifyOTP' component={VerifyOtp} />
               <Route path='/User/CreateProfile' component={UserProfile} />
               <Route path='/User/ResetPassword' component={ResetPassword} />
               <Route path='/User/ForgotPassword' component={ForgotPassword} />
+              <Route path='/Location' component={GetLocation} />
               <Route path='/User' component={UserReg} />
               <Route path='/Homepage' component={UserFeeds} />
               <Route path='/CustomOnboard' component={CustomOnboarding} />

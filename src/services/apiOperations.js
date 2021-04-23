@@ -2,6 +2,7 @@ import axios from 'axios';
 import {reactLocalStorage} from 'reactjs-localstorage';
 import { useDispatch } from 'react-redux';
 import { addToken, removeToken, signIn} from './actions';
+import { geolocated } from "react-geolocated";
 
 const apiHost = "http://35.175.243.253:8080/api"
 // const apiHost = "https://pinchef.io:8080/api"
@@ -104,6 +105,35 @@ export const addTokenToState=(token_details)=>{
     return dispatch =>{
         dispatch(addToken(token_details))
     }
+}
+
+export const getAddressFromCoordinates = async(latitude, longitude) => {
+    const API = 'AIzaSyBNOEa0QgK6aFw7vcNtxLbBzR7dbztrOOg';
+    const geocodingAPI = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${API}`;
+
+    try{
+        let resp = await make_rest_call(geocodingAPI, 'GET', {}, {});
+        return resp;
+    } catch (error){
+        return {
+            status: false,
+            message: error.message
+        };
+    }
+
+    // await axios
+    //   .get(geocodingAPI)
+    //   .then(function (res) {
+    //     if (res.status == 200) {
+    //       const city = res.data.results[0].address_components.filter((obj) => {
+    //         return obj.types.includes('locality');
+    //       })[0].long_name;
+    //       console.log(city);
+    //     }
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
 }
 
 export const registerUser= async(data)=>{
