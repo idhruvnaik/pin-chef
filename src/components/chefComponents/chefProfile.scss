@@ -113,6 +113,18 @@
                     }
                 }
             }
+            .add-cusine{
+                display: none;
+                margin-bottom: 10px;
+                input{
+                    width: 82%;
+                    padding: 15px;
+                    border-radius: 12px;
+                }
+                img{
+                    cursor: pointer;
+                }
+            }
             .payment{
                 width: 100%;
                 margin-bottom: 10px;
@@ -144,6 +156,19 @@
                     border-radius: 12px;
                 }
             }
+            .save_profile{
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                button{
+                    background-color: #469A09;
+                    padding: 10px 40px 10px 40px;
+                    font-family: custom-fonts-bold;
+                    color: white;
+                    border-radius: 15px 0px 15px 15px;
+                }
+            }
             .long-input{
                 input{
                     min-height: 100px;
@@ -163,10 +188,11 @@
     color: #5B5353;
     min-width: 450px;
     .pop-up-heading{
-        text-shadow: 1px 1px 5px #707070;
+        text-shadow: 1px 1px 3px #707070;
         width: 100%;
         text-align: center;
         margin-bottom: 15px;
+        font-family: custom-fonts;
     }
     .timeranges{
         width: 100%;
@@ -179,10 +205,29 @@
             .day{
                 width: 110px;
             }
-            span:last-child{
-                color: #469A09;
-                font-size: 18pt;
+            .multiple-ranges{
+                .each-range{
+                    margin-bottom: 5px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    span:last-child{
+                        color: #B62414;
+                        font-size: 14pt;
+                        cursor: pointer;
+                        margin-left: 10px;
+                    }
+                }
+                .each-range:first-child{
+                    span:last-child{
+                        color: #469A09;
+                        font-size: 18pt;
+                        cursor: pointer;
+                        margin-left: 12px;
+                    }
+                }
             }
+            
             .custom-time-picker{
                 font-family: custom-fonts;
                 .react-time-picker__wrapper{
