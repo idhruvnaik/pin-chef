@@ -16,6 +16,7 @@ import TimePicker from 'react-time-picker';
 import Popup from 'reactjs-popup';
 import Switch from "react-switch";
 import $ from 'jquery';
+import SelectSearch from "react-dropdown-select";
 
 const mapStateToProps = state => ({
     ...state
@@ -69,8 +70,241 @@ class ChefProfile extends React.Component {
             friday_disable: true,
             saturday_disable: true,
             sunday_disable: true,
-            monday_count: ["+", "x"]
+            monday_count: ["+", "x"],
 
+            options: [
+                {
+                    id: 1,
+                    name: "Leanne Graham",
+                    username: "Bret",
+                    email: "Sincere@april.biz",
+                    address: {
+                        street: "Kulas Light",
+                        suite: "Apt. 556",
+                        city: "Gwenborough",
+                        zipcode: "92998-3874",
+                        geo: {
+                            lat: "-37.3159",
+                            lng: "81.1496"
+                        }
+                    },
+                    phone: "1-770-736-8031 x56442",
+                    website: "hildegard.org",
+                    company: {
+                        name: "Romaguera-Crona",
+                        catchPhrase: "Multi-layered client-server neural-net",
+                        bs: "harness real-time e-markets"
+                    }
+                },
+                {
+                    id: 2,
+                    disabled: true,
+                    name: "Ervin Howell",
+                    username: "Antonette",
+                    email: "Shanna@melissa.tv",
+                    address: {
+                        street: "Victor Plains",
+                        suite: "Suite 879",
+                        city: "Wisokyburgh",
+                        zipcode: "90566-7771",
+                        geo: {
+                            lat: "-43.9509",
+                            lng: "-34.4618"
+                        }
+                    },
+                    phone: "010-692-6593 x09125",
+                    website: "anastasia.net",
+                    company: {
+                        name: "Deckow-Crist",
+                        catchPhrase: "Proactive didactic contingency",
+                        bs: "synergize scalable supply-chains"
+                    }
+                },
+                {
+                    id: 3,
+                    name: "Clementine Bauch",
+                    username: "Samantha",
+                    email: "Nathan@yesenia.net",
+                    address: {
+                        street: "Douglas Extension",
+                        suite: "Suite 847",
+                        city: "McKenziehaven",
+                        zipcode: "59590-4157",
+                        geo: {
+                            lat: "-68.6102",
+                            lng: "-47.0653"
+                        }
+                    },
+                    phone: "1-463-123-4447",
+                    website: "ramiro.info",
+                    company: {
+                        name: "Romaguera-Jacobson",
+                        catchPhrase: "Face to face bifurcated interface",
+                        bs: "e-enable strategic applications"
+                    }
+                },
+                {
+                    id: 4,
+                    name: "Patricia Lebsack",
+                    username: "Karianne",
+                    email: "Julianne.OConner@kory.org",
+                    address: {
+                        street: "Hoeger Mall",
+                        suite: "Apt. 692",
+                        city: "South Elvis",
+                        zipcode: "53919-4257",
+                        geo: {
+                            lat: "29.4572",
+                            lng: "-164.2990"
+                        }
+                    },
+                    phone: "493-170-9623 x156",
+                    website: "kale.biz",
+                    company: {
+                        name: "Robel-Corkery",
+                        catchPhrase: "Multi-tiered zero tolerance productivity",
+                        bs: "transition cutting-edge web services"
+                    }
+                },
+                {
+                    id: 5,
+                    name: "Chelsey Dietrich",
+                    username: "Kamren",
+                    email: "Lucio_Hettinger@annie.ca",
+                    address: {
+                        street: "Skiles Walks",
+                        suite: "Suite 351",
+                        city: "Roscoeview",
+                        zipcode: "33263",
+                        geo: {
+                            lat: "-31.8129",
+                            lng: "62.5342"
+                        }
+                    },
+                    phone: "(254)954-1289",
+                    website: "demarco.info",
+                    company: {
+                        name: "Keebler LLC",
+                        catchPhrase: "User-centric fault-tolerant solution",
+                        bs: "revolutionize end-to-end systems"
+                    }
+                },
+                {
+                    id: 6,
+                    name: "Mrs. Dennis Schulist",
+                    username: "Leopoldo_Corkery",
+                    email: "Karley_Dach@jasper.info",
+                    address: {
+                        street: "Norberto Crossing",
+                        suite: "Apt. 950",
+                        city: "South Christy",
+                        zipcode: "23505-1337",
+                        geo: {
+                            lat: "-71.4197",
+                            lng: "71.7478"
+                        }
+                    },
+                    phone: "1-477-935-8478 x6430",
+                    website: "ola.org",
+                    company: {
+                        name: "Considine-Lockman",
+                        catchPhrase: "Synchronised bottom-line interface",
+                        bs: "e-enable innovative applications"
+                    }
+                },
+                {
+                    id: 7,
+                    name: "Kurtis Weissnat",
+                    username: "Elwyn.Skiles",
+                    email: "Telly.Hoeger@billy.biz",
+                    address: {
+                        street: "Rex Trail",
+                        suite: "Suite 280",
+                        city: "Howemouth",
+                        zipcode: "58804-1099",
+                        geo: {
+                            lat: "24.8918",
+                            lng: "21.8984"
+                        }
+                    },
+                    phone: "210.067.6132",
+                    website: "elvis.io",
+                    company: {
+                        name: "Johns Group",
+                        catchPhrase: "Configurable multimedia task-force",
+                        bs: "generate enterprise e-tailers"
+                    }
+                },
+                {
+                    id: 8,
+                    name: "Nicholas Runolfsdottir V",
+                    username: "Maxime_Nienow",
+                    email: "Sherwood@rosamond.me",
+                    address: {
+                        street: "Ellsworth Summit",
+                        suite: "Suite 729",
+                        city: "Aliyaview",
+                        zipcode: "45169",
+                        geo: {
+                            lat: "-14.3990",
+                            lng: "-120.7677"
+                        }
+                    },
+                    phone: "586.493.6943 x140",
+                    website: "jacynthe.com",
+                    company: {
+                        name: "Abernathy Group",
+                        catchPhrase: "Implemented secondary concept",
+                        bs: "e-enable extensible e-tailers"
+                    }
+                },
+                {
+                    id: 9,
+                    name: "Glenna Reichert",
+                    username: "Delphine",
+                    email: "Chaim_McDermott@dana.io",
+                    address: {
+                        street: "Dayna Park",
+                        suite: "Suite 449",
+                        city: "Bartholomebury",
+                        zipcode: "76495-3109",
+                        geo: {
+                            lat: "24.6463",
+                            lng: "-168.8889"
+                        }
+                    },
+                    phone: "(775)976-6794 x41206",
+                    website: "conrad.com",
+                    company: {
+                        name: "Yost and Sons",
+                        catchPhrase: "Switchable contextually-based project",
+                        bs: "aggregate real-time technologies"
+                    }
+                },
+                {
+                    id: 10,
+                    name: "Clementina DuBuque",
+                    username: "Moriah.Stanton",
+                    email: "Rey.Padberg@karina.biz",
+                    address: {
+                        street: "Kattie Turnpike",
+                        suite: "Suite 198",
+                        city: "Lebsackbury",
+                        zipcode: "31428-2261",
+                        geo: {
+                            lat: "-38.2386",
+                            lng: "57.2232"
+                        }
+                    },
+                    phone: "024-648-3804",
+                    website: "ambrose.net",
+                    company: {
+                        name: "Hoeger LLC",
+                        catchPhrase: "Centralized empowering task-force",
+                        bs: "target end-to-end models"
+                    }
+                }
+            ]
         }
     }
 
@@ -235,11 +469,11 @@ class ChefProfile extends React.Component {
                                 <div className="primary-details">
                                     <div className="individual-details">
                                         <div className="input-name">Name & Last Name &nbsp;<span>*</span></div>
-                                        <input type="text" placeholder="Real name and last name"></input>
+                                        <input type="text" className="field" placeholder="Real name and last name"></input>
                                     </div>
                                     <div className="individual-details">
                                         <div className="input-name">User ID-Nickname</div>
-                                        <input type="text" placeholder="ex: JohnDoe23"></input>
+                                        <input type="text" className="field" placeholder="ex: JohnDoe23"></input>
                                     </div>
                                 </div>
                             </div>
@@ -267,19 +501,19 @@ class ChefProfile extends React.Component {
                             </div>
                             <div className="individual-details">
                                 <div className="input-name">Gender</div>
-                                <input type="text" placeholder="ex. Female, Male, etc."></input>
+                                <input type="text" className="field" placeholder="ex. Female, Male, etc."></input>
                             </div>
                             <div className="individual-details">
                                 <div className="input-name">Position &nbsp;<span>*</span></div>
-                                <input type="text" placeholder="ex: Head Chef, Pastry Chef, Home Chef, etc."></input>
+                                <input type="text" className="field" placeholder="ex: Head Chef, Pastry Chef, Home Chef, etc."></input>
                             </div>
                             <div className="individual-details">
                                 <div className="input-name">Languages</div>
-                                <input type="text" placeholder="ex: English, Spanish, etc."></input>
+                                <input type="text" className="field" placeholder="ex: English, Spanish, etc."></input>
                             </div>
                             <div className="individual-details">
                                 <div className="input-name">Cuisine Specialties</div>
-                                <input type="text" placeholder="ex: English, Spanish, etc."></input>
+                                <SelectSearch options={this.state.options} labelField="username" searchable={true} searchBy="username" />
                             </div>
                             Cuisine not in list? <u style={{ fontFamily: "custom-fonts-bold" }} >Add Cuisine</u> <span id="addCusine" style={{ color: "#469A09", fontSize: "18pt", fontFamily: "custom-fonts-bold", cursor: "pointer" }} onClick={this.open_custom_cusine}>+</span>
                             <div className="add-cusine">
@@ -288,64 +522,65 @@ class ChefProfile extends React.Component {
                             </div>
                             <div className="individual-details long-input">
                                 <div className="input-name">Short Ad Intro</div>
-                                <input type="text" placeholder="ex: English, Spanish, etc."></input>
+                                <input type="text" className="field" placeholder="ex: English, Spanish, etc."></input>
                             </div>
                             <div className="individual-details long-input">
                                 <div className="input-name">Full Background Info</div>
-                                <input type="text" placeholder="ex: English, Spanish, etc."></input>
+                                <input type="text" className="field" placeholder="ex: English, Spanish, etc."></input>
                             </div>
                             <div className="individual-details">
                                 <div className="input-name">Address/Location &nbsp;<span>*</span></div>
-                                <input type="text" placeholder="ex: English, Spanish, etc."></input>
+                                <input type="text" className="field" placeholder="ex: English, Spanish, etc."></input>
                             </div>
                             <div className="individual-details">
                                 <div className="input-name">Service hours &nbsp;<span>*</span></div>
-                                <Popup
-                                    trigger={<input type="radio" name="service_hours" className=""></input>}
-                                    position="center center"
-                                    closeOnDocumentClick
-                                    modal
-                                    nested
-                                >
-                                    {close => (
-                                        <div className="timerange-popup">
-                                            <div className="pop-up-heading">
-                                                Select Hours
+                                <div className="f-sb">
+                                    <Popup
+                                        trigger={<input type="radio" name="service_hours" className=""></input>}
+                                        position="center center"
+                                        closeOnDocumentClick
+                                        modal
+                                        nested
+                                    >
+                                        {close => (
+                                            <div className="timerange-popup">
+                                                <div className="pop-up-heading">
+                                                    Select Hours
                                             </div>
-                                            <div className="timeranges">
-                                                <div className="timerange" id="monday">
-                                                    <div className="day">Monday</div>
-                                                    <Switch onChange={this.mondayHandleChange} checked={this.state.monday_checked} uncheckedIcon={false} checkedIcon={false} />
-                                                    <div className="multiple-ranges">
-                                                        {this.state.monday_count.map((item, index) => {
-                                                            return (
-                                                                <div className="each-range" style={{ marginBottom: "5px" }}>
-                                                                    <TimePicker
-                                                                        // onChange={onChange}
-                                                                        value={"10:10"}
-                                                                        isOpen={false}
-                                                                        className="custom-time-picker"
-                                                                        disableClock={true}
-                                                                        disabled={this.state.monday_disable}
-                                                                        // minuteAriaLabel="Minute"
-                                                                        clearIcon={null}
-                                                                    />
+                                                <div className="timeranges">
+                                                    <div className="timerange" id="monday">
+                                                        <div className="day">Monday</div>
+                                                        <Switch onChange={this.mondayHandleChange} checked={this.state.monday_checked} uncheckedIcon={false} checkedIcon={false} />
+                                                        <div className="multiple-ranges">
+                                                            {this.state.monday_count.map((item, index) => {
+                                                                return (
+                                                                    <div className="each-range" style={{ marginBottom: "5px" }}>
+                                                                        <TimePicker
+                                                                            // onChange={onChange}
+                                                                            value={"10:10"}
+                                                                            isOpen={false}
+                                                                            className="custom-time-picker"
+                                                                            disableClock={true}
+                                                                            disabled={this.state.monday_disable}
+                                                                            // minuteAriaLabel="Minute"
+                                                                            clearIcon={null}
+                                                                        />
                                                                         &nbsp;-&nbsp;
                                                                     <TimePicker
-                                                                        // onChange={onChange}
-                                                                        value={"10:10"}
-                                                                        isOpen={false}
-                                                                        className="custom-time-picker"
-                                                                        disableClock={true}
-                                                                        disabled={this.state.monday_disable}
-                                                                        // minuteAriaLabel="Minute"
-                                                                        clearIcon={null}
-                                                                    />
-                                                                    <span id={index} onClick={this.add_range}>{item}</span>
-                                                                </div>
-                                                            )
-                                                        })}
-                                                        {/* {((i=0) => {
+                                                                            // onChange={onChange}
+                                                                            value={"10:10"}
+                                                                            isOpen={false}
+                                                                            className="custom-time-picker"
+                                                                            disableClock={true}
+                                                                            disabled={this.state.monday_disable}
+                                                                            // minuteAriaLabel="Minute"
+                                                                            clearIcon={null}
+                                                                        />
+                                                                        <span id={index} onClick={this.add_range}>{item}</span>
+                                                                    </div>
+                                                                )
+                                                            })}
+                                                            {/* {((i=0) => {
                                                             console.log("outer while loop");
                                                             while (i <= this.state.monday_count, i++) {
                                                                 console.log("inside while loop");
@@ -378,7 +613,7 @@ class ChefProfile extends React.Component {
                                                             }
                                                             console.log(this.state.monday_count);
                                                         })} */}
-                                                        {/* <div style={{ marginBottom: "5px" }}>
+                                                            {/* <div style={{ marginBottom: "5px" }}>
                                                             <TimePicker
                                                                 // onChange={onChange}
                                                                 value={"10:10"}
@@ -426,200 +661,221 @@ class ChefProfile extends React.Component {
                                                             />
                                                             <span>x</span>
                                                         </div> */}
+                                                        </div>
+                                                    </div>
+                                                    <div className="timerange">
+                                                        <div className="day">Tuesday</div>
+                                                        <Switch onChange={this.tuesdayHandleChange} checked={this.state.tuesday_checked} uncheckedIcon={false} checkedIcon={false} />
+                                                        <TimePicker
+                                                            // onChange={onChange}
+                                                            value={"10:10"}
+                                                            isOpen={false}
+                                                            className="custom-time-picker"
+                                                            disableClock={true}
+                                                            disabled={this.state.tuesday_disable}
+                                                            // minuteAriaLabel="Minute"
+                                                            clearIcon={null}
+                                                        />
+                                                        &nbsp;-&nbsp;
+                                                    <TimePicker
+                                                            // onChange={onChange}
+                                                            value={"10:10"}
+                                                            isOpen={false}
+                                                            className="custom-time-picker"
+                                                            disableClock={true}
+                                                            disabled={this.state.tuesday_disable}
+                                                            // minuteAriaLabel="Minute"
+                                                            clearIcon={null}
+                                                        />
+                                                        <span>+</span>
+                                                    </div>
+                                                    <div className="timerange">
+                                                        <div className="day">Wednesday</div>
+                                                        <Switch onChange={this.wednesdayHandleChange} checked={this.state.wednesday_checked} uncheckedIcon={false} checkedIcon={false} />
+                                                        <TimePicker
+                                                            // onChange={onChange}
+                                                            value={"10:10"}
+                                                            isOpen={false}
+                                                            className="custom-time-picker"
+                                                            disableClock={true}
+                                                            disabled={this.state.wednesday_disable}
+                                                            // minuteAriaLabel="Minute"
+                                                            clearIcon={null}
+                                                        />
+                                                        &nbsp;-&nbsp;
+                                                    <TimePicker
+                                                            // onChange={onChange}
+                                                            value={"10:10"}
+                                                            isOpen={false}
+                                                            className="custom-time-picker"
+                                                            disableClock={true}
+                                                            disabled={this.state.wednesday_disable}
+                                                            // minuteAriaLabel="Minute"
+                                                            clearIcon={null}
+                                                        />
+                                                        <span>+</span>
+                                                    </div>
+                                                    <div className="timerange">
+                                                        <div className="day">Thursday</div>
+                                                        <Switch onChange={this.thursdayHandleChange} checked={this.state.thursday_checked} uncheckedIcon={false} checkedIcon={false} />
+                                                        <TimePicker
+                                                            // onChange={onChange}
+                                                            value={"10:10"}
+                                                            isOpen={false}
+                                                            className="custom-time-picker"
+                                                            disableClock={true}
+                                                            disabled={this.state.thursday_disable}
+                                                            // minuteAriaLabel="Minute"
+                                                            clearIcon={null}
+                                                        />
+                                                        &nbsp;-&nbsp;
+                                                    <TimePicker
+                                                            // onChange={onChange}
+                                                            value={"10:10"}
+                                                            isOpen={false}
+                                                            className="custom-time-picker"
+                                                            disableClock={true}
+                                                            disabled={this.state.thursday_disable}
+                                                            // minuteAriaLabel="Minute"
+                                                            clearIcon={null}
+                                                        />
+                                                        <span>+</span>
+                                                    </div>
+                                                    <div className="timerange">
+                                                        <div className="day">Friday</div>
+                                                        <Switch onChange={this.fridayHandleChange} checked={this.state.friday_checked} uncheckedIcon={false} checkedIcon={false} />
+                                                        <TimePicker
+                                                            // onChange={onChange}
+                                                            value={"10:10"}
+                                                            isOpen={false}
+                                                            className="custom-time-picker"
+                                                            disableClock={true}
+                                                            disabled={this.state.friday_disable}
+                                                            // minuteAriaLabel="Minute"
+                                                            clearIcon={null}
+                                                        />
+                                                        &nbsp;-&nbsp;
+                                                    <TimePicker
+                                                            // onChange={onChange}
+                                                            value={"10:10"}
+                                                            isOpen={false}
+                                                            className="custom-time-picker"
+                                                            disableClock={true}
+                                                            disabled={this.state.friday_disable}
+                                                            // minuteAriaLabel="Minute"
+                                                            clearIcon={null}
+                                                        />
+                                                        <span>+</span>
+                                                    </div>
+                                                    <div className="timerange">
+                                                        <div className="day">Saturday</div>
+                                                        <Switch onChange={this.saturdayHandleChange} checked={this.state.saturday_checked} uncheckedIcon={false} checkedIcon={false} />
+                                                        <TimePicker
+                                                            // onChange={onChange}
+                                                            value={"10:10"}
+                                                            isOpen={false}
+                                                            className="custom-time-picker"
+                                                            disableClock={true}
+                                                            disabled={this.state.saturday_disable}
+                                                            // minuteAriaLabel="Minute"
+                                                            clearIcon={null}
+                                                        />
+                                                        &nbsp;-&nbsp;
+                                                    <TimePicker
+                                                            // onChange={onChange}
+                                                            value={"10:10"}
+                                                            isOpen={false}
+                                                            className="custom-time-picker"
+                                                            disableClock={true}
+                                                            disabled={this.state.saturday_disable}
+                                                            // minuteAriaLabel="Minute"
+                                                            clearIcon={null}
+                                                        />
+                                                        <span>+</span>
+                                                    </div>
+                                                    <div className="timerange">
+                                                        <div className="day">Sunday</div>
+                                                        <Switch onChange={this.sundayHandleChange} checked={this.state.sunday_checked} uncheckedIcon={false} checkedIcon={false} />
+                                                        <TimePicker
+                                                            // onChange={onChange}
+                                                            value={"10:10"}
+                                                            isOpen={false}
+                                                            className="custom-time-picker"
+                                                            disableClock={true}
+                                                            disabled={this.state.sunday_disable}
+                                                            // minuteAriaLabel="Minute"
+                                                            clearIcon={null}
+                                                        />
+                                                        &nbsp;-&nbsp;
+                                                    <TimePicker
+                                                            // onChange={onChange}
+                                                            value={"10:10"}
+                                                            isOpen={false}
+                                                            className="custom-time-picker"
+                                                            disableClock={true}
+                                                            disabled={this.state.sunday_disable}
+                                                            // minuteAriaLabel="Minute"
+                                                            clearIcon={null}
+                                                        />
+                                                        <span>+</span>
                                                     </div>
                                                 </div>
-                                                <div className="timerange">
-                                                    <div className="day">Tuesday</div>
-                                                    <Switch onChange={this.tuesdayHandleChange} checked={this.state.tuesday_checked} uncheckedIcon={false} checkedIcon={false} />
-                                                    <TimePicker
-                                                        // onChange={onChange}
-                                                        value={"10:10"}
-                                                        isOpen={false}
-                                                        className="custom-time-picker"
-                                                        disableClock={true}
-                                                        disabled={this.state.tuesday_disable}
-                                                        // minuteAriaLabel="Minute"
-                                                        clearIcon={null}
-                                                    />
-                                                    &nbsp;-&nbsp;
-                                                    <TimePicker
-                                                        // onChange={onChange}
-                                                        value={"10:10"}
-                                                        isOpen={false}
-                                                        className="custom-time-picker"
-                                                        disableClock={true}
-                                                        disabled={this.state.tuesday_disable}
-                                                        // minuteAriaLabel="Minute"
-                                                        clearIcon={null}
-                                                    />
-                                                    <span>+</span>
-                                                </div>
-                                                <div className="timerange">
-                                                    <div className="day">Wednesday</div>
-                                                    <Switch onChange={this.wednesdayHandleChange} checked={this.state.wednesday_checked} uncheckedIcon={false} checkedIcon={false} />
-                                                    <TimePicker
-                                                        // onChange={onChange}
-                                                        value={"10:10"}
-                                                        isOpen={false}
-                                                        className="custom-time-picker"
-                                                        disableClock={true}
-                                                        disabled={this.state.wednesday_disable}
-                                                        // minuteAriaLabel="Minute"
-                                                        clearIcon={null}
-                                                    />
-                                                    &nbsp;-&nbsp;
-                                                    <TimePicker
-                                                        // onChange={onChange}
-                                                        value={"10:10"}
-                                                        isOpen={false}
-                                                        className="custom-time-picker"
-                                                        disableClock={true}
-                                                        disabled={this.state.wednesday_disable}
-                                                        // minuteAriaLabel="Minute"
-                                                        clearIcon={null}
-                                                    />
-                                                    <span>+</span>
-                                                </div>
-                                                <div className="timerange">
-                                                    <div className="day">Thursday</div>
-                                                    <Switch onChange={this.thursdayHandleChange} checked={this.state.thursday_checked} uncheckedIcon={false} checkedIcon={false} />
-                                                    <TimePicker
-                                                        // onChange={onChange}
-                                                        value={"10:10"}
-                                                        isOpen={false}
-                                                        className="custom-time-picker"
-                                                        disableClock={true}
-                                                        disabled={this.state.thursday_disable}
-                                                        // minuteAriaLabel="Minute"
-                                                        clearIcon={null}
-                                                    />
-                                                    &nbsp;-&nbsp;
-                                                    <TimePicker
-                                                        // onChange={onChange}
-                                                        value={"10:10"}
-                                                        isOpen={false}
-                                                        className="custom-time-picker"
-                                                        disableClock={true}
-                                                        disabled={this.state.thursday_disable}
-                                                        // minuteAriaLabel="Minute"
-                                                        clearIcon={null}
-                                                    />
-                                                    <span>+</span>
-                                                </div>
-                                                <div className="timerange">
-                                                    <div className="day">Friday</div>
-                                                    <Switch onChange={this.fridayHandleChange} checked={this.state.friday_checked} uncheckedIcon={false} checkedIcon={false} />
-                                                    <TimePicker
-                                                        // onChange={onChange}
-                                                        value={"10:10"}
-                                                        isOpen={false}
-                                                        className="custom-time-picker"
-                                                        disableClock={true}
-                                                        disabled={this.state.friday_disable}
-                                                        // minuteAriaLabel="Minute"
-                                                        clearIcon={null}
-                                                    />
-                                                    &nbsp;-&nbsp;
-                                                    <TimePicker
-                                                        // onChange={onChange}
-                                                        value={"10:10"}
-                                                        isOpen={false}
-                                                        className="custom-time-picker"
-                                                        disableClock={true}
-                                                        disabled={this.state.friday_disable}
-                                                        // minuteAriaLabel="Minute"
-                                                        clearIcon={null}
-                                                    />
-                                                    <span>+</span>
-                                                </div>
-                                                <div className="timerange">
-                                                    <div className="day">Saturday</div>
-                                                    <Switch onChange={this.saturdayHandleChange} checked={this.state.saturday_checked} uncheckedIcon={false} checkedIcon={false} />
-                                                    <TimePicker
-                                                        // onChange={onChange}
-                                                        value={"10:10"}
-                                                        isOpen={false}
-                                                        className="custom-time-picker"
-                                                        disableClock={true}
-                                                        disabled={this.state.saturday_disable}
-                                                        // minuteAriaLabel="Minute"
-                                                        clearIcon={null}
-                                                    />
-                                                    &nbsp;-&nbsp;
-                                                    <TimePicker
-                                                        // onChange={onChange}
-                                                        value={"10:10"}
-                                                        isOpen={false}
-                                                        className="custom-time-picker"
-                                                        disableClock={true}
-                                                        disabled={this.state.saturday_disable}
-                                                        // minuteAriaLabel="Minute"
-                                                        clearIcon={null}
-                                                    />
-                                                    <span>+</span>
-                                                </div>
-                                                <div className="timerange">
-                                                    <div className="day">Sunday</div>
-                                                    <Switch onChange={this.sundayHandleChange} checked={this.state.sunday_checked} uncheckedIcon={false} checkedIcon={false} />
-                                                    <TimePicker
-                                                        // onChange={onChange}
-                                                        value={"10:10"}
-                                                        isOpen={false}
-                                                        className="custom-time-picker"
-                                                        disableClock={true}
-                                                        disabled={this.state.sunday_disable}
-                                                        // minuteAriaLabel="Minute"
-                                                        clearIcon={null}
-                                                    />
-                                                    &nbsp;-&nbsp;
-                                                    <TimePicker
-                                                        // onChange={onChange}
-                                                        value={"10:10"}
-                                                        isOpen={false}
-                                                        className="custom-time-picker"
-                                                        disableClock={true}
-                                                        disabled={this.state.sunday_disable}
-                                                        // minuteAriaLabel="Minute"
-                                                        clearIcon={null}
-                                                    />
-                                                    <span>+</span>
-                                                </div>
                                             </div>
-                                        </div>
-                                    )}
-                                </Popup>
-                                Selected Hours
+                                        )}
+                                    </Popup>
+                                    Selected Hours
                                 <input type="radio" name="service_hours" className=""></input>24/7 with booking
+                                </div>
                             </div>
                             <div className="individual-details">
                                 <div className="input-name">Services <span style={{ color: "#656565" }}>(Select all options that apply)</span></div>
-                                <input type="radio" name="services" className=""></input>Cook and Deliver
-                                <input type="radio" name="services" className=""></input>Cook and Ship
-                                <input type="radio" name="services" className=""></input>Cook for Pick up/Takeaway
-                                <input type="radio" name="services" className=""></input>Go to Guests address to cook
-                                <input type="radio" name="services" className=""></input>Host Guests and cook
-                                <input type="radio" name="services" className=""></input>Cook Live with Chef
+                                <div className="flex-c">
+                                    <div>
+                                        <input type="checkbox" className=""></input>
+                                        <span>Cook and Deliver</span>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" className=""></input>
+                                        <span>Cook and Ship</span>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" className=""></input>
+                                        <span>Cook for Pick up/Takeaway</span>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" className=""></input>
+                                        <span>Go to Guests address to cook</span>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" className=""></input>
+                                        <span>Host Guests and cook</span>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" className=""></input>
+                                        <span>Cook Live with Chef</span>
+                                    </div>
+                                </div>
                             </div>
                             <div className="individual-details">
                                 <div className="input-name">Minimum purchase Service total amount</div>
                                 <div className="price-details">
                                     <div>$</div>
-                                    <input type="text" placeholder="Enter min. price"></input>
+                                    <input type="text" className="field" placeholder="Enter min. price"></input>
                                 </div>
                             </div>
                             <div className="individual-details">
                                 <div className="input-name">Minimum purchase Service total amount</div>
                                 <div className="price-range">
                                     <div>$</div>
-                                    <input style={{ borderRadius: "0px" }} type="text" placeholder="Enter min. price"></input>
-                                    <input type="text" placeholder="Enter max. price"></input>
+                                    <input style={{ borderRadius: "0px" }} className="field" type="text" placeholder="Enter min. price"></input>
+                                    <input type="text" className="field" placeholder="Enter max. price"></input>
                                 </div>
                             </div>
                             <div className="individual-details">
                                 <div className="input-name">Hourly rate</div>
                                 <div className="price-details">
                                     <div>$</div>
-                                    <input type="text" placeholder="Enter price"></input>
+                                    <input type="text" className="field" placeholder="Enter price"></input>
                                 </div>
                             </div>
                             <div className="payment">
@@ -632,10 +888,24 @@ class ChefProfile extends React.Component {
                                         Options selected now will have to be connected to your own payment account later in settings for you to be able to make any of your added services active.
                                     </div>
                                 </div>
-                                <input type="radio" name="Payments" className=""></input>Stripe
-                                <input type="radio" name="Payments" className=""></input>Paypal
-                                <input type="radio" name="Payments" className=""></input>Cash on Delivery
-                                <input type="radio" name="Payments" className=""></input>Credit Card on Delivery
+                                <div className="flex-c">
+                                    <div>
+                                        <input type="radio" name="Payments" className=""></input>
+                                        <span>Stripe</span>
+                                    </div>
+                                    <div>
+                                        <input type="radio" name="Payments" className=""></input>
+                                        <span>Paypal</span>
+                                    </div>
+                                    <div>
+                                        <input type="radio" name="Payments" className=""></input>
+                                        <span>Cash on Delivery</span>
+                                    </div>
+                                    <div>
+                                        <input type="radio" name="Payments" className=""></input>
+                                        <span>Credit Card on Delivery</span>
+                                    </div>
+                                </div>
                             </div>
                             <div className="save_profile">
                                 <button type="button">SAVE</button>
