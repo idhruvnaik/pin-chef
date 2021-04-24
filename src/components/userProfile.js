@@ -23,16 +23,16 @@ const mapDispatchToProps = dispatch => ({
 class UserProfile extends React.Component {
     constructor(props) {
         super(props);
-        if (this.props.token_details.token) {
-            this.token = this.props.token_details.token.auth_token;
-            this.user_id = this.props.token_details.token.id;
-        } else {
-            this.props.history.push(
-                {
-                    pathname: '/User'
-                }
-            );
-        }
+        // if (this.props.token_details.token) {
+        //     this.token = this.props.token_details.token.auth_token;
+        //     this.user_id = this.props.token_details.token.id;
+        // } else {
+        //     this.props.history.push(
+        //         {
+        //             pathname: '/User'
+        //         }
+        //     );
+        // }
         this.create_profile = this.create_profile.bind(this);
         this.back_to_login = this.back_to_login.bind(this);
         this.get_profile_img = this.get_profile_img.bind(this);

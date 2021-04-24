@@ -70,6 +70,35 @@
                         color: red;
                     }
                 }
+                .react-tel-input {
+                    border: 2px solid black;
+                    border-radius: 15px;
+                    height: 60px;
+                    width: 96%;
+                    input{
+                        width: 100%;
+                        border: 1px solid black;
+                        height: 90%;
+                        border: none;
+                        text-align: center;
+                    }
+                    .flag-dropdown {
+                        border: none;
+                        border-top-left-radius: 30px;
+                        border-bottom-left-radius: 30px;
+                        background-color: white;
+                        width: 55px;
+                        .selected-flag{
+                            border-top-left-radius: 30px;
+                            border-bottom-left-radius: 30px;
+                            background-color: white;
+                            width: 55px;
+                            .flag {
+                                left: 33%;
+                            }
+                        }
+                    }
+                }
                 input{
                     padding: 15px;
                     width: 91%;
@@ -110,6 +139,26 @@
                     }
                     input:last-child{
                         border-radius: 0px 12px 12px 0px;
+                    }
+                }
+            }
+            .dob{
+                width: 100%;
+                margin-bottom: 10px;
+                .input-name{
+                    color: #469A09;
+                    font-family: custom-fonts-bold;
+                    margin-bottom: 7px;
+                    span{
+                        color: red;
+                    }
+                }
+                .react-date-picker {
+                    width: 96%;
+                    .react-date-picker__wrapper{
+                        padding: 10px;
+                        border: 2px solid black;
+                        border-radius: 12px;
                     }
                 }
             }

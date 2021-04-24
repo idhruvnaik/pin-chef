@@ -5,6 +5,7 @@ import FPBack from '../../assets/svg/fp-back-icon.svg';
 import ProfileImage from '../../assets/svg/profile-image.svg';
 import DeletePhoto from '../../assets/svg/Delete photo.svg';
 import PhoneInput from 'react-phone-input-2';
+import DatePicker from 'react-date-picker';
 import LocationIcon from '../../assets/svg/location-popoup.svg'
 import InfoIcon from "../../assets/svg/info icon red.svg"
 import AddCusine from "../../assets/svg/Add-Cusine.svg"
@@ -173,19 +174,19 @@ class ChefProfile extends React.Component {
         if (e.target.innerHTML == "+") {
             let monday_count = [...this.state.monday_count];
             monday_count.push("x");
-            this.setState({monday_count})
+            this.setState({ monday_count })
         } else {
 
         }
     }
 
-    open_custom_cusine(e){
-        if(e.target.innerHTML == "+"){
+    open_custom_cusine(e) {
+        if (e.target.innerHTML == "+") {
             $(".add-cusine").css("display", "flex");
             $("#addCusine")[0].innerHTML = "x";
             $("#addCusine").css("color", "#BF2604");
             $("#addCusine").css("font-size", "14pt");
-        } else{
+        } else {
             $(".add-cusine").css("display", "none");
             $("#addCusine")[0].innerHTML = "+";
             $("#addCusine").css("color", "#469A09");
@@ -244,11 +245,25 @@ class ChefProfile extends React.Component {
                             </div>
                             <div className="individual-details">
                                 <div className="input-name">Phone Number &nbsp;<span>*</span></div>
-                                <input type="text" placeholder="ex: JohnDoe23"></input>
+                                <PhoneInput
+                                    country={'us'}
+                                    placeholder="XXX XXX XXXX"
+                                    // countryCodeEditable={false}
+                                    // enableSearch={true}
+                                    value={this.state.contr}
+                                    onChange={phone => this.setState({ contr: phone })}
+                                />
                             </div>
-                            <div className="individual-details">
+                            <div className="dob">
                                 <div className="input-name">Date of Birth &nbsp;<span>*</span></div>
-                                <input type="text" placeholder="ex: JohnDoe23"></input>
+                                <DatePicker
+                                    onChange={null}
+                                    value={new Date()}
+                                    calendarIcon={null}
+                                    clearIcon={null}
+                                    disableCalendar={true}
+                                    required={true}
+                                />
                             </div>
                             <div className="individual-details">
                                 <div className="input-name">Gender</div>
@@ -266,7 +281,7 @@ class ChefProfile extends React.Component {
                                 <div className="input-name">Cuisine Specialties</div>
                                 <input type="text" placeholder="ex: English, Spanish, etc."></input>
                             </div>
-                            Cuisine not in list? <u style={{fontFamily: "custom-fonts-bold"}} >Add Cuisine</u> <span id="addCusine" style={{color: "#469A09", fontSize: "18pt", fontFamily: "custom-fonts-bold", cursor: "pointer"}} onClick={this.open_custom_cusine}>+</span>
+                            Cuisine not in list? <u style={{ fontFamily: "custom-fonts-bold" }} >Add Cuisine</u> <span id="addCusine" style={{ color: "#469A09", fontSize: "18pt", fontFamily: "custom-fonts-bold", cursor: "pointer" }} onClick={this.open_custom_cusine}>+</span>
                             <div className="add-cusine">
                                 <input type="text" placeholder="Write cuisine name"></input>
                                 <img src={AddCusine}></img>
