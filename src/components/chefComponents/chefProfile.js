@@ -17,6 +17,7 @@ import Popup from 'reactjs-popup';
 import Switch from "react-switch";
 import $ from 'jquery';
 import SelectSearch from "react-dropdown-select";
+import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 
 const mapStateToProps = state => ({
     ...state
@@ -30,16 +31,16 @@ const mapDispatchToProps = dispatch => ({
 class ChefProfile extends React.Component {
     constructor(props) {
         super(props);
-        // if (this.props.token_details.token) {
-        //     this.token = this.props.token_details.token.auth_token;
-        //     this.user_id = this.props.token_details.token.id;
-        // } else {
-        //     this.props.history.push(
-        //         {
-        //             pathname: '/User'
-        //         }
-        //     );
-        // }
+        if (this.props.token_details.token) {
+            this.token = this.props.token_details.token.auth_token;
+            this.user_id = this.props.token_details.token.id;
+        } else {
+            this.props.history.push(
+                {
+                    pathname: '/User'
+                }
+            );
+        }
         this.create_profile = this.create_profile.bind(this);
         this.back_to_login = this.back_to_login.bind(this);
         this.get_profile_img = this.get_profile_img.bind(this);
@@ -531,6 +532,9 @@ class ChefProfile extends React.Component {
                             <div className="individual-details">
                                 <div className="input-name">Address/Location &nbsp;<span>*</span></div>
                                 <input type="text" className="field" placeholder="ex: English, Spanish, etc."></input>
+                                <GooglePlacesAutocomplete
+                                    apiKey="AIzaSyAahUdhCQxOBWBibQf7UV5BFUC7VQWJ4Ys"
+                                />
                             </div>
                             <div className="individual-details">
                                 <div className="input-name">Service hours &nbsp;<span>*</span></div>
@@ -546,7 +550,7 @@ class ChefProfile extends React.Component {
                                             <div className="timerange-popup">
                                                 <div className="pop-up-heading">
                                                     Select Hours
-                                            </div>
+                                                </div>
                                                 <div className="timeranges">
                                                     <div className="timerange" id="monday">
                                                         <div className="day">Monday</div>
@@ -566,7 +570,7 @@ class ChefProfile extends React.Component {
                                                                             clearIcon={null}
                                                                         />
                                                                         &nbsp;-&nbsp;
-                                                                    <TimePicker
+                                                                        <TimePicker
                                                                             // onChange={onChange}
                                                                             value={"10:10"}
                                                                             isOpen={false}
@@ -890,19 +894,19 @@ class ChefProfile extends React.Component {
                                 </div>
                                 <div className="flex-c">
                                     <div>
-                                        <input type="radio" name="Payments" className=""></input>
+                                        <input type="checkbox" name="Payments" className=""></input>
                                         <span>Stripe</span>
                                     </div>
                                     <div>
-                                        <input type="radio" name="Payments" className=""></input>
+                                        <input type="checkbox" name="Payments" className=""></input>
                                         <span>Paypal</span>
                                     </div>
                                     <div>
-                                        <input type="radio" name="Payments" className=""></input>
+                                        <input type="checkbox" name="Payments" className=""></input>
                                         <span>Cash on Delivery</span>
                                     </div>
                                     <div>
-                                        <input type="radio" name="Payments" className=""></input>
+                                        <input type="checkbox" name="Payments" className=""></input>
                                         <span>Credit Card on Delivery</span>
                                     </div>
                                 </div>

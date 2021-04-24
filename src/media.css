@@ -376,7 +376,8 @@
     height: 16px;
   }
   .chef-profile-creation .chef-profile .details .dob .react-date-picker,
-  .chef-profile-creation .chef-profile .details .individual-details .react-tel-input{
+  .chef-profile-creation .chef-profile .details .individual-details .react-tel-input,
+  .chef-profile-creation .chef-profile .details .individual-details .react-dropdown-select{
     width: 100%;
   }
 }

@@ -91,7 +91,7 @@
       .individual-details {
         width: 100%;
         margin-bottom: 10px;
-        .css-wmw4vi-ReactDropdownSelect {
+        .react-dropdown-select {
           box-sizing: border-box;
           position: relative;
           display: -webkit-box;
@@ -99,7 +99,7 @@
           display: -ms-flexbox;
           display: flex;
           border: 1px solid #fff;
-          width: 100%;
+          width: 96%;
           border-radius: 2px;
           padding: 2px 5px;
           -webkit-flex-direction: row;
@@ -117,6 +117,36 @@
           /* width: 30px; */
           height: 46px;
           border-color: black;
+        }
+        .react-tel-input {
+            border: 2px solid black;
+            border-radius: 15px;
+            height: 60px;
+            width: 96%;
+            input{
+                width: 100%;
+                border: 1px solid black;
+                height: 90%;
+                border: none;
+                text-align: center;
+                border-radius: 15px;
+            }
+            .flag-dropdown {
+                border: none;
+                border-top-left-radius: 30px;
+                border-bottom-left-radius: 30px;
+                background-color: white;
+                width: 55px;
+                .selected-flag{
+                    border-top-left-radius: 30px;
+                    border-bottom-left-radius: 30px;
+                    background-color: white;
+                    width: 55px;
+                    .flag {
+                        left: 33%;
+                    }
+                }
+            }
         }
         .f-sb {
           display: flex;
@@ -186,6 +216,28 @@
           }
         }
       }
+      .dob{
+            width: 100%;
+            margin-bottom: 10px;
+            .input-name{
+                color: #469A09;
+                font-family: custom-fonts-bold;
+                margin-bottom: 7px;
+                span{
+                    color: red;
+                }
+            }
+            .react-date-picker {
+                width: 96%;
+                .react-date-picker__wrapper{
+                    padding: 10px;
+                    border-style: inset;
+                    border-width: 2px;
+                    border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));;
+                    border-radius: 12px;
+                }
+            }
+        }
       .add-cusine {
         display: none;
         margin-bottom: 10px;
