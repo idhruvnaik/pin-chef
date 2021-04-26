@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { resetPaasword, addTokenToState, CreateUserProfile } from '../../services/apiOperations';
+import { addTokenToState, CreateUserProfile, UpdateChefProfile } from '../../services/apiOperations';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 import { connect } from "react-redux";
 import FPBack from '../../assets/svg/fp-back-icon.svg';
 import ProfileImage from '../../assets/svg/profile-image.svg';
@@ -10,6 +11,7 @@ import LocationIcon from '../../assets/svg/location-popoup.svg'
 import InfoIcon from "../../assets/svg/info icon red.svg"
 import AddCusine from "../../assets/svg/Add-Cusine.svg"
 import 'react-phone-input-2/lib/style.css';
+import 'react-notifications/lib/notifications.css';
 import './chefProfile.scss';
 import SlidingPane from "react-sliding-pane";
 import TimePicker from 'react-time-picker';
@@ -19,6 +21,7 @@ import $ from 'jquery';
 import SelectSearch from "react-dropdown-select";
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 
+
 const mapStateToProps = state => ({
     ...state
 })
@@ -27,21 +30,403 @@ const mapDispatchToProps = dispatch => ({
     addTokenToState: (token_details) => dispatch(addTokenToState(token_details))
 })
 
+const cusines = [
+    {
+        username: 'Afghani'
+    },
+    {
+        username: 'African'
+    },
+    {
+        username: 'Albanian'
+    },
+    {
+        username: 'American'
+    },
+    {
+        username: 'Apulian'
+    },
+    {
+        username: 'Arabic'
+    },
+    {
+        username: 'Argentinean'
+    },
+    {
+        username: 'Armenian'
+    },
+    {
+        username: 'Asian'
+    },
+    {
+        username: 'Assyrian'
+    },
+    {
+        username: 'Australian'
+    },
+    {
+        username: 'Austrian'
+    },
+    {
+        username: 'Bahamian'
+    },
+    {
+        username: 'Bangladeshi'
+    },
+    {
+        username: 'Basque'
+    },
+    {
+        username: 'Beijing cuisine'
+    },
+    {
+        username: 'Belgian'
+    },
+    {
+        username: 'Brazilian'
+    },
+    {
+        username: 'British'
+    },
+    {
+        username: 'Bulgarian'
+    },
+    {
+        username: 'Burmese'
+    },
+    {
+        username: 'Cajun & Creole'
+    },
+    {
+        username: 'Cambodian'
+    },
+    {
+        username: 'Campania'
+    },
+    {
+        username: 'Canadian'
+    },
+    {
+        username: 'Cantonese'
+    },
+    {
+        username: 'Caribbean'
+    },
+    {
+        username: 'Catalan'
+    },
+    {
+        username: 'Central American'
+    },
+    {
+        username: 'Central Asian'
+    },
+    {
+        username: 'Central European'
+    },
+    {
+        username: 'Central-Italian'
+    },
+    {
+        username: 'Chilean'
+    },
+    {
+        username: 'Chinese'
+    },
+    {
+        username: 'Colombian'
+    },
+    {
+        username: 'Contemporary'
+    },
+    {
+        username: 'Croatian'
+    },
+    {
+        username: 'Cuban'
+    },
+    {
+        username: 'Czech'
+    },
+    {
+        username: 'Danish'
+    },
+    {
+        username: 'Deli'
+    },
+    {
+        username: 'Eastern European'
+    },
+    {
+        username: 'Ecuadorean'
+    },
+    {
+        username: 'Egyptian'
+    },
+
+    {
+        username: 'Emilian'
+    },
+    {
+        username: 'Ethiopian'
+    },
+    {
+        username: 'European'
+    },
+    {
+        username: 'Filipino'
+    },
+    {
+        username: 'French'
+    },
+    {
+        username: 'Fusion'
+    },
+    {
+        username: 'Georgian'
+    },
+    {
+        username: 'German'
+    },
+    {
+        username: 'Greek'
+    },
+    {
+        username: 'Hawaiian'
+    },
+    {
+        username: 'Healthy'
+    },
+    {
+        username: 'Hong Kong'
+    },
+    {
+        username: 'Hungarian'
+    },
+    {
+        username: 'Indian'
+    },
+    {
+        username: 'Indonesian'
+    },
+    {
+        username: 'International'
+    },
+    {
+        username: 'Irish'
+    },
+    {
+        username: 'Israeli'
+    },
+    {
+        username: 'Italian'
+    },
+    {
+        username: 'Jamaican'
+    },
+    {
+        username: 'Japanese'
+    },
+    {
+        username: 'Japanese Fusion'
+    },
+    {
+        username: 'Kaiseki'
+    },
+    {
+        username: 'Korean'
+    },
+    {
+        username: 'Latin'
+    },
+    {
+        username: 'Lazio'
+    },
+    {
+        username: 'Lebanese'
+    },
+    {
+        username: 'Malaysian'
+    },
+    {
+        username: 'Mediterranean'
+    },
+    {
+        username: 'Mexican'
+    },
+    {
+        username: 'Middle Eastern'
+    },
+    {
+        username: 'Moroccan'
+    },
+    {
+        username: 'Native American'
+    },
+    {
+        username: 'Neapolitan'
+    },
+    {
+        username: 'Nepali'
+    },
+    {
+        username: 'New Zealand'
+    },
+    {
+        username: 'Nigerian'
+    },
+    {
+        username: 'Nonya'
+    },
+    {
+        username: 'Northern-Italian'
+    },
+    {
+        username: 'NorthWestern Chinese'
+    },
+    {
+        username: 'Norwegian'
+    },
+    {
+        username: 'Pakistani'
+    },
+    {
+        username: 'Persian'
+    },
+    {
+        username: 'Peruvian'
+    },
+    {
+        username: 'Pizza'
+    },
+    {
+        username: 'Polish'
+    },
+    {
+        username: 'Polynesian'
+    },
+    {
+        username: 'Portuguese'
+    },
+    {
+        username: 'Puerto Rican'
+    },
+    {
+        username: 'Romagna'
+    },
+    {
+        username: 'Romana'
+    },
+    {
+        username: 'Romanian'
+    },
+    {
+        username: 'Russian'
+    },
+    {
+        username: 'Salvadoran'
+    },
+    {
+        username: 'Sardinian'
+    },
+    {
+        username: 'Scandinavian'
+    },
+    {
+        username: 'Scottish'
+    },
+    {
+        username: 'Shanghai'
+    },
+    {
+        username: 'Sicilian'
+    },
+    {
+        username: 'Singaporean'
+    },
+    {
+        username: 'South American'
+    },
+    {
+        username: 'Southern-Italian'
+    },
+    {
+        username: 'Southwestern'
+    },
+    {
+        username: 'Spanish'
+    },
+    {
+        username: 'Sri Lankan'
+    },
+    {
+        username: 'Sushi'
+    },
+    {
+        username: 'Swedish'
+    },
+    {
+        username: 'Swiss'
+    },
+    {
+        username: 'Szechuan'
+    },
+    {
+        username: 'Taiwanese'
+    },
+    {
+        username: 'Thai'
+    },
+    {
+        username: 'Tibetan'
+    },
+    {
+        username: 'Tunisian'
+    },
+    {
+        username: 'Turkish'
+    },
+    {
+        username: 'Turkmen'
+    },
+    {
+        username: 'Tuscan'
+    },
+    {
+        username: 'Ukrainian'
+    },
+    {
+        username: 'Uzbek'
+    },
+    {
+        username: 'Venezuelan'
+    },
+    {
+        username: 'Vietusernamese'
+    },
+    {
+        username: 'Xinjiang'
+    },
+    {
+        username: 'Yunnan'
+    },
+   
+]
+
 
 class ChefProfile extends React.Component {
     constructor(props) {
         super(props);
-        if (this.props.token_details.token) {
-            this.token = this.props.token_details.token.auth_token;
-            this.user_id = this.props.token_details.token.id;
-        } else {
-            this.props.history.push(
-                {
-                    pathname: '/User'
-                }
-            );
-        }
-        this.create_profile = this.create_profile.bind(this);
+        // if (this.props.token_details.token) {
+        //     this.token = this.props.token_details.token.auth_token;
+        //     this.user_id = this.props.token_details.token.id;
+        // } else {
+        //     this.props.history.push(
+        //         {
+        //             pathname: '/User'
+        //         }
+        //     );
+        // }
         this.back_to_login = this.back_to_login.bind(this);
         this.get_profile_img = this.get_profile_img.bind(this);
         this.delete_profile_img = this.delete_profile_img.bind(this);
@@ -54,8 +439,14 @@ class ChefProfile extends React.Component {
         this.tuesdayHandleChange = this.tuesdayHandleChange.bind(this);
         this.wednesdayHandleChange = this.wednesdayHandleChange.bind(this);
         this.add_range = this.add_range.bind(this);
+        this.get_time = this.get_time.bind(this);
+        this.save_profile = this.save_profile.bind(this);
+        this.add_cusine = this.add_cusine.bind(this);
+        this.add_new_cusine = this.add_new_cusine.bind(this);
+        // this.createNotification = this.createNotification.bind(this);
         this.state = {
             contr: '',
+            dob: null,
             open_location: false,
             monday_checked: false,
             tuesday_checked: false,
@@ -71,264 +462,239 @@ class ChefProfile extends React.Component {
             friday_disable: true,
             saturday_disable: true,
             sunday_disable: true,
-            monday_count: ["+", "x"],
+            monday_count: [{
+                start_time: "10:10",
+                end_time: "22:10",
+                symbol: "+"
+            }],
+            tuesday_count: [{
+                start_time: "10:10",
+                end_time: "22:10",
+                symbol: "+"
+            }],
+            wednesday_count: [{
+                start_time: "10:10",
+                end_time: "22:10",
+                symbol: "+"
+            }],
+            thursday_count: [{
+                start_time: "10:10",
+                end_time: "22:10",
+                symbol: "+"
+            }],
+            friday_count: [{
+                start_time: "10:10",
+                end_time: "22:10",
+                symbol: "+"
+            }],
+            saturday_count: [{
+                start_time: "10:10",
+                end_time: "22:10",
+                symbol: "+"
+            }],
+            sunday_count: [{
+                start_time: "10:10",
+                end_time: "22:10",
+                symbol: "+"
+            }],
+            selected_cusine: [],
+            options: cusines
+        }
 
-            options: [
-                {
-                    id: 1,
-                    name: "Leanne Graham",
-                    username: "Bret",
-                    email: "Sincere@april.biz",
-                    address: {
-                        street: "Kulas Light",
-                        suite: "Apt. 556",
-                        city: "Gwenborough",
-                        zipcode: "92998-3874",
-                        geo: {
-                            lat: "-37.3159",
-                            lng: "81.1496"
-                        }
-                    },
-                    phone: "1-770-736-8031 x56442",
-                    website: "hildegard.org",
-                    company: {
-                        name: "Romaguera-Crona",
-                        catchPhrase: "Multi-layered client-server neural-net",
-                        bs: "harness real-time e-markets"
-                    }
-                },
-                {
-                    id: 2,
-                    disabled: true,
-                    name: "Ervin Howell",
-                    username: "Antonette",
-                    email: "Shanna@melissa.tv",
-                    address: {
-                        street: "Victor Plains",
-                        suite: "Suite 879",
-                        city: "Wisokyburgh",
-                        zipcode: "90566-7771",
-                        geo: {
-                            lat: "-43.9509",
-                            lng: "-34.4618"
-                        }
-                    },
-                    phone: "010-692-6593 x09125",
-                    website: "anastasia.net",
-                    company: {
-                        name: "Deckow-Crist",
-                        catchPhrase: "Proactive didactic contingency",
-                        bs: "synergize scalable supply-chains"
-                    }
-                },
-                {
-                    id: 3,
-                    name: "Clementine Bauch",
-                    username: "Samantha",
-                    email: "Nathan@yesenia.net",
-                    address: {
-                        street: "Douglas Extension",
-                        suite: "Suite 847",
-                        city: "McKenziehaven",
-                        zipcode: "59590-4157",
-                        geo: {
-                            lat: "-68.6102",
-                            lng: "-47.0653"
-                        }
-                    },
-                    phone: "1-463-123-4447",
-                    website: "ramiro.info",
-                    company: {
-                        name: "Romaguera-Jacobson",
-                        catchPhrase: "Face to face bifurcated interface",
-                        bs: "e-enable strategic applications"
-                    }
-                },
-                {
-                    id: 4,
-                    name: "Patricia Lebsack",
-                    username: "Karianne",
-                    email: "Julianne.OConner@kory.org",
-                    address: {
-                        street: "Hoeger Mall",
-                        suite: "Apt. 692",
-                        city: "South Elvis",
-                        zipcode: "53919-4257",
-                        geo: {
-                            lat: "29.4572",
-                            lng: "-164.2990"
-                        }
-                    },
-                    phone: "493-170-9623 x156",
-                    website: "kale.biz",
-                    company: {
-                        name: "Robel-Corkery",
-                        catchPhrase: "Multi-tiered zero tolerance productivity",
-                        bs: "transition cutting-edge web services"
-                    }
-                },
-                {
-                    id: 5,
-                    name: "Chelsey Dietrich",
-                    username: "Kamren",
-                    email: "Lucio_Hettinger@annie.ca",
-                    address: {
-                        street: "Skiles Walks",
-                        suite: "Suite 351",
-                        city: "Roscoeview",
-                        zipcode: "33263",
-                        geo: {
-                            lat: "-31.8129",
-                            lng: "62.5342"
-                        }
-                    },
-                    phone: "(254)954-1289",
-                    website: "demarco.info",
-                    company: {
-                        name: "Keebler LLC",
-                        catchPhrase: "User-centric fault-tolerant solution",
-                        bs: "revolutionize end-to-end systems"
-                    }
-                },
-                {
-                    id: 6,
-                    name: "Mrs. Dennis Schulist",
-                    username: "Leopoldo_Corkery",
-                    email: "Karley_Dach@jasper.info",
-                    address: {
-                        street: "Norberto Crossing",
-                        suite: "Apt. 950",
-                        city: "South Christy",
-                        zipcode: "23505-1337",
-                        geo: {
-                            lat: "-71.4197",
-                            lng: "71.7478"
-                        }
-                    },
-                    phone: "1-477-935-8478 x6430",
-                    website: "ola.org",
-                    company: {
-                        name: "Considine-Lockman",
-                        catchPhrase: "Synchronised bottom-line interface",
-                        bs: "e-enable innovative applications"
-                    }
-                },
-                {
-                    id: 7,
-                    name: "Kurtis Weissnat",
-                    username: "Elwyn.Skiles",
-                    email: "Telly.Hoeger@billy.biz",
-                    address: {
-                        street: "Rex Trail",
-                        suite: "Suite 280",
-                        city: "Howemouth",
-                        zipcode: "58804-1099",
-                        geo: {
-                            lat: "24.8918",
-                            lng: "21.8984"
-                        }
-                    },
-                    phone: "210.067.6132",
-                    website: "elvis.io",
-                    company: {
-                        name: "Johns Group",
-                        catchPhrase: "Configurable multimedia task-force",
-                        bs: "generate enterprise e-tailers"
-                    }
-                },
-                {
-                    id: 8,
-                    name: "Nicholas Runolfsdottir V",
-                    username: "Maxime_Nienow",
-                    email: "Sherwood@rosamond.me",
-                    address: {
-                        street: "Ellsworth Summit",
-                        suite: "Suite 729",
-                        city: "Aliyaview",
-                        zipcode: "45169",
-                        geo: {
-                            lat: "-14.3990",
-                            lng: "-120.7677"
-                        }
-                    },
-                    phone: "586.493.6943 x140",
-                    website: "jacynthe.com",
-                    company: {
-                        name: "Abernathy Group",
-                        catchPhrase: "Implemented secondary concept",
-                        bs: "e-enable extensible e-tailers"
-                    }
-                },
-                {
-                    id: 9,
-                    name: "Glenna Reichert",
-                    username: "Delphine",
-                    email: "Chaim_McDermott@dana.io",
-                    address: {
-                        street: "Dayna Park",
-                        suite: "Suite 449",
-                        city: "Bartholomebury",
-                        zipcode: "76495-3109",
-                        geo: {
-                            lat: "24.6463",
-                            lng: "-168.8889"
-                        }
-                    },
-                    phone: "(775)976-6794 x41206",
-                    website: "conrad.com",
-                    company: {
-                        name: "Yost and Sons",
-                        catchPhrase: "Switchable contextually-based project",
-                        bs: "aggregate real-time technologies"
-                    }
-                },
-                {
-                    id: 10,
-                    name: "Clementina DuBuque",
-                    username: "Moriah.Stanton",
-                    email: "Rey.Padberg@karina.biz",
-                    address: {
-                        street: "Kattie Turnpike",
-                        suite: "Suite 198",
-                        city: "Lebsackbury",
-                        zipcode: "31428-2261",
-                        geo: {
-                            lat: "-38.2386",
-                            lng: "57.2232"
-                        }
-                    },
-                    phone: "024-648-3804",
-                    website: "ambrose.net",
-                    company: {
-                        name: "Hoeger LLC",
-                        catchPhrase: "Centralized empowering task-force",
-                        bs: "target end-to-end models"
-                    }
-                }
-            ]
+        this.createNotification = (type) => {
+            console.log("from create notification");
+            return () => {
+                switch (type) {
+                    case 'info':
+                        NotificationManager.info('Info message');
+                        break;
+                    case 'success':
+                        NotificationManager.success('Success message', 'Title here');
+                        break;
+                    case 'warning':
+                        NotificationManager.warning('Warning message', 'Close after 3000ms', 3000);
+                        break;
+                    case 'error':
+                        NotificationManager.error('Error message', 'Click me!', 5000, () => {
+                            alert('callback');
+                        });
+                        break;
+                };
+            };
         }
     }
 
-    async create_profile(event) {
-        event.preventDefault();
-        var user = document.querySelector('.name_container #user').value;
-        if ($('.profile-image-container img')[0].src == ProfileImage) {
-            var image = null;
-        } else {
-            var image = document.getElementById('upload').files[0];
-        }
-        let result = await CreateUserProfile(this.user_id, image, user, this.state.contr, this.token);
-        if (result.status == false) {
-            console.log(result.message);
-            // if (result.message.includes("401")) {
-            //     $('#errorMessage')[0].innerHTML = "User is not exists or not authorized to perform this action.";
-            // } else {
-            //     $('#errorMessage')[0].innerHTML = result.message;
-            // }
-        } else {
-            this.setState({
-                open_location: true
-            });
+    async save_profile(){
+        var first_name = $("#first_name")[0].value;
+        var position = $('#position')[0].value;
+        var min_range = $(".price-range #min-price")[0].value;
+        var max_range = $(".price-range #max-price")[0].value;
+        var services = []
+        $(".flex-c #service").map((index, item)=>{
+            if(item.checked){
+                services.push(item.value);
+            }
+        });
+        var payments = []
+        $(".flex-c #payment").map((index, item)=>{
+            if(item.checked){
+                payments.push(item.value);
+            }
+        });
+        var sh = []
+        $("#service-hours").map((index, item)=>{
+            if(item.checked){
+                if(item.value == "Selected Hours"){
+                    if(!this.state.monday_disable){
+                        var temp = {
+                            day: "monday",
+                            time: this.state.monday_count
+                        }
+                        sh.push(temp);
+                    }
+                    if(!this.state.tuesday_disable){
+                        var temp = {
+                            day: "tuesday",
+                            time: this.state.tuesday_count
+                        }
+                        sh.push(temp);
+                    }
+                    if(!this.state.wednesday_disable){
+                        var temp = {
+                            day: "wednesday",
+                            time: this.state.wednesday_count
+                        }
+                        sh.push(temp);
+                    }
+                    if(!this.state.thursday_disable){
+                        var temp = {
+                            day: "thursday",
+                            time: this.state.thursday_count
+                        }
+                        sh.push(temp);
+                    }
+                    if(!this.state.friday_disable){
+                        var temp = {
+                            day: "friday",
+                            time: this.state.friday_count
+                        }
+                        sh.push(temp);
+                    }
+                    if(!this.state.saturday_disable){
+                        var temp = {
+                            day: "saturday",
+                            time: this.state.saturday_count
+                        }
+                        sh.push(temp);
+                    }
+                    if(!this.state.sunday_disable){
+                        var temp = {
+                            day: "sunday",
+                            time: this.state.sunday_count
+                        }
+                        sh.push(temp);
+                    }
+                } else{
+                    sh = [
+                        {
+                            day: "monday",
+                            time: [
+                                {
+                                    start_time: "00:00",
+                                    end_time: "23:59"
+                                }
+                            ]
+                        },
+                        {
+                            day: "tuesday",
+                            time: [
+                                {
+                                    start_time: "00:00",
+                                    end_time: "23:59"
+                                }
+                            ]
+                        },
+                        {
+                            day: "wednesday",
+                            time: [
+                                {
+                                    start_time: "00:00",
+                                    end_time: "23:59"
+                                }
+                            ]
+                        },
+                        {
+                            day: "thursday",
+                            time: [
+                                {
+                                    start_time: "00:00",
+                                    end_time: "23:59"
+                                }
+                            ]
+                        },
+                        {
+                            day: "friday",
+                            time: [
+                                {
+                                    start_time: "00:00",
+                                    end_time: "23:59"
+                                }
+                            ]
+                        },
+                        {
+                            day: "saturday",
+                            time: [
+                                {
+                                    start_time: "00:00",
+                                    end_time: "23:59"
+                                }
+                            ]
+                        },
+                        {
+                            day: "sunday",
+                            time: [
+                                {
+                                    start_time: "00:00",
+                                    end_time: "23:59"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        });
+        if(first_name.length > 0 && this.state.contr.length > 0 && position.length > 0 && min_range.length > 0 && max_range.length > 0 && sh.length > 0){
+            var data = {
+                id: this.user_id,
+                user_name: $("#user_id")[0].value,
+                name: first_name,
+                mobile: this.state.contr,
+                dob: this.state.dob,
+                gender: $('#gender')[0].value,
+                position: position,
+                languages: $("#languages")[0].value.split(","),
+                specialty: this.state.selected_cusine,
+                sort_intro: $("#short_intro")[0].value,
+                background_info: $("#full_info")[0].value,
+                service_hour: sh,
+                service: services,
+                min_purchase_amt: $('#min-price')[0].value,
+                minAmount: min_range,
+                maxAmount: max_range,
+                "service_location": "surat",
+                "address": "katargam",
+                payment_type: payments,
+                hourly_rate: $("#hourly-rate")[0].value,
+                currency: "USD"
+            }
+            let result = await UpdateChefProfile(data, this.token)
+            if (result.status == false) {
+                return NotificationManager.error(result.message, 'ERROR', 4000);
+            } else {
+                this.redirect_homepage()
+            }
+        } else{
+            NotificationManager.error('Fill up all required fields.', 'ERROR', 3000);
         }
     }
 
@@ -358,14 +724,19 @@ class ChefProfile extends React.Component {
         this.setState({ monday_checked: checked });
         this.setState({ monday_disable: !checked });
         if (checked) {
-            $("#monday span").css("opacity", "1");
+            $("#monday .disable_span").css("right", "0px");
         } else {
-            $("#monday span").css("opacity", "0.6")
+            $("#monday .disable_span").css("right", "20px")
         }
     }
     tuesdayHandleChange(checked) {
         this.setState({ tuesday_checked: checked });
         this.setState({ tuesday_disable: !checked });
+        if (checked) {
+            $("#tuesday .disable_span").css("right", "0px");
+        } else {
+            $("#tuesday .disable_span").css("right", "20px")
+        }
     }
     wednesdayHandleChange(checked) {
         this.setState({ wednesday_checked: checked });
@@ -387,9 +758,6 @@ class ChefProfile extends React.Component {
         this.setState({ sunday_checked: checked });
         this.setState({ sunday_disable: !checked });
     }
-    // disable_time(key, value){
-    //     this.setState({ key:value });
-    // }
 
     back_to_login() {
         this.props.history.goBack();
@@ -398,20 +766,123 @@ class ChefProfile extends React.Component {
     redirect_homepage() {
         this.props.history.push(
             {
-                pathname: '/Homepage'
+                pathname: '/Chef/Home'
             }
         );
     }
 
-    add_range(e) {
+    add_cusine(cusines){
+        this.setState({selected_cusine: [cusines[0].username]})
+    }
+
+    add_new_cusine(){
+        if ($("#new_cusine")[0].value.length > 0){
+            let options = [...this.state.options];
+            options.push({
+                username: $("#new_cusine")[0].value
+            })
+            this.setState({ options });
+        } else{
+            NotificationManager.error('Cusine Name is required.', 'ERROR', 3000);
+        }
+    }
+
+    add_range(e, day) {
         console.log(e);
         var count_id = e.target.id;
+        let temp = {
+            start_time: "10:10",
+            end_time: "22:10",
+            symbol: "X"
+        }
         if (e.target.innerHTML == "+") {
-            let monday_count = [...this.state.monday_count];
-            monday_count.push("x");
-            this.setState({ monday_count })
+            if (day == "monday"){
+                let monday_count = [...this.state.monday_count];
+                monday_count.push(temp);
+                this.setState({ monday_count });
+            } else if (day == "tuesday"){
+                let tuesday_count = [...this.state.tuesday_count];
+                tuesday_count.push(temp);
+                this.setState({ tuesday_count });
+            } else if (day == "wednesday"){
+                let wednesday_count = [...this.state.wednesday_count];
+                wednesday_count.push(temp);
+                this.setState({ wednesday_count });
+            } else if (day == "thursday"){
+                let thursday_count = [...this.state.thursday_count];
+                thursday_count.push(temp);
+                this.setState({ thursday_count });
+            } else if (day == "friday"){
+                let friday_count = [...this.state.friday_count];
+                friday_count.push(temp);
+                this.setState({ friday_count });
+            } else if (day == "saturday"){
+                let saturday_count = [...this.state.saturday_count];
+                saturday_count.push(temp);
+                this.setState({ saturday_count });
+            } else if (day == "sunday"){
+                let sunday_count = [...this.state.sunday_count];
+                sunday_count.push(temp);
+                this.setState({ sunday_count });
+            }
         } else {
-
+            if (day == "monday"){
+                let monday_count = [...this.state.monday_count];
+                monday_count.map((item, index) =>{
+                    if (index == count_id){
+                        monday_count.splice(index, 1);
+                    }
+                })
+                this.setState({ monday_count });
+            } else if (day == "tuesday"){
+                let tuesday_count = [...this.state.tuesday_count];
+                tuesday_count.map((item, index) =>{
+                    if (index == count_id){
+                        tuesday_count.splice(index, 1);
+                    }
+                })
+                this.setState({ tuesday_count });
+            } else if (day == "wednesday"){
+                let wednesday_count = [...this.state.wednesday_count];
+                wednesday_count.map((item, index) =>{
+                    if (index == count_id){
+                        wednesday_count.splice(index, 1);
+                    }
+                })
+                this.setState({ wednesday_count });
+            } else if (day == "thursday"){
+                let thursday_count = [...this.state.thursday_count];
+                thursday_count.map((item, index) =>{
+                    if (index == count_id){
+                        thursday_count.splice(index, 1);
+                    }
+                })
+                this.setState({ thursday_count });
+            } else if (day == "friday"){
+                let friday_count = [...this.state.friday_count];
+                friday_count.map((item, index) =>{
+                    if (index == count_id){
+                        friday_count.splice(index, 1);
+                    }
+                })
+                this.setState({ friday_count });
+            } else if (day == "saturday"){
+                let saturday_count = [...this.state.saturday_count];
+                saturday_count.map((item, index) =>{
+                    if (index == count_id){
+                        saturday_count.splice(index, 1);
+                    }
+                })
+                this.setState({ saturday_count });
+            } else if (day == "sunday"){
+                let sunday_count = [...this.state.sunday_count];
+                sunday_count.map((item, index) =>{
+                    if (index == count_id){
+                        sunday_count.splice(index, 1);
+                    }
+                })
+                this.setState({ sunday_count });
+            }
         }
     }
 
@@ -427,6 +898,17 @@ class ChefProfile extends React.Component {
             $("#addCusine").css("color", "#469A09");
             $("#addCusine").css("font-size", "18pt");
         }
+    }
+
+    get_time(time, state_name, index, key_name){
+        console.log(time);
+        console.log(state_name);
+        console.log(index);
+        console.log(key_name);
+        let monday_count = [...this.state.monday_count];
+        monday_count[index][key_name] = time;
+        this.setState({ monday_count });
+        console.log(this);
     }
 
     render() {
@@ -470,11 +952,11 @@ class ChefProfile extends React.Component {
                                 <div className="primary-details">
                                     <div className="individual-details">
                                         <div className="input-name">Name & Last Name &nbsp;<span>*</span></div>
-                                        <input type="text" className="field" placeholder="Real name and last name"></input>
+                                        <input id="first_name" type="text" className="field" placeholder="Real name and last name" autoCapitalize="words"></input>
                                     </div>
                                     <div className="individual-details">
                                         <div className="input-name">User ID-Nickname</div>
-                                        <input type="text" className="field" placeholder="ex: JohnDoe23"></input>
+                                        <input type="text" id="user_id" className="field" placeholder="ex: JohnDoe23"></input>
                                     </div>
                                 </div>
                             </div>
@@ -492,7 +974,7 @@ class ChefProfile extends React.Component {
                             <div className="dob">
                                 <div className="input-name">Date of Birth &nbsp;<span>*</span></div>
                                 <DatePicker
-                                    onChange={null}
+                                    onChange={dob => this.setState({dob})}
                                     value={new Date()}
                                     calendarIcon={null}
                                     clearIcon={null}
@@ -502,32 +984,32 @@ class ChefProfile extends React.Component {
                             </div>
                             <div className="individual-details">
                                 <div className="input-name">Gender</div>
-                                <input type="text" className="field" placeholder="ex. Female, Male, etc."></input>
+                                <input id="gender" type="text" className="field" placeholder="ex. Female, Male, etc."></input>
                             </div>
                             <div className="individual-details">
                                 <div className="input-name">Position &nbsp;<span>*</span></div>
-                                <input type="text" className="field" placeholder="ex: Head Chef, Pastry Chef, Home Chef, etc."></input>
+                                <input id="position" type="text" className="field" placeholder="ex: Head Chef, Pastry Chef, Home Chef, etc."></input>
                             </div>
                             <div className="individual-details">
                                 <div className="input-name">Languages</div>
-                                <input type="text" className="field" placeholder="ex: English, Spanish, etc."></input>
+                                <input type="text" id="languages" className="field" placeholder="ex: English, Spanish, etc."></input>
                             </div>
                             <div className="individual-details">
                                 <div className="input-name">Cuisine Specialties</div>
-                                <SelectSearch options={this.state.options} labelField="username" searchable={true} searchBy="username" />
+                                <SelectSearch options={this.state.options} labelField="username" searchable={true} searchBy="username" placeholder="Select" onChange={value => this.add_cusine(value)} />
                             </div>
                             Cuisine not in list? <u style={{ fontFamily: "custom-fonts-bold" }} >Add Cuisine</u> <span id="addCusine" style={{ color: "#469A09", fontSize: "18pt", fontFamily: "custom-fonts-bold", cursor: "pointer" }} onClick={this.open_custom_cusine}>+</span>
                             <div className="add-cusine">
-                                <input type="text" placeholder="Write cuisine name"></input>
-                                <img src={AddCusine}></img>
+                                <input id="new_cusine" type="text" placeholder="Write cuisine name"></input>
+                                <img src={AddCusine} onClick={this.add_new_cusine}></img>
                             </div>
                             <div className="individual-details long-input">
                                 <div className="input-name">Short Ad Intro</div>
-                                <input type="text" className="field" placeholder="ex: English, Spanish, etc."></input>
+                                <input id="short_intro" type="text" className="field" placeholder="ex: English, Spanish, etc." maxlength="300"></input>
                             </div>
                             <div className="individual-details long-input">
                                 <div className="input-name">Full Background Info</div>
-                                <input type="text" className="field" placeholder="ex: English, Spanish, etc."></input>
+                                <input id="full_info" type="text" className="field" placeholder="ex: English, Spanish, etc."></input>
                             </div>
                             <div className="individual-details">
                                 <div className="input-name">Address/Location &nbsp;<span>*</span></div>
@@ -539,323 +1021,301 @@ class ChefProfile extends React.Component {
                             <div className="individual-details">
                                 <div className="input-name">Service hours &nbsp;<span>*</span></div>
                                 <div className="f-sb">
-                                    <Popup
-                                        trigger={<input type="radio" name="service_hours" className=""></input>}
-                                        position="center center"
-                                        closeOnDocumentClick
-                                        modal
-                                        nested
-                                    >
-                                        {close => (
-                                            <div className="timerange-popup">
-                                                <div className="pop-up-heading">
-                                                    Select Hours
-                                                </div>
-                                                <div className="timeranges">
-                                                    <div className="timerange" id="monday">
-                                                        <div className="day">Monday</div>
-                                                        <Switch onChange={this.mondayHandleChange} checked={this.state.monday_checked} uncheckedIcon={false} checkedIcon={false} />
-                                                        <div className="multiple-ranges">
-                                                            {this.state.monday_count.map((item, index) => {
-                                                                return (
-                                                                    <div className="each-range" style={{ marginBottom: "5px" }}>
-                                                                        <TimePicker
-                                                                            // onChange={onChange}
-                                                                            value={"10:10"}
-                                                                            isOpen={false}
-                                                                            className="custom-time-picker"
-                                                                            disableClock={true}
-                                                                            disabled={this.state.monday_disable}
-                                                                            // minuteAriaLabel="Minute"
-                                                                            clearIcon={null}
-                                                                        />
-                                                                        &nbsp;-&nbsp;
-                                                                        <TimePicker
-                                                                            // onChange={onChange}
-                                                                            value={"10:10"}
-                                                                            isOpen={false}
-                                                                            className="custom-time-picker"
-                                                                            disableClock={true}
-                                                                            disabled={this.state.monday_disable}
-                                                                            // minuteAriaLabel="Minute"
-                                                                            clearIcon={null}
-                                                                        />
-                                                                        <span id={index} onClick={this.add_range}>{item}</span>
-                                                                    </div>
-                                                                )
-                                                            })}
-                                                            {/* {((i=0) => {
-                                                            console.log("outer while loop");
-                                                            while (i <= this.state.monday_count, i++) {
-                                                                console.log("inside while loop");
-                                                                return (
-                                                                    <div style={{ marginBottom: "5px" }}>
-                                                                        <TimePicker
-                                                                            // onChange={onChange}
-                                                                            value={"10:10"}
-                                                                            isOpen={false}
-                                                                            className="custom-time-picker"
-                                                                            disableClock={true}
-                                                                            disabled={this.state.monday_disable}
-                                                                            // minuteAriaLabel="Minute"
-                                                                            clearIcon={null}
-                                                                        />
-                                                                        &nbsp;-&nbsp;
-                                                                        <TimePicker
-                                                                            // onChange={onChange}
-                                                                            value={"10:10"}
-                                                                            isOpen={false}
-                                                                            className="custom-time-picker"
-                                                                            disableClock={true}
-                                                                            disabled={this.state.monday_disable}
-                                                                            // minuteAriaLabel="Minute"
-                                                                            clearIcon={null}
-                                                                        />
-                                                                        <span>+</span>
-                                                                    </div>
-                                                                )
-                                                            }
-                                                            console.log(this.state.monday_count);
-                                                        })} */}
-                                                            {/* <div style={{ marginBottom: "5px" }}>
-                                                            <TimePicker
-                                                                // onChange={onChange}
-                                                                value={"10:10"}
-                                                                isOpen={false}
-                                                                className="custom-time-picker"
-                                                                disableClock={true}
-                                                                disabled={this.state.monday_disable}
-                                                                // minuteAriaLabel="Minute"
-                                                                clearIcon={null}
-                                                            />
-                                                            &nbsp;-&nbsp;
-                                                            <TimePicker
-                                                                // onChange={onChange}
-                                                                value={"10:10"}
-                                                                isOpen={false}
-                                                                className="custom-time-picker"
-                                                                disableClock={true}
-                                                                disabled={this.state.monday_disable}
-                                                                // minuteAriaLabel="Minute"
-                                                                clearIcon={null}
-                                                            />
-                                                            <span>+</span>
+                                    <div>
+                                        <Popup
+                                            trigger={<input id="service-hours" type="radio" name="service_hours" className="" value="Selected Hours"></input>}
+                                            position="center center"
+                                            closeOnDocumentClick
+                                            modal
+                                            nested
+                                        >
+                                            {close => (
+                                                <div className="timerange-popup">
+                                                    <div className="pop-up-heading">
+                                                        Select Hours
+                                                    </div>
+                                                    <div className="timeranges">
+                                                        <div className="timerange" id="monday">
+                                                            <div className="day">Monday</div>
+                                                            <Switch onChange={this.mondayHandleChange} checked={this.state.monday_checked} uncheckedIcon={false} checkedIcon={false} />
+                                                            <div className="multiple-ranges">
+                                                                {this.state.monday_count.map((item, index) => {
+                                                                    return (
+                                                                        <div className="each-range" style={{ marginBottom: "5px" }}>
+                                                                            <TimePicker
+                                                                                onChange={value => this.get_time(value, "monday_count", index, "start_time")}
+                                                                                value={item.start_time}
+                                                                                isOpen={false}
+                                                                                className="custom-time-picker"
+                                                                                disableClock={true}
+                                                                                disabled={this.state.monday_disable}
+                                                                                // minuteAriaLabel="Minute"
+                                                                                clearIcon={null}
+                                                                            />
+                                                                            &nbsp;-&nbsp;
+                                                                            <TimePicker
+                                                                                onChange={value => this.get_time(value, "monday_count", index, "end_time")}
+                                                                                value={item.end_time}
+                                                                                isOpen={false}
+                                                                                className="custom-time-picker"
+                                                                                disableClock={true}
+                                                                                disabled={this.state.monday_disable}
+                                                                                // minuteAriaLabel="Minute"
+                                                                                clearIcon={null}
+                                                                            />
+                                                                            <span id={index} onClick={event => this.add_range(event, "monday")} className="symbol">{item.symbol}</span>
+                                                                            <div className="disable_span" style={{right: this.state.monday_checked ? "0px": "20px"}}></div>
+                                                                        </div>
+                                                                    )
+                                                                })}
+                                                            </div>
                                                         </div>
-                                                        <div>
-                                                            <TimePicker
-                                                                // onChange={onChange}
-                                                                value={"10:10"}
-                                                                isOpen={false}
-                                                                className="custom-time-picker"
-                                                                disableClock={true}
-                                                                disabled={this.state.monday_disable}
-                                                                // minuteAriaLabel="Minute"
-                                                                clearIcon={null}
-                                                            />
-                                                            &nbsp;-&nbsp;
-                                                            <TimePicker
-                                                                // onChange={onChange}
-                                                                value={"10:10"}
-                                                                isOpen={false}
-                                                                className="custom-time-picker"
-                                                                disableClock={true}
-                                                                disabled={this.state.monday_disable}
-                                                                // minuteAriaLabel="Minute"
-                                                                clearIcon={null}
-                                                            />
-                                                            <span>x</span>
-                                                        </div> */}
+                                                        <div className="timerange">
+                                                            <div className="day">Tuesday</div>
+                                                            <Switch onChange={this.tuesdayHandleChange} checked={this.state.tuesday_checked} uncheckedIcon={false} checkedIcon={false} />
+                                                            <div className="multiple-ranges">
+                                                                {this.state.tuesday_count.map((item, index) => {
+                                                                    return (
+                                                                        <div className="each-range" style={{ marginBottom: "5px" }}>
+                                                                            <TimePicker
+                                                                                onChange={value => this.get_time(value, "tuesday_count", index, "start_time")}
+                                                                                value={item.start_time}
+                                                                                isOpen={false}
+                                                                                className="custom-time-picker"
+                                                                                disableClock={true}
+                                                                                disabled={this.state.tuesday_disable}
+                                                                                // minuteAriaLabel="Minute"
+                                                                                clearIcon={null}
+                                                                            />
+                                                                            &nbsp;-&nbsp;
+                                                                            <TimePicker
+                                                                                onChange={value => this.get_time(value, "tuesday_count", index, "end_time")}
+                                                                                value={item.end_time}
+                                                                                isOpen={false}
+                                                                                className="custom-time-picker"
+                                                                                disableClock={true}
+                                                                                disabled={this.state.tuesday_disable}
+                                                                                // minuteAriaLabel="Minute"
+                                                                                clearIcon={null}
+                                                                            />
+                                                                            <span id={index} onClick={event => this.add_range(event, "tuesday")} className="symbol">{item.symbol}</span>
+                                                                            <div className="disable_span" style={{right: this.state.tuesday_checked ? "0px": "20px"}}></div>
+                                                                        </div>
+                                                                    )
+                                                                })}
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div className="timerange">
-                                                        <div className="day">Tuesday</div>
-                                                        <Switch onChange={this.tuesdayHandleChange} checked={this.state.tuesday_checked} uncheckedIcon={false} checkedIcon={false} />
-                                                        <TimePicker
-                                                            // onChange={onChange}
-                                                            value={"10:10"}
-                                                            isOpen={false}
-                                                            className="custom-time-picker"
-                                                            disableClock={true}
-                                                            disabled={this.state.tuesday_disable}
-                                                            // minuteAriaLabel="Minute"
-                                                            clearIcon={null}
-                                                        />
-                                                        &nbsp;-&nbsp;
-                                                    <TimePicker
-                                                            // onChange={onChange}
-                                                            value={"10:10"}
-                                                            isOpen={false}
-                                                            className="custom-time-picker"
-                                                            disableClock={true}
-                                                            disabled={this.state.tuesday_disable}
-                                                            // minuteAriaLabel="Minute"
-                                                            clearIcon={null}
-                                                        />
-                                                        <span>+</span>
-                                                    </div>
-                                                    <div className="timerange">
-                                                        <div className="day">Wednesday</div>
-                                                        <Switch onChange={this.wednesdayHandleChange} checked={this.state.wednesday_checked} uncheckedIcon={false} checkedIcon={false} />
-                                                        <TimePicker
-                                                            // onChange={onChange}
-                                                            value={"10:10"}
-                                                            isOpen={false}
-                                                            className="custom-time-picker"
-                                                            disableClock={true}
-                                                            disabled={this.state.wednesday_disable}
-                                                            // minuteAriaLabel="Minute"
-                                                            clearIcon={null}
-                                                        />
-                                                        &nbsp;-&nbsp;
-                                                    <TimePicker
-                                                            // onChange={onChange}
-                                                            value={"10:10"}
-                                                            isOpen={false}
-                                                            className="custom-time-picker"
-                                                            disableClock={true}
-                                                            disabled={this.state.wednesday_disable}
-                                                            // minuteAriaLabel="Minute"
-                                                            clearIcon={null}
-                                                        />
-                                                        <span>+</span>
-                                                    </div>
-                                                    <div className="timerange">
-                                                        <div className="day">Thursday</div>
-                                                        <Switch onChange={this.thursdayHandleChange} checked={this.state.thursday_checked} uncheckedIcon={false} checkedIcon={false} />
-                                                        <TimePicker
-                                                            // onChange={onChange}
-                                                            value={"10:10"}
-                                                            isOpen={false}
-                                                            className="custom-time-picker"
-                                                            disableClock={true}
-                                                            disabled={this.state.thursday_disable}
-                                                            // minuteAriaLabel="Minute"
-                                                            clearIcon={null}
-                                                        />
-                                                        &nbsp;-&nbsp;
-                                                    <TimePicker
-                                                            // onChange={onChange}
-                                                            value={"10:10"}
-                                                            isOpen={false}
-                                                            className="custom-time-picker"
-                                                            disableClock={true}
-                                                            disabled={this.state.thursday_disable}
-                                                            // minuteAriaLabel="Minute"
-                                                            clearIcon={null}
-                                                        />
-                                                        <span>+</span>
-                                                    </div>
-                                                    <div className="timerange">
-                                                        <div className="day">Friday</div>
-                                                        <Switch onChange={this.fridayHandleChange} checked={this.state.friday_checked} uncheckedIcon={false} checkedIcon={false} />
-                                                        <TimePicker
-                                                            // onChange={onChange}
-                                                            value={"10:10"}
-                                                            isOpen={false}
-                                                            className="custom-time-picker"
-                                                            disableClock={true}
-                                                            disabled={this.state.friday_disable}
-                                                            // minuteAriaLabel="Minute"
-                                                            clearIcon={null}
-                                                        />
-                                                        &nbsp;-&nbsp;
-                                                    <TimePicker
-                                                            // onChange={onChange}
-                                                            value={"10:10"}
-                                                            isOpen={false}
-                                                            className="custom-time-picker"
-                                                            disableClock={true}
-                                                            disabled={this.state.friday_disable}
-                                                            // minuteAriaLabel="Minute"
-                                                            clearIcon={null}
-                                                        />
-                                                        <span>+</span>
-                                                    </div>
-                                                    <div className="timerange">
-                                                        <div className="day">Saturday</div>
-                                                        <Switch onChange={this.saturdayHandleChange} checked={this.state.saturday_checked} uncheckedIcon={false} checkedIcon={false} />
-                                                        <TimePicker
-                                                            // onChange={onChange}
-                                                            value={"10:10"}
-                                                            isOpen={false}
-                                                            className="custom-time-picker"
-                                                            disableClock={true}
-                                                            disabled={this.state.saturday_disable}
-                                                            // minuteAriaLabel="Minute"
-                                                            clearIcon={null}
-                                                        />
-                                                        &nbsp;-&nbsp;
-                                                    <TimePicker
-                                                            // onChange={onChange}
-                                                            value={"10:10"}
-                                                            isOpen={false}
-                                                            className="custom-time-picker"
-                                                            disableClock={true}
-                                                            disabled={this.state.saturday_disable}
-                                                            // minuteAriaLabel="Minute"
-                                                            clearIcon={null}
-                                                        />
-                                                        <span>+</span>
-                                                    </div>
-                                                    <div className="timerange">
-                                                        <div className="day">Sunday</div>
-                                                        <Switch onChange={this.sundayHandleChange} checked={this.state.sunday_checked} uncheckedIcon={false} checkedIcon={false} />
-                                                        <TimePicker
-                                                            // onChange={onChange}
-                                                            value={"10:10"}
-                                                            isOpen={false}
-                                                            className="custom-time-picker"
-                                                            disableClock={true}
-                                                            disabled={this.state.sunday_disable}
-                                                            // minuteAriaLabel="Minute"
-                                                            clearIcon={null}
-                                                        />
-                                                        &nbsp;-&nbsp;
-                                                    <TimePicker
-                                                            // onChange={onChange}
-                                                            value={"10:10"}
-                                                            isOpen={false}
-                                                            className="custom-time-picker"
-                                                            disableClock={true}
-                                                            disabled={this.state.sunday_disable}
-                                                            // minuteAriaLabel="Minute"
-                                                            clearIcon={null}
-                                                        />
-                                                        <span>+</span>
+                                                        <div className="timerange">
+                                                            <div className="day">Wednesday</div>
+                                                            <Switch onChange={this.wednesdayHandleChange} checked={this.state.wednesday_checked} uncheckedIcon={false} checkedIcon={false} />
+                                                            <div className="multiple-ranges">
+                                                                {this.state.wednesday_count.map((item, index) => {
+                                                                    return (
+                                                                        <div className="each-range" style={{ marginBottom: "5px" }}>
+                                                                            <TimePicker
+                                                                                onChange={value => this.get_time(value, "wednesday_count", index, "start_time")}
+                                                                                value={item.start_time}
+                                                                                isOpen={false}
+                                                                                className="custom-time-picker"
+                                                                                disableClock={true}
+                                                                                disabled={this.state.wednesday_disable}
+                                                                                // minuteAriaLabel="Minute"
+                                                                                clearIcon={null}
+                                                                            />
+                                                                            &nbsp;-&nbsp;
+                                                                            <TimePicker
+                                                                                onChange={value => this.get_time(value, "wednesday_count", index, "end_time")}
+                                                                                value={item.end_time}
+                                                                                isOpen={false}
+                                                                                className="custom-time-picker"
+                                                                                disableClock={true}
+                                                                                disabled={this.state.wednesday_disable}
+                                                                                // minuteAriaLabel="Minute"
+                                                                                clearIcon={null}
+                                                                            />
+                                                                            <span id={index} onClick={event => this.add_range(event, "wednesday")} className="symbol">{item.symbol}</span>
+                                                                            <div className="disable_span" style={{right: this.state.wednesday_checked ? "0px": "20px"}}></div>
+                                                                        </div>
+                                                                    )
+                                                                })}
+                                                            </div>
+                                                        </div>
+                                                        <div className="timerange">
+                                                            <div className="day">Thursday</div>
+                                                            <Switch onChange={this.thursdayHandleChange} checked={this.state.thursday_checked} uncheckedIcon={false} checkedIcon={false} />
+                                                            <div className="multiple-ranges">
+                                                                {this.state.thursday_count.map((item, index) => {
+                                                                    return (
+                                                                        <div className="each-range" style={{ marginBottom: "5px" }}>
+                                                                            <TimePicker
+                                                                                onChange={value => this.get_time(value, "thursday_count", index, "start_time")}
+                                                                                value={item.start_time}
+                                                                                isOpen={false}
+                                                                                className="custom-time-picker"
+                                                                                disableClock={true}
+                                                                                disabled={this.state.thursday_disable}
+                                                                                // minuteAriaLabel="Minute"
+                                                                                clearIcon={null}
+                                                                            />
+                                                                            &nbsp;-&nbsp;
+                                                                            <TimePicker
+                                                                                onChange={value => this.get_time(value, "thursday_count", index, "end_time")}
+                                                                                value={item.end_time}
+                                                                                isOpen={false}
+                                                                                className="custom-time-picker"
+                                                                                disableClock={true}
+                                                                                disabled={this.state.thursday_disable}
+                                                                                // minuteAriaLabel="Minute"
+                                                                                clearIcon={null}
+                                                                            />
+                                                                            <span id={index} onClick={event => this.add_range(event, "thursday")} className="symbol">{item.symbol}</span>
+                                                                            <div className="disable_span" style={{right: this.state.thursday_checked ? "0px": "20px"}}></div>
+                                                                        </div>
+                                                                    )
+                                                                })}
+                                                            </div>
+                                                        </div>
+                                                        <div className="timerange">
+                                                            <div className="day">Friday</div>
+                                                            <Switch onChange={this.fridayHandleChange} checked={this.state.friday_checked} uncheckedIcon={false} checkedIcon={false} />
+                                                            <div className="multiple-ranges">
+                                                                {this.state.friday_count.map((item, index) => {
+                                                                    return (
+                                                                        <div className="each-range" style={{ marginBottom: "5px" }}>
+                                                                            <TimePicker
+                                                                                onChange={value => this.get_time(value, "friday_count", index, "start_time")}
+                                                                                value={item.start_time}
+                                                                                isOpen={false}
+                                                                                className="custom-time-picker"
+                                                                                disableClock={true}
+                                                                                disabled={this.state.friday_disable}
+                                                                                // minuteAriaLabel="Minute"
+                                                                                clearIcon={null}
+                                                                            />
+                                                                            &nbsp;-&nbsp;
+                                                                            <TimePicker
+                                                                                onChange={value => this.get_time(value, "friday_count", index, "end_time")}
+                                                                                value={item.end_time}
+                                                                                isOpen={false}
+                                                                                className="custom-time-picker"
+                                                                                disableClock={true}
+                                                                                disabled={this.state.friday_disable}
+                                                                                // minuteAriaLabel="Minute"
+                                                                                clearIcon={null}
+                                                                            />
+                                                                            <span id={index} onClick={event => this.add_range(event, "friday")} className="symbol">{item.symbol}</span>
+                                                                            <div className="disable_span" style={{right: this.state.friday_checked ? "0px": "20px"}}></div>
+                                                                        </div>
+                                                                    )
+                                                                })}
+                                                            </div>
+                                                        </div>
+                                                        <div className="timerange">
+                                                            <div className="day">Saturday</div>
+                                                            <Switch onChange={this.saturdayHandleChange} checked={this.state.saturday_checked} uncheckedIcon={false} checkedIcon={false} />
+                                                            <div className="multiple-ranges">
+                                                                {this.state.saturday_count.map((item, index) => {
+                                                                    return (
+                                                                        <div className="each-range" style={{ marginBottom: "5px" }}>
+                                                                            <TimePicker
+                                                                                onChange={value => this.get_time(value, "saturday_count", index, "start_time")}
+                                                                                value={item.start_time}
+                                                                                isOpen={false}
+                                                                                className="custom-time-picker"
+                                                                                disableClock={true}
+                                                                                disabled={this.state.saturday_disable}
+                                                                                // minuteAriaLabel="Minute"
+                                                                                clearIcon={null}
+                                                                            />
+                                                                            &nbsp;-&nbsp;
+                                                                            <TimePicker
+                                                                                onChange={value => this.get_time(value, "saturday_count", index, "end_time")}
+                                                                                value={item.end_time}
+                                                                                isOpen={false}
+                                                                                className="custom-time-picker"
+                                                                                disableClock={true}
+                                                                                disabled={this.state.saturday_disable}
+                                                                                // minuteAriaLabel="Minute"
+                                                                                clearIcon={null}
+                                                                            />
+                                                                            <span id={index} onClick={event => this.add_range(event, "saturday")} className="symbol">{item.symbol}</span>
+                                                                            <div className="disable_span" style={{right: this.state.saturday_checked ? "0px": "20px"}}></div>
+                                                                        </div>
+                                                                    )
+                                                                })}
+                                                            </div>
+                                                        </div>
+                                                        <div className="timerange">
+                                                            <div className="day">Sunday</div>
+                                                            <Switch onChange={this.sundayHandleChange} checked={this.state.sunday_checked} uncheckedIcon={false} checkedIcon={false} />
+                                                            <div className="multiple-ranges">
+                                                                {this.state.sunday_count.map((item, index) => {
+                                                                    return (
+                                                                        <div className="each-range" style={{ marginBottom: "5px" }}>
+                                                                            <TimePicker
+                                                                                onChange={value => this.get_time(value, "sunday_count", index, "start_time")}
+                                                                                value={item.start_time}
+                                                                                isOpen={false}
+                                                                                className="custom-time-picker"
+                                                                                disableClock={true}
+                                                                                disabled={this.state.sunday_disable}
+                                                                                // minuteAriaLabel="Minute"
+                                                                                clearIcon={null}
+                                                                            />
+                                                                            &nbsp;-&nbsp;
+                                                                            <TimePicker
+                                                                                onChange={value => this.get_time(value, "sunday_count", index, "end_time")}
+                                                                                value={item.end_time}
+                                                                                isOpen={false}
+                                                                                className="custom-time-picker"
+                                                                                disableClock={true}
+                                                                                disabled={this.state.sunday_disable}
+                                                                                // minuteAriaLabel="Minute"
+                                                                                clearIcon={null}
+                                                                            />
+                                                                            <span id={index} onClick={event => this.add_range(event, "sunday")} className="symbol">{item.symbol}</span>
+                                                                            <div className="disable_span" style={{right: this.state.sunday_checked ? "0px": "20px"}}></div>
+                                                                        </div>
+                                                                    )
+                                                                })}
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        )}
-                                    </Popup>
-                                    Selected Hours
-                                <input type="radio" name="service_hours" className=""></input>24/7 with booking
+                                            )}
+                                        </Popup>
+                                        Selected Hours
+                                    </div>
+                                    <div>
+                                        <input id="service-hours" type="radio" name="service_hours" className="" value="24/7"></input>24/7 with booking
+                                    </div>
                                 </div>
                             </div>
                             <div className="individual-details">
                                 <div className="input-name">Services <span style={{ color: "#656565" }}>(Select all options that apply)</span></div>
                                 <div className="flex-c">
                                     <div>
-                                        <input type="checkbox" className=""></input>
+                                        <input id="service" type="checkbox" className="" value="Cook and Deliver"></input>
                                         <span>Cook and Deliver</span>
                                     </div>
                                     <div>
-                                        <input type="checkbox" className=""></input>
+                                        <input id="service" type="checkbox" className="" value="Cook and Ship"></input>
                                         <span>Cook and Ship</span>
                                     </div>
                                     <div>
-                                        <input type="checkbox" className=""></input>
+                                        <input id="service" type="checkbox" className="" value="Cook for Pick up/Takeaway"></input>
                                         <span>Cook for Pick up/Takeaway</span>
                                     </div>
                                     <div>
-                                        <input type="checkbox" className=""></input>
+                                        <input id="service" type="checkbox" className="" value="Go to Guests address to cook"></input>
                                         <span>Go to Guests address to cook</span>
                                     </div>
                                     <div>
-                                        <input type="checkbox" className=""></input>
+                                        <input id="service" type="checkbox" className="" value="Host Guests and cook"></input>
                                         <span>Host Guests and cook</span>
                                     </div>
                                     <div>
-                                        <input type="checkbox" className=""></input>
+                                        <input id="service" type="checkbox" className="" value="Cook Live with Chef"></input>
                                         <span>Cook Live with Chef</span>
                                     </div>
                                 </div>
@@ -864,22 +1324,22 @@ class ChefProfile extends React.Component {
                                 <div className="input-name">Minimum purchase Service total amount</div>
                                 <div className="price-details">
                                     <div>$</div>
-                                    <input type="text" className="field" placeholder="Enter min. price"></input>
+                                    <input type="text" id="min-price" className="field" placeholder="Enter min. price"></input>
                                 </div>
                             </div>
                             <div className="individual-details">
-                                <div className="input-name">Minimum purchase Service total amount</div>
+                                <div className="input-name">Service Price Range &nbsp;<span>*</span></div>
                                 <div className="price-range">
                                     <div>$</div>
-                                    <input style={{ borderRadius: "0px" }} className="field" type="text" placeholder="Enter min. price"></input>
-                                    <input type="text" className="field" placeholder="Enter max. price"></input>
+                                    <input id="min-price" style={{ borderRadius: "0px" }} className="field" type="text" placeholder="Enter min. price"></input>
+                                    <input id="max-price" type="text" className="field" placeholder="Enter max. price"></input>
                                 </div>
                             </div>
                             <div className="individual-details">
                                 <div className="input-name">Hourly rate</div>
                                 <div className="price-details">
                                     <div>$</div>
-                                    <input type="text" className="field" placeholder="Enter price"></input>
+                                    <input id="hourly-rate" type="text" className="field" placeholder="Enter price"></input>
                                 </div>
                             </div>
                             <div className="payment">
@@ -894,27 +1354,28 @@ class ChefProfile extends React.Component {
                                 </div>
                                 <div className="flex-c">
                                     <div>
-                                        <input type="checkbox" name="Payments" className=""></input>
+                                        <input id="payment" type="checkbox" name="Payments" className="" value="Stripe"></input>
                                         <span>Stripe</span>
                                     </div>
                                     <div>
-                                        <input type="checkbox" name="Payments" className=""></input>
+                                        <input id="payment" type="checkbox" name="Payments" className="" value="Paypal"></input>
                                         <span>Paypal</span>
                                     </div>
                                     <div>
-                                        <input type="checkbox" name="Payments" className=""></input>
+                                        <input id="payment" type="checkbox" name="Payments" className="" value="Cash on Delivery"></input>
                                         <span>Cash on Delivery</span>
                                     </div>
                                     <div>
-                                        <input type="checkbox" name="Payments" className=""></input>
+                                        <input id="payment" type="checkbox" name="Payments" className="" value="Credit Card on Delivery"></input>
                                         <span>Credit Card on Delivery</span>
                                     </div>
                                 </div>
                             </div>
                             <div className="save_profile">
-                                <button type="button">SAVE</button>
+                                <button type="button" onClick={this.save_profile}>SAVE</button>
                             </div>
                         </div>
+                        <NotificationContainer/>
                     </div>
                 </SlidingPane>
             </div>

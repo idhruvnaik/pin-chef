@@ -6,6 +6,9 @@
   .chef-profile {
     height: 100%;
     border-radius: 20px;
+    .notification-container {
+      width: fit-content;
+    }
     input[type="checkbox"] {
       width: 15px;
       height: 15px;
@@ -150,8 +153,13 @@
         }
         .f-sb {
           display: flex;
-          justify-content: space-between;
+          justify-content: space-around;
           align-items: center;
+          div{
+            input{
+              margin-right: 10px;
+            }
+          }
         }
         .flex-c {
           display: flex;
@@ -340,20 +348,28 @@
         width: 110px;
       }
       .multiple-ranges {
+        margin-left: 7px;
         .each-range {
           margin-bottom: 5px;
           display: flex;
           align-items: center;
           justify-content: center;
-          span:last-child {
+          .symbol {
             color: #b62414;
             font-size: 14pt;
             cursor: pointer;
             margin-left: 10px;
           }
+          .disable_span{
+            width: 20px;
+            height: 20px;
+            position: relative;
+            background-color: white;
+            opacity: 0.4;
+          }
         }
         .each-range:first-child {
-          span:last-child {
+          .symbol {
             color: #469a09;
             font-size: 18pt;
             cursor: pointer;

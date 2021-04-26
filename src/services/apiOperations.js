@@ -50,6 +50,7 @@ const forgot_password_endpoint = "/account/forgot-password"
 const resend_otp_endpoint = "/resend-otp"
 const reset_password_endpoint = "/account/password"
 const set_user_profile_endpoint = "/profile"
+const update_chef_endpoint = "/chef"
 
 
 async function make_rest_call(apiURL, method, body, headers){
@@ -68,11 +69,17 @@ async function make_rest_call(apiURL, method, body, headers){
             return false;
         }
     } catch (error){
+        console.log(error, error.response, "from catch");
         if(error.response && error.response.data){
             if(error.response.data.message){
                 return {
                     status: false,
                     message: error.response.data.message
+                }
+            } else if(error.response.data.error){
+                return {
+                    status: false,
+                    message: error.response.data.error
                 }
             }
         }
@@ -1004,6 +1011,23 @@ export const CreateUserProfile = async(user_id, image, username, mobile_no, toke
     bodyFormData.append('mobile', mobile_no);
     try{
         let resp = await make_rest_call(apiURL, 'POST', bodyFormData, headers);
+        return resp;
+    }
+    catch(err){
+        return {
+            status: false,
+            message: err.message
+        }
+    }
+}
+
+export const UpdateChefProfile = async(data, token)=>{
+    let apiURL = apiHost + update_chef_endpoint;
+    var headers = {
+        "Authorization": "Bearer " + token
+    };
+    try{
+        let resp = await make_rest_call(apiURL, 'PUT', data, headers);
         return resp;
     }
     catch(err){
