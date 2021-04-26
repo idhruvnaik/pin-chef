@@ -74,17 +74,20 @@ class chef extends React.Component {
 
     async getAllPosts(chef_id) {
         var postsresult = await getAllPostsByChefID(chef_id, this.token);
-        if(postsresult.length > 0){
-            if(postsresult.status == false){
+        if (postsresult.length > 0) {
+            if (postsresult.status == false) {
                 this.setState({
-                    posts: []});
-            } else{
+                    posts: []
+                });
+            } else {
                 this.setState({
-                    posts: postsresult});
+                    posts: postsresult
+                });
             }
-        }  else{
+        } else {
             this.setState({
-                posts: []});
+                posts: []
+            });
         }
     }
 
@@ -274,7 +277,12 @@ class chef extends React.Component {
                             </div>
                             <div className="other-details">
                                 <div className="desktop-icon">
-                                    <img src={this.state.chef && this.state.chef.profile_image}></img>
+                                    <div class="image-upload">
+                                        <label for="file-input">
+                                            <img src={this.state.chef && this.state.chef.profile_image}></img>
+                                        </label>
+                                        <input id="file-input" type="file" className="description-field" accept=".jpg,.png,.PNG,.jpeg" onChange={this.get_preview} />
+                                    </div>
                                     <h4>{this.state.chef.chef_details && this.state.chef.chef_details.service_location}</h4>
                                 </div>
                                 <div className="about-chef">

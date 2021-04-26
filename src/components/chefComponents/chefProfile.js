@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { addTokenToState, CreateUserProfile, UpdateChefProfile } from '../../services/apiOperations';
-import {NotificationContainer, NotificationManager} from 'react-notifications';
+import { NotificationContainer, NotificationManager } from 'react-notifications';
 import { connect } from "react-redux";
 import FPBack from '../../assets/svg/fp-back-icon.svg';
 import ProfileImage from '../../assets/svg/profile-image.svg';
@@ -410,7 +410,7 @@ const cusines = [
     {
         username: 'Yunnan'
     },
-   
+
 ]
 
 
@@ -527,77 +527,77 @@ class ChefProfile extends React.Component {
         }
     }
 
-    async save_profile(){
+    async save_profile() {
         var first_name = $("#first_name")[0].value;
         var position = $('#position')[0].value;
         var min_range = $(".price-range #min-price")[0].value;
         var max_range = $(".price-range #max-price")[0].value;
         var services = []
-        $(".flex-c #service").map((index, item)=>{
-            if(item.checked){
+        $(".flex-c #service").map((index, item) => {
+            if (item.checked) {
                 services.push(item.value);
             }
         });
         var payments = []
-        $(".flex-c #payment").map((index, item)=>{
-            if(item.checked){
+        $(".flex-c #payment").map((index, item) => {
+            if (item.checked) {
                 payments.push(item.value);
             }
         });
         var sh = []
-        $("#service-hours").map((index, item)=>{
-            if(item.checked){
-                if(item.value == "Selected Hours"){
-                    if(!this.state.monday_disable){
+        $("#service-hours").map((index, item) => {
+            if (item.checked) {
+                if (item.value == "Selected Hours") {
+                    if (!this.state.monday_disable) {
                         var temp = {
                             day: "monday",
                             time: this.state.monday_count
                         }
                         sh.push(temp);
                     }
-                    if(!this.state.tuesday_disable){
+                    if (!this.state.tuesday_disable) {
                         var temp = {
                             day: "tuesday",
                             time: this.state.tuesday_count
                         }
                         sh.push(temp);
                     }
-                    if(!this.state.wednesday_disable){
+                    if (!this.state.wednesday_disable) {
                         var temp = {
                             day: "wednesday",
                             time: this.state.wednesday_count
                         }
                         sh.push(temp);
                     }
-                    if(!this.state.thursday_disable){
+                    if (!this.state.thursday_disable) {
                         var temp = {
                             day: "thursday",
                             time: this.state.thursday_count
                         }
                         sh.push(temp);
                     }
-                    if(!this.state.friday_disable){
+                    if (!this.state.friday_disable) {
                         var temp = {
                             day: "friday",
                             time: this.state.friday_count
                         }
                         sh.push(temp);
                     }
-                    if(!this.state.saturday_disable){
+                    if (!this.state.saturday_disable) {
                         var temp = {
                             day: "saturday",
                             time: this.state.saturday_count
                         }
                         sh.push(temp);
                     }
-                    if(!this.state.sunday_disable){
+                    if (!this.state.sunday_disable) {
                         var temp = {
                             day: "sunday",
                             time: this.state.sunday_count
                         }
                         sh.push(temp);
                     }
-                } else{
+                } else {
                     sh = [
                         {
                             day: "monday",
@@ -666,7 +666,7 @@ class ChefProfile extends React.Component {
                 }
             }
         });
-        if(first_name.length > 0 && this.state.contr.length > 0 && position.length > 0 && min_range.length > 0 && max_range.length > 0 && sh.length > 0){
+        if (first_name.length > 0 && this.state.contr.length > 0 && position.length > 0 && min_range.length > 0 && max_range.length > 0 && sh.length > 0) {
             var data = {
                 id: this.user_id,
                 user_name: $("#user_id")[0].value,
@@ -696,7 +696,7 @@ class ChefProfile extends React.Component {
             } else {
                 this.redirect_homepage()
             }
-        } else{
+        } else {
             NotificationManager.error('Fill up all required fields.', 'ERROR', 3000);
         }
     }
@@ -780,18 +780,18 @@ class ChefProfile extends React.Component {
         );
     }
 
-    add_cusine(cusines){
-        this.setState({selected_cusine: [cusines[0].username]})
+    add_cusine(cusines) {
+        this.setState({ selected_cusine: [cusines[0].username] })
     }
 
-    add_new_cusine(){
-        if ($("#new_cusine")[0].value.length > 0){
+    add_new_cusine() {
+        if ($("#new_cusine")[0].value.length > 0) {
             let options = [...this.state.options];
             options.push({
                 username: $("#new_cusine")[0].value
             })
             this.setState({ options });
-        } else{
+        } else {
             NotificationManager.error('Cusine Name is required.', 'ERROR', 3000);
         }
     }
@@ -805,88 +805,88 @@ class ChefProfile extends React.Component {
             symbol: "X"
         }
         if (e.target.innerHTML == "+") {
-            if (day == "monday"){
+            if (day == "monday") {
                 let monday_count = [...this.state.monday_count];
                 monday_count.push(temp);
                 this.setState({ monday_count });
-            } else if (day == "tuesday"){
+            } else if (day == "tuesday") {
                 let tuesday_count = [...this.state.tuesday_count];
                 tuesday_count.push(temp);
                 this.setState({ tuesday_count });
-            } else if (day == "wednesday"){
+            } else if (day == "wednesday") {
                 let wednesday_count = [...this.state.wednesday_count];
                 wednesday_count.push(temp);
                 this.setState({ wednesday_count });
-            } else if (day == "thursday"){
+            } else if (day == "thursday") {
                 let thursday_count = [...this.state.thursday_count];
                 thursday_count.push(temp);
                 this.setState({ thursday_count });
-            } else if (day == "friday"){
+            } else if (day == "friday") {
                 let friday_count = [...this.state.friday_count];
                 friday_count.push(temp);
                 this.setState({ friday_count });
-            } else if (day == "saturday"){
+            } else if (day == "saturday") {
                 let saturday_count = [...this.state.saturday_count];
                 saturday_count.push(temp);
                 this.setState({ saturday_count });
-            } else if (day == "sunday"){
+            } else if (day == "sunday") {
                 let sunday_count = [...this.state.sunday_count];
                 sunday_count.push(temp);
                 this.setState({ sunday_count });
             }
         } else {
-            if (day == "monday"){
+            if (day == "monday") {
                 let monday_count = [...this.state.monday_count];
-                monday_count.map((item, index) =>{
-                    if (index == count_id){
+                monday_count.map((item, index) => {
+                    if (index == count_id) {
                         monday_count.splice(index, 1);
                     }
                 })
                 this.setState({ monday_count });
-            } else if (day == "tuesday"){
+            } else if (day == "tuesday") {
                 let tuesday_count = [...this.state.tuesday_count];
-                tuesday_count.map((item, index) =>{
-                    if (index == count_id){
+                tuesday_count.map((item, index) => {
+                    if (index == count_id) {
                         tuesday_count.splice(index, 1);
                     }
                 })
                 this.setState({ tuesday_count });
-            } else if (day == "wednesday"){
+            } else if (day == "wednesday") {
                 let wednesday_count = [...this.state.wednesday_count];
-                wednesday_count.map((item, index) =>{
-                    if (index == count_id){
+                wednesday_count.map((item, index) => {
+                    if (index == count_id) {
                         wednesday_count.splice(index, 1);
                     }
                 })
                 this.setState({ wednesday_count });
-            } else if (day == "thursday"){
+            } else if (day == "thursday") {
                 let thursday_count = [...this.state.thursday_count];
-                thursday_count.map((item, index) =>{
-                    if (index == count_id){
+                thursday_count.map((item, index) => {
+                    if (index == count_id) {
                         thursday_count.splice(index, 1);
                     }
                 })
                 this.setState({ thursday_count });
-            } else if (day == "friday"){
+            } else if (day == "friday") {
                 let friday_count = [...this.state.friday_count];
-                friday_count.map((item, index) =>{
-                    if (index == count_id){
+                friday_count.map((item, index) => {
+                    if (index == count_id) {
                         friday_count.splice(index, 1);
                     }
                 })
                 this.setState({ friday_count });
-            } else if (day == "saturday"){
+            } else if (day == "saturday") {
                 let saturday_count = [...this.state.saturday_count];
-                saturday_count.map((item, index) =>{
-                    if (index == count_id){
+                saturday_count.map((item, index) => {
+                    if (index == count_id) {
                         saturday_count.splice(index, 1);
                     }
                 })
                 this.setState({ saturday_count });
-            } else if (day == "sunday"){
+            } else if (day == "sunday") {
                 let sunday_count = [...this.state.sunday_count];
-                sunday_count.map((item, index) =>{
-                    if (index == count_id){
+                sunday_count.map((item, index) => {
+                    if (index == count_id) {
                         sunday_count.splice(index, 1);
                     }
                 })
@@ -909,7 +909,7 @@ class ChefProfile extends React.Component {
         }
     }
 
-    get_time(time, state_name, index, key_name){
+    get_time(time, state_name, index, key_name) {
         console.log(time);
         console.log(state_name);
         console.log(index);
@@ -956,7 +956,12 @@ class ChefProfile extends React.Component {
                             </div>
                             <div className="identity-details">
                                 <div className="desktop-icon">
-                                    <img src={ProfileImage}></img>
+                                    <div class="image-upload">
+                                        <label for="file-input">
+                                            <img src={ProfileImage}></img>
+                                        </label>
+                                        <input id="file-input" type="file" accept=".jpg,.png,.PNG,.jpeg" />
+                                    </div>
                                 </div>
                                 <div className="primary-details">
                                     <div className="individual-details">
@@ -983,7 +988,7 @@ class ChefProfile extends React.Component {
                             <div className="dob">
                                 <div className="input-name">Date of Birth &nbsp;<span>*</span></div>
                                 <DatePicker
-                                    onChange={dob => this.setState({dob})}
+                                    onChange={dob => this.setState({ dob })}
                                     value={new Date()}
                                     calendarIcon={null}
                                     clearIcon={null}
@@ -1070,7 +1075,7 @@ class ChefProfile extends React.Component {
                                                                                 clearIcon={null}
                                                                             />
                                                                             <span id={index} onClick={event => this.add_range(event, "monday")} className="symbol">{item.symbol}</span>
-                                                                            <div className="disable_span" style={{right: this.state.monday_checked ? "0px": "20px"}}></div>
+                                                                            <div className="disable_span" style={{ right: this.state.monday_checked ? "0px" : "20px" }}></div>
                                                                         </div>
                                                                     )
                                                                 })}
@@ -1105,7 +1110,7 @@ class ChefProfile extends React.Component {
                                                                                 clearIcon={null}
                                                                             />
                                                                             <span id={index} onClick={event => this.add_range(event, "tuesday")} className="symbol">{item.symbol}</span>
-                                                                            <div className="disable_span" style={{right: this.state.tuesday_checked ? "0px": "20px"}}></div>
+                                                                            <div className="disable_span" style={{ right: this.state.tuesday_checked ? "0px" : "20px" }}></div>
                                                                         </div>
                                                                     )
                                                                 })}
@@ -1140,7 +1145,7 @@ class ChefProfile extends React.Component {
                                                                                 clearIcon={null}
                                                                             />
                                                                             <span id={index} onClick={event => this.add_range(event, "wednesday")} className="symbol">{item.symbol}</span>
-                                                                            <div className="disable_span" style={{right: this.state.wednesday_checked ? "0px": "20px"}}></div>
+                                                                            <div className="disable_span" style={{ right: this.state.wednesday_checked ? "0px" : "20px" }}></div>
                                                                         </div>
                                                                     )
                                                                 })}
@@ -1175,7 +1180,7 @@ class ChefProfile extends React.Component {
                                                                                 clearIcon={null}
                                                                             />
                                                                             <span id={index} onClick={event => this.add_range(event, "thursday")} className="symbol">{item.symbol}</span>
-                                                                            <div className="disable_span" style={{right: this.state.thursday_checked ? "0px": "20px"}}></div>
+                                                                            <div className="disable_span" style={{ right: this.state.thursday_checked ? "0px" : "20px" }}></div>
                                                                         </div>
                                                                     )
                                                                 })}
@@ -1210,7 +1215,7 @@ class ChefProfile extends React.Component {
                                                                                 clearIcon={null}
                                                                             />
                                                                             <span id={index} onClick={event => this.add_range(event, "friday")} className="symbol">{item.symbol}</span>
-                                                                            <div className="disable_span" style={{right: this.state.friday_checked ? "0px": "20px"}}></div>
+                                                                            <div className="disable_span" style={{ right: this.state.friday_checked ? "0px" : "20px" }}></div>
                                                                         </div>
                                                                     )
                                                                 })}
@@ -1245,7 +1250,7 @@ class ChefProfile extends React.Component {
                                                                                 clearIcon={null}
                                                                             />
                                                                             <span id={index} onClick={event => this.add_range(event, "saturday")} className="symbol">{item.symbol}</span>
-                                                                            <div className="disable_span" style={{right: this.state.saturday_checked ? "0px": "20px"}}></div>
+                                                                            <div className="disable_span" style={{ right: this.state.saturday_checked ? "0px" : "20px" }}></div>
                                                                         </div>
                                                                     )
                                                                 })}
@@ -1280,7 +1285,7 @@ class ChefProfile extends React.Component {
                                                                                 clearIcon={null}
                                                                             />
                                                                             <span id={index} onClick={event => this.add_range(event, "sunday")} className="symbol">{item.symbol}</span>
-                                                                            <div className="disable_span" style={{right: this.state.sunday_checked ? "0px": "20px"}}></div>
+                                                                            <div className="disable_span" style={{ right: this.state.sunday_checked ? "0px" : "20px" }}></div>
                                                                         </div>
                                                                     )
                                                                 })}
@@ -1381,7 +1386,7 @@ class ChefProfile extends React.Component {
                                 <button type="button" onClick={this.save_profile}>SAVE</button>
                             </div>
                         </div>
-                        <NotificationContainer/>
+                        <NotificationContainer />
                     </div>
                 </SlidingPane>
             </div>
