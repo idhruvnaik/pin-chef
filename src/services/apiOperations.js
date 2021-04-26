@@ -8,7 +8,7 @@ const apiHost = "http://35.175.243.253:8080/api"
 // const apiHost = "https://pinchef.io:8080/api"
 const registration_endpoint = "/auth/user"
 const login_endpoint = "/auth/login"
-const otp_endpoint = "/account/verify-otp"
+const otp_endpoint = "/auth/verify-user"
 const feeds_endpoint = "/chef/getAll"
 const posts_endpoint = "/post"
 const each_chef_endpoint = "/chef/getChefById"
@@ -162,8 +162,8 @@ export const verifyOtp= async(username, otp, token)=>{
         "Authorization": "Bearer " + token
     };
     var data = {
-        "otp": otp,
-        "user_name": username
+        otp: otp,
+        temp_id: username
     };
     try{
         let resp = await make_rest_call(apiURL, 'POST', data, headers);

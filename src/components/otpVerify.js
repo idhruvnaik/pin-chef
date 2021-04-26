@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSpring, animated } from "react-spring";
 import { verifyOtp, addTokenToState, resetOTP } from '../services/apiOperations';
 import { connect } from "react-redux";
+import { reactLocalStorage } from 'reactjs-localstorage';
 import './otpVerify.css'
 import OtpInput from 'react-otp-input';
 import IncorrectPin from '../assets/png_icons/incorrect pin icon.png'
@@ -30,6 +31,9 @@ class VerifyOTP extends React.Component {
             // this.email = this.props.token_details.token.user_name;
             this.email = this.props.location.email;
             this.redirect = this.props.location.redirect;
+            this.temp_id = this.props.location.temp_id;
+            this.remember = this.props.location.remember;
+            this.roleID = this.props.location.roleID;
         } else {
             this.props.history.push(
                 {
@@ -53,8 +57,7 @@ class VerifyOTP extends React.Component {
     };
 
     async saveotp() {
-        var username = this.email;
-        let result = await verifyOtp(username, this.state.otp);
+        let result = await verifyOtp(this.temp_id, this.state.otp);
         console.log(result, "from verify OTP result");
         if (result) {
             if (result.status == false) {
@@ -71,10 +74,18 @@ class VerifyOTP extends React.Component {
                 $('.verify_otp button').css("display", "none");
                 $('.verify_otp img').css("display", "block");
                 $('.verify_otp img')[0].src = CorrectOTP;
+                result.email = this.email;
+                result.remember = this.remember;
+                result.roleID = this.roleID;
+                reactLocalStorage.setObject(
+                    'token_details',
+                    result
+                );
+                this.props.addTokenToState(result);
                 this.props.history.push(
                     {
                         pathname: this.redirect,
-                        email: username
+                        email: this.email
                     }
                 );
             }

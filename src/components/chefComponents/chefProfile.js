@@ -443,10 +443,13 @@ class ChefProfile extends React.Component {
         this.save_profile = this.save_profile.bind(this);
         this.add_cusine = this.add_cusine.bind(this);
         this.add_new_cusine = this.add_new_cusine.bind(this);
+        this.set_location = this.set_location.bind(this);
         // this.createNotification = this.createNotification.bind(this);
         this.state = {
             contr: '',
             dob: null,
+            current_location: null,
+            address: null,
             open_location: false,
             monday_checked: false,
             tuesday_checked: false,
@@ -681,8 +684,8 @@ class ChefProfile extends React.Component {
                 min_purchase_amt: $('#min-price')[0].value,
                 minAmount: min_range,
                 maxAmount: max_range,
-                "service_location": "surat",
-                "address": "katargam",
+                service_location: this.state.current_location,
+                address: this.state.address,
                 payment_type: payments,
                 hourly_rate: $("#hourly-rate")[0].value,
                 currency: "USD"
@@ -718,6 +721,12 @@ class ChefProfile extends React.Component {
         $('.delete_photo').css("bottom", "44px");
         $('.delete_photo').css("left", "44px");
         reader.readAsDataURL(selectedFile);
+    }
+
+    set_location(location){
+        console.log(location);
+        this.setState({ address: location.label });
+        this.setState({ address: location.value.terms[0].value });
     }
 
     mondayHandleChange(checked) {
@@ -1013,7 +1022,7 @@ class ChefProfile extends React.Component {
                             </div>
                             <div className="individual-details">
                                 <div className="input-name">Address/Location &nbsp;<span>*</span></div>
-                                <input type="text" className="field" placeholder="ex: English, Spanish, etc."></input>
+                                {/* <input type="text" className="field" placeholder="ex: English, Spanish, etc."></input> */}
                             </div>
                             <div className="individual-details">
                                 <div className="input-name">Service hours &nbsp;<span>*</span></div>

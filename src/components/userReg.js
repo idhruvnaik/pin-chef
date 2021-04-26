@@ -200,11 +200,10 @@ class UserReg extends React.Component {
                         $('#registerform #errorMessage')[0].innerHTML = result.message;
                     }
                 } else {
-                    if (result.auth_token) {
+                    if (result.temp_id) {
                         result.remember = false;
                         result.roleID = user_role;
                         console.log(result);
-                        delete result["otp"];
                         reactLocalStorage.setObject(
                             'token_details',
                             result
@@ -215,6 +214,9 @@ class UserReg extends React.Component {
                                 {
                                     pathname: '/Verifyotp',
                                     email: email,
+                                    temp_id: result.temp_id,
+                                    remember: result.remember,
+                                    roleID: result.roleID,
                                     redirect: "/User/CreateProfile"
                                 }
                             );
@@ -223,6 +225,9 @@ class UserReg extends React.Component {
                                 {
                                     pathname: '/Verifyotp',
                                     email: email,
+                                    temp_id: result.temp_id,
+                                    remember: result.remember,
+                                    roleID: result.roleID,
                                     redirect: "/Chef/CreateProfile"
                                 }
                             );
