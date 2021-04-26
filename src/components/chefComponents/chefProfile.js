@@ -1014,9 +1014,6 @@ class ChefProfile extends React.Component {
                             <div className="individual-details">
                                 <div className="input-name">Address/Location &nbsp;<span>*</span></div>
                                 <input type="text" className="field" placeholder="ex: English, Spanish, etc."></input>
-                                <GooglePlacesAutocomplete
-                                    apiKey="AIzaSyAahUdhCQxOBWBibQf7UV5BFUC7VQWJ4Ys"
-                                />
                             </div>
                             <div className="individual-details">
                                 <div className="input-name">Service hours &nbsp;<span>*</span></div>
