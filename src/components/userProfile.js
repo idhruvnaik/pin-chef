@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { resetPaasword, addTokenToState, CreateUserProfile, getAddressFromCoordinates } from '../services/apiOperations';
 import { connect } from "react-redux";
+import { NotificationContainer, NotificationManager } from 'react-notifications';
 import FPBack from '../assets/svg/fp-back-icon.svg';
 import ProfileImage from '../assets/svg/profile-image.svg';
 import DeletePhoto from '../assets/svg/Delete photo.svg';
@@ -44,7 +45,16 @@ class UserProfile extends React.Component {
             lat: null,
             longt: null
         }
+        navigator.geolocation.getCurrentPosition((position) => {
+            this.setState({
+                lat: position.coords.latitude,
+                longt: position.coords.longitude
+            })
+        }, (error) => {
+            NotificationManager.warning(error.message, 'ALERT', 4000);
+        });
     }
+        
 
     async create_profile(event) {
         event.preventDefault();
@@ -56,28 +66,22 @@ class UserProfile extends React.Component {
         }
         let result = await CreateUserProfile(this.user_id, image, user, this.state.contr, this.token);
         if (result.status == false) {
-            console.log(result.message);
-            // if (result.message.includes("401")) {
-            //     $('#errorMessage')[0].innerHTML = "User is not exists or not authorized to perform this action.";
-            // } else {
-            //     $('#errorMessage')[0].innerHTML = result.message;
-            // }
+            NotificationManager.error(result.message, 'ERROR', 4000);
         } else {
             this.setState({
                 open_location: true
             });
-            navigator.geolocation.getCurrentPosition((position) => {
-                console.log("Latitude is :", position.coords.latitude);
-                this.setState({
-                    lat: position.coords.latitude
-                });
-                console.log("Longitude is :", position.coords.longitude);
-                this.setState({
-                    longt: position.coords.longitude
-                });
-            });
-            let address = await getAddressFromCoordinates(this.state.lat, this.state.longt);
-            console.log(address);
+            if (this.state.lat && this.state.longt){
+                let address = await getAddressFromCoordinates(this.state.lat, this.state.longt);
+                if (address.status = "OK"){
+                    if (address.results.length > 0){
+                        console.log(address.results[0].formatted_address);
+                        setTimeout(() => { this.redirect_homepage(); }, 2000);
+                    }
+                }
+            } else{
+                NotificationManager.info('User have not allowed to USE location.', 'WARNING', 4000);
+            }
         }
     }
 
@@ -108,13 +112,11 @@ class UserProfile extends React.Component {
     }
 
     redirect_homepage() {
-        // this.get_location();
-        console.log(this, "from redirect homepage");
-        // this.props.history.push(
-        //     {
-        //         pathname: '/Homepage'
-        //     }
-        // );
+        this.props.history.push(
+            {
+                pathname: '/Homepage'
+            }
+        );
     }
 
     render() {
@@ -182,6 +184,7 @@ class UserProfile extends React.Component {
                         </form>
                     </div>
                 </div>
+                <NotificationContainer />
                 <Popup
                     open={this.state.open_location}
                     position="center center"
@@ -199,7 +202,6 @@ class UserProfile extends React.Component {
                                 Thank you for signing up!<br />Enjoy the app. Please allow to use your location for us to help your search. 
                             </div>
                             <div className="actions">
-                                <button type="button" onClick={close}>CANCLE</button>
                             </div>
                         </div>
                     )}

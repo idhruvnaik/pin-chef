@@ -116,10 +116,12 @@ export const addTokenToState=(token_details)=>{
 
 export const getAddressFromCoordinates = async(latitude, longitude) => {
     const API = 'AIzaSyBNOEa0QgK6aFw7vcNtxLbBzR7dbztrOOg';
-    const geocodingAPI = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${API}`;
+    const geocodingAPI = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+ latitude + ',' + longitude + '&key=' + API;
 
     try{
-        let resp = await make_rest_call(geocodingAPI, 'GET', {}, {});
+        let resp = await make_rest_call(geocodingAPI, 'GET', {}, {
+            'Content-Type': 'application/x-www-form-urlencoded' 
+        });
         return resp;
     } catch (error){
         return {
@@ -127,20 +129,6 @@ export const getAddressFromCoordinates = async(latitude, longitude) => {
             message: error.message
         };
     }
-
-    // await axios
-    //   .get(geocodingAPI)
-    //   .then(function (res) {
-    //     if (res.status == 200) {
-    //       const city = res.data.results[0].address_components.filter((obj) => {
-    //         return obj.types.includes('locality');
-    //       })[0].long_name;
-    //       console.log(city);
-    //     }
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
 }
 
 export const registerUser= async(data)=>{

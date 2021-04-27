@@ -6,6 +6,9 @@
     .rp-container * {
         box-sizing: border-box;
     }
+    .notification-container {
+        width: fit-content;
+    }
     .rp-container{
         width: 90%;
         font-family: custom-fonts;
