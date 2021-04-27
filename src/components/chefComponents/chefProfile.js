@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { addTokenToState, CreateUserProfile, UpdateChefProfile } from '../../services/apiOperations';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
+import { getISOByParam, getAllInfoByISO } from 'iso-country-currency';
 import { connect } from "react-redux";
 import FPBack from '../../assets/svg/fp-back-icon.svg';
 import ProfileImage from '../../assets/svg/profile-image.svg';
@@ -449,6 +450,7 @@ class ChefProfile extends React.Component {
             contr: '',
             dob: null,
             current_location: null,
+            selected_country: {},
             address: null,
             open_location: false,
             monday_checked: false,
@@ -504,27 +506,26 @@ class ChefProfile extends React.Component {
             options: cusines
         }
 
-        this.createNotification = (type) => {
-            console.log("from create notification");
-            return () => {
-                switch (type) {
-                    case 'info':
-                        NotificationManager.info('Info message');
-                        break;
-                    case 'success':
-                        NotificationManager.success('Success message', 'Title here');
-                        break;
-                    case 'warning':
-                        NotificationManager.warning('Warning message', 'Close after 3000ms', 3000);
-                        break;
-                    case 'error':
-                        NotificationManager.error('Error message', 'Click me!', 5000, () => {
-                            alert('callback');
-                        });
-                        break;
-                };
-            };
-        }
+        // this.createNotification = (type) => {
+        //     return () => {
+        //         switch (type) {
+        //             case 'info':
+        //                 NotificationManager.info('Info message');
+        //                 break;
+        //             case 'success':
+        //                 NotificationManager.success('Success message', 'Title here');
+        //                 break;
+        //             case 'warning':
+        //                 NotificationManager.warning('Warning message', 'Close after 3000ms', 3000);
+        //                 break;
+        //             case 'error':
+        //                 NotificationManager.error('Error message', 'Click me!', 5000, () => {
+        //                     alert('callback');
+        //                 });
+        //                 break;
+        //         };
+        //     };
+        // }
     }
 
     async save_profile() {
@@ -533,6 +534,15 @@ class ChefProfile extends React.Component {
         var min_range = $(".price-range #min-price")[0].value;
         var max_range = $(".price-range #max-price")[0].value;
         var services = []
+        if ($('.image-upload img')[0].src == ProfileImage) {
+            var image = null;
+        } else {
+            var image = document.getElementsByClassName('upload')[0].files[0];
+        }
+        let result = await CreateUserProfile(this.user_id, image, null, null, this.token);
+        if (result.status == false) {
+            NotificationManager.warning('Failed to set Desktop Icon for user.', 'WARNING', 4000);
+        }
         $(".flex-c #service").map((index, item) => {
             if (item.checked) {
                 services.push(item.value);
@@ -688,7 +698,7 @@ class ChefProfile extends React.Component {
                 address: this.state.address,
                 payment_type: payments,
                 hourly_rate: $("#hourly-rate")[0].value,
-                currency: "USD"
+                currency: this.state.selected_country.iso
             }
             let result = await UpdateChefProfile(data, this.token)
             if (result.status == false) {
@@ -702,31 +712,38 @@ class ChefProfile extends React.Component {
     }
 
     delete_profile_img(e) {
-        $('.profile-image-container img')[0].src = ProfileImage;
+        $('.image-upload img')[0].src = ProfileImage;
         e.target.src = '';
-        $('.profile-image-container img').css("border-radius", "0%");
+        $('.image-upload img').css("border-radius", "0%");
     }
     get_profile_img(e) {
-        var selectedFile = document.getElementById('upload').files[0];
+        var selectedFile = document.getElementsByClassName('upload')[0].files[0];
         var reader = new FileReader();
         reader.onload = (event) => {
-            $('.profile-image-container img')[0].src = event.target.result;
+            $('.image-upload img')[0].src = event.target.result;
         };
-        $('.profile-image-container').css("border-radius", "50%");
-        $('.profile-image-container img').css("width", "100%");
-        $('.profile-image-container img').css("height", "100%");
-        $('.profile-image-container img').css("border-radius", "50%");
+        $('.image-upload').css("border-radius", "50%");
+        $('.image-upload img').css("width", "100%");
+        $('.image-upload img').css("height", "100%");
+        $('.image-upload img').css("border-radius", "50%");
         $('.delete_photo img')[0].src = DeletePhoto;
         $('.delete_photo').css("position", "relative");
-        $('.delete_photo').css("bottom", "44px");
-        $('.delete_photo').css("left", "44px");
+        $('.delete_photo').css("top", "40px");
+        $('.delete_photo').css("right", "34px");
         reader.readAsDataURL(selectedFile);
     }
 
     set_location(location){
-        console.log(location);
         this.setState({ address: location.label });
-        this.setState({ address: location.value.terms[0].value });
+        this.setState({ current_location: location.value.terms[0].value });
+        var country = location.value.terms[location.value.terms.length - 1].value;
+        try{
+            var country_details = getAllInfoByISO(getISOByParam('countryName', country));
+            this.setState({ selected_country: country_details });
+        } catch (error){
+            NotificationManager.error(error.message, 'ERROR', 5000);
+        }
+
     }
 
     mondayHandleChange(checked) {
@@ -797,7 +814,6 @@ class ChefProfile extends React.Component {
     }
 
     add_range(e, day) {
-        console.log(e);
         var count_id = e.target.id;
         let temp = {
             start_time: "10:10",
@@ -910,14 +926,9 @@ class ChefProfile extends React.Component {
     }
 
     get_time(time, state_name, index, key_name) {
-        console.log(time);
-        console.log(state_name);
-        console.log(index);
-        console.log(key_name);
         let monday_count = [...this.state.monday_count];
         monday_count[index][key_name] = time;
         this.setState({ monday_count });
-        console.log(this);
     }
 
     render() {
@@ -960,7 +971,10 @@ class ChefProfile extends React.Component {
                                         <label for="file-input">
                                             <img src={ProfileImage}></img>
                                         </label>
-                                        <input id="file-input" type="file" accept=".jpg,.png,.PNG,.jpeg" />
+                                        <input id="file-input" type="file" accept=".jpg,.png,.PNG,.jpeg" onChange={this.get_profile_img} className="upload" />
+                                    </div>
+                                    <div className="delete_photo">
+                                        <img src={null} onClick={this.delete_profile_img}></img>
                                     </div>
                                 </div>
                                 <div className="primary-details">
@@ -1025,9 +1039,15 @@ class ChefProfile extends React.Component {
                                 <div className="input-name">Full Background Info</div>
                                 <input id="full_info" type="text" className="field" placeholder="ex: English, Spanish, etc."></input>
                             </div>
-                            <div className="individual-details">
+                            <div className="individual-details location">
                                 <div className="input-name">Address/Location &nbsp;<span>*</span></div>
-                                {/* <input type="text" className="field" placeholder="ex: English, Spanish, etc."></input> */}
+                                <GooglePlacesAutocomplete
+                                    placeholder="Country, city, state or zip code"
+                                    apiKey=""
+                                    selectProps={{
+                                        onChange: this.set_location,
+                                    }}
+                                />
                             </div>
                             <div className="individual-details">
                                 <div className="input-name">Service hours &nbsp;<span>*</span></div>
@@ -1334,14 +1354,14 @@ class ChefProfile extends React.Component {
                             <div className="individual-details">
                                 <div className="input-name">Minimum purchase Service total amount</div>
                                 <div className="price-details">
-                                    <div>$</div>
+                                    <div>{Object.keys(this.state.selected_country).length > 0 ? this.state.selected_country.symbol : ''}</div>
                                     <input type="text" id="min-price" className="field" placeholder="Enter min. price"></input>
                                 </div>
                             </div>
                             <div className="individual-details">
                                 <div className="input-name">Service Price Range &nbsp;<span>*</span></div>
                                 <div className="price-range">
-                                    <div>$</div>
+                                    <div>{Object.keys(this.state.selected_country).length > 0 ? this.state.selected_country.symbol : ''}</div>
                                     <input id="min-price" style={{ borderRadius: "0px" }} className="field" type="text" placeholder="Enter min. price"></input>
                                     <input id="max-price" type="text" className="field" placeholder="Enter max. price"></input>
                                 </div>
@@ -1349,7 +1369,7 @@ class ChefProfile extends React.Component {
                             <div className="individual-details">
                                 <div className="input-name">Hourly rate</div>
                                 <div className="price-details">
-                                    <div>$</div>
+                                    <div>{Object.keys(this.state.selected_country).length > 0 ? this.state.selected_country.symbol : ''}</div>
                                     <input id="hourly-rate" type="text" className="field" placeholder="Enter price"></input>
                                 </div>
                             </div>

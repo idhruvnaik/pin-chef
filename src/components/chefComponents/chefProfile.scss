@@ -60,6 +60,8 @@
           justify-content: center;
           align-items: center;
           .image-upload{
+            width: 120px;
+            height: 120px;
             input{
               display: none;
             }
@@ -120,14 +122,18 @@
           align-items: center;
           cursor: pointer;
           min-height: 36px;
-          border-radius: 10px;
+          border-radius: 12px;
           pointer-events: all;
           /* width: 30px; */
           height: 46px;
-          border-color: black;
+          border: thin solid gray;
+          border-style: inset;
+          border-width: 2px;
         }
         .react-tel-input {
-            border: 2px solid black;
+            border: thin solid gray;
+            border-style: inset;
+            border-width: 2px;
             border-radius: 15px;
             height: 60px;
             width: 96%;
@@ -319,6 +325,15 @@
       .long-input {
         input {
           min-height: 100px;
+        }
+      }
+      .location{
+        .css-2b097c-container{
+          .css-yk16xz-control{
+            border-style: inset;
+            border-width: 2px;
+            border: thin solid gray;
+          }
         }
       }
     }
