@@ -51,6 +51,7 @@ const resend_otp_endpoint = "/resend-otp"
 const reset_password_endpoint = "/account/password"
 const set_user_profile_endpoint = "/profile"
 const update_chef_endpoint = "/chef"
+const delete_user_endpoint = "/account/user"
 
 
 async function make_rest_call(apiURL, method, body, headers){
@@ -1016,6 +1017,23 @@ export const UpdateChefProfile = async(data, token)=>{
     };
     try{
         let resp = await make_rest_call(apiURL, 'PUT', data, headers);
+        return resp;
+    }
+    catch(err){
+        return {
+            status: false,
+            message: err.message
+        }
+    }
+}
+
+export const DeleteAccount = async(user_id, token)=>{
+    let apiURL = apiHost + delete_user_endpoint + "/" + user_id;
+    var headers = {
+        "Authorization": "Bearer " + token
+    };
+    try{
+        let resp = await make_rest_call(apiURL, 'DELETE', {}, headers);
         return resp;
     }
     catch(err){

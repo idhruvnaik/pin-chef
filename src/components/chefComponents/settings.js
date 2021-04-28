@@ -6,6 +6,7 @@ import PostMenu from '../../assets/png_icons/Post menu icon@2x.png';
 import CommentIcon from '../../assets/png_icons/Comment icon@2x.png';
 import EmptyHeart from '../../assets/png_icons/Empty heart@2x.png';
 import PostShare from '../../assets/png_icons/Post Share count@2x.png';
+import { NotificationContainer, NotificationManager } from 'react-notifications';
 import SmallRightArrow from '../../assets/png_icons/Right green arrow.png'
 import RightArrow from '../../assets/png_icons/Right green arrow@2x.png';
 import LeftBack from '../../assets/png_icons/Green back arrow.png'
@@ -37,7 +38,7 @@ import Popup from 'reactjs-popup';
 import ReactDOM, { render } from 'react-dom';
 import { Provider } from "react-redux";
 import configureStore from "../../store";
-import { getChefById } from '../../services/apiOperations';
+import { getChefById, DeleteAccount } from '../../services/apiOperations';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import $ from 'jquery';
 
@@ -110,6 +111,19 @@ export default class settings extends Component {
         window.sessionStorage.clear();
         reactLocalStorage.clear();
         window.location.reload();
+    }
+
+    async delete_account(){
+        var user_details = await DeleteAccount(this.user_id, this.token);
+        if (user_details.status == false) {
+            return NotificationManager.error(user_details.message, 'ERROR', 4000);
+        } else {
+            this.props.history.push(
+                {
+                    pathname: '/User'
+                }
+            );
+        }
     }
 
     async getUserData() {
@@ -513,7 +527,7 @@ export default class settings extends Component {
                                 </div>
                                 <div className="actions">
                                     <button type="button" onClick={close}>Cancle</button>
-                                    <button type="button" onClick={() => this.logout()}>Delete</button>
+                                    <button type="button" onClick={() => this.delete_account()}>Delete</button>
                                 </div>
                             </div>
                         )}
@@ -553,6 +567,7 @@ export default class settings extends Component {
                         )}
                     </Popup>
                 </div>
+                <NotificationContainer />
             </div>
         );
     }

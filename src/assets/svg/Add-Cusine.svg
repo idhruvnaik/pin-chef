@@ -1,17 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="62" height="60" viewBox="0 0 62 60">
-  <defs>
-    <filter id="Path_28692" x="0" y="0" width="62" height="60" filterUnits="userSpaceOnUse">
-      <feOffset input="SourceAlpha"/>
-      <feGaussianBlur stdDeviation="3" result="blur"/>
-      <feFlood flood-opacity="0.525"/>
-      <feComposite operator="in" in2="blur"/>
-      <feComposite in="SourceGraphic"/>
-    </filter>
-  </defs>
-  <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#Path_28692)">
-    <g id="Path_28692-2" data-name="Path 28692" transform="translate(9 9)" fill="none">
-      <path d="M8,0H36a8,8,0,0,1,8,8V34a8,8,0,0,1-8,8H8a8,8,0,0,1-8-8V8A8,8,0,0,1,8,0Z" stroke="none"/>
-      <path d="M 8 2 C 4.69158935546875 2 2 4.69158935546875 2 8 L 2 17.23073959350586 L 2 34 C 2 37.30841064453125 4.69158935546875 40 8 40 L 36 40 C 39.30841064453125 40 42 37.30841064453125 42 34 L 42 8 C 42 4.69158935546875 39.30841064453125 2 36 2 L 8 2 M 8 0 L 36 0 C 40.41828155517578 0 44 3.581718444824219 44 8 L 44 34 C 44 38.41828155517578 40.41828155517578 42 36 42 L 8 42 C 3.581718444824219 42 0 38.41828155517578 0 34 L 0 17.23073959350586 L 0 8 C 0 3.581718444824219 3.581718444824219 0 8 0 Z" stroke="none" fill="#469a21"/>
-    </g>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="74" height="72" viewBox="0 0 74 72"><defs><style>.a{fill:#469a09;}.b,.d{fill:none;}.b{stroke:#469a21;stroke-width:2px;}.c{stroke:none;}.e{filter:url(#a);}</style><filter id="a" x="0" y="0" width="74" height="72" filterUnits="userSpaceOnUse"><feOffset input="SourceAlpha"/><feGaussianBlur stdDeviation="5" result="b"/><feFlood flood-opacity="0.263"/><feComposite operator="in" in2="b"/><feComposite in="SourceGraphic"/></filter></defs><g transform="translate(-292 -886)"><g transform="translate(295.243 891.092)"><path class="a" d="M45.014,24.963l-11.5,13.8-5.953-5.952a2.674,2.674,0,1,0-3.781,3.781l8.023,8.023a2.68,2.68,0,0,0,1.892.784c.04,0,.082,0,.122,0a2.673,2.673,0,0,0,1.934-.96L49.124,28.386a2.675,2.675,0,1,0-4.11-3.423Z" transform="translate(-2.615 -2.789)"/></g><g class="e" transform="matrix(1, 0, 0, 1, 292, 886)"><g class="b" transform="translate(15 15)"><rect class="c" width="44" height="42" rx="8"/><rect class="d" x="1" y="1" width="42" height="40" rx="7"/></g></g></g></svg>

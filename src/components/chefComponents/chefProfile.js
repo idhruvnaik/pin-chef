@@ -445,6 +445,7 @@ class ChefProfile extends React.Component {
         this.add_cusine = this.add_cusine.bind(this);
         this.add_new_cusine = this.add_new_cusine.bind(this);
         this.set_location = this.set_location.bind(this);
+        this.show_words_count = this.show_words_count.bind(this);
         // this.createNotification = this.createNotification.bind(this);
         this.state = {
             contr: '',
@@ -554,8 +555,8 @@ class ChefProfile extends React.Component {
                 payments.push(item.value);
             }
         });
-        var sh = []
-        $("#service-hours").map((index, item) => {
+        var sh = [];
+        $("input#service-hours").map((index, item) => {
             if (item.checked) {
                 if (item.value == "Selected Hours") {
                     if (!this.state.monday_disable) {
@@ -798,16 +799,40 @@ class ChefProfile extends React.Component {
     }
 
     add_cusine(cusines) {
-        this.setState({ selected_cusine: [cusines[0].username] })
+        // console.log(cusines);
+        // this.setState({ selected_cusine: cusines })
+        // let existing_cusines = [...this.state.selected_cusine];
+        // existing_cusines.push(cusines[0]);
+        this.setState({selected_cusine: cusines});
+    }
+
+    show_words_count(e){
+        if(e.target.value != ''){
+            if(e.target.value.trim().length > 0){
+                $(".word_count")[0].innerHTML = e.target.value.length;
+            }
+        } else{
+            $(".word_count")[0].innerHTML = '0';
+        }
     }
 
     add_new_cusine() {
         if ($("#new_cusine")[0].value.length > 0) {
             let options = [...this.state.options];
-            options.push({
-                username: $("#new_cusine")[0].value
-            })
-            this.setState({ options });
+            let existing_cusine = options.filter(cusine => cusine.username.toLowerCase() == $("#new_cusine")[0].value);
+            if(existing_cusine.length > 0){
+                NotificationManager.warning('Cusine is already in the list.', 'WARNING', 3000);
+            } else{
+                options.push({
+                    username: $("#new_cusine")[0].value
+                })
+                this.setState({ options });
+                let cusines = [...this.state.selected_cusine];
+                cusines.push({
+                    username: $("#new_cusine")[0].value
+                });
+                this.setState({selected_cusine: cusines});
+            }
         } else {
             NotificationManager.error('Cusine Name is required.', 'ERROR', 3000);
         }
@@ -1008,6 +1033,7 @@ class ChefProfile extends React.Component {
                                     clearIcon={null}
                                     disableCalendar={true}
                                     required={true}
+                                    maxDate={new Date(new Date() - 60*60*24*365)}
                                 />
                             </div>
                             <div className="individual-details">
@@ -1024,20 +1050,22 @@ class ChefProfile extends React.Component {
                             </div>
                             <div className="individual-details">
                                 <div className="input-name">Cuisine Specialties</div>
-                                <SelectSearch options={this.state.options} labelField="username" searchable={true} searchBy="username" placeholder="Select" onChange={value => this.add_cusine(value)} />
+                                <SelectSearch values={this.state.selected_cusine} keepSelectedInList={true} options={this.state.options} multi={true} labelField="username" valueField="username" sortBy="username" color="green" searchable={true} searchBy="username" placeholder="Select" onChange={(values) => this.add_cusine(values)} />
                             </div>
                             Cuisine not in list? <u style={{ fontFamily: "custom-fonts-bold" }} >Add Cuisine</u> <span id="addCusine" style={{ color: "#469A09", fontSize: "18pt", fontFamily: "custom-fonts-bold", cursor: "pointer" }} onClick={this.open_custom_cusine}>+</span>
                             <div className="add-cusine">
                                 <input id="new_cusine" type="text" placeholder="Write cuisine name"></input>
                                 <img src={AddCusine} onClick={this.add_new_cusine}></img>
                             </div>
-                            <div className="individual-details long-input">
+                            <div className="individual-details long-input" style={{marginTop: "5px"}}>
                                 <div className="input-name">Short Ad Intro</div>
-                                <input id="short_intro" type="text" className="field" placeholder="ex: English, Spanish, etc." maxlength="300"></input>
+                                <textarea id="short_intro" maxlength="300" placeholder="ex: English, Spanish, etc." onKeyUp={this.show_words_count}></textarea>
+                                <p>Word Count: <span class="word_count">0</span>/300</p>
                             </div>
                             <div className="individual-details long-input">
                                 <div className="input-name">Full Background Info</div>
-                                <input id="full_info" type="text" className="field" placeholder="ex: English, Spanish, etc."></input>
+                                {/* <input id="full_info" type="text" className="field" placeholder="ex: English, Spanish, etc."></input> */}
+                                <textarea id="full_info" placeholder="ex: English, Spanish, etc."></textarea>
                             </div>
                             <div className="individual-details location">
                                 <div className="input-name">Address/Location &nbsp;<span>*</span></div>

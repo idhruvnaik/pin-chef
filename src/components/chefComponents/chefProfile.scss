@@ -4,6 +4,21 @@
   border-radius: 20px;
   font-family: custom-fonts;
   .chef-profile {
+    input:focus,
+    textarea:focus {
+      outline:0px;
+    }
+    textarea{
+      resize: none;
+      width: 91%;
+      border-radius: 12px;
+      padding: 15px;
+      font-family: custom-fonts;
+      border-width: 2px;
+      border-style: inset;
+      border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+      min-height: 100px;
+    }
     height: 100%;
     border-radius: 20px;
     .notification-container {
@@ -43,9 +58,9 @@
       font-size: 16pt;
     }
     .details {
-      height: 85%;
+      height: 73%;
       overflow: auto;
-      padding: 15px;
+      padding: 15px 15px 100px 15px;
       .instructions {
         font-family: custom-fonts-bold;
         font-size: 12pt;
@@ -91,9 +106,10 @@
               }
             }
             input.field {
-              padding: 15px;
+              padding: 10px;
               width: 95%;
               border-radius: 12px;
+              font-size: 16px;
             }
           }
         }
@@ -125,7 +141,6 @@
           border-radius: 12px;
           pointer-events: all;
           /* width: 30px; */
-          height: 46px;
           border: thin solid gray;
           border-style: inset;
           border-width: 2px;
@@ -142,8 +157,9 @@
                 border: 1px solid black;
                 height: 90%;
                 border: none;
-                text-align: center;
+                text-align: left;
                 border-radius: 15px;
+                padding-left: 20%;
             }
             .flag-dropdown {
                 border: none;
@@ -193,9 +209,10 @@
           }
         }
         input.field {
-          padding: 15px;
+          padding: 10px;
           width: 91%;
           border-radius: 12px;
+          font-size: 16px;
         }
         .price-details {
           display: flex;
@@ -362,7 +379,6 @@
       width: 100%;
       display: flex;
       justify-content: space-around;
-      align-items: center;
       margin-bottom: 20px;
       .day {
         width: 110px;
