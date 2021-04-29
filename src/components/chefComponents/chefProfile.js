@@ -677,7 +677,7 @@ class ChefProfile extends React.Component {
                 }
             }
         });
-        if (first_name.length > 0 && this.state.contr.length > 0 && position.length > 0 && min_range.length > 0 && max_range.length > 0 && sh.length > 0) {
+        if (first_name.length > 0 && this.state.contr.length > 0 && position.length > 0 && min_range.length > 0 && max_range.length > 0 && sh.length > 0 && this.state.selected_cusine.length > 0) {
             var data = {
                 id: this.user_id,
                 user_name: $("#user_id")[0].value,
@@ -951,9 +951,35 @@ class ChefProfile extends React.Component {
     }
 
     get_time(time, state_name, index, key_name) {
-        let monday_count = [...this.state.monday_count];
-        monday_count[index][key_name] = time;
-        this.setState({ monday_count });
+        if( state_name == "monday_count"){
+            let monday_count = [...this.state.monday_count];
+            monday_count[index][key_name] = time;
+            this.setState({ monday_count });
+        } else if( state_name == "tuesday_count" ){
+            let tuesday_count = [...this.state.tuesday_count];
+            tuesday_count[index][key_name] = time;
+            this.setState({ tuesday_count });
+        } else if( state_name == "wednesday_count" ){
+            let wednesday_count = [...this.state.wednesday_count];
+            wednesday_count[index][key_name] = time;
+            this.setState({ wednesday_count });
+        } else if( state_name == "thursday_count" ){
+            let thursday_count = [...this.state.thursday_count];
+            thursday_count[index][key_name] = time;
+            this.setState({ thursday_count });
+        } else if( state_name == "friday_count" ){
+            let friday_count = [...this.state.friday_count];
+            friday_count[index][key_name] = time;
+            this.setState({ friday_count });
+        } else if( state_name == "saturday_count" ){
+            let saturday_count = [...this.state.saturday_count];
+            saturday_count[index][key_name] = time;
+            this.setState({ saturday_count });
+        } else{
+            let sunday_count = [...this.state.sunday_count];
+            sunday_count[index][key_name] = time;
+            this.setState({ sunday_count });
+        } 
     }
 
     render() {
@@ -1033,7 +1059,7 @@ class ChefProfile extends React.Component {
                                     clearIcon={null}
                                     disableCalendar={true}
                                     required={true}
-                                    maxDate={new Date(new Date() - 60*60*24*365)}
+                                    maxDate={new Date(new Date().getTime() - 60*60*24*365*13*1000)}
                                 />
                             </div>
                             <div className="individual-details">
