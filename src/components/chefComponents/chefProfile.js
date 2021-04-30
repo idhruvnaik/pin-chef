@@ -418,16 +418,16 @@ const cusines = [
 class ChefProfile extends React.Component {
     constructor(props) {
         super(props);
-        // if (this.props.token_details.token) {
-        //     this.token = this.props.token_details.token.auth_token;
-        //     this.user_id = this.props.token_details.token.id;
-        // } else {
-        //     this.props.history.push(
-        //         {
-        //             pathname: '/User'
-        //         }
-        //     );
-        // }
+        if (this.props.token_details.token) {
+            this.token = this.props.token_details.token.auth_token;
+            this.user_id = this.props.token_details.token.id;
+        } else {
+            this.props.history.push(
+                {
+                    pathname: '/User'
+                }
+            );
+        }
         this.back_to_login = this.back_to_login.bind(this);
         this.get_profile_img = this.get_profile_img.bind(this);
         this.delete_profile_img = this.delete_profile_img.bind(this);
@@ -556,6 +556,10 @@ class ChefProfile extends React.Component {
             }
         });
         var sh = [];
+        var selected_cusines = [];
+        this.state.selected_cusine.map((index, item) => {
+            selected_cusines.push(item.username);
+        })
         $("input#service-hours").map((index, item) => {
             if (item.checked) {
                 if (item.value == "Selected Hours") {
@@ -687,7 +691,7 @@ class ChefProfile extends React.Component {
                 gender: $('#gender')[0].value,
                 position: position,
                 languages: $("#languages")[0].value.split(","),
-                specialty: this.state.selected_cusine,
+                specialty: selected_cusines,
                 sort_intro: $("#short_intro")[0].value,
                 background_info: $("#full_info")[0].value,
                 service_hour: sh,
@@ -819,7 +823,7 @@ class ChefProfile extends React.Component {
     add_new_cusine() {
         if ($("#new_cusine")[0].value.length > 0) {
             let options = [...this.state.options];
-            let existing_cusine = options.filter(cusine => cusine.username.toLowerCase() == $("#new_cusine")[0].value);
+            let existing_cusine = options.filter(cusine => cusine.username.toLowerCase() == $("#new_cusine")[0].value.toLowerCase());
             if(existing_cusine.length > 0){
                 NotificationManager.warning('Cusine is already in the list.', 'WARNING', 3000);
             } else{
@@ -942,6 +946,7 @@ class ChefProfile extends React.Component {
             $("#addCusine")[0].innerHTML = "x";
             $("#addCusine").css("color", "#BF2604");
             $("#addCusine").css("font-size", "14pt");
+            $("#new_cusine")[0].value = null;
         } else {
             $(".add-cusine").css("display", "none");
             $("#addCusine")[0].innerHTML = "+";
@@ -1409,22 +1414,22 @@ class ChefProfile extends React.Component {
                                 <div className="input-name">Minimum purchase Service total amount</div>
                                 <div className="price-details">
                                     <div>{Object.keys(this.state.selected_country).length > 0 ? this.state.selected_country.symbol : ''}</div>
-                                    <input type="text" id="min-price" className="field" placeholder="Enter min. price"></input>
+                                    <input type="number" id="min-price" className="field" placeholder="Enter min. price"></input>
                                 </div>
                             </div>
                             <div className="individual-details">
                                 <div className="input-name">Service Price Range &nbsp;<span>*</span></div>
                                 <div className="price-range">
                                     <div>{Object.keys(this.state.selected_country).length > 0 ? this.state.selected_country.symbol : ''}</div>
-                                    <input id="min-price" style={{ borderRadius: "0px" }} className="field" type="text" placeholder="Enter min. price"></input>
-                                    <input id="max-price" type="text" className="field" placeholder="Enter max. price"></input>
+                                    <input id="min-price" style={{ borderRadius: "0px" }} className="field" type="number" placeholder="Enter min. price"></input>
+                                    <input id="max-price" type="number" className="field" placeholder="Enter max. price"></input>
                                 </div>
                             </div>
                             <div className="individual-details">
                                 <div className="input-name">Hourly rate</div>
                                 <div className="price-details">
                                     <div>{Object.keys(this.state.selected_country).length > 0 ? this.state.selected_country.symbol : ''}</div>
-                                    <input id="hourly-rate" type="text" className="field" placeholder="Enter price"></input>
+                                    <input id="hourly-rate" type="number" className="field" placeholder="Enter price"></input>
                                 </div>
                             </div>
                             <div className="payment">

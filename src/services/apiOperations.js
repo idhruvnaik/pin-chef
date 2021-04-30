@@ -4,8 +4,8 @@ import { useDispatch } from 'react-redux';
 import { addToken, removeToken, signIn} from './actions';
 import { geolocated } from "react-geolocated";
 
-const apiHost = "http://35.175.243.253:8080/api"
-// const apiHost = "https://pinchef.io:8080/api"
+// const apiHost = "http://35.175.243.253:8080/api"
+const apiHost = "https://pinchef.io:8080/api"
 const registration_endpoint = "/auth/user"
 const login_endpoint = "/auth/login"
 const otp_endpoint = "/auth/verify-user"

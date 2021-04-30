@@ -3,6 +3,8 @@
 .chef-profile-creation {
   border-radius: 20px;
   font-family: custom-fonts;
+  margin-top: 0px;
+  height: 100%;
   .chef-profile {
     input:focus,
     textarea:focus {
@@ -58,9 +60,9 @@
       font-size: 16pt;
     }
     .details {
-      height: 73%;
+      height: 80%;
       overflow: auto;
-      padding: 15px 15px 100px 15px;
+      padding: 15px 15px 15px 15px;
       .instructions {
         font-family: custom-fonts-bold;
         font-size: 12pt;
