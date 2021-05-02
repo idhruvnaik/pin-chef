@@ -239,6 +239,7 @@
     }
     .my_profile {
       .cover-photo {
+        width: 98%;
         .banner {
           height: 200px;
           img {
@@ -246,16 +247,22 @@
             height: 100%;
           }
         }
-        .desktop-icon {
-          width: 50px;
-          height: 50px;
+        .chef-images{
+          width: 90%;
           position: relative;
-          bottom: 55px;
+          bottom: 80px;
           left: 30px;
-          img {
-            border-radius: 50%;
-            width: 100%;
-            height: 100%;
+          display: flex;
+          justify-content: space-between;
+          align-items: baseline;
+          .desktop-icon {
+            width: 70px;
+            height: 70px;
+            img {
+              border-radius: 50%;
+              width: 100%;
+              height: 100%;
+            }
           }
         }
       }
@@ -683,7 +690,7 @@
       }
     }
     .popup-content {
-      padding: 10px;
+      padding: 10px 10px 100px 10px;
       .icon-bar {
         padding: 10px;
         display: flex;
@@ -704,6 +711,17 @@
           margin-bottom: 10px;
           display: flex;
           flex-direction: column;
+          .days_hours{
+            border: 1px solid black;
+            border-radius: 12px;
+            display: flex;
+            padding: 10px;
+            color: #979797;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-family: custom-fonts;
+          }
           &.radio-group {
             ul {
               flex-direction: row;
@@ -725,7 +743,6 @@
             flex-direction: column;
             align-items: flex-start;
             div {
-              display: flex;
               align-items: center;
               span.label {
                 width: 150px;
@@ -735,6 +752,8 @@
               }
               .form-control.money-field {
                 visibility: unset;
+                padding: 4px;
+
               }
             }
           }
@@ -782,7 +801,7 @@
               width: 30px;
               height: 30px;
               position: absolute;
-              top: 20px;
+              top: 10px;
               left: 10px;
             }
             input {
@@ -805,16 +824,17 @@
         justify-content: space-between;
         margin: 0% 5%;
         .footer-btn {
-          padding: 10px;
-          border-radius: 15px;
+          padding: 10px 30px 10px 30px;
           font-weight: 600;
           font-size: 18px;
           margin: 0;
           &.light {
+            border-radius: 0px 25px 25px 25px;
             background-color: #d9d9d9;
             color: #5b5353;
           }
           &.dark {
+            border-radius: 25px 0px 25px 25px;
             background-color: #5b5353;
             color: #ffffff;
           }
@@ -908,12 +928,89 @@
 }
 .pop-up-feeds {
   border-radius: 15px;
+  font-family: custom-fonts-bold;
+  margin-top: 0px;
+  height: 100%;
+  input:focus, textarea:focus{
+    outline: 0px;
+  }
+  textarea{
+    resize: none;
+    width: calc(100% - 30px);
+    padding: 15px;
+    font-family: custom-fonts;
+    border: 1px solid #514949;
+    border-radius: 10px;
+    min-height: 200px;
+  }
 }
 .pop-up-recipes {
   border-radius: 15px;
+  font-family: custom-fonts-bold;
+  margin-top: 0px;
+  height: 100%;
+  input:focus, textarea:focus{
+    outline: 0px;
+  }
+  textarea{
+    resize: none;
+    width: calc(100% - 30px);
+    padding: 15px;
+    font-family: custom-fonts;
+    border: 1px solid #514949;
+    border-radius: 10px;
+    min-height: 100px;
+  }
+  .radio-group{
+    ul{
+      font-family: custom-fonts;
+    }
+  }
 }
 .pop-up-food {
   border-radius: 15px;
+  font-family: custom-fonts-bold;
+  margin-top: 0px;
+  height: 100%;
+  input:focus, textarea:focus{
+    outline: 0px;
+  }
+  textarea{
+    resize: none;
+    width: calc(100% - 30px);
+    padding: 15px;
+    font-family: custom-fonts;
+    border: 1px solid #514949;
+    border-radius: 10px;
+    min-height: 100px;
+  }
+  .radio-group{
+    ul{
+      font-family: custom-fonts;
+    }
+  }
+  .price-details {
+    display: flex;
+    width: 100%;
+    div {
+      width: fit-content;
+      padding: 10px;
+      border: 1px solid black;
+      border-radius: 10px 0px 0px 10px;
+      opacity: 0.6;
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      min-width: 4%;
+    }
+    input {
+      border: 1px solid black;
+      border-radius: 0px 10px 10px 0px;
+      padding: 10px;
+      width: 100%;
+      font-size: 16px;
+    }
+  }
 }
 .pop-up-services {
   border-radius: 15px;

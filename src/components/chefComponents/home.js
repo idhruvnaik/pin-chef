@@ -3,6 +3,7 @@ import ReactStars from "react-rating-stars-component";
 import SlidingPane from "react-sliding-pane";
 import "react-sliding-pane/dist/react-sliding-pane.css";
 import ReactDOM, { render } from 'react-dom';
+import { NotificationContainer, NotificationManager } from 'react-notifications';
 import { Provider } from "react-redux";
 import configureStore from "../../store";
 import ReactCrop from 'react-image-crop';
@@ -10,6 +11,7 @@ import Popup from 'reactjs-popup';
 import TimePicker from 'react-time-picker';
 import 'react-image-crop/dist/ReactCrop.css';
 import SelectSearch from "react-dropdown-select";
+import CropImage from '../cropImages';
 
 import NoFeeds from '../../assets/svg/NoFeedPost';
 import NoPostsByChef from '../../assets/svg/NoPostsByChef'
@@ -21,6 +23,7 @@ import UserPhoto from "../../assets/images/photo2.png";
 import UserPost from "../../assets/images/bannerFeed2.png";
 import PostMenu from "../../assets/png_icons/Post menu icon@2x.png";
 import CommentIcon from '../../assets/svg/Comment icon.svg';
+import RoleChangeIcon from '../../assets/svg/role-change-icon.svg'
 import EmptyHeart from '../../assets/svg/Like button empty.svg';
 import FullHeart from '../../assets/svg/Like button full.svg';
 import PostShare from '../../assets/svg/Post Share count.svg';
@@ -58,11 +61,424 @@ import ImageUploadIcon from "../../assets/images/image-upload.png";
 import LocationPlusIcon from "../../assets/images/location-plus-icon.png";
 import UploadImage from "../../assets/images/upload-option.png";
 
-import { getAllChef, getAllPosts, likePost, AddPost, AddImageToPost, getAllPostsByChefID, getChefById, getAllRecipesByChef, getAllFoodByFood, getAllMasterClasses, unlikePost, unlikeRecipe, likeRecipe, getAllServicesByChef, unlikeFood, likeFood, unlikeService, likeService, getAllMasterClassesByChef, DeleteMasterClass } from '../../services/apiOperations';
+import { getAllChef, getAllPosts, likePost, AddPost, AddImageToPost, AddRecipe, AddImageToRecipe, getAllPostsByChefID, getChefById, getAllRecipesByChef, getAllFoodByFood, getAllMasterClasses, unlikePost, unlikeRecipe, likeRecipe, getAllServicesByChef, unlikeFood, likeFood, unlikeService, likeService, getAllMasterClassesByChef, DeleteMasterClass } from '../../services/apiOperations';
 import $ from "jquery";
 import { Button } from "rsuite";
 
 // const [value, onChange] = useState('10:00');
+
+const cusines = [
+  {
+      username: 'Afghani'
+  },
+  {
+      username: 'African'
+  },
+  {
+      username: 'Albanian'
+  },
+  {
+      username: 'American'
+  },
+  {
+      username: 'Apulian'
+  },
+  {
+      username: 'Arabic'
+  },
+  {
+      username: 'Argentinean'
+  },
+  {
+      username: 'Armenian'
+  },
+  {
+      username: 'Asian'
+  },
+  {
+      username: 'Assyrian'
+  },
+  {
+      username: 'Australian'
+  },
+  {
+      username: 'Austrian'
+  },
+  {
+      username: 'Bahamian'
+  },
+  {
+      username: 'Bangladeshi'
+  },
+  {
+      username: 'Basque'
+  },
+  {
+      username: 'Beijing cuisine'
+  },
+  {
+      username: 'Belgian'
+  },
+  {
+      username: 'Brazilian'
+  },
+  {
+      username: 'British'
+  },
+  {
+      username: 'Bulgarian'
+  },
+  {
+      username: 'Burmese'
+  },
+  {
+      username: 'Cajun & Creole'
+  },
+  {
+      username: 'Cambodian'
+  },
+  {
+      username: 'Campania'
+  },
+  {
+      username: 'Canadian'
+  },
+  {
+      username: 'Cantonese'
+  },
+  {
+      username: 'Caribbean'
+  },
+  {
+      username: 'Catalan'
+  },
+  {
+      username: 'Central American'
+  },
+  {
+      username: 'Central Asian'
+  },
+  {
+      username: 'Central European'
+  },
+  {
+      username: 'Central-Italian'
+  },
+  {
+      username: 'Chilean'
+  },
+  {
+      username: 'Chinese'
+  },
+  {
+      username: 'Colombian'
+  },
+  {
+      username: 'Contemporary'
+  },
+  {
+      username: 'Croatian'
+  },
+  {
+      username: 'Cuban'
+  },
+  {
+      username: 'Czech'
+  },
+  {
+      username: 'Danish'
+  },
+  {
+      username: 'Deli'
+  },
+  {
+      username: 'Eastern European'
+  },
+  {
+      username: 'Ecuadorean'
+  },
+  {
+      username: 'Egyptian'
+  },
+
+  {
+      username: 'Emilian'
+  },
+  {
+      username: 'Ethiopian'
+  },
+  {
+      username: 'European'
+  },
+  {
+      username: 'Filipino'
+  },
+  {
+      username: 'French'
+  },
+  {
+      username: 'Fusion'
+  },
+  {
+      username: 'Georgian'
+  },
+  {
+      username: 'German'
+  },
+  {
+      username: 'Greek'
+  },
+  {
+      username: 'Hawaiian'
+  },
+  {
+      username: 'Healthy'
+  },
+  {
+      username: 'Hong Kong'
+  },
+  {
+      username: 'Hungarian'
+  },
+  {
+      username: 'Indian'
+  },
+  {
+      username: 'Indonesian'
+  },
+  {
+      username: 'International'
+  },
+  {
+      username: 'Irish'
+  },
+  {
+      username: 'Israeli'
+  },
+  {
+      username: 'Italian'
+  },
+  {
+      username: 'Jamaican'
+  },
+  {
+      username: 'Japanese'
+  },
+  {
+      username: 'Japanese Fusion'
+  },
+  {
+      username: 'Kaiseki'
+  },
+  {
+      username: 'Korean'
+  },
+  {
+      username: 'Latin'
+  },
+  {
+      username: 'Lazio'
+  },
+  {
+      username: 'Lebanese'
+  },
+  {
+      username: 'Malaysian'
+  },
+  {
+      username: 'Mediterranean'
+  },
+  {
+      username: 'Mexican'
+  },
+  {
+      username: 'Middle Eastern'
+  },
+  {
+      username: 'Moroccan'
+  },
+  {
+      username: 'Native American'
+  },
+  {
+      username: 'Neapolitan'
+  },
+  {
+      username: 'Nepali'
+  },
+  {
+      username: 'New Zealand'
+  },
+  {
+      username: 'Nigerian'
+  },
+  {
+      username: 'Nonya'
+  },
+  {
+      username: 'Northern-Italian'
+  },
+  {
+      username: 'NorthWestern Chinese'
+  },
+  {
+      username: 'Norwegian'
+  },
+  {
+      username: 'Pakistani'
+  },
+  {
+      username: 'Persian'
+  },
+  {
+      username: 'Peruvian'
+  },
+  {
+      username: 'Pizza'
+  },
+  {
+      username: 'Polish'
+  },
+  {
+      username: 'Polynesian'
+  },
+  {
+      username: 'Portuguese'
+  },
+  {
+      username: 'Puerto Rican'
+  },
+  {
+      username: 'Romagna'
+  },
+  {
+      username: 'Romana'
+  },
+  {
+      username: 'Romanian'
+  },
+  {
+      username: 'Russian'
+  },
+  {
+      username: 'Salvadoran'
+  },
+  {
+      username: 'Sardinian'
+  },
+  {
+      username: 'Scandinavian'
+  },
+  {
+      username: 'Scottish'
+  },
+  {
+      username: 'Shanghai'
+  },
+  {
+      username: 'Sicilian'
+  },
+  {
+      username: 'Singaporean'
+  },
+  {
+      username: 'South American'
+  },
+  {
+      username: 'Southern-Italian'
+  },
+  {
+      username: 'Southwestern'
+  },
+  {
+      username: 'Spanish'
+  },
+  {
+      username: 'Sri Lankan'
+  },
+  {
+      username: 'Sushi'
+  },
+  {
+      username: 'Swedish'
+  },
+  {
+      username: 'Swiss'
+  },
+  {
+      username: 'Szechuan'
+  },
+  {
+      username: 'Taiwanese'
+  },
+  {
+      username: 'Thai'
+  },
+  {
+      username: 'Tibetan'
+  },
+  {
+      username: 'Tunisian'
+  },
+  {
+      username: 'Turkish'
+  },
+  {
+      username: 'Turkmen'
+  },
+  {
+      username: 'Tuscan'
+  },
+  {
+      username: 'Ukrainian'
+  },
+  {
+      username: 'Uzbek'
+  },
+  {
+      username: 'Venezuelan'
+  },
+  {
+      username: 'Vietusernamese'
+  },
+  {
+      username: 'Xinjiang'
+  },
+  {
+      username: 'Yunnan'
+  },
+
+]
+
+const diet = [
+  {
+      username: 'Gluten Free'
+  },
+  {
+      username: 'Vegan'
+  },
+  {
+      username: 'Organic'
+  },
+  {
+      username: 'Vegetarian'
+  },
+  {
+      username: 'Halal'
+  },
+  {
+      username: 'Kosher'
+  },
+  {
+      username: 'Nut Free'
+  },
+  {
+      username: 'Shellfish Free'
+  },
+  {
+      username: 'Dairy Free'
+  },
+]
 
 export default class home extends Component {
   constructor(props) {
@@ -92,7 +508,18 @@ export default class home extends Component {
     this.like_unlike_current_recipe = this.like_unlike_current_recipe.bind(this);
     this.cancel_master_class = this.cancel_master_class.bind(this);
     this.turn_on_off_notifications = this.turn_on_off_notifications.bind(this);
+    this.recipe_upload = this.recipe_upload.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleFoodChange = this.handleFoodChange.bind(this);
+    this.add_recipe = this.add_recipe.bind(this);
+    this.initialize_current_chef = this.initialize_current_chef.bind(this);
+    this.food_upload = this.food_upload.bind(this);
+    this.add_food = this.add_food.bind(this);
     this.state = {
+      source_image: null,
+      food_source_image: null,
+      recipe_crop_popup: false,
+      food_crop_popup: false,
       isPaneOpenLeft: false,
       pictures: [],
       feeds: [],
@@ -100,383 +527,21 @@ export default class home extends Component {
       food: [],
       services: [],
       master_classes: [],
+      current_chef: {},
       src: null,
       crop: {
         unit: 'px',
         height: 250,
         aspect: 16 / 9,
       },
-      options: [
-        {
-          id: 1,
-          name: "Leanne Graham",
-          username: "Bret",
-          email: "Sincere@april.biz",
-          address: {
-            street: "Kulas Light",
-            suite: "Apt. 556",
-            city: "Gwenborough",
-            zipcode: "92998-3874",
-            geo: {
-              lat: "-37.3159",
-              lng: "81.1496"
-            }
-          },
-          phone: "1-770-736-8031 x56442",
-          website: "hildegard.org",
-          company: {
-            name: "Romaguera-Crona",
-            catchPhrase: "Multi-layered client-server neural-net",
-            bs: "harness real-time e-markets"
-          }
-        },
-        {
-          id: 2,
-          disabled: true,
-          name: "Ervin Howell",
-          username: "Antonette",
-          email: "Shanna@melissa.tv",
-          address: {
-            street: "Victor Plains",
-            suite: "Suite 879",
-            city: "Wisokyburgh",
-            zipcode: "90566-7771",
-            geo: {
-              lat: "-43.9509",
-              lng: "-34.4618"
-            }
-          },
-          phone: "010-692-6593 x09125",
-          website: "anastasia.net",
-          company: {
-            name: "Deckow-Crist",
-            catchPhrase: "Proactive didactic contingency",
-            bs: "synergize scalable supply-chains"
-          }
-        },
-        {
-          id: 3,
-          name: "Clementine Bauch",
-          username: "Samantha",
-          email: "Nathan@yesenia.net",
-          address: {
-            street: "Douglas Extension",
-            suite: "Suite 847",
-            city: "McKenziehaven",
-            zipcode: "59590-4157",
-            geo: {
-              lat: "-68.6102",
-              lng: "-47.0653"
-            }
-          },
-          phone: "1-463-123-4447",
-          website: "ramiro.info",
-          company: {
-            name: "Romaguera-Jacobson",
-            catchPhrase: "Face to face bifurcated interface",
-            bs: "e-enable strategic applications"
-          }
-        },
-        {
-          id: 4,
-          name: "Patricia Lebsack",
-          username: "Karianne",
-          email: "Julianne.OConner@kory.org",
-          address: {
-            street: "Hoeger Mall",
-            suite: "Apt. 692",
-            city: "South Elvis",
-            zipcode: "53919-4257",
-            geo: {
-              lat: "29.4572",
-              lng: "-164.2990"
-            }
-          },
-          phone: "493-170-9623 x156",
-          website: "kale.biz",
-          company: {
-            name: "Robel-Corkery",
-            catchPhrase: "Multi-tiered zero tolerance productivity",
-            bs: "transition cutting-edge web services"
-          }
-        },
-        {
-          id: 5,
-          name: "Chelsey Dietrich",
-          username: "Kamren",
-          email: "Lucio_Hettinger@annie.ca",
-          address: {
-            street: "Skiles Walks",
-            suite: "Suite 351",
-            city: "Roscoeview",
-            zipcode: "33263",
-            geo: {
-              lat: "-31.8129",
-              lng: "62.5342"
-            }
-          },
-          phone: "(254)954-1289",
-          website: "demarco.info",
-          company: {
-            name: "Keebler LLC",
-            catchPhrase: "User-centric fault-tolerant solution",
-            bs: "revolutionize end-to-end systems"
-          }
-        },
-        {
-          id: 6,
-          name: "Mrs. Dennis Schulist",
-          username: "Leopoldo_Corkery",
-          email: "Karley_Dach@jasper.info",
-          address: {
-            street: "Norberto Crossing",
-            suite: "Apt. 950",
-            city: "South Christy",
-            zipcode: "23505-1337",
-            geo: {
-              lat: "-71.4197",
-              lng: "71.7478"
-            }
-          },
-          phone: "1-477-935-8478 x6430",
-          website: "ola.org",
-          company: {
-            name: "Considine-Lockman",
-            catchPhrase: "Synchronised bottom-line interface",
-            bs: "e-enable innovative applications"
-          }
-        },
-        {
-          id: 7,
-          name: "Kurtis Weissnat",
-          username: "Elwyn.Skiles",
-          email: "Telly.Hoeger@billy.biz",
-          address: {
-            street: "Rex Trail",
-            suite: "Suite 280",
-            city: "Howemouth",
-            zipcode: "58804-1099",
-            geo: {
-              lat: "24.8918",
-              lng: "21.8984"
-            }
-          },
-          phone: "210.067.6132",
-          website: "elvis.io",
-          company: {
-            name: "Johns Group",
-            catchPhrase: "Configurable multimedia task-force",
-            bs: "generate enterprise e-tailers"
-          }
-        },
-        {
-          id: 8,
-          name: "Nicholas Runolfsdottir V",
-          username: "Maxime_Nienow",
-          email: "Sherwood@rosamond.me",
-          address: {
-            street: "Ellsworth Summit",
-            suite: "Suite 729",
-            city: "Aliyaview",
-            zipcode: "45169",
-            geo: {
-              lat: "-14.3990",
-              lng: "-120.7677"
-            }
-          },
-          phone: "586.493.6943 x140",
-          website: "jacynthe.com",
-          company: {
-            name: "Abernathy Group",
-            catchPhrase: "Implemented secondary concept",
-            bs: "e-enable extensible e-tailers"
-          }
-        },
-        {
-          id: 9,
-          name: "Glenna Reichert",
-          username: "Delphine",
-          email: "Chaim_McDermott@dana.io",
-          address: {
-            street: "Dayna Park",
-            suite: "Suite 449",
-            city: "Bartholomebury",
-            zipcode: "76495-3109",
-            geo: {
-              lat: "24.6463",
-              lng: "-168.8889"
-            }
-          },
-          phone: "(775)976-6794 x41206",
-          website: "conrad.com",
-          company: {
-            name: "Yost and Sons",
-            catchPhrase: "Switchable contextually-based project",
-            bs: "aggregate real-time technologies"
-          }
-        },
-        {
-          id: 10,
-          name: "Clementina DuBuque",
-          username: "Moriah.Stanton",
-          email: "Rey.Padberg@karina.biz",
-          address: {
-            street: "Kattie Turnpike",
-            suite: "Suite 198",
-            city: "Lebsackbury",
-            zipcode: "31428-2261",
-            geo: {
-              lat: "-38.2386",
-              lng: "57.2232"
-            }
-          },
-          phone: "024-648-3804",
-          website: "ambrose.net",
-          company: {
-            name: "Hoeger LLC",
-            catchPhrase: "Centralized empowering task-force",
-            bs: "target end-to-end models"
-          }
-        }
-      ],
-      current_recipe: {}
+      options: cusines,
+      diets: diet,
+      current_recipe: {},
+      recipeCropUrl: {},
+      foodCropUrl: {},
+      selected_recipe_cusine: [],
+      selected_recipe_diet: []
     }
-
-    this.feeds = [
-      {
-        id: 1,
-        desktop_icon: UserPhoto,
-        user_name: "Jenah Stephonson",
-        user_description: "Home chef",
-        post: UserPost,
-        likes: 0,
-        comments: 0,
-        share: 0,
-        location: "Miami, FL",
-        time: "45 min ago",
-        post_content:
-          "It was great night as we were at catering for a wedding. Thank you all of the staff that helped us to make event such a wonderful and delicious.",
-      },
-      {
-        id: 2,
-        desktop_icon: UserPhoto,
-        user_name: "Jenah Stephonson",
-        user_description: "Home chef",
-        post: UserPost,
-        likes: 0,
-        comments: 0,
-        share: 0,
-        location: "Miami, FL",
-        time: "45 min ago",
-        post_content:
-          "It was great night as we were at catering for a wedding. Thank you all of the staff that helped us to make event such a wonderful and delicious.",
-      },
-    ];
-
-    this.recipes = [
-      {
-        id: 1,
-        desktop_icon: UserPhoto,
-        user_name: "Jenah Stephonson",
-        user_description: "Home chef",
-        post: UserPost,
-        recipe_name: "Beef Taco",
-        recipe_type: "Mexican",
-        likes: 0,
-        comments: 0,
-        share: 0,
-        location: "Miami, FL",
-        time: "45 min ago",
-        post_content:
-          "It was great night as we were at catering for a wedding. Thank you all of the staff that helped us to make event such a wonderful and delicious.",
-      },
-      {
-        id: 2,
-        desktop_icon: UserPhoto,
-        user_name: "Jenah Stephonson",
-        user_description: "Home chef",
-        post: UserPost,
-        recipe_name: "Beef Taco",
-        recipe_type: "Mexican",
-        likes: 0,
-        comments: 0,
-        share: 0,
-        location: "Miami, FL",
-        time: "45 min ago",
-        post_content:
-          "It was great night as we were at catering for a wedding. Thank you all of the staff that helped us to make event such a wonderful and delicious.",
-      },
-    ];
-
-    this.foods = [
-      {
-        id: 1,
-        desktop_icon: UserPhoto,
-        user_name: "Jenah Stephonson",
-        user_description: "Home chef",
-        post: UserPost,
-        likes: 0,
-        comments: 0,
-        share: 0,
-        location: "Miami, FL",
-        time: "45 min ago",
-        rattings: "5.6",
-        delivery_status: "Delivery + Pick up/Takeaway",
-        post_content:
-          "It was great night as we were at catering for a wedding. Thank you all of the staff that helped us to make event such a wonderful and delicious.",
-      },
-      {
-        id: 2,
-        desktop_icon: UserPhoto,
-        user_name: "Jenah Stephonson",
-        user_description: "Home chef",
-        post: UserPost,
-        likes: 0,
-        comments: 0,
-        share: 0,
-        location: "Miami, FL",
-        time: "45 min ago",
-        rattings: "5.6",
-        delivery_status: "Delivery + Pick up/Takeaway",
-        post_content:
-          "It was great night as we were at catering for a wedding. Thank you all of the staff that helped us to make event such a wonderful and delicious.",
-      },
-    ];
-
-    this.emaster_classes = [
-      {
-        recipe_name: "PIZZA",
-        recipe_image: Food,
-        recipe_type: "Italian",
-        recipe_diet: "Vegan",
-        chef_name: "Jenah Stephanson",
-        chef_desktop_icon: UserPhoto,
-        ingredients: "pepper, flour, orange juice",
-        recipe_description:
-          "Come and enjoy cooking the yummiest Pizza you have ever seen.",
-        price: "25",
-        date: "Feb 20 - UTC",
-        time: "12:30",
-        remaining_time: "2:30",
-        available_tickets: "34",
-      },
-      {
-        recipe_name: "PIZZA",
-        recipe_image: Food,
-        recipe_type: "Italian",
-        recipe_diet: "Vegan",
-        chef_name: "Jenah Stephanson",
-        chef_desktop_icon: UserPhoto,
-        ingredients: "pepper, flour, orange juice",
-        recipe_description:
-          "Come and enjoy cooking the yummiest Pizza you have ever seen.",
-        price: "25",
-        date: "Feb 20 - UTC",
-        time: "12:30",
-        remaining_time: "2:30",
-        available_tickets: "34",
-      },
-    ];
 
     this.ratingChanged = (newRating) => {
       document.querySelector(
@@ -535,6 +600,92 @@ export default class home extends Component {
     this.setState({
       pictures: this.state.pictures.concat(pictureFiles)
     });
+  }
+
+  async add_recipe() {
+    var difficulty = $('input[name="diff_level"]:checked').val();
+    var selected_cusines = [];
+    var selected_diet = [];
+    this.state.selected_recipe_cusine.map((item) => {
+      selected_cusines.push(item.username);
+    });
+    this.state.selected_recipe_diet.map((item) => {
+      selected_diet.push(item.username);
+    });
+    var data = {
+      chef_id: this.user_id,
+      cuisine_type: selected_cusines,
+      diet_type: selected_diet,
+      food_name: $('#food_name')[0].value,
+      number_of_servings: $('#no_of_serving')[0].value,
+      prep_time: $('#prep_time')[0].value,
+      cook_time: $('#cook_time')[0].value,
+      instructions: $('#recipe_instruction')[0].value,
+      ingredients: $('#recipe_ingredients')[0].value,
+      required_tools: $('#recipe_required_tools')[0].value,
+      difficulty_level: difficulty
+    };
+    if(difficulty && $('#food_name')[0].value.length > 0 && $('#no_of_serving')[0].value.length > 0 && $('#prep_time')[0].value.length > 0 && $('#cook_time')[0].value.length > 0 && $('#recipe_instruction')[0].value.length > 0 && $('#recipe_ingredients')[0].value.length > 0 && selected_cusines.length > 0){
+      let result = await AddRecipe( data, this.token);
+      console.log(result, "after added recipe")
+      if (result.status && result.status == false) {
+        console.log(result.message);
+        NotificationManager.error(result.message, 'ERROR', 3000);
+      } else {
+        var recipe_id = result.recipe_id;
+        let image_result = await AddImageToRecipe(recipe_id, this.state.recipeCropUrl, this.token);
+        console.log(image_result, "image result after adding recipr");
+        if (image_result.status && image_result.status == false) {
+          console.log(image_result.message);
+          NotificationManager.error(image_result.message, 'ERROR', 3000);
+        } else {
+          this.setState({ isRecipePopup: false });
+        }
+      }
+    } else{
+      NotificationManager.error('Fill up all required fields.', 'ERROR', 3000);
+    }
+  }
+
+  async add_food() {
+    var difficulty = $('input[name="diff_level"]:checked').val();
+    var selected_cusines = [];
+    var selected_diet = [];
+    this.state.selected_food_cusine.map((item) => {
+      selected_cusines.push(item.username);
+    });
+    this.state.selected_food_diet.map((item) => {
+      selected_diet.push(item.username);
+    });
+    var data = {
+      chef_id: this.user_id,
+      cuisine_type: selected_cusines,
+      diet_type: selected_diet,
+      food_name: $('#food_item_name')[0].value,
+      description: $('#food_description')[0].value,
+      price: $('#food_price')[0].value,
+      difficulty_level: difficulty
+    };
+    if($('#food_item_name')[0].value.length > 0 && selected_cusines.length > 0 && $('#food_price')[0].value.length > 0){
+      let result = await AddRecipe( data, this.token);
+      console.log(result, "after added recipe")
+      if (result.status && result.status == false) {
+        console.log(result.message);
+        NotificationManager.error(result.message, 'ERROR', 3000);
+      } else {
+        var recipe_id = result.recipe_id;
+        let image_result = await AddImageToRecipe(recipe_id, this.state.recipeCropUrl, this.token);
+        console.log(image_result, "image result after adding recipr");
+        if (image_result.status && image_result.status == false) {
+          console.log(image_result.message);
+          NotificationManager.error(image_result.message, 'ERROR', 3000);
+        } else {
+          this.setState({ isRecipePopup: false });
+        }
+      }
+    } else{
+      NotificationManager.error('Fill up all required fields.', 'ERROR', 3000);
+    }
   }
 
   onImageLoaded(image) {
@@ -620,6 +771,17 @@ export default class home extends Component {
         }
       }
     }
+  }
+
+  async initialize_current_chef() {
+    let chef_result = await getChefById(this.user_id, this.token);
+      if (chef_result.status && chef_result.status == false) {
+        console.log(chef_result.message)
+      } else {
+        this.setState({
+          current_chef: chef_result
+        });
+      }
   }
 
   async initialize_recipes() {
@@ -795,6 +957,7 @@ export default class home extends Component {
   }
 
   componentDidMount() {
+    this.initialize_current_chef();
     this.initialize_feeds();
     this.initialize_recipes();
     this.initialize_food();
@@ -808,13 +971,13 @@ export default class home extends Component {
     var date2 = new Date();
     var diffInMs = Math.abs(date2 - date1);
     if ((diffInMs / 1000) < 60) {
-      return (diffInMs / 1000).toFixed(2) + " secs ago ";
+      return (diffInMs / 1000).toFixed(0) + " secs ago ";
     } else if ((diffInMs / (1000 * 60)) < 60) {
-      return (diffInMs / (1000 * 60)).toFixed(1) + " mins ago";
+      return (diffInMs / (1000 * 60)).toFixed(0) + " mins ago";
     } else if ((diffInMs / (1000 * 60 * 60)) < 24) {
-      return (diffInMs / (1000 * 60 * 60)).toFixed(1) + " hours ago";
+      return (diffInMs / (1000 * 60 * 60)).toFixed(0) + " hours ago";
     } else {
-      return (diffInMs / (1000 * 60 * 60 * 24)).toFixed(1) + " days ago";
+      return (diffInMs / (1000 * 60 * 60 * 24)).toFixed(0) + " days ago";
     }
   }
 
@@ -993,7 +1156,37 @@ export default class home extends Component {
     // $('.image-preview img')[0].src = e.target.value;//document.getElementById('file-input').files[0].name;
   }
 
+  recipe_upload(e) {
+    var selectedFile = e.target.files[0];
+    var reader = new FileReader();
+    // $('.image-preview img')[0].title = selectedFile.name;
+    reader.onload = (event) => {
+      // $('.image-preview img')[0].src = event.target.result;
+      this.setState({
+        source_image: event.target.result
+      })
+    };
+    reader.readAsDataURL(selectedFile);
+    this.setState({
+      recipe_crop_popup: true
+    });
+  }
 
+  food_upload(e) {
+    var selectedFile = e.target.files[0];
+    var reader = new FileReader();
+    // $('.image-preview img')[0].title = selectedFile.name;
+    reader.onload = (event) => {
+      // $('.image-preview img')[0].src = event.target.result;
+      this.setState({
+        food_source_image: event.target.result
+      })
+    };
+    reader.readAsDataURL(selectedFile);
+    this.setState({
+      food_crop_popup: true
+    });
+  }
 
   onCropComplete(crop) {
     this.makeClientCrop(crop);
@@ -1022,6 +1215,7 @@ export default class home extends Component {
       }
     }
   }
+
   async makeClientCrop(crop) {
     if (this.imageRef && crop.width && crop.height) {
       const croppedImageUrl = await this.getCroppedImg(
@@ -1080,6 +1274,34 @@ export default class home extends Component {
     });
   }
 
+  handleChange(otp) {
+    this.setState({
+      recipe_crop_popup: false
+    });
+    this.setState({ recipeCropUrl: otp });
+    var reader = new FileReader();
+    reader.onload = (event) => {
+      // $('.image-preview img')[0].src = event.target.result;
+      // this.setState({ src: event.target.result })
+      $('#recipe-icon')[0].src = event.target.result;
+    };
+    $('#recipe-icon')[0].src = reader.readAsDataURL(otp);
+  };
+
+  handleFoodChange(otp) {
+    this.setState({
+      food_crop_popup: false
+    });
+    this.setState({ foodCropUrl: otp });
+    var reader = new FileReader();
+    reader.onload = (event) => {
+      // $('.image-preview img')[0].src = event.target.result;
+      // this.setState({ src: event.target.result })
+      $('#food-icon')[0].src = event.target.result;
+    };
+    $('#food-icon')[0].src = reader.readAsDataURL(otp);
+  };
+
   open_menu(section, header_flag) {
     var menu_siblings = $('.' + section).siblings();
     menu_siblings.each(function () {
@@ -1122,6 +1344,28 @@ export default class home extends Component {
             e-Masterclass
           </li>
         </ul>
+        <Popup
+          open={this.state.recipe_crop_popup}
+          position="center center"
+          closeOnDocumentClick
+          modal
+          nested
+        >
+          {close => (
+            <CropImage onOtpChange={this.handleChange} image_source={this.state.source_image} close_popup={close} crop_height={53}/>
+          )}
+        </Popup>
+        <Popup
+          open={this.state.food_crop_popup}
+          position="center center"
+          closeOnDocumentClick
+          modal
+          nested
+        >
+          {close => (
+            <CropImage onOtpChange={this.handleFoodChange} image_source={this.state.food_source_image} close_popup={close} crop_height={53}/>
+          )}
+        </Popup>
         <div className="feeds sec active" id="feed-sec">
           {this.state.feeds.map((item) => {
             return (
@@ -1255,7 +1499,7 @@ export default class home extends Component {
                       <img src={null}></img>
                     </div> */}
                     <div className="form-group">
-                      <input placeholder="Write post description" className="description-field" id="feed-description" type="textarea" />
+                      <textarea id="feed-description" placeholder="Write post description"></textarea>
                     </div>
                     <div className="form-group location">
                       <img src={LocationPlusIcon} className="location-img"></img>
@@ -1375,60 +1619,60 @@ export default class home extends Component {
                         <div class="image-upload">
                           <label for="file-input">
 
-                            <img src={ImageUploadIcon} />
+                            <img id="recipe-icon" src={ImageUploadIcon} />
                           </label>
-                          <input id="file-input" type="file" />
+                          <input id="file-input" type="file" accept=".jpg,.png,.PNG,.jpeg" onChange={this.recipe_upload} />
                         </div>
                       </div>
                       <div className="form-group">
                         <label>Food Name <sup>*</sup></label>
-                        <input placeholder="Enter Food title" type="text" />
+                        <input id="food_name" placeholder="Enter Food title" type="text" />
                       </div>
 
                       <div className="form-group">
                         <label>Cuisine Type <sup>*</sup></label>
-                        <SelectSearch options={this.state.options} labelField="username" searchable={true} searchBy="username" />
+                        <SelectSearch options={this.state.options} labelField="username" searchable={true} searchBy="username" valueField="username" sortBy="username" color="green" placeholder="Select an option" onChange={(values) => this.setState({selected_recipe_cusine: values})} />
                       </div>
                       <div className="form-group">
                         <label>Diet Type</label>
-                        <SelectSearch options={this.state.options} labelField="username" searchable={true} searchBy="username" />
+                        <SelectSearch options={this.state.diets} labelField="username" searchable={true} searchBy="username" valueField="username" sortBy="username" color="green" placeholder="Select an option" onChange={(values) => this.setState({selected_recipe_diet: values})}/>
                       </div>
                       <div className="form-group">
                         <label>Number of Servings <sup>*</sup></label>
-                        <input placeholder="2" type="number" />
+                        <input id="no_of_serving" placeholder="2" type="number" />
                       </div>
                       <div className="form-group">
                         <label>Prep Time <sup>*</sup></label>
-                        <input placeholder="10 mins" type="number" />
+                        <input id="prep_time" placeholder="10 mins" type="number" />
                       </div>
                       <div className="form-group">
                         <label>Cook Time <sup>*</sup></label>
-                        <input placeholder="40 mins" className="description-field" type="textarea" />
+                        <input id="cook_time" placeholder="40 mins" type="number" />
                       </div>
                       <div className="form-group">
                         <label>Ingredients <sup>*</sup></label>
-                        <input placeholder="Write all the ingredients" className="description-field" type="textarea" />
+                        <textarea id="recipe_ingredients" placeholder="Write all the ingredients"></textarea>
                       </div>
                       <div className="form-group">
                         <label>Instructions <sup>*</sup></label>
-                        <input placeholder="Write step by step instructions as simple as possible" className="description-field" type="textarea" />
+                        <textarea id="recipe_instruction" placeholder="Write step by step instructions as simple as possible"></textarea>
                       </div>
                       <div className="form-group">
                         <label>Required tools (optional)</label>
-                        <input placeholder="Write down the tools needed to make this food" className="description-field" type="textarea" />
+                        <textarea id="recipe_required_tools" placeholder="Write down the tools needed to make this food"></textarea>
                       </div>
                       <div className="form-group radio-group">
                         <label>Difficulty cooking level <sup>*</sup></label>
                         <ul>
-                          <li><input type="radio" name="level" />Easy</li>
-                          <li><input type="radio" name="level" />Medium</li>
-                          <li><input type="radio" name="level" />Hard</li>
+                          <li><input type="radio" name="diff_level" id="diff_level" value="Easy" />Easy</li>
+                          <li><input type="radio" name="diff_level" id="diff_level" value="Medium" />Medium</li>
+                          <li><input type="radio" name="diff_level" id="diff_level" value="Advanced" />Advanced</li>
                         </ul>
                       </div>
                     </div>
                     <div className="popup-footer">
-                      <button className="footer-btn light">Cancel</button>
-                      <button className="footer-btn dark">Post</button>
+                      <button className="footer-btn light" onClick={() => this.setState({isRecipePopup: false})}>Cancel</button>
+                      <button className="footer-btn dark" onClick={this.add_recipe}>Post</button>
                     </div>
                   </div>
                 </div>
@@ -1526,6 +1770,7 @@ export default class home extends Component {
           </div>
         </div>
         <div className="food sec" id="food-sec">
+          {console.log(this, "from food")}
           {this.state.food.map((item) => {
             return (
               <div className="each_food">
@@ -1634,34 +1879,40 @@ export default class home extends Component {
                         <div class="image-upload">
                           <label for="file-input">
 
-                            <img src={ImageUploadIcon} />
+                            <img src={ImageUploadIcon} id="food-icon"/>
                           </label>
-                          <input id="file-input" type="file" />
+                          <input id="file-input" type="file" accept=".jpg,.png,.PNG,.jpeg" onChange={this.food_upload}/>
                         </div>
                       </div>
                       <div className="form-group">
                         <label>Food Item Name <sup>*</sup></label>
-                        <input placeholder="Enter Food title" type="text" />
+                        <input placeholder="Enter Food title" type="text" id="food_item_name"/>
                       </div>
                       <div className="form-group">
                         <label>Cuisine Type <sup>*</sup></label>
-                        <SelectSearch options={this.state.options} labelField="username" searchable={true} searchBy="username" />
+                        <SelectSearch options={this.state.options} labelField="username" searchable={true} searchBy="username" valueField="username" sortBy="username" color="green" placeholder="Select an option" onChange={(values) => this.setState({selected_food_cusine: values})} />
                       </div>
                       <div className="form-group">
-                        <label>Diet type <sup>*</sup></label>
-                        <SelectSearch options={this.state.options} labelField="username" searchable={true} searchBy="username" />
+                        <label>Diet type</label>
+                        <SelectSearch options={this.state.diets} labelField="username" searchable={true} searchBy="username" valueField="username" sortBy="username" color="green" placeholder="Select an option" onChange={(values) => this.setState({selected_food_diet: values})}/>
                       </div>
                       <div className="form-group">
                         <label>Description & Ingredients</label>
-                        <input placeholder="Write the description, Ingredients, portion size" className="description-field" type="textarea" />
+                        <textarea id="food_description" placeholder="Write the description, Ingredients, portion size"></textarea>
                       </div>
                       <div className="form-group">
                         <label>Service Days and Hours</label>
-                        <SelectSearch options={this.state.options} labelField="username" searchable={true} searchBy="username" />
+                        <div className="days_hours">
+                          Available days and hours
+                          <img src={RoleChangeIcon}></img>
+                        </div>
                       </div>
                       <div className="form-group">
                         <label>Price <sup>*</sup></label>
-                        <input placeholder="Enter Food title" type="number" />
+                        <div className="price-details">
+                          <div>$</div>
+                          <input type="number" id="food_price" className="field" placeholder="Enter Price"></input>
+                        </div>
                       </div>
                       <div className="form-group radio-group">
                         <label>Available for Services <sup> *</sup></label>
@@ -1678,8 +1929,8 @@ export default class home extends Component {
                               <span>Delivery</span>
                             </div>
                             <div>
-                              <span className="label">Fee $</span>
-                              <input type="number" className="form-control money-field" />
+                              <span className="label">Fee: {this.state.current_chef.chef && this.state.current_chef.chef.chef_details.currency}</span>
+                              <input type="number" className="form-control money-field" placeholder="Enter delivery fee"/>
                             </div>
                           </li>
                           <li>
@@ -1688,16 +1939,16 @@ export default class home extends Component {
                               <span>Shipping</span>
                             </div>
                             <div>
-                              <span className="label">Fee $</span>
-                              <input type="number" className="form-control money-field" />
+                              <span className="label">Fee: {this.state.current_chef.chef && this.state.current_chef.chef.chef_details.currency}</span>
+                              <input type="number" className="form-control money-field" placeholder="Enter shipping fee"/>
                             </div>
                           </li>
                         </ul>
                       </div>
                     </div>
                     <div className="popup-footer">
-                      <button className="footer-btn light">Cancel</button>
-                      <button className="footer-btn dark">Post</button>
+                      <button className="footer-btn light" onClick={() => this.setState({isFoodPopup: false})}>Cancel</button>
+                      <button className="footer-btn dark" onClick={this.add_food}>Post</button>
                     </div>
                   </div>
                 </div>
@@ -2079,6 +2330,7 @@ export default class home extends Component {
             </SlidingPane>
           </div>
         </div>
+        <NotificationContainer />
       </div>
     );
   }

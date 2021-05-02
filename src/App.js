@@ -12,6 +12,7 @@ import UserProfile from './components/userProfile'
 import ChefProfile from './components/chefComponents/chefProfile'
 import GetLocation from './components/getLocation'
 import CustomOnboarding from './components/custom-onboarding'
+import CropImage from './components/cropImages'
 import $ from 'jquery';
 // import CommonComponents from './components/commonComponents'
 
@@ -47,6 +48,7 @@ function App() {
               <Route path='/User' component={UserReg} />
               <Route path='/Homepage' component={UserFeeds} />
               <Route path='/CustomOnboard' component={CustomOnboarding} />
+              <Route path='/CropImage' component={CropImage} />
               <Route path='/' component={CustomOnboarding} />
           </Switch>
       </Router>

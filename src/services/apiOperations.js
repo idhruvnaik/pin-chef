@@ -52,6 +52,7 @@ const reset_password_endpoint = "/account/password"
 const set_user_profile_endpoint = "/profile"
 const update_chef_endpoint = "/chef"
 const delete_user_endpoint = "/account/user"
+const recipe_image_endpoint = "/recipe-images"
 
 
 async function make_rest_call(apiURL, method, body, headers){
@@ -866,8 +867,45 @@ export const AddPost = async(chef_id, description, location, token)=>{
     }
 }
 
+export const AddRecipe = async(data, token)=>{
+    let apiURL = apiHost + recipe_endpoint;
+    var headers = {
+        "Authorization": "Bearer " + token
+    };
+    try{
+        let resp = await make_rest_call(apiURL, 'POST', data, headers);
+        return resp;
+    }
+    catch(err){
+        return {
+            status: false,
+            message: err.message
+        }
+    }
+}
+
 export const AddImageToPost = async(post_id, image, token)=>{
     let apiURL = apiHost + feed_image_endpoint + "/" + post_id;
+    var headers = {
+        "Authorization": "Bearer " + token
+    };
+    console.log(image, "from add image to post");
+    var bodyFormData = new FormData();
+    bodyFormData.append('upload', image);
+    try{
+        let resp = await make_rest_call(apiURL, 'POST', bodyFormData, headers);
+        return resp;
+    }
+    catch(err){
+        return {
+            status: false,
+            message: err.message
+        }
+    }
+}
+
+export const AddImageToRecipe = async(recipe_id, image, token)=>{
+    let apiURL = apiHost + recipe_image_endpoint + "/" + recipe_id;
     var headers = {
         "Authorization": "Bearer " + token
     };

@@ -88,6 +88,10 @@
                   padding-left: 20px;
                   height: 55px;
                 }
+                input:focus{
+                  border: 0px;
+                  outline: 0px;
+                }
               }
               img{
                 cursor: pointer;

@@ -418,16 +418,16 @@ const cusines = [
 class ChefProfile extends React.Component {
     constructor(props) {
         super(props);
-        if (this.props.token_details.token) {
-            this.token = this.props.token_details.token.auth_token;
-            this.user_id = this.props.token_details.token.id;
-        } else {
-            this.props.history.push(
-                {
-                    pathname: '/User'
-                }
-            );
-        }
+        // if (this.props.token_details.token) {
+        //     this.token = this.props.token_details.token.auth_token;
+        //     this.user_id = this.props.token_details.token.id;
+        // } else {
+        //     this.props.history.push(
+        //         {
+        //             pathname: '/User'
+        //         }
+        //     );
+        // }
         this.back_to_login = this.back_to_login.bind(this);
         this.get_profile_img = this.get_profile_img.bind(this);
         this.delete_profile_img = this.delete_profile_img.bind(this);
@@ -534,185 +534,186 @@ class ChefProfile extends React.Component {
         var position = $('#position')[0].value;
         var min_range = $(".price-range #min-price")[0].value;
         var max_range = $(".price-range #max-price")[0].value;
-        var services = []
-        if ($('.image-upload img')[0].src == ProfileImage) {
-            var image = null;
-        } else {
-            var image = document.getElementsByClassName('upload')[0].files[0];
-        }
-        let result = await CreateUserProfile(this.user_id, image, null, null, this.token);
-        if (result.status == false) {
-            NotificationManager.warning('Failed to set Desktop Icon for user.', 'WARNING', 4000);
-        }
-        $(".flex-c #service").map((index, item) => {
-            if (item.checked) {
-                services.push(item.value);
-            }
-        });
-        var payments = []
-        $(".flex-c #payment").map((index, item) => {
-            if (item.checked) {
-                payments.push(item.value);
-            }
-        });
+        var services = [];
+        var payments = [];
         var sh = [];
         var selected_cusines = [];
-        this.state.selected_cusine.map((index, item) => {
-            selected_cusines.push(item.username);
-        })
-        $("input#service-hours").map((index, item) => {
-            if (item.checked) {
-                if (item.value == "Selected Hours") {
-                    if (!this.state.monday_disable) {
-                        var temp = {
-                            day: "monday",
-                            time: this.state.monday_count
-                        }
-                        sh.push(temp);
-                    }
-                    if (!this.state.tuesday_disable) {
-                        var temp = {
-                            day: "tuesday",
-                            time: this.state.tuesday_count
-                        }
-                        sh.push(temp);
-                    }
-                    if (!this.state.wednesday_disable) {
-                        var temp = {
-                            day: "wednesday",
-                            time: this.state.wednesday_count
-                        }
-                        sh.push(temp);
-                    }
-                    if (!this.state.thursday_disable) {
-                        var temp = {
-                            day: "thursday",
-                            time: this.state.thursday_count
-                        }
-                        sh.push(temp);
-                    }
-                    if (!this.state.friday_disable) {
-                        var temp = {
-                            day: "friday",
-                            time: this.state.friday_count
-                        }
-                        sh.push(temp);
-                    }
-                    if (!this.state.saturday_disable) {
-                        var temp = {
-                            day: "saturday",
-                            time: this.state.saturday_count
-                        }
-                        sh.push(temp);
-                    }
-                    if (!this.state.sunday_disable) {
-                        var temp = {
-                            day: "sunday",
-                            time: this.state.sunday_count
-                        }
-                        sh.push(temp);
-                    }
-                } else {
-                    sh = [
-                        {
-                            day: "monday",
-                            time: [
-                                {
-                                    start_time: "00:00",
-                                    end_time: "23:59"
-                                }
-                            ]
-                        },
-                        {
-                            day: "tuesday",
-                            time: [
-                                {
-                                    start_time: "00:00",
-                                    end_time: "23:59"
-                                }
-                            ]
-                        },
-                        {
-                            day: "wednesday",
-                            time: [
-                                {
-                                    start_time: "00:00",
-                                    end_time: "23:59"
-                                }
-                            ]
-                        },
-                        {
-                            day: "thursday",
-                            time: [
-                                {
-                                    start_time: "00:00",
-                                    end_time: "23:59"
-                                }
-                            ]
-                        },
-                        {
-                            day: "friday",
-                            time: [
-                                {
-                                    start_time: "00:00",
-                                    end_time: "23:59"
-                                }
-                            ]
-                        },
-                        {
-                            day: "saturday",
-                            time: [
-                                {
-                                    start_time: "00:00",
-                                    end_time: "23:59"
-                                }
-                            ]
-                        },
-                        {
-                            day: "sunday",
-                            time: [
-                                {
-                                    start_time: "00:00",
-                                    end_time: "23:59"
-                                }
-                            ]
-                        }
-                    ]
-                }
-            }
-        });
-        if (first_name.length > 0 && this.state.contr.length > 0 && position.length > 0 && min_range.length > 0 && max_range.length > 0 && sh.length > 0 && this.state.selected_cusine.length > 0) {
-            var data = {
-                id: this.user_id,
-                user_name: $("#user_id")[0].value,
-                name: first_name,
-                mobile: this.state.contr,
-                dob: this.state.dob,
-                gender: $('#gender')[0].value,
-                position: position,
-                languages: $("#languages")[0].value.split(","),
-                specialty: selected_cusines,
-                sort_intro: $("#short_intro")[0].value,
-                background_info: $("#full_info")[0].value,
-                service_hour: sh,
-                service: services,
-                min_purchase_amt: $('#min-price')[0].value,
-                minAmount: min_range,
-                maxAmount: max_range,
-                service_location: this.state.current_location,
-                address: this.state.address,
-                payment_type: payments,
-                hourly_rate: $("#hourly-rate")[0].value,
-                currency: this.state.selected_country.iso
-            }
-            let result = await UpdateChefProfile(data, this.token)
-            if (result.status == false) {
-                return NotificationManager.error(result.message, 'ERROR', 4000);
-            } else {
-                this.redirect_homepage()
-            }
+        if ($('.image-upload img')[0].src == ProfileImage) {
+            var image = null;
+            NotificationManager.error('Desktop Icon is required.', 'ERROR', 4000);
         } else {
-            NotificationManager.error('Fill up all required fields.', 'ERROR', 3000);
+            var image = document.getElementsByClassName('upload')[0].files[0];
+            let result = await CreateUserProfile(this.user_id, image, null, null, this.token);
+            if (result.status == false) {
+                NotificationManager.warning('Failed to set Desktop Icon for chef.', 'WARNING', 4000);
+            }
+            $(".flex-c #service").map((index, item) => {
+                if (item.checked) {
+                    services.push(item.value);
+                }
+            });
+            $(".flex-c #payment").map((index, item) => {
+                if (item.checked) {
+                    payments.push(item.value);
+                }
+            });
+            this.state.selected_cusine.map((index, item) => {
+                selected_cusines.push(item.username);
+            });
+            $("input#service-hours").map((index, item) => {
+                if (item.checked) {
+                    if (item.value == "Selected Hours") {
+                        if (!this.state.monday_disable) {
+                            var temp = {
+                                day: "monday",
+                                time: this.state.monday_count
+                            }
+                            sh.push(temp);
+                        }
+                        if (!this.state.tuesday_disable) {
+                            var temp = {
+                                day: "tuesday",
+                                time: this.state.tuesday_count
+                            }
+                            sh.push(temp);
+                        }
+                        if (!this.state.wednesday_disable) {
+                            var temp = {
+                                day: "wednesday",
+                                time: this.state.wednesday_count
+                            }
+                            sh.push(temp);
+                        }
+                        if (!this.state.thursday_disable) {
+                            var temp = {
+                                day: "thursday",
+                                time: this.state.thursday_count
+                            }
+                            sh.push(temp);
+                        }
+                        if (!this.state.friday_disable) {
+                            var temp = {
+                                day: "friday",
+                                time: this.state.friday_count
+                            }
+                            sh.push(temp);
+                        }
+                        if (!this.state.saturday_disable) {
+                            var temp = {
+                                day: "saturday",
+                                time: this.state.saturday_count
+                            }
+                            sh.push(temp);
+                        }
+                        if (!this.state.sunday_disable) {
+                            var temp = {
+                                day: "sunday",
+                                time: this.state.sunday_count
+                            }
+                            sh.push(temp);
+                        }
+                    } else {
+                        sh = [
+                            {
+                                day: "monday",
+                                time: [
+                                    {
+                                        start_time: "00:00",
+                                        end_time: "23:59"
+                                    }
+                                ]
+                            },
+                            {
+                                day: "tuesday",
+                                time: [
+                                    {
+                                        start_time: "00:00",
+                                        end_time: "23:59"
+                                    }
+                                ]
+                            },
+                            {
+                                day: "wednesday",
+                                time: [
+                                    {
+                                        start_time: "00:00",
+                                        end_time: "23:59"
+                                    }
+                                ]
+                            },
+                            {
+                                day: "thursday",
+                                time: [
+                                    {
+                                        start_time: "00:00",
+                                        end_time: "23:59"
+                                    }
+                                ]
+                            },
+                            {
+                                day: "friday",
+                                time: [
+                                    {
+                                        start_time: "00:00",
+                                        end_time: "23:59"
+                                    }
+                                ]
+                            },
+                            {
+                                day: "saturday",
+                                time: [
+                                    {
+                                        start_time: "00:00",
+                                        end_time: "23:59"
+                                    }
+                                ]
+                            },
+                            {
+                                day: "sunday",
+                                time: [
+                                    {
+                                        start_time: "00:00",
+                                        end_time: "23:59"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            });
+            if (first_name.length > 0 && this.state.contr.length > 0 && position.length > 0 && min_range.length > 0 && max_range.length > 0 && sh.length > 0 && this.state.selected_cusine.length > 0) {
+                var data = {
+                    id: this.user_id,
+                    user_name: $("#user_id")[0].value,
+                    name: first_name,
+                    mobile: this.state.contr,
+                    dob: this.state.dob,
+                    gender: $('#gender')[0].value,
+                    position: position,
+                    languages: $("#languages")[0].value.split(","),
+                    specialty: selected_cusines,
+                    sort_intro: $("#short_intro")[0].value,
+                    background_info: $("#full_info")[0].value,
+                    service_hour: sh,
+                    service: services,
+                    min_purchase_amt: $('#min-price')[0].value,
+                    minAmount: min_range,
+                    maxAmount: max_range,
+                    service_location: this.state.current_location,
+                    address: this.state.address,
+                    payment_type: payments,
+                    hourly_rate: $("#hourly-rate")[0].value,
+                    currency: this.state.selected_country.iso
+                }
+                let result = await UpdateChefProfile(data, this.token)
+                if (result.status == false) {
+                    return NotificationManager.error(result.message, 'ERROR', 4000);
+                } else {
+                    this.redirect_homepage()
+                }
+            } else {
+                NotificationManager.error('Fill up all required fields.', 'ERROR', 3000);
+            }
         }
     }
 
@@ -1080,7 +1081,7 @@ class ChefProfile extends React.Component {
                                 <input type="text" id="languages" className="field" placeholder="ex: English, Spanish, etc."></input>
                             </div>
                             <div className="individual-details">
-                                <div className="input-name">Cuisine Specialties</div>
+                                <div className="input-name">Cuisine Specialties &nbsp;<span>*</span></div>
                                 <SelectSearch values={this.state.selected_cusine} keepSelectedInList={true} options={this.state.options} multi={true} labelField="username" valueField="username" sortBy="username" color="green" searchable={true} searchBy="username" placeholder="Select" onChange={(values) => this.add_cusine(values)} />
                             </div>
                             Cuisine not in list? <u style={{ fontFamily: "custom-fonts-bold" }} >Add Cuisine</u> <span id="addCusine" style={{ color: "#469A09", fontSize: "18pt", fontFamily: "custom-fonts-bold", cursor: "pointer" }} onClick={this.open_custom_cusine}>+</span>
@@ -1102,7 +1103,7 @@ class ChefProfile extends React.Component {
                                 <div className="input-name">Address/Location &nbsp;<span>*</span></div>
                                 <GooglePlacesAutocomplete
                                     placeholder="Country, city, state or zip code"
-                                    apiKey=""
+                                    apiKey="abc"
                                     selectProps={{
                                         onChange: this.set_location,
                                     }}
@@ -1459,6 +1460,12 @@ class ChefProfile extends React.Component {
                                         <input id="payment" type="checkbox" name="Payments" className="" value="Credit Card on Delivery"></input>
                                         <span>Credit Card on Delivery</span>
                                     </div>
+                                </div>
+                            </div>
+                            <div className="individual-details">
+                                <div className="input-name">Locations you give service to &nbsp;<span>*</span></div>
+                                <div className="price-details">
+                                    <textarea id="full_info" placeholder="If you have delivery, which areas you deliver to, if you offer services to a specific area or other locations."></textarea>
                                 </div>
                             </div>
                             <div className="save_profile">

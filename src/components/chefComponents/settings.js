@@ -25,6 +25,7 @@ import LargeTerms from '../../assets/svg/terms icon on menu.svg'
 import LargeContactUs from '../../assets/svg/contact_us.svg'
 import LargeDeleteAccount from '../../assets/svg/Delete.svg'
 import LargeLogout from '../../assets/svg/logout.svg'
+import EditBannerImage from '../../assets/svg/Cover Photo button.svg'
 import LargeLocationSettings from '../../assets/svg/location-settings.svg'
 import LargeEmailSettings from '../../assets/svg/email.svg'
 import LargePhone from '../../assets/svg/smartphone.svg'
@@ -164,15 +165,16 @@ export default class settings extends Component {
                     <li onClick={this.active} className="nav-active" id="food">MY PROFILE</li>
                 </ul> */}
                 <div className="profile">
+                    {console.log(this.state, "from setting")}
                     <div className="primary-details">
                         <div className="l-div">
                             <div className="profile-img-container">
                                 <img src={this.state.user && this.state.user.chef.profile_image ? this.state.user.chef.profile_image : null}></img>
-                                <h1 style={{ display: this.state.user && this.state.user.chef.profile_image ? "none" : "block" }}>{this.state.user && this.state.user.chef.user_name[0]}</h1>
+                                <h1 style={{ display: this.state.user && this.state.user.chef.profile_image ? "none" : "block" }}>{this.state.user && this.state.user.chef.name[0]}</h1>
                             </div>
                             <div className="user-detail-container">
-                                <h3>{this.state.user && this.state.user.chef.user_name}</h3>
-                                <h5>{this.state.user && this.state.user.chef.name}</h5>
+                                <h3>{this.state.user && this.state.user.chef.name}</h3>
+                                <h5>{this.state.user && this.state.user.chef.user_name}</h5>
                             </div>
                         </div>
                         <div style={{ paddingRight: "4px", marginTop: "20px" }}>
@@ -432,10 +434,27 @@ export default class settings extends Component {
                     </div>
                     <div className="cover-photo">
                         <div className="banner">
-                            <img src={this.state.user && this.state.user.chef.banner_image}></img>
+                            <img src={this.state.user && this.state.user.chef.banner_image ? this.state.user.chef.banner_image: null}></img>
                         </div>
-                        <div className="desktop-icon">
-                            <img src={this.state.user && this.state.user.chef.profile_image}></img>
+                        <div className="chef-images">
+                            <div className="desktop-icon">
+                                <img src={this.state.user && this.state.user.chef.profile_image}></img>
+                            </div>
+                            <div>
+                                <img src={EditBannerImage} style={{cursor: "pointer"}}></img>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="profile_activity">
+                        <div className="menu_details">
+                            <div className="menu_icon">
+                                <img src={LargeName}></img>
+                            </div>
+                            <div className="menu_name">
+                                <h3>{this.state.user && this.state.user.chef.name}</h3>
+                            </div>
+                        </div>
+                        <div className="other_things">
                         </div>
                     </div>
                     <div className="profile_activity">
@@ -492,7 +511,7 @@ export default class settings extends Component {
                                 <img src={Detailed_info}></img>
                             </div>
                             <div className="menu_name">
-                                <h3>{this.state.user && this.state.user.chef.chef_details.background_info}</h3>
+                                <h3>Detailed Info</h3>
                             </div>
                         </div>
                         <div className="other_things">
