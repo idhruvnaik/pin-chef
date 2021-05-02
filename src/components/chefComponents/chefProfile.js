@@ -8,9 +8,9 @@ import ProfileImage from '../../assets/svg/profile-image.svg';
 import DeletePhoto from '../../assets/svg/Delete photo.svg';
 import PhoneInput from 'react-phone-input-2';
 import DatePicker from 'react-date-picker';
-import LocationIcon from '../../assets/svg/location-popoup.svg'
-import InfoIcon from "../../assets/svg/info icon red.svg"
-import AddCusine from "../../assets/svg/Add-Cusine.svg"
+import LocationIcon from '../../assets/svg/location-popoup.svg';
+import InfoIcon from "../../assets/svg/info icon red.svg";
+import AddCusine from "../../assets/svg/Add-Cusine.svg";
 import 'react-phone-input-2/lib/style.css';
 import 'react-notifications/lib/notifications.css';
 import './chefProfile.scss';

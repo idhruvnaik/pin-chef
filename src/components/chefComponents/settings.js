@@ -30,10 +30,19 @@ import LargeLocationSettings from '../../assets/svg/location-settings.svg'
 import LargeEmailSettings from '../../assets/svg/email.svg'
 import LargePhone from '../../assets/svg/smartphone.svg'
 import LargeName from '../../assets/svg/name.svg'
+import ProfileImage from '../../assets/svg/profile-image.svg';
+import DeletePhoto from '../../assets/svg/Delete photo.svg';
+import InfoIcon from "../../assets/svg/info icon red.svg";
+import DatePicker from 'react-date-picker';
+import AddCusine from "../../assets/svg/Add-Cusine.svg"
+import PhoneInput from 'react-phone-input-2';
 import TermsLogo from '../../assets/png_icons/terms and privacy bullet icon@2x.png'
 import Home from './home'
 
 import Switch from "react-switch";
+import SelectSearch from "react-dropdown-select";
+import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+import TimePicker from 'react-time-picker';
 import { PushMenu } from 'react-push-menu';
 import Popup from 'reactjs-popup';
 import ReactDOM, { render } from 'react-dom';
@@ -114,7 +123,7 @@ export default class settings extends Component {
         window.location.reload();
     }
 
-    async delete_account(){
+    async delete_account() {
         var user_details = await DeleteAccount(this.user_id, this.token);
         if (user_details.status == false) {
             return NotificationManager.error(user_details.message, 'ERROR', 4000);
@@ -423,7 +432,6 @@ export default class settings extends Component {
                     </div>
                 </div>
                 <div className="my_profile">
-                    {console.log(this.state.user)}
                     <div className="switch-content">
                         <div>
                             <img src={LeftBack} onClick={() => this.open_menu('profile')}></img>
@@ -434,14 +442,14 @@ export default class settings extends Component {
                     </div>
                     <div className="cover-photo">
                         <div className="banner">
-                            <img src={this.state.user && this.state.user.chef.banner_image ? this.state.user.chef.banner_image: null}></img>
+                            <img src={this.state.user && this.state.user.chef.banner_image ? this.state.user.chef.banner_image : null}></img>
                         </div>
                         <div className="chef-images">
                             <div className="desktop-icon">
                                 <img src={this.state.user && this.state.user.chef.profile_image}></img>
                             </div>
                             <div>
-                                <img src={EditBannerImage} style={{cursor: "pointer"}}></img>
+                                <img src={EditBannerImage} style={{ cursor: "pointer" }}></img>
                             </div>
                         </div>
                     </div>
@@ -481,7 +489,7 @@ export default class settings extends Component {
                         <div className="other_things">
                         </div>
                     </div>
-                    <div className="profile_activity" style={{cursor: "not-allowed"}}>
+                    <div className="profile_activity" style={{ cursor: "not-allowed" }}>
                         <div className="menu_details">
                             <div className="menu_icon">
                                 <img src={LargeEmailSettings}></img>
@@ -506,7 +514,7 @@ export default class settings extends Component {
                         </div>
                     </div>
                     <div className="profile_activity">
-                        <div className="menu_details">
+                        <div className="menu_details" onClick={() => this.open_menu('detailed_info')}>
                             <div className="menu_icon">
                                 <img src={Detailed_info}></img>
                             </div>
@@ -550,7 +558,7 @@ export default class settings extends Component {
                                 </div>
                             </div>
                         )}
-                    </Popup> 
+                    </Popup>
                     <Popup
                         trigger={
                             <div className="profile_activity">
@@ -585,6 +593,467 @@ export default class settings extends Component {
                             </div>
                         )}
                     </Popup>
+                </div>
+                <div className="detailed_info">
+                    {console.log(this.state, "from detailed info")}
+                    <div className="switch-content">
+                        <div>
+                            <img src={LeftBack} onClick={() => this.open_menu('my_profile')}></img>
+                        </div>
+                        <div>
+                            <h2>DETAIL CHEF INFO</h2>
+                        </div>
+                    </div>
+                    <div className="details">
+                        <div className="identity-details">
+                            <div className="desktop-icon">
+                                <div class="image-upload">
+                                    <label for="file-input">
+                                        <img src={ProfileImage}></img>
+                                    </label>
+                                    <input id="file-input" type="file" accept=".jpg,.png,.PNG,.jpeg" onChange={this.get_profile_img} className="upload" />
+                                </div>
+                                <div className="delete_photo">
+                                    <img src={null} onClick={this.delete_profile_img}></img>
+                                </div>
+                            </div>
+                            <div className="primary-details">
+                                <div className="individual-details">
+                                    <div className="input-name">Name & Last Name &nbsp;<span>*</span></div>
+                                    <input id="first_name" type="text" className="field" placeholder="Real name and last name" autoCapitalize="words" value={this.state.user && this.state.user.chef.name}></input>
+                                </div>
+                                <div className="individual-details">
+                                    <div className="input-name">User ID-Nickname</div>
+                                    <input type="text" id="user_id" className="field" placeholder="ex: JohnDoe23" value={this.state.user && this.state.user.chef.user_name}></input>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="individual-details">
+                            <div className="input-name">Phone Number &nbsp;<span>*</span></div>
+                            <PhoneInput
+                                country={'us'}
+                                placeholder="XXX XXX XXXX"
+                                // countryCodeEditable={false}
+                                // enableSearch={true}
+                                value={this.state.user && this.state.user.chef.mobile}
+                                onChange={phone => this.setState({ contr: phone })}
+                            />
+                        </div>
+                        <div className="dob">
+                            <div className="input-name">Date of Birth &nbsp;<span>*</span></div>
+                            <DatePicker
+                                onChange={dob => this.setState({ dob })}
+                                value={new Date()}
+                                calendarIcon={null}
+                                clearIcon={null}
+                                disableCalendar={true}
+                                required={true}
+                                // maxDate={new Date(new Date().getTime() - 60 * 60 * 24 * 365 * 13 * 1000)}
+                            />
+                        </div>
+                        <div className="individual-details">
+                            <div className="input-name">Gender</div>
+                            <input id="gender" type="text" className="field" placeholder="ex. Female, Male, etc." value={this.state.user && this.state.user.chef.chef_details.gender}></input>
+                        </div>
+                        <div className="individual-details">
+                            <div className="input-name">Position &nbsp;<span>*</span></div>
+                            <input id="position" type="text" className="field" placeholder="ex: Head Chef, Pastry Chef, Home Chef, etc." value={this.state.user && this.state.user.chef.chef_details.position}></input>
+                        </div>
+                        <div className="individual-details">
+                            <div className="input-name">Languages</div>
+                            <input type="text" id="languages" className="field" placeholder="ex: English, Spanish, etc." value={this.state.user && this.state.user.chef.chef_details.languages.join(", ")}></input>
+                        </div>
+                        <div className="individual-details">
+                            <div className="input-name">Cuisine Specialties &nbsp;<span>*</span></div>
+                            <SelectSearch values={this.state.selected_cusine} keepSelectedInList={true} options={this.state.options} multi={true} labelField="username" valueField="username" sortBy="username" color="green" searchable={true} searchBy="username" placeholder="Select" onChange={(values) => this.add_cusine(values)} />
+                        </div>
+                            Cuisine not in list? <u style={{ fontFamily: "custom-fonts-bold" }} >Add Cuisine</u> <span id="addCusine" style={{ color: "#469A09", fontSize: "18pt", fontFamily: "custom-fonts-bold", cursor: "pointer" }} onClick={this.open_custom_cusine}>+</span>
+                        <div className="add-cusine">
+                            <input id="new_cusine" type="text" placeholder="Write cuisine name"></input>
+                            <img src={AddCusine} onClick={this.add_new_cusine}></img>
+                        </div>
+                        <div className="individual-details long-input" style={{ marginTop: "5px" }}>
+                            <div className="input-name">Short Ad Intro</div>
+                            <textarea id="short_intro" maxlength="300" placeholder="ex: English, Spanish, etc." onKeyUp={this.show_words_count} value={this.state.user && this.state.user.chef.chef_details.sort_intro}></textarea>
+                            <p>Word Count: <span class="word_count">{this.state.user && this.state.user.chef.chef_details.sort_intro.length }</span>/300</p>
+                        </div>
+                        <div className="individual-details long-input">
+                            <div className="input-name">Full Background Info</div>
+                            <textarea id="full_info" placeholder="ex: English, Spanish, etc." value={this.state.user && this.state.user.chef.chef_details.background_info}></textarea>
+                        </div>
+                        {/* <div className="individual-details location">
+                            <div className="input-name">Address/Location &nbsp;<span>*</span></div>
+                            <GooglePlacesAutocomplete
+                                placeholder="Country, city, state or zip code"
+                                apiKey="abc"
+                                selectProps={{
+                                    onChange: this.set_location,
+                                }}
+                            />
+                        </div> */}
+                        {/* <div className="individual-details">
+                            <div className="input-name">Service hours &nbsp;<span>*</span></div>
+                            <div className="f-sb">
+                                <div>
+                                    <Popup
+                                        trigger={<input id="service-hours" type="radio" name="service_hours" className="" value="Selected Hours"></input>}
+                                        position="center center"
+                                        closeOnDocumentClick
+                                        modal
+                                        nested
+                                    >
+                                        {close => (
+                                            <div className="timerange-popup">
+                                                <div className="pop-up-heading">
+                                                    Select Hours
+                                                    </div>
+                                                <div className="timeranges">
+                                                    <div className="timerange" id="monday">
+                                                        <div className="day">Monday</div>
+                                                        <Switch onChange={this.mondayHandleChange} checked={this.state.monday_checked} uncheckedIcon={false} checkedIcon={false} />
+                                                        <div className="multiple-ranges">
+                                                            {this.state.monday_count.map((item, index) => {
+                                                                return (
+                                                                    <div className="each-range" style={{ marginBottom: "5px" }}>
+                                                                        <TimePicker
+                                                                            onChange={value => this.get_time(value, "monday_count", index, "start_time")}
+                                                                            value={item.start_time}
+                                                                            isOpen={false}
+                                                                            className="custom-time-picker"
+                                                                            disableClock={true}
+                                                                            disabled={this.state.monday_disable}
+                                                                            // minuteAriaLabel="Minute"
+                                                                            clearIcon={null}
+                                                                        />
+                                                                            &nbsp;-&nbsp;
+                                                                        <TimePicker
+                                                                            onChange={value => this.get_time(value, "monday_count", index, "end_time")}
+                                                                            value={item.end_time}
+                                                                            isOpen={false}
+                                                                            className="custom-time-picker"
+                                                                            disableClock={true}
+                                                                            disabled={this.state.monday_disable}
+                                                                            // minuteAriaLabel="Minute"
+                                                                            clearIcon={null}
+                                                                        />
+                                                                        <span id={index} onClick={event => this.add_range(event, "monday")} className="symbol">{item.symbol}</span>
+                                                                        <div className="disable_span" style={{ right: this.state.monday_checked ? "0px" : "20px" }}></div>
+                                                                    </div>
+                                                                )
+                                                            })}
+                                                        </div>
+                                                    </div>
+                                                    <div className="timerange">
+                                                        <div className="day">Tuesday</div>
+                                                        <Switch onChange={this.tuesdayHandleChange} checked={this.state.tuesday_checked} uncheckedIcon={false} checkedIcon={false} />
+                                                        <div className="multiple-ranges">
+                                                            {this.state.tuesday_count.map((item, index) => {
+                                                                return (
+                                                                    <div className="each-range" style={{ marginBottom: "5px" }}>
+                                                                        <TimePicker
+                                                                            onChange={value => this.get_time(value, "tuesday_count", index, "start_time")}
+                                                                            value={item.start_time}
+                                                                            isOpen={false}
+                                                                            className="custom-time-picker"
+                                                                            disableClock={true}
+                                                                            disabled={this.state.tuesday_disable}
+                                                                            // minuteAriaLabel="Minute"
+                                                                            clearIcon={null}
+                                                                        />
+                                                                            &nbsp;-&nbsp;
+                                                                        <TimePicker
+                                                                            onChange={value => this.get_time(value, "tuesday_count", index, "end_time")}
+                                                                            value={item.end_time}
+                                                                            isOpen={false}
+                                                                            className="custom-time-picker"
+                                                                            disableClock={true}
+                                                                            disabled={this.state.tuesday_disable}
+                                                                            // minuteAriaLabel="Minute"
+                                                                            clearIcon={null}
+                                                                        />
+                                                                        <span id={index} onClick={event => this.add_range(event, "tuesday")} className="symbol">{item.symbol}</span>
+                                                                        <div className="disable_span" style={{ right: this.state.tuesday_checked ? "0px" : "20px" }}></div>
+                                                                    </div>
+                                                                )
+                                                            })}
+                                                        </div>
+                                                    </div>
+                                                    <div className="timerange">
+                                                        <div className="day">Wednesday</div>
+                                                        <Switch onChange={this.wednesdayHandleChange} checked={this.state.wednesday_checked} uncheckedIcon={false} checkedIcon={false} />
+                                                        <div className="multiple-ranges">
+                                                            {this.state.wednesday_count.map((item, index) => {
+                                                                return (
+                                                                    <div className="each-range" style={{ marginBottom: "5px" }}>
+                                                                        <TimePicker
+                                                                            onChange={value => this.get_time(value, "wednesday_count", index, "start_time")}
+                                                                            value={item.start_time}
+                                                                            isOpen={false}
+                                                                            className="custom-time-picker"
+                                                                            disableClock={true}
+                                                                            disabled={this.state.wednesday_disable}
+                                                                            // minuteAriaLabel="Minute"
+                                                                            clearIcon={null}
+                                                                        />
+                                                                            &nbsp;-&nbsp;
+                                                                        <TimePicker
+                                                                            onChange={value => this.get_time(value, "wednesday_count", index, "end_time")}
+                                                                            value={item.end_time}
+                                                                            isOpen={false}
+                                                                            className="custom-time-picker"
+                                                                            disableClock={true}
+                                                                            disabled={this.state.wednesday_disable}
+                                                                            // minuteAriaLabel="Minute"
+                                                                            clearIcon={null}
+                                                                        />
+                                                                        <span id={index} onClick={event => this.add_range(event, "wednesday")} className="symbol">{item.symbol}</span>
+                                                                        <div className="disable_span" style={{ right: this.state.wednesday_checked ? "0px" : "20px" }}></div>
+                                                                    </div>
+                                                                )
+                                                            })}
+                                                        </div>
+                                                    </div>
+                                                    <div className="timerange">
+                                                        <div className="day">Thursday</div>
+                                                        <Switch onChange={this.thursdayHandleChange} checked={this.state.thursday_checked} uncheckedIcon={false} checkedIcon={false} />
+                                                        <div className="multiple-ranges">
+                                                            {this.state.thursday_count.map((item, index) => {
+                                                                return (
+                                                                    <div className="each-range" style={{ marginBottom: "5px" }}>
+                                                                        <TimePicker
+                                                                            onChange={value => this.get_time(value, "thursday_count", index, "start_time")}
+                                                                            value={item.start_time}
+                                                                            isOpen={false}
+                                                                            className="custom-time-picker"
+                                                                            disableClock={true}
+                                                                            disabled={this.state.thursday_disable}
+                                                                            // minuteAriaLabel="Minute"
+                                                                            clearIcon={null}
+                                                                        />
+                                                                            &nbsp;-&nbsp;
+                                                                        <TimePicker
+                                                                            onChange={value => this.get_time(value, "thursday_count", index, "end_time")}
+                                                                            value={item.end_time}
+                                                                            isOpen={false}
+                                                                            className="custom-time-picker"
+                                                                            disableClock={true}
+                                                                            disabled={this.state.thursday_disable}
+                                                                            // minuteAriaLabel="Minute"
+                                                                            clearIcon={null}
+                                                                        />
+                                                                        <span id={index} onClick={event => this.add_range(event, "thursday")} className="symbol">{item.symbol}</span>
+                                                                        <div className="disable_span" style={{ right: this.state.thursday_checked ? "0px" : "20px" }}></div>
+                                                                    </div>
+                                                                )
+                                                            })}
+                                                        </div>
+                                                    </div>
+                                                    <div className="timerange">
+                                                        <div className="day">Friday</div>
+                                                        <Switch onChange={this.fridayHandleChange} checked={this.state.friday_checked} uncheckedIcon={false} checkedIcon={false} />
+                                                        <div className="multiple-ranges">
+                                                            {this.state.friday_count.map((item, index) => {
+                                                                return (
+                                                                    <div className="each-range" style={{ marginBottom: "5px" }}>
+                                                                        <TimePicker
+                                                                            onChange={value => this.get_time(value, "friday_count", index, "start_time")}
+                                                                            value={item.start_time}
+                                                                            isOpen={false}
+                                                                            className="custom-time-picker"
+                                                                            disableClock={true}
+                                                                            disabled={this.state.friday_disable}
+                                                                            // minuteAriaLabel="Minute"
+                                                                            clearIcon={null}
+                                                                        />
+                                                                            &nbsp;-&nbsp;
+                                                                        <TimePicker
+                                                                            onChange={value => this.get_time(value, "friday_count", index, "end_time")}
+                                                                            value={item.end_time}
+                                                                            isOpen={false}
+                                                                            className="custom-time-picker"
+                                                                            disableClock={true}
+                                                                            disabled={this.state.friday_disable}
+                                                                            // minuteAriaLabel="Minute"
+                                                                            clearIcon={null}
+                                                                        />
+                                                                        <span id={index} onClick={event => this.add_range(event, "friday")} className="symbol">{item.symbol}</span>
+                                                                        <div className="disable_span" style={{ right: this.state.friday_checked ? "0px" : "20px" }}></div>
+                                                                    </div>
+                                                                )
+                                                            })}
+                                                        </div>
+                                                    </div>
+                                                    <div className="timerange">
+                                                        <div className="day">Saturday</div>
+                                                        <Switch onChange={this.saturdayHandleChange} checked={this.state.saturday_checked} uncheckedIcon={false} checkedIcon={false} />
+                                                        <div className="multiple-ranges">
+                                                            {this.state.saturday_count.map((item, index) => {
+                                                                return (
+                                                                    <div className="each-range" style={{ marginBottom: "5px" }}>
+                                                                        <TimePicker
+                                                                            onChange={value => this.get_time(value, "saturday_count", index, "start_time")}
+                                                                            value={item.start_time}
+                                                                            isOpen={false}
+                                                                            className="custom-time-picker"
+                                                                            disableClock={true}
+                                                                            disabled={this.state.saturday_disable}
+                                                                            // minuteAriaLabel="Minute"
+                                                                            clearIcon={null}
+                                                                        />
+                                                                            &nbsp;-&nbsp;
+                                                                        <TimePicker
+                                                                            onChange={value => this.get_time(value, "saturday_count", index, "end_time")}
+                                                                            value={item.end_time}
+                                                                            isOpen={false}
+                                                                            className="custom-time-picker"
+                                                                            disableClock={true}
+                                                                            disabled={this.state.saturday_disable}
+                                                                            // minuteAriaLabel="Minute"
+                                                                            clearIcon={null}
+                                                                        />
+                                                                        <span id={index} onClick={event => this.add_range(event, "saturday")} className="symbol">{item.symbol}</span>
+                                                                        <div className="disable_span" style={{ right: this.state.saturday_checked ? "0px" : "20px" }}></div>
+                                                                    </div>
+                                                                )
+                                                            })}
+                                                        </div>
+                                                    </div>
+                                                    <div className="timerange">
+                                                        <div className="day">Sunday</div>
+                                                        <Switch onChange={this.sundayHandleChange} checked={this.state.sunday_checked} uncheckedIcon={false} checkedIcon={false} />
+                                                        <div className="multiple-ranges">
+                                                            {this.state.sunday_count.map((item, index) => {
+                                                                return (
+                                                                    <div className="each-range" style={{ marginBottom: "5px" }}>
+                                                                        <TimePicker
+                                                                            onChange={value => this.get_time(value, "sunday_count", index, "start_time")}
+                                                                            value={item.start_time}
+                                                                            isOpen={false}
+                                                                            className="custom-time-picker"
+                                                                            disableClock={true}
+                                                                            disabled={this.state.sunday_disable}
+                                                                            // minuteAriaLabel="Minute"
+                                                                            clearIcon={null}
+                                                                        />
+                                                                            &nbsp;-&nbsp;
+                                                                        <TimePicker
+                                                                            onChange={value => this.get_time(value, "sunday_count", index, "end_time")}
+                                                                            value={item.end_time}
+                                                                            isOpen={false}
+                                                                            className="custom-time-picker"
+                                                                            disableClock={true}
+                                                                            disabled={this.state.sunday_disable}
+                                                                            // minuteAriaLabel="Minute"
+                                                                            clearIcon={null}
+                                                                        />
+                                                                        <span id={index} onClick={event => this.add_range(event, "sunday")} className="symbol">{item.symbol}</span>
+                                                                        <div className="disable_span" style={{ right: this.state.sunday_checked ? "0px" : "20px" }}></div>
+                                                                    </div>
+                                                                )
+                                                            })}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </Popup>
+                                        Selected Hours
+                                    </div>
+                                <div>
+                                    <input id="service-hours" type="radio" name="service_hours" className="" value="24/7"></input>24/7 with booking
+                                    </div>
+                            </div>
+                        </div> */}
+                        <div className="individual-details">
+                            <div className="input-name">Services <span style={{ color: "#656565" }}>(Select all options that apply)</span></div>
+                            <div className="flex-c">
+                                <div>
+                                    <input id="service" type="checkbox" className="" value="Cook and Deliver"></input>
+                                    <span>Cook and Deliver</span>
+                                </div>
+                                <div>
+                                    <input id="service" type="checkbox" className="" value="Cook and Ship"></input>
+                                    <span>Cook and Ship</span>
+                                </div>
+                                <div>
+                                    <input id="service" type="checkbox" className="" value="Cook for Pick up/Takeaway"></input>
+                                    <span>Cook for Pick up/Takeaway</span>
+                                </div>
+                                <div>
+                                    <input id="service" type="checkbox" className="" value="Go to Guests address to cook"></input>
+                                    <span>Go to Guests address to cook</span>
+                                </div>
+                                <div>
+                                    <input id="service" type="checkbox" className="" value="Host Guests and cook"></input>
+                                    <span>Host Guests and cook</span>
+                                </div>
+                                <div>
+                                    <input id="service" type="checkbox" className="" value="Cook Live with Chef"></input>
+                                    <span>Cook Live with Chef</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="individual-details">
+                            <div className="input-name">Minimum purchase Service total amount</div>
+                            <div className="price-details">
+                                <div>$</div>
+                                <input type="number" id="min-price" className="field" placeholder="Enter min. price" value={this.state.user && this.state.user.chef.chef_details.min_purchase_amt}></input>
+                            </div>
+                        </div>
+                        <div className="individual-details">
+                            <div className="input-name">Service Price Range &nbsp;<span>*</span></div>
+                            <div className="price-range">
+                                <div>$</div>
+                                <input id="min-price" style={{ borderRadius: "0px" }} className="field" type="number" placeholder="Enter min. price" value={this.state.user && this.state.user.chef.chef_details.service_price_range.min}></input>
+                                <input id="max-price" type="number" className="field" placeholder="Enter max. price" value={this.state.user && this.state.user.chef.chef_details.service_price_range.max}></input>
+                            </div>
+                        </div>
+                        <div className="individual-details">
+                            <div className="input-name">Hourly rate</div>
+                            <div className="price-details">
+                                <div>$</div>
+                                <input id="hourly-rate" type="number" className="field" placeholder="Enter price" value={this.state.user && this.state.user.chef.chef_details.hourly_rate}></input>
+                            </div>
+                        </div>
+                        <div className="payment">
+                            <div className="input-name">Accepting direct service payment methods</div>
+                            <div className="note">
+                                <div>
+                                    <img src={InfoIcon}></img>
+                                </div>
+                                <div>
+                                    Options selected now will have to be connected to your own payment account later in settings for you to be able to make any of your added services active.
+                                    </div>
+                            </div>
+                            <div className="flex-c">
+                                <div>
+                                    <input id="payment" type="checkbox" name="Payments" className="" value="Stripe" checked={this.state.user && this.state.user.chef.chef_details.payment.includes("Stripe") ? true: false}></input>
+                                    <span>Stripe</span>
+                                </div>
+                                <div>
+                                    <input id="payment" type="checkbox" name="Payments" className="" value="Paypal" checked={this.state.user && this.state.user.chef.chef_details.payment.includes("Paypal") ? true: false}></input>
+                                    <span>Paypal</span>
+                                </div>
+                                <div>
+                                    <input id="payment" type="checkbox" name="Payments" className="" value="Cash on Delivery" checked={this.state.user && this.state.user.chef.chef_details.payment.includes("Cash on Delivery") ? true: false}></input>
+                                    <span>Cash on Delivery</span>
+                                </div>
+                                <div>
+                                    <input id="payment" type="checkbox" name="Payments" className="" value="Credit Card on Delivery" checked={this.state.user && this.state.user.chef.chef_details.payment.includes("Credit Card on Delivery") ? true: false}></input>
+                                    <span>Credit Card on Delivery</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="individual-details">
+                            <div className="input-name">Locations you give service to &nbsp;<span>*</span></div>
+                            <div className="price-details">
+                                <textarea id="full_info" placeholder="If you have delivery, which areas you deliver to, if you offer services to a specific area or other locations."></textarea>
+                            </div>
+                        </div>
+                        <div className="save_profile">
+                            <button type="button" onClick={this.save_profile}>SAVE</button>
+                        </div>
+                    </div>
                 </div>
                 <NotificationContainer />
             </div>
