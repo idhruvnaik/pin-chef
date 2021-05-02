@@ -1919,13 +1919,13 @@ export default class home extends Component {
                         <ul className="food-radio-group">
                           <li>
                             <div>
-                              <input type="radio" name="level" />
+                              <input type="checkbox" name="level" />
                               <span className="label">Pick Up/Takeaway</span>
                             </div>
                           </li>
                           <li>
                             <div>
-                              <input type="radio" name="level" />
+                              <input type="checkbox" name="level" />
                               <span>Delivery</span>
                             </div>
                             <div>
@@ -1935,7 +1935,7 @@ export default class home extends Component {
                           </li>
                           <li>
                             <div>
-                              <input type="radio" name="level" />
+                              <input type="checkbox" name="level" />
                               <span>Shipping</span>
                             </div>
                             <div>
