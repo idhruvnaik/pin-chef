@@ -1368,6 +1368,43 @@
 }
 .pop-up-services {
   border-radius: 15px;
+  font-family: custom-fonts-bold;
+  margin-top: 0px;
+  height: 100%;
+  input:focus, textarea:focus{
+    outline: 0px;
+  }
+  textarea{
+    resize: none;
+    width: calc(100% - 30px);
+    padding: 15px;
+    font-family: custom-fonts;
+    border: 1px solid #514949;
+    border-radius: 10px;
+    min-height: 100px;
+  }
+  .price-details {
+    display: flex;
+    width: 100%;
+    div {
+      width: fit-content;
+      padding: 10px;
+      border: 1px solid black;
+      border-radius: 10px 0px 0px 10px;
+      opacity: 0.6;
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      min-width: 4%;
+    }
+    input {
+      border: 1px solid black;
+      border-radius: 0px 10px 10px 0px;
+      padding: 10px;
+      width: 100%;
+      font-size: 16px;
+    }
+  }
 }
 .slide-pane__header {
   background-color: #5b5353;

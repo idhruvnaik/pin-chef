@@ -36,8 +36,9 @@ import InfoIcon from "../../assets/svg/info icon red.svg";
 import DatePicker from 'react-date-picker';
 import AddCusine from "../../assets/svg/Add-Cusine.svg"
 import PhoneInput from 'react-phone-input-2';
-import TermsLogo from '../../assets/png_icons/terms and privacy bullet icon@2x.png'
-import Home from './home'
+import TermsLogo from '../../assets/png_icons/terms and privacy bullet icon@2x.png';
+import DefaultCover from '../../assets/png_icons/Chef_Default_Cover.png';
+import Home from './home';
 
 import Switch from "react-switch";
 import SelectSearch from "react-dropdown-select";
@@ -442,7 +443,7 @@ export default class settings extends Component {
                     </div>
                     <div className="cover-photo">
                         <div className="banner">
-                            <img src={this.state.user && this.state.user.chef.banner_image ? this.state.user.chef.banner_image : null}></img>
+                            <img src={this.state.user && this.state.user.chef.banner_image ? this.state.user.chef.banner_image : DefaultCover}></img>
                         </div>
                         <div className="chef-images">
                             <div className="desktop-icon">

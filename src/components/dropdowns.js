@@ -565,4 +565,463 @@ const diet = [
     },
 ]
 
-export default {config, number, diet};
+const countryarray = [
+    {
+      country_name: 'Albania',
+      currency: 'Lek',
+    },
+    {
+      country_name: 'Afghanistan',
+      currency: '؋',
+    },
+    {
+      country_name: 'Argentina',
+      currency: '$',
+    },
+    {
+      country_name: 'Aruba',
+      currency: 'ƒ',
+    },
+    {
+      country_name: 'Australia',
+      currency: '$',
+    },
+    {
+      country_name: 'Azerbaijan',
+      currency: '₼',
+    },
+    {
+      country_name: 'Bahamas',
+      currency: '$',
+    },
+    {
+      country_name: 'Barbados',
+      currency: '$',
+    },
+    {
+      country_name: 'Belarus',
+      currency: 'p.',
+    },
+    {
+      country_name: 'Belize',
+      currency: 'BZ$',
+    },
+    {
+      country_name: 'Bermuda',
+      currency: '$',
+    },
+    {
+      country_name: 'Bolivia',
+      currency: '$b',
+    },
+    {
+      country_name: 'Bosnia and Herzegovina',
+      currency: 'KM',
+    },
+    {
+      country_name: 'Botswana',
+      currency: 'P',
+    },
+    {
+      country_name: 'Bulgaria',
+      currency: 'лв',
+    },
+    {
+      country_name: 'Brazil',
+      currency: 'R$',
+    },
+    {
+      country_name: 'Brunei',
+      currency: '$',
+    },
+    {
+      country_name: 'Cambodia',
+      currency: '៛',
+    },
+    {
+      country_name: 'Canada',
+      currency: '$',
+    },
+    {
+      country_name: 'Cayman',
+      currency: '$',
+    },
+    {
+      country_name: 'Chile',
+      currency: '$',
+    },
+    {
+      country_name: 'China',
+      currency: '¥',
+    },
+    {
+      country_name: 'Colombia',
+      currency: '$',
+    },
+    {
+      country_name: 'Costa Rica',
+      currency: '₡',
+    },
+    {
+      country_name: 'Croatia',
+      currency: 'kn',
+    },
+    {
+      country_name: 'Cuba',
+      currency: '₱',
+    },
+    {
+      country_name: 'Czech Republic',
+      currency: 'Kč',
+    },
+    {
+      country_name: 'Denmark',
+      currency: 'kr',
+    },
+    {
+      country_name: 'Dominican Republic',
+      currency: 'RD$',
+    },
+    {
+      country_name: 'Egypt',
+      currency: '£',
+    },
+    {
+      country_name: 'El Salvador',
+      currency: '$',
+    },
+    {
+      country_name: 'Estonia',
+      currency: 'kr',
+    },
+    {
+      country_name: 'Euro Member',
+      currency: '€',
+    },
+    {
+      country_name: 'Falkland Islands',
+      currency: '£',
+    },
+    {
+      country_name: 'Fiji',
+      currency: '$',
+    },
+    {
+      country_name: 'Georgia',
+      currency: '₾',
+    },
+    {
+      country_name: 'Ghana',
+      currency: '¢',
+    },
+    {
+      country_name: 'Gibraltar',
+      currency: '£',
+    },
+    {
+      country_name: 'Guatemala',
+      currency: 'Q',
+    },
+    {
+      country_name: 'Guernsey',
+      currency: '£',
+    },
+    {
+      country_name: 'Guyana',
+      currency: '$',
+    },
+    {
+      country_name: 'Honduras',
+      currency: 'L',
+    },
+    {
+      country_name: 'Hong Kong',
+      currency: '$',
+    },
+    {
+      country_name: 'Hungary',
+      currency: 'Ft',
+    },
+    {
+      country_name: 'Iceland',
+      currency: 'kr',
+    },
+    {
+      country_name: 'India',
+      currency: '₹',
+    },
+    {
+      country_name: 'Indonesia',
+      currency: 'Rp',
+    },
+    {
+      country_name: 'Iran',
+      currency: '﷼',
+    },
+    {
+      country_name: 'Isle of Man',
+      currency: '£',
+    },
+    {
+      country_name: 'Israel',
+      currency: '₪',
+    },
+    {
+      country_name: 'Jamaica',
+      currency: 'J$',
+    },
+    {
+      country_name: 'Japan',
+      currency: '¥',
+    },
+    {
+      country_name: 'Jersey',
+      currency: '£',
+    },
+    {
+      country_name: 'Kazakhstan',
+      currency: 'лв',
+    },
+    {
+      country_name: 'Korea (North)',
+      currency: '₩',
+    },
+    {
+      country_name: 'Korea (South)',
+      currency: '₩',
+    },
+    {
+      country_name: 'Kyrgyzstan',
+      currency: 'лв',
+    },
+    {
+      country_name: 'Laos',
+      currency: '₭',
+    },
+    {
+      country_name: 'Latvia',
+      currency: 'Ls',
+    },
+    {
+      country_name: 'Lebanon',
+      currency: '£',
+    },
+    {
+      country_name: 'Liberia',
+      currency: '$',
+    },
+    {
+      country_name: 'Lithuania',
+      currency: 'Lt',
+    },
+    {
+      country_name: 'Macedonia',
+      currency: 'ден',
+    },
+    {
+      country_name: 'Malaysia',
+      currency: 'RM',
+    },
+    {
+      country_name: 'Mauritius',
+      currency: '₨',
+    },
+    {
+      country_name: 'Mexico',
+      currency: '$',
+    },
+    {
+      country_name: 'Mongolia',
+      currency: '₮',
+    },
+    {
+      country_name: 'Mozambique',
+      currency: 'MT',
+    },
+    {
+      country_name: 'Namibia',
+      currency: '$',
+    },
+    {
+      country_name: 'Nepal',
+      currency: '₨',
+    },
+    {
+      country_name: 'Netherlands',
+      currency: 'ƒ',
+    },
+    {
+      country_name: 'New Zealand',
+      currency: '$',
+    },
+    {
+      country_name: 'Nicaragua',
+      currency: 'C$',
+    },
+    {
+      country_name: 'Nigeria',
+      currency: '₦',
+    },
+    {
+      country_name: 'Norway',
+      currency: 'kr',
+    },
+    {
+      country_name: 'Oman',
+      currency: '﷼',
+    },
+    {
+      country_name: 'Pakistan',
+      currency: '₨',
+    },
+    {
+      country_name: 'Panama',
+      currency: 'B/.',
+    },
+    {
+      country_name: 'Paraguay',
+      currency: 'Gs',
+    },
+    {
+      country_name: 'Peru',
+      currency: 'S/.',
+    },
+    {
+      country_name: 'Philippines',
+      currency: '₱',
+    },
+    {
+      country_name: 'Poland',
+      currency: 'zł',
+    },
+    {
+      country_name: 'Qatar',
+      currency: '﷼',
+    },
+    {
+      country_name: 'Romania',
+      currency: 'lei',
+    },
+    {
+      country_name: 'Russia',
+      currency: '₽',
+    },
+    {
+      country_name: 'Saint Helena',
+      currency: '£',
+    },
+    {
+      country_name: 'Saudi Arabia',
+      currency: '﷼',
+    },
+    {
+      country_name: 'Serbia',
+      currency: 'Дин.',
+    },
+    {
+      country_name: 'Seychelles',
+      currency: '₨',
+    },
+    {
+      country_name: 'Singapore',
+      currency: '$',
+    },
+    {
+      country_name: 'Solomon Islands',
+      currency: '$',
+    },
+    {
+      country_name: 'Somalia',
+      currency: 'S',
+    },
+    {
+      country_name: 'South Africa',
+      currency: 'R',
+    },
+    {
+      country_name: 'Sri Lanka',
+      currency: '₨',
+    },
+    {
+      country_name: 'Sweden',
+      currency: 'kr',
+    },
+    {
+      country_name: 'Switzerland',
+      currency: 'CHF',
+    },
+    {
+      country_name: 'Suriname',
+      currency: '$',
+    },
+    {
+      country_name: 'Syria',
+      currency: '£',
+    },
+    {
+      country_name: 'Taiwan',
+      currency: 'NT$',
+    },
+    {
+      country_name: 'Thailand',
+      currency: '฿',
+    },
+    {
+      country_name: 'Trinidad and Tobago',
+      currency: 'TT$',
+    },
+    {
+      country_name: 'Turkey',
+      currency: '₺',
+    },
+    {
+      country_name: 'Tuvalu',
+      currency: '$',
+    },
+    {
+      country_name: 'Ukraine',
+      currency: '₴',
+    },
+    {
+      country_name: 'United Arab Emirates',
+      currency: 'د.إ',
+    },
+    {
+      country_name: 'UK',
+      currency: '£',
+    },
+    {
+      country_name: 'US',
+      currency: '$',
+    },
+    {
+        country_name: 'USA',
+        currency: '$',
+    },
+    {
+      country_name: 'Uruguay',
+      currency: '$U',
+    },
+    {
+      country_name: 'Uzbekistan',
+      currency: 'лв',
+    },
+    {
+      country_name: 'Venezuela',
+      currency: 'Bs',
+    },
+    {
+      country_name: 'Viet Nam',
+      currency: '₫',
+    },
+    {
+      country_name: 'Yemen',
+      currency: '﷼',
+    },
+    {
+      country_name: 'Zimbabwe',
+      currency: 'Z$',
+    },
+];
+
+export default {config, number, diet, countryarray};

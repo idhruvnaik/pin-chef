@@ -4,11 +4,11 @@ import UserPhoto from '../../assets/images/photo2.png';
 import FollowersIcon from '../../assets/png_icons/followers icon.png'
 import { getChefById, getAllPostsByChefID } from '../../services/apiOperations';
 import { connect } from "react-redux";
-// import { useHistory  } from 'react-router-dom';
 
 import SendChat from '../../assets/svg/Send chat to chef.svg'
 import ExpandNotification from '../../assets/svg/Profile Back btn.svg'
 import DownArrow from '../../assets/png_icons/down-arrow-icon.png'
+import DefaultCover from '../../assets/png_icons/Chef_Default_Cover.png';
 import LocationIcon from '../../assets/svg/Location outlined.svg'
 import ShareProfile from '../../assets/svg/Share chef profile icon.svg'
 import $ from 'jquery';
@@ -89,7 +89,7 @@ class chef extends React.Component {
                     <div className="chef">
                         <div className="chef-details">
                             <div className="banner-image">
-                                <img src={this.state.chef.chef && this.state.chef.chef.banner_image}></img>
+                                <img src={this.state.chef.chef && this.state.chef.chef.banner_image ? this.state.chef.chef.banner_image : DefaultCover}></img>
                             </div>
                             <div className="other-details">
                                 <div className="desktop-icon">

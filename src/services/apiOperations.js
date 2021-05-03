@@ -53,6 +53,8 @@ const set_user_profile_endpoint = "/profile"
 const update_chef_endpoint = "/chef"
 const delete_user_endpoint = "/account/user"
 const recipe_image_endpoint = "/recipe-images"
+const food_image_endpoint = "/food-images"
+const service_image_endpoint = "/service-images"
 
 
 async function make_rest_call(apiURL, method, body, headers){
@@ -884,6 +886,40 @@ export const AddRecipe = async(data, token)=>{
     }
 }
 
+export const AddFood = async(data, token)=>{
+    let apiURL = apiHost + food_endpoint;
+    var headers = {
+        "Authorization": "Bearer " + token
+    };
+    try{
+        let resp = await make_rest_call(apiURL, 'POST', data, headers);
+        return resp;
+    }
+    catch(err){
+        return {
+            status: false,
+            message: err.message
+        }
+    }
+}
+
+export const AddService = async(data, token)=>{
+    let apiURL = apiHost + service_endpoint;
+    var headers = {
+        "Authorization": "Bearer " + token
+    };
+    try{
+        let resp = await make_rest_call(apiURL, 'POST', data, headers);
+        return resp;
+    }
+    catch(err){
+        return {
+            status: false,
+            message: err.message
+        }
+    }
+}
+
 export const AddImageToPost = async(post_id, image, token)=>{
     let apiURL = apiHost + feed_image_endpoint + "/" + post_id;
     var headers = {
@@ -909,7 +945,44 @@ export const AddImageToRecipe = async(recipe_id, image, token)=>{
     var headers = {
         "Authorization": "Bearer " + token
     };
-    console.log(image, "from add image to post");
+    var bodyFormData = new FormData();
+    bodyFormData.append('upload', image);
+    try{
+        let resp = await make_rest_call(apiURL, 'POST', bodyFormData, headers);
+        return resp;
+    }
+    catch(err){
+        return {
+            status: false,
+            message: err.message
+        }
+    }
+}
+
+export const AddImageToFood = async(food_id, image, token)=>{
+    let apiURL = apiHost + food_image_endpoint + "/" + food_id;
+    var headers = {
+        "Authorization": "Bearer " + token
+    };
+    var bodyFormData = new FormData();
+    bodyFormData.append('upload', image);
+    try{
+        let resp = await make_rest_call(apiURL, 'POST', bodyFormData, headers);
+        return resp;
+    }
+    catch(err){
+        return {
+            status: false,
+            message: err.message
+        }
+    }
+}
+
+export const AddImageToService = async(service_id, image, token)=>{
+    let apiURL = apiHost + service_image_endpoint + "/" + service_id;
+    var headers = {
+        "Authorization": "Bearer " + token
+    };
     var bodyFormData = new FormData();
     bodyFormData.append('upload', image);
     try{

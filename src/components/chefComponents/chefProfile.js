@@ -414,6 +414,465 @@ const cusines = [
 
 ]
 
+const countryarray = [
+    {
+      country_name: 'Albania',
+      symbol: 'Lek',
+    },
+    {
+      country_name: 'Afghanistan',
+      symbol: '؋',
+    },
+    {
+      country_name: 'Argentina',
+      symbol: '$',
+    },
+    {
+      country_name: 'Aruba',
+      symbol: 'ƒ',
+    },
+    {
+      country_name: 'Australia',
+      symbol: '$',
+    },
+    {
+      country_name: 'Azerbaijan',
+      symbol: '₼',
+    },
+    {
+      country_name: 'Bahamas',
+      symbol: '$',
+    },
+    {
+      country_name: 'Barbados',
+      symbol: '$',
+    },
+    {
+      country_name: 'Belarus',
+      symbol: 'p.',
+    },
+    {
+      country_name: 'Belize',
+      symbol: 'BZ$',
+    },
+    {
+      country_name: 'Bermuda',
+      symbol: '$',
+    },
+    {
+      country_name: 'Bolivia',
+      symbol: '$b',
+    },
+    {
+      country_name: 'Bosnia and Herzegovina',
+      symbol: 'KM',
+    },
+    {
+      country_name: 'Botswana',
+      symbol: 'P',
+    },
+    {
+      country_name: 'Bulgaria',
+      symbol: 'лв',
+    },
+    {
+      country_name: 'Brazil',
+      symbol: 'R$',
+    },
+    {
+      country_name: 'Brunei',
+      symbol: '$',
+    },
+    {
+      country_name: 'Cambodia',
+      symbol: '៛',
+    },
+    {
+      country_name: 'Canada',
+      symbol: '$',
+    },
+    {
+      country_name: 'Cayman',
+      symbol: '$',
+    },
+    {
+      country_name: 'Chile',
+      symbol: '$',
+    },
+    {
+      country_name: 'China',
+      symbol: '¥',
+    },
+    {
+      country_name: 'Colombia',
+      symbol: '$',
+    },
+    {
+      country_name: 'Costa Rica',
+      symbol: '₡',
+    },
+    {
+      country_name: 'Croatia',
+      symbol: 'kn',
+    },
+    {
+      country_name: 'Cuba',
+      symbol: '₱',
+    },
+    {
+      country_name: 'Czech Republic',
+      symbol: 'Kč',
+    },
+    {
+      country_name: 'Denmark',
+      symbol: 'kr',
+    },
+    {
+      country_name: 'Dominican Republic',
+      symbol: 'RD$',
+    },
+    {
+      country_name: 'Egypt',
+      symbol: '£',
+    },
+    {
+      country_name: 'El Salvador',
+      symbol: '$',
+    },
+    {
+      country_name: 'Estonia',
+      symbol: 'kr',
+    },
+    {
+      country_name: 'Euro Member',
+      symbol: '€',
+    },
+    {
+      country_name: 'Falkland Islands',
+      symbol: '£',
+    },
+    {
+      country_name: 'Fiji',
+      symbol: '$',
+    },
+    {
+      country_name: 'Georgia',
+      symbol: '₾',
+    },
+    {
+      country_name: 'Ghana',
+      symbol: '¢',
+    },
+    {
+      country_name: 'Gibraltar',
+      symbol: '£',
+    },
+    {
+      country_name: 'Guatemala',
+      symbol: 'Q',
+    },
+    {
+      country_name: 'Guernsey',
+      symbol: '£',
+    },
+    {
+      country_name: 'Guyana',
+      symbol: '$',
+    },
+    {
+      country_name: 'Honduras',
+      symbol: 'L',
+    },
+    {
+      country_name: 'Hong Kong',
+      symbol: '$',
+    },
+    {
+      country_name: 'Hungary',
+      symbol: 'Ft',
+    },
+    {
+      country_name: 'Iceland',
+      symbol: 'kr',
+    },
+    {
+      country_name: 'India',
+      symbol: '₹',
+    },
+    {
+      country_name: 'Indonesia',
+      symbol: 'Rp',
+    },
+    {
+      country_name: 'Iran',
+      symbol: '﷼',
+    },
+    {
+      country_name: 'Isle of Man',
+      symbol: '£',
+    },
+    {
+      country_name: 'Israel',
+      symbol: '₪',
+    },
+    {
+      country_name: 'Jamaica',
+      symbol: 'J$',
+    },
+    {
+      country_name: 'Japan',
+      symbol: '¥',
+    },
+    {
+      country_name: 'Jersey',
+      symbol: '£',
+    },
+    {
+      country_name: 'Kazakhstan',
+      symbol: 'лв',
+    },
+    {
+      country_name: 'Korea (North)',
+      symbol: '₩',
+    },
+    {
+      country_name: 'Korea (South)',
+      symbol: '₩',
+    },
+    {
+      country_name: 'Kyrgyzstan',
+      symbol: 'лв',
+    },
+    {
+      country_name: 'Laos',
+      symbol: '₭',
+    },
+    {
+      country_name: 'Latvia',
+      symbol: 'Ls',
+    },
+    {
+      country_name: 'Lebanon',
+      symbol: '£',
+    },
+    {
+      country_name: 'Liberia',
+      symbol: '$',
+    },
+    {
+      country_name: 'Lithuania',
+      symbol: 'Lt',
+    },
+    {
+      country_name: 'Macedonia',
+      symbol: 'ден',
+    },
+    {
+      country_name: 'Malaysia',
+      symbol: 'RM',
+    },
+    {
+      country_name: 'Mauritius',
+      symbol: '₨',
+    },
+    {
+      country_name: 'Mexico',
+      symbol: '$',
+    },
+    {
+      country_name: 'Mongolia',
+      symbol: '₮',
+    },
+    {
+      country_name: 'Mozambique',
+      symbol: 'MT',
+    },
+    {
+      country_name: 'Namibia',
+      symbol: '$',
+    },
+    {
+      country_name: 'Nepal',
+      symbol: '₨',
+    },
+    {
+      country_name: 'Netherlands',
+      symbol: 'ƒ',
+    },
+    {
+      country_name: 'New Zealand',
+      symbol: '$',
+    },
+    {
+      country_name: 'Nicaragua',
+      symbol: 'C$',
+    },
+    {
+      country_name: 'Nigeria',
+      symbol: '₦',
+    },
+    {
+      country_name: 'Norway',
+      symbol: 'kr',
+    },
+    {
+      country_name: 'Oman',
+      symbol: '﷼',
+    },
+    {
+      country_name: 'Pakistan',
+      symbol: '₨',
+    },
+    {
+      country_name: 'Panama',
+      symbol: 'B/.',
+    },
+    {
+      country_name: 'Paraguay',
+      symbol: 'Gs',
+    },
+    {
+      country_name: 'Peru',
+      symbol: 'S/.',
+    },
+    {
+      country_name: 'Philippines',
+      symbol: '₱',
+    },
+    {
+      country_name: 'Poland',
+      symbol: 'zł',
+    },
+    {
+      country_name: 'Qatar',
+      symbol: '﷼',
+    },
+    {
+      country_name: 'Romania',
+      symbol: 'lei',
+    },
+    {
+      country_name: 'Russia',
+      symbol: '₽',
+    },
+    {
+      country_name: 'Saint Helena',
+      symbol: '£',
+    },
+    {
+      country_name: 'Saudi Arabia',
+      symbol: '﷼',
+    },
+    {
+      country_name: 'Serbia',
+      symbol: 'Дин.',
+    },
+    {
+      country_name: 'Seychelles',
+      symbol: '₨',
+    },
+    {
+      country_name: 'Singapore',
+      symbol: '$',
+    },
+    {
+      country_name: 'Solomon Islands',
+      symbol: '$',
+    },
+    {
+      country_name: 'Somalia',
+      symbol: 'S',
+    },
+    {
+      country_name: 'South Africa',
+      symbol: 'R',
+    },
+    {
+      country_name: 'Sri Lanka',
+      symbol: '₨',
+    },
+    {
+      country_name: 'Sweden',
+      symbol: 'kr',
+    },
+    {
+      country_name: 'Switzerland',
+      symbol: 'CHF',
+    },
+    {
+      country_name: 'Suriname',
+      symbol: '$',
+    },
+    {
+      country_name: 'Syria',
+      symbol: '£',
+    },
+    {
+      country_name: 'Taiwan',
+      symbol: 'NT$',
+    },
+    {
+      country_name: 'Thailand',
+      symbol: '฿',
+    },
+    {
+      country_name: 'Trinidad and Tobago',
+      symbol: 'TT$',
+    },
+    {
+      country_name: 'Turkey',
+      symbol: '₺',
+    },
+    {
+      country_name: 'Tuvalu',
+      symbol: '$',
+    },
+    {
+      country_name: 'Ukraine',
+      symbol: '₴',
+    },
+    {
+      country_name: 'United Arab Emirates',
+      symbol: 'د.إ',
+    },
+    {
+      country_name: 'UK',
+      symbol: '£',
+    },
+    {
+      country_name: 'US',
+      symbol: '$',
+    },
+    {
+        country_name: 'USA',
+        symbol: '$',
+    },
+    {
+      country_name: 'Uruguay',
+      symbol: '$U',
+    },
+    {
+      country_name: 'Uzbekistan',
+      symbol: 'лв',
+    },
+    {
+      country_name: 'Venezuela',
+      symbol: 'Bs',
+    },
+    {
+      country_name: 'Viet Nam',
+      symbol: '₫',
+    },
+    {
+      country_name: 'Yemen',
+      symbol: '﷼',
+    },
+    {
+      country_name: 'Zimbabwe',
+      symbol: 'Z$',
+    },
+];
+
 
 class ChefProfile extends React.Component {
     constructor(props) {
@@ -703,7 +1162,7 @@ class ChefProfile extends React.Component {
                     address: this.state.address,
                     payment_type: payments,
                     hourly_rate: $("#hourly-rate")[0].value,
-                    currency: this.state.selected_country.iso
+                    currency: this.state.selected_country.symbol
                 }
                 let result = await UpdateChefProfile(data, this.token)
                 if (result.status == false) {
@@ -742,14 +1201,19 @@ class ChefProfile extends React.Component {
     set_location(location){
         this.setState({ address: location.label });
         this.setState({ current_location: location.value.terms[0].value });
+        var another_country = {};
         var country = location.value.terms[location.value.terms.length - 1].value;
         try{
             var country_details = getAllInfoByISO(getISOByParam('countryName', country));
             this.setState({ selected_country: country_details });
         } catch (error){
-            NotificationManager.error(error.message, 'ERROR', 5000);
+            another_country = countryarray.find(country_obj => country_obj.country_name == country);
+            if(another_country){
+                this.setState({ selected_country: another_country });
+            } else{
+                NotificationManager.error(error.message, 'ERROR', 5000);
+            }
         }
-
     }
 
     mondayHandleChange(checked) {
@@ -1103,7 +1567,7 @@ class ChefProfile extends React.Component {
                                 <div className="input-name">Address/Location &nbsp;<span>*</span></div>
                                 <GooglePlacesAutocomplete
                                     placeholder="Country, city, state or zip code"
-                                    apiKey="abc"
+                                    apiKey="AIzaSyAahUdhCQxOBWBibQf7UV5BFUC7VQWJ4Ys"
                                     selectProps={{
                                         onChange: this.set_location,
                                     }}

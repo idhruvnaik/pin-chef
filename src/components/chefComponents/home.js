@@ -12,6 +12,7 @@ import TimePicker from 'react-time-picker';
 import 'react-image-crop/dist/ReactCrop.css';
 import SelectSearch from "react-dropdown-select";
 import CropImage from '../cropImages';
+import Switch from "react-switch";
 
 import NoFeeds from '../../assets/svg/NoFeedPost';
 import NoPostsByChef from '../../assets/svg/NoPostsByChef'
@@ -61,7 +62,7 @@ import ImageUploadIcon from "../../assets/images/image-upload.png";
 import LocationPlusIcon from "../../assets/images/location-plus-icon.png";
 import UploadImage from "../../assets/images/upload-option.png";
 
-import { getAllChef, getAllPosts, likePost, AddPost, AddImageToPost, AddRecipe, AddImageToRecipe, getAllPostsByChefID, getChefById, getAllRecipesByChef, getAllFoodByFood, getAllMasterClasses, unlikePost, unlikeRecipe, likeRecipe, getAllServicesByChef, unlikeFood, likeFood, unlikeService, likeService, getAllMasterClassesByChef, DeleteMasterClass } from '../../services/apiOperations';
+import { getAllChef, getAllPosts, likePost, AddPost, AddFood, AddService, AddImageToService, AddImageToFood, AddImageToPost, AddRecipe, AddImageToRecipe, getAllPostsByChefID, getChefById, getAllRecipesByChef, getAllFoodByFood, getAllMasterClasses, unlikePost, unlikeRecipe, likeRecipe, getAllServicesByChef, unlikeFood, likeFood, unlikeService, likeService, getAllMasterClassesByChef, DeleteMasterClass } from '../../services/apiOperations';
 import $ from "jquery";
 import { Button } from "rsuite";
 
@@ -69,417 +70,437 @@ import { Button } from "rsuite";
 
 const cusines = [
   {
-      username: 'Afghani'
+    username: 'Afghani'
   },
   {
-      username: 'African'
+    username: 'African'
   },
   {
-      username: 'Albanian'
+    username: 'Albanian'
   },
   {
-      username: 'American'
+    username: 'American'
   },
   {
-      username: 'Apulian'
+    username: 'Apulian'
   },
   {
-      username: 'Arabic'
+    username: 'Arabic'
   },
   {
-      username: 'Argentinean'
+    username: 'Argentinean'
   },
   {
-      username: 'Armenian'
+    username: 'Armenian'
   },
   {
-      username: 'Asian'
+    username: 'Asian'
   },
   {
-      username: 'Assyrian'
+    username: 'Assyrian'
   },
   {
-      username: 'Australian'
+    username: 'Australian'
   },
   {
-      username: 'Austrian'
+    username: 'Austrian'
   },
   {
-      username: 'Bahamian'
+    username: 'Bahamian'
   },
   {
-      username: 'Bangladeshi'
+    username: 'Bangladeshi'
   },
   {
-      username: 'Basque'
+    username: 'Basque'
   },
   {
-      username: 'Beijing cuisine'
+    username: 'Beijing cuisine'
   },
   {
-      username: 'Belgian'
+    username: 'Belgian'
   },
   {
-      username: 'Brazilian'
+    username: 'Brazilian'
   },
   {
-      username: 'British'
+    username: 'British'
   },
   {
-      username: 'Bulgarian'
+    username: 'Bulgarian'
   },
   {
-      username: 'Burmese'
+    username: 'Burmese'
   },
   {
-      username: 'Cajun & Creole'
+    username: 'Cajun & Creole'
   },
   {
-      username: 'Cambodian'
+    username: 'Cambodian'
   },
   {
-      username: 'Campania'
+    username: 'Campania'
   },
   {
-      username: 'Canadian'
+    username: 'Canadian'
   },
   {
-      username: 'Cantonese'
+    username: 'Cantonese'
   },
   {
-      username: 'Caribbean'
+    username: 'Caribbean'
   },
   {
-      username: 'Catalan'
+    username: 'Catalan'
   },
   {
-      username: 'Central American'
+    username: 'Central American'
   },
   {
-      username: 'Central Asian'
+    username: 'Central Asian'
   },
   {
-      username: 'Central European'
+    username: 'Central European'
   },
   {
-      username: 'Central-Italian'
+    username: 'Central-Italian'
   },
   {
-      username: 'Chilean'
+    username: 'Chilean'
   },
   {
-      username: 'Chinese'
+    username: 'Chinese'
   },
   {
-      username: 'Colombian'
+    username: 'Colombian'
   },
   {
-      username: 'Contemporary'
+    username: 'Contemporary'
   },
   {
-      username: 'Croatian'
+    username: 'Croatian'
   },
   {
-      username: 'Cuban'
+    username: 'Cuban'
   },
   {
-      username: 'Czech'
+    username: 'Czech'
   },
   {
-      username: 'Danish'
+    username: 'Danish'
   },
   {
-      username: 'Deli'
+    username: 'Deli'
   },
   {
-      username: 'Eastern European'
+    username: 'Eastern European'
   },
   {
-      username: 'Ecuadorean'
+    username: 'Ecuadorean'
   },
   {
-      username: 'Egyptian'
+    username: 'Egyptian'
   },
 
   {
-      username: 'Emilian'
+    username: 'Emilian'
   },
   {
-      username: 'Ethiopian'
+    username: 'Ethiopian'
   },
   {
-      username: 'European'
+    username: 'European'
   },
   {
-      username: 'Filipino'
+    username: 'Filipino'
   },
   {
-      username: 'French'
+    username: 'French'
   },
   {
-      username: 'Fusion'
+    username: 'Fusion'
   },
   {
-      username: 'Georgian'
+    username: 'Georgian'
   },
   {
-      username: 'German'
+    username: 'German'
   },
   {
-      username: 'Greek'
+    username: 'Greek'
   },
   {
-      username: 'Hawaiian'
+    username: 'Hawaiian'
   },
   {
-      username: 'Healthy'
+    username: 'Healthy'
   },
   {
-      username: 'Hong Kong'
+    username: 'Hong Kong'
   },
   {
-      username: 'Hungarian'
+    username: 'Hungarian'
   },
   {
-      username: 'Indian'
+    username: 'Indian'
   },
   {
-      username: 'Indonesian'
+    username: 'Indonesian'
   },
   {
-      username: 'International'
+    username: 'International'
   },
   {
-      username: 'Irish'
+    username: 'Irish'
   },
   {
-      username: 'Israeli'
+    username: 'Israeli'
   },
   {
-      username: 'Italian'
+    username: 'Italian'
   },
   {
-      username: 'Jamaican'
+    username: 'Jamaican'
   },
   {
-      username: 'Japanese'
+    username: 'Japanese'
   },
   {
-      username: 'Japanese Fusion'
+    username: 'Japanese Fusion'
   },
   {
-      username: 'Kaiseki'
+    username: 'Kaiseki'
   },
   {
-      username: 'Korean'
+    username: 'Korean'
   },
   {
-      username: 'Latin'
+    username: 'Latin'
   },
   {
-      username: 'Lazio'
+    username: 'Lazio'
   },
   {
-      username: 'Lebanese'
+    username: 'Lebanese'
   },
   {
-      username: 'Malaysian'
+    username: 'Malaysian'
   },
   {
-      username: 'Mediterranean'
+    username: 'Mediterranean'
   },
   {
-      username: 'Mexican'
+    username: 'Mexican'
   },
   {
-      username: 'Middle Eastern'
+    username: 'Middle Eastern'
   },
   {
-      username: 'Moroccan'
+    username: 'Moroccan'
   },
   {
-      username: 'Native American'
+    username: 'Native American'
   },
   {
-      username: 'Neapolitan'
+    username: 'Neapolitan'
   },
   {
-      username: 'Nepali'
+    username: 'Nepali'
   },
   {
-      username: 'New Zealand'
+    username: 'New Zealand'
   },
   {
-      username: 'Nigerian'
+    username: 'Nigerian'
   },
   {
-      username: 'Nonya'
+    username: 'Nonya'
   },
   {
-      username: 'Northern-Italian'
+    username: 'Northern-Italian'
   },
   {
-      username: 'NorthWestern Chinese'
+    username: 'NorthWestern Chinese'
   },
   {
-      username: 'Norwegian'
+    username: 'Norwegian'
   },
   {
-      username: 'Pakistani'
+    username: 'Pakistani'
   },
   {
-      username: 'Persian'
+    username: 'Persian'
   },
   {
-      username: 'Peruvian'
+    username: 'Peruvian'
   },
   {
-      username: 'Pizza'
+    username: 'Pizza'
   },
   {
-      username: 'Polish'
+    username: 'Polish'
   },
   {
-      username: 'Polynesian'
+    username: 'Polynesian'
   },
   {
-      username: 'Portuguese'
+    username: 'Portuguese'
   },
   {
-      username: 'Puerto Rican'
+    username: 'Puerto Rican'
   },
   {
-      username: 'Romagna'
+    username: 'Romagna'
   },
   {
-      username: 'Romana'
+    username: 'Romana'
   },
   {
-      username: 'Romanian'
+    username: 'Romanian'
   },
   {
-      username: 'Russian'
+    username: 'Russian'
   },
   {
-      username: 'Salvadoran'
+    username: 'Salvadoran'
   },
   {
-      username: 'Sardinian'
+    username: 'Sardinian'
   },
   {
-      username: 'Scandinavian'
+    username: 'Scandinavian'
   },
   {
-      username: 'Scottish'
+    username: 'Scottish'
   },
   {
-      username: 'Shanghai'
+    username: 'Shanghai'
   },
   {
-      username: 'Sicilian'
+    username: 'Sicilian'
   },
   {
-      username: 'Singaporean'
+    username: 'Singaporean'
   },
   {
-      username: 'South American'
+    username: 'South American'
   },
   {
-      username: 'Southern-Italian'
+    username: 'Southern-Italian'
   },
   {
-      username: 'Southwestern'
+    username: 'Southwestern'
   },
   {
-      username: 'Spanish'
+    username: 'Spanish'
   },
   {
-      username: 'Sri Lankan'
+    username: 'Sri Lankan'
   },
   {
-      username: 'Sushi'
+    username: 'Sushi'
   },
   {
-      username: 'Swedish'
+    username: 'Swedish'
   },
   {
-      username: 'Swiss'
+    username: 'Swiss'
   },
   {
-      username: 'Szechuan'
+    username: 'Szechuan'
   },
   {
-      username: 'Taiwanese'
+    username: 'Taiwanese'
   },
   {
-      username: 'Thai'
+    username: 'Thai'
   },
   {
-      username: 'Tibetan'
+    username: 'Tibetan'
   },
   {
-      username: 'Tunisian'
+    username: 'Tunisian'
   },
   {
-      username: 'Turkish'
+    username: 'Turkish'
   },
   {
-      username: 'Turkmen'
+    username: 'Turkmen'
   },
   {
-      username: 'Tuscan'
+    username: 'Tuscan'
   },
   {
-      username: 'Ukrainian'
+    username: 'Ukrainian'
   },
   {
-      username: 'Uzbek'
+    username: 'Uzbek'
   },
   {
-      username: 'Venezuelan'
+    username: 'Venezuelan'
   },
   {
-      username: 'Vietusernamese'
+    username: 'Vietusernamese'
   },
   {
-      username: 'Xinjiang'
+    username: 'Xinjiang'
   },
   {
-      username: 'Yunnan'
+    username: 'Yunnan'
   },
 
 ]
 
 const diet = [
   {
-      username: 'Gluten Free'
+    username: 'Gluten Free'
   },
   {
-      username: 'Vegan'
+    username: 'Vegan'
   },
   {
-      username: 'Organic'
+    username: 'Organic'
   },
   {
-      username: 'Vegetarian'
+    username: 'Vegetarian'
   },
   {
-      username: 'Halal'
+    username: 'Halal'
   },
   {
-      username: 'Kosher'
+    username: 'Kosher'
   },
   {
-      username: 'Nut Free'
+    username: 'Nut Free'
   },
   {
-      username: 'Shellfish Free'
+    username: 'Shellfish Free'
   },
   {
-      username: 'Dairy Free'
+    username: 'Dairy Free'
   },
 ]
 
+const service_type = [
+  {
+    username: 'Cook and Deliver'
+  },
+  {
+    username: 'Cook and Ship'
+  },
+  {
+    username: 'Cook for Pick up'
+  },
+  {
+    username: 'Host Guests and cook'
+  },
+  {
+    username: 'Go to Guests address to cook'
+  },
+  {
+    username: 'Cook Online with Chef'
+  }
+]
 export default class home extends Component {
   constructor(props) {
     super(props);
@@ -515,11 +536,35 @@ export default class home extends Component {
     this.initialize_current_chef = this.initialize_current_chef.bind(this);
     this.food_upload = this.food_upload.bind(this);
     this.add_food = this.add_food.bind(this);
+    this.enable_field = this.enable_field.bind(this);
+    this.mondayHandleChange = this.mondayHandleChange.bind(this);
+    this.sundayHandleChange = this.sundayHandleChange.bind(this);
+    this.saturdayHandleChange = this.saturdayHandleChange.bind(this);
+    this.fridayHandleChange = this.fridayHandleChange.bind(this);
+    this.thursdayHandleChange = this.thursdayHandleChange.bind(this);
+    this.tuesdayHandleChange = this.tuesdayHandleChange.bind(this);
+    this.wednesdayHandleChange = this.wednesdayHandleChange.bind(this);
+    this.mondayServiceHandleChange = this.mondayServiceHandleChange.bind(this);
+    this.sundayServiceHandleChange = this.sundayServiceHandleChange.bind(this);
+    this.saturdayServiceHandleChange = this.saturdayServiceHandleChange.bind(this);
+    this.fridayServiceHandleChange = this.fridayServiceHandleChange.bind(this);
+    this.thursdayServiceHandleChange = this.thursdayServiceHandleChange.bind(this);
+    this.tuesdayServiceHandleChange = this.tuesdayServiceHandleChange.bind(this);
+    this.wednesdayServiceHandleChange = this.wednesdayServiceHandleChange.bind(this);
+    this.add_range = this.add_range.bind(this);
+    this.add_service_range = this.add_service_range.bind(this);
+    this.get_time = this.get_time.bind(this);
+    this.get_service_time = this.get_service_time.bind(this);
+    this.add_service = this.add_service.bind(this);
+    this.service_upload = this.service_upload.bind(this);
+    this.handleServiceChange = this.handleServiceChange.bind(this);
     this.state = {
       source_image: null,
       food_source_image: null,
+      service_source_image: null,
       recipe_crop_popup: false,
       food_crop_popup: false,
+      service_crop_popup: false,
       isPaneOpenLeft: false,
       pictures: [],
       feeds: [],
@@ -539,8 +584,110 @@ export default class home extends Component {
       current_recipe: {},
       recipeCropUrl: {},
       foodCropUrl: {},
+      serviceCropUrl: {},
       selected_recipe_cusine: [],
-      selected_recipe_diet: []
+      selected_recipe_diet: [],
+      selected_food_cusine: [],
+      selected_food_diet: [],
+      selected_service_type: [],
+      monday_checked: false,
+      tuesday_checked: false,
+      wednesday_checked: false,
+      thursday_checked: false,
+      friday_checked: false,
+      saturday_checked: false,
+      sunday_checked: false,
+      service_monday_checked: false,
+      service_tuesday_checked: false,
+      service_wednesday_checked: false,
+      service_thursday_checked: false,
+      service_friday_checked: false,
+      service_saturday_checked: false,
+      service_sunday_checked: false,
+      monday_disable: true,
+      tuesday_disable: true,
+      wednesday_disable: true,
+      thursday_disable: true,
+      friday_disable: true,
+      saturday_disable: true,
+      sunday_disable: true,
+      service_monday_disable: true,
+      service_tuesday_disable: true,
+      service_wednesday_disable: true,
+      service_thursday_disable: true,
+      service_friday_disable: true,
+      service_saturday_disable: true,
+      service_sunday_disable: true,
+      monday_count: [{
+        start_time: "10:10",
+        end_time: "22:10",
+        symbol: "+"
+      }],
+      tuesday_count: [{
+        start_time: "10:10",
+        end_time: "22:10",
+        symbol: "+"
+      }],
+      wednesday_count: [{
+        start_time: "10:10",
+        end_time: "22:10",
+        symbol: "+"
+      }],
+      thursday_count: [{
+        start_time: "10:10",
+        end_time: "22:10",
+        symbol: "+"
+      }],
+      friday_count: [{
+        start_time: "10:10",
+        end_time: "22:10",
+        symbol: "+"
+      }],
+      saturday_count: [{
+        start_time: "10:10",
+        end_time: "22:10",
+        symbol: "+"
+      }],
+      sunday_count: [{
+        start_time: "10:10",
+        end_time: "22:10",
+        symbol: "+"
+      }],
+      service_monday_count: [{
+        start_time: "10:10",
+        end_time: "22:10",
+        symbol: "+"
+      }],
+      service_tuesday_count: [{
+        start_time: "10:10",
+        end_time: "22:10",
+        symbol: "+"
+      }],
+      service_wednesday_count: [{
+        start_time: "10:10",
+        end_time: "22:10",
+        symbol: "+"
+      }],
+      service_thursday_count: [{
+        start_time: "10:10",
+        end_time: "22:10",
+        symbol: "+"
+      }],
+      service_friday_count: [{
+        start_time: "10:10",
+        end_time: "22:10",
+        symbol: "+"
+      }],
+      service_saturday_count: [{
+        start_time: "10:10",
+        end_time: "22:10",
+        symbol: "+"
+      }],
+      service_sunday_count: [{
+        start_time: "10:10",
+        end_time: "22:10",
+        symbol: "+"
+      }]
     }
 
     this.ratingChanged = (newRating) => {
@@ -625,38 +772,88 @@ export default class home extends Component {
       required_tools: $('#recipe_required_tools')[0].value,
       difficulty_level: difficulty
     };
-    if(difficulty && $('#food_name')[0].value.length > 0 && $('#no_of_serving')[0].value.length > 0 && $('#prep_time')[0].value.length > 0 && $('#cook_time')[0].value.length > 0 && $('#recipe_instruction')[0].value.length > 0 && $('#recipe_ingredients')[0].value.length > 0 && selected_cusines.length > 0){
-      let result = await AddRecipe( data, this.token);
-      console.log(result, "after added recipe")
+    if (difficulty && $('#food_name')[0].value.length > 0 && $('#no_of_serving')[0].value.length > 0 && $('#prep_time')[0].value.length > 0 && $('#cook_time')[0].value.length > 0 && $('#recipe_instruction')[0].value.length > 0 && $('#recipe_ingredients')[0].value.length > 0 && selected_cusines.length > 0) {
+      let result = await AddRecipe(data, this.token);
       if (result.status && result.status == false) {
-        console.log(result.message);
         NotificationManager.error(result.message, 'ERROR', 3000);
       } else {
         var recipe_id = result.recipe_id;
         let image_result = await AddImageToRecipe(recipe_id, this.state.recipeCropUrl, this.token);
-        console.log(image_result, "image result after adding recipr");
         if (image_result.status && image_result.status == false) {
-          console.log(image_result.message);
           NotificationManager.error(image_result.message, 'ERROR', 3000);
         } else {
           this.setState({ isRecipePopup: false });
         }
       }
-    } else{
+    } else {
       NotificationManager.error('Fill up all required fields.', 'ERROR', 3000);
     }
   }
 
   async add_food() {
-    var difficulty = $('input[name="diff_level"]:checked').val();
+    var facility = $('input[name="level"]:checked');
+    var pick_up = false;
+    var delivery = {
+      value: false
+    };
+    var shipping = {
+      value: false
+    };
+    facility.map((index, item) => {
+      if(item.value == "Pick Up"){
+        pick_up = true;
+      } else if (item.value == "Delivery" && item.disabled == false){
+        delivery.value = true;
+        delivery.fee = $('#delivery_fee')[0].value;
+      } else if (item.value == "Shipping" && item.disabled == false){
+        shipping.value = true;
+        shipping.fee = $('#shipping_fee')[0].value;
+      }
+    })
     var selected_cusines = [];
     var selected_diet = [];
+    var sh = [];
     this.state.selected_food_cusine.map((item) => {
       selected_cusines.push(item.username);
     });
     this.state.selected_food_diet.map((item) => {
       selected_diet.push(item.username);
     });
+    if (!this.state.monday_disable) {
+      var temp = this.state.monday_count;
+      temp.day = "monday";
+      sh.push(temp);
+    }
+    if (!this.state.tuesday_disable) {
+      var temp = this.state.tuesday_count;
+      temp.day = "tuesday";
+      sh.push(temp);
+    }
+    if (!this.state.wednesday_disable) {
+      var temp = this.state.wednesday_count;
+      temp.day = "wednesday";
+      sh.push(temp);
+    }
+    if (!this.state.thursday_disable) {
+      var temp = this.state.thursday_count;
+      temp.day = "thursday";
+      sh.push(temp);
+    }
+    if (!this.state.friday_disable) {
+      var temp = this.state.friday_count;
+      temp.day = "friday";
+      sh.push(temp);
+    }
+    if (!this.state.saturday_disable) {
+      var temp = this.state.saturday_count;
+      temp.day = "saturday";
+      sh.push(temp);
+    }
+    if (!this.state.sunday_disable) {
+      var temp = this.state.sunday_count;
+      temp.day = "sunday";
+      sh.push(temp);
+    }
     var data = {
       chef_id: this.user_id,
       cuisine_type: selected_cusines,
@@ -664,32 +861,101 @@ export default class home extends Component {
       food_name: $('#food_item_name')[0].value,
       description: $('#food_description')[0].value,
       price: $('#food_price')[0].value,
-      difficulty_level: difficulty
+      service_days_hour: sh,
+      pickup: pick_up,
+      shipping: shipping,
+      delivery: delivery
     };
-    if($('#food_item_name')[0].value.length > 0 && selected_cusines.length > 0 && $('#food_price')[0].value.length > 0){
-      let result = await AddRecipe( data, this.token);
+    if (facility && $('#food_item_name')[0].value.length > 0 && selected_cusines.length > 0 && $('#food_price')[0].value.length > 0) {
+      let result = await AddFood(data, this.token);
       console.log(result, "after added recipe")
       if (result.status && result.status == false) {
         console.log(result.message);
         NotificationManager.error(result.message, 'ERROR', 3000);
       } else {
-        var recipe_id = result.recipe_id;
-        let image_result = await AddImageToRecipe(recipe_id, this.state.recipeCropUrl, this.token);
-        console.log(image_result, "image result after adding recipr");
+        var food_id = result.food_id;
+        let image_result = await AddImageToFood(food_id, this.state.foodCropUrl, this.token);
         if (image_result.status && image_result.status == false) {
           console.log(image_result.message);
           NotificationManager.error(image_result.message, 'ERROR', 3000);
         } else {
-          this.setState({ isRecipePopup: false });
+          this.setState({ isFoodPopup: false });
         }
       }
-    } else{
+    } else {
       NotificationManager.error('Fill up all required fields.', 'ERROR', 3000);
+    }
+  }
+
+  async add_service(){
+    var sh = [];
+    if (!this.state.service_monday_disable) {
+      var temp = this.state.service_monday_count;
+      temp.day = "monday";
+      sh.push(temp);
+    }
+    if (!this.state.service_tuesday_disable) {
+      var temp = this.state.service_tuesday_count;
+      temp.day = "tuesday";
+      sh.push(temp);
+    }
+    if (!this.state.service_wednesday_disable) {
+      var temp = this.state.service_wednesday_count;
+      temp.day = "wednesday";
+      sh.push(temp);
+    }
+    if (!this.state.service_thursday_disable) {
+      var temp = this.state.service_thursday_count;
+      temp.day = "thursday";
+      sh.push(temp);
+    }
+    if (!this.state.service_friday_disable) {
+      var temp = this.state.service_friday_count;
+      temp.day = "friday";
+      sh.push(temp);
+    }
+    if (!this.state.service_saturday_disable) {
+      var temp = this.state.service_saturday_count;
+      temp.day = "saturday";
+      sh.push(temp);
+    }
+    if (!this.state.service_sunday_disable) {
+      var temp = this.state.service_sunday_count;
+      temp.day = "sunday";
+      sh.push(temp);
+    }
+    var data = {
+      chef_id: this.user_id,
+      service_type: this.state.selected_service_type.username,
+      description: $('#service_description')[0].value,
+      price: $('#service_price')[0].value,
+      service_days_hour: sh
+    };
+    let result = await AddService(data, this.token);
+    if (result.status && result.status == false) {
+      NotificationManager.error(result.message, 'ERROR', 3000);
+    } else {
+      var food_id = result.food_id;
+      let image_result = await AddImageToService(food_id, this.state.serviceCropUrl, this.token);
+      if (image_result.status && image_result.status == false) {
+        console.log(image_result.message);
+        NotificationManager.error(image_result.message, 'ERROR', 3000);
+      } else {
+        this.setState({ isServicePopup: false });
+      }
     }
   }
 
   onImageLoaded(image) {
     this.imageRef = image;
+  }
+
+  enable_field(e) {
+    if (e.target.value == "Delivery") {
+      $("#delivery_fee")[0].disabled = !e.target.checked;
+    } else {
+      $("#shipping_fee")[0].disabled = !e.target.checked;
+    }
   }
 
   async initialize_chefs() {
@@ -775,13 +1041,13 @@ export default class home extends Component {
 
   async initialize_current_chef() {
     let chef_result = await getChefById(this.user_id, this.token);
-      if (chef_result.status && chef_result.status == false) {
-        console.log(chef_result.message)
-      } else {
-        this.setState({
-          current_chef: chef_result
-        });
-      }
+    if (chef_result.status && chef_result.status == false) {
+      console.log(chef_result.message)
+    } else {
+      this.setState({
+        current_chef: chef_result
+      });
+    }
   }
 
   async initialize_recipes() {
@@ -1172,6 +1438,344 @@ export default class home extends Component {
     });
   }
 
+  mondayHandleChange(checked) {
+    this.setState({ monday_checked: checked });
+    this.setState({ monday_disable: !checked });
+    if (checked) {
+      $("#monday .disable_span").css("right", "0px");
+    } else {
+      $("#monday .disable_span").css("right", "20px")
+    }
+  }
+  tuesdayHandleChange(checked) {
+    this.setState({ tuesday_checked: checked });
+    this.setState({ tuesday_disable: !checked });
+    if (checked) {
+      $("#tuesday .disable_span").css("right", "0px");
+    } else {
+      $("#tuesday .disable_span").css("right", "20px")
+    }
+  }
+  wednesdayHandleChange(checked) {
+    this.setState({ wednesday_checked: checked });
+    this.setState({ wednesday_disable: !checked });
+  }
+  thursdayHandleChange(checked) {
+    this.setState({ thursday_checked: checked });
+    this.setState({ thursday_disable: !checked });
+  }
+  fridayHandleChange(checked) {
+    this.setState({ friday_checked: checked });
+    this.setState({ friday_disable: !checked });
+  }
+  saturdayHandleChange(checked) {
+    this.setState({ saturday_checked: checked });
+    this.setState({ saturday_disable: !checked });
+  }
+  sundayHandleChange(checked) {
+    this.setState({ sunday_checked: checked });
+    this.setState({ sunday_disable: !checked });
+  }
+
+  mondayServiceHandleChange(checked) {
+    this.setState({ service_monday_checked: checked });
+    this.setState({ service_monday_disable: !checked });
+    if (checked) {
+      $("#monday .disable_span").css("right", "0px");
+    } else {
+      $("#monday .disable_span").css("right", "20px")
+    }
+  }
+  tuesdayServiceHandleChange(checked) {
+    this.setState({ service_tuesday_checked: checked });
+    this.setState({ service_tuesday_disable: !checked });
+    if (checked) {
+      $("#tuesday .disable_span").css("right", "0px");
+    } else {
+      $("#tuesday .disable_span").css("right", "20px")
+    }
+  }
+  wednesdayServiceHandleChange(checked) {
+    this.setState({ service_wednesday_checked: checked });
+    this.setState({ service_wednesday_disable: !checked });
+  }
+  thursdayServiceHandleChange(checked) {
+    this.setState({ service_thursday_checked: checked });
+    this.setState({ service_thursday_disable: !checked });
+  }
+  fridayServiceHandleChange(checked) {
+    this.setState({ service_friday_checked: checked });
+    this.setState({ service_friday_disable: !checked });
+  }
+  saturdayServiceHandleChange(checked) {
+    this.setState({ service_saturday_checked: checked });
+    this.setState({ service_saturday_disable: !checked });
+  }
+  sundayServiceHandleChange(checked) {
+    this.setState({ service_sunday_checked: checked });
+    this.setState({ service_sunday_disable: !checked });
+  }
+
+  get_time(time, state_name, index, key_name) {
+    if (state_name == "monday_count") {
+      let monday_count = [...this.state.monday_count];
+      monday_count[index][key_name] = time;
+      this.setState({ monday_count });
+    } else if (state_name == "tuesday_count") {
+      let tuesday_count = [...this.state.tuesday_count];
+      tuesday_count[index][key_name] = time;
+      this.setState({ tuesday_count });
+    } else if (state_name == "wednesday_count") {
+      let wednesday_count = [...this.state.wednesday_count];
+      wednesday_count[index][key_name] = time;
+      this.setState({ wednesday_count });
+    } else if (state_name == "thursday_count") {
+      let thursday_count = [...this.state.thursday_count];
+      thursday_count[index][key_name] = time;
+      this.setState({ thursday_count });
+    } else if (state_name == "friday_count") {
+      let friday_count = [...this.state.friday_count];
+      friday_count[index][key_name] = time;
+      this.setState({ friday_count });
+    } else if (state_name == "saturday_count") {
+      let saturday_count = [...this.state.saturday_count];
+      saturday_count[index][key_name] = time;
+      this.setState({ saturday_count });
+    } else {
+      let sunday_count = [...this.state.sunday_count];
+      sunday_count[index][key_name] = time;
+      this.setState({ sunday_count });
+    }
+  }
+
+  get_service_time(time, state_name, index, key_name) {
+    if (state_name == "monday_count") {
+      let service_monday_count = [...this.state.service_monday_count];
+      service_monday_count[index][key_name] = time;
+      this.setState({ service_monday_count });
+    } else if (state_name == "tuesday_count") {
+      let service_tuesday_count = [...this.state.service_tuesday_count];
+      service_tuesday_count[index][key_name] = time;
+      this.setState({ service_tuesday_count });
+    } else if (state_name == "wednesday_count") {
+      let service_wednesday_count = [...this.state.service_wednesday_count];
+      service_wednesday_count[index][key_name] = time;
+      this.setState({ service_wednesday_count });
+    } else if (state_name == "thursday_count") {
+      let service_thursday_count = [...this.state.service_thursday_count];
+      service_thursday_count[index][key_name] = time;
+      this.setState({ service_thursday_count });
+    } else if (state_name == "friday_count") {
+      let service_friday_count = [...this.state.service_friday_count];
+      service_friday_count[index][key_name] = time;
+      this.setState({ service_friday_count });
+    } else if (state_name == "saturday_count") {
+      let service_saturday_count = [...this.state.service_saturday_count];
+      service_saturday_count[index][key_name] = time;
+      this.setState({ service_saturday_count });
+    } else {
+      let service_sunday_count = [...this.state.service_sunday_count];
+      service_sunday_count[index][key_name] = time;
+      this.setState({ service_sunday_count });
+    }
+  }
+
+  add_range(e, day) {
+    var count_id = e.target.id;
+    let temp = {
+      start_time: "10:10",
+      end_time: "22:10",
+      symbol: "X"
+    }
+    if (e.target.innerHTML == "+") {
+      if (day == "monday") {
+        let monday_count = [...this.state.monday_count];
+        monday_count.push(temp);
+        this.setState({ monday_count });
+      } else if (day == "tuesday") {
+        let tuesday_count = [...this.state.tuesday_count];
+        tuesday_count.push(temp);
+        this.setState({ tuesday_count });
+      } else if (day == "wednesday") {
+        let wednesday_count = [...this.state.wednesday_count];
+        wednesday_count.push(temp);
+        this.setState({ wednesday_count });
+      } else if (day == "thursday") {
+        let thursday_count = [...this.state.thursday_count];
+        thursday_count.push(temp);
+        this.setState({ thursday_count });
+      } else if (day == "friday") {
+        let friday_count = [...this.state.friday_count];
+        friday_count.push(temp);
+        this.setState({ friday_count });
+      } else if (day == "saturday") {
+        let saturday_count = [...this.state.saturday_count];
+        saturday_count.push(temp);
+        this.setState({ saturday_count });
+      } else if (day == "sunday") {
+        let sunday_count = [...this.state.sunday_count];
+        sunday_count.push(temp);
+        this.setState({ sunday_count });
+      }
+    } else {
+      if (day == "monday") {
+        let monday_count = [...this.state.monday_count];
+        monday_count.map((item, index) => {
+          if (index == count_id) {
+            monday_count.splice(index, 1);
+          }
+        })
+        this.setState({ monday_count });
+      } else if (day == "tuesday") {
+        let tuesday_count = [...this.state.tuesday_count];
+        tuesday_count.map((item, index) => {
+          if (index == count_id) {
+            tuesday_count.splice(index, 1);
+          }
+        })
+        this.setState({ tuesday_count });
+      } else if (day == "wednesday") {
+        let wednesday_count = [...this.state.wednesday_count];
+        wednesday_count.map((item, index) => {
+          if (index == count_id) {
+            wednesday_count.splice(index, 1);
+          }
+        })
+        this.setState({ wednesday_count });
+      } else if (day == "thursday") {
+        let thursday_count = [...this.state.thursday_count];
+        thursday_count.map((item, index) => {
+          if (index == count_id) {
+            thursday_count.splice(index, 1);
+          }
+        })
+        this.setState({ thursday_count });
+      } else if (day == "friday") {
+        let friday_count = [...this.state.friday_count];
+        friday_count.map((item, index) => {
+          if (index == count_id) {
+            friday_count.splice(index, 1);
+          }
+        })
+        this.setState({ friday_count });
+      } else if (day == "saturday") {
+        let saturday_count = [...this.state.saturday_count];
+        saturday_count.map((item, index) => {
+          if (index == count_id) {
+            saturday_count.splice(index, 1);
+          }
+        })
+        this.setState({ saturday_count });
+      } else if (day == "sunday") {
+        let sunday_count = [...this.state.sunday_count];
+        sunday_count.map((item, index) => {
+          if (index == count_id) {
+            sunday_count.splice(index, 1);
+          }
+        })
+        this.setState({ sunday_count });
+      }
+    }
+  }
+
+  add_service_range(e, day) {
+    var count_id = e.target.id;
+    let temp = {
+      start_time: "10:10",
+      end_time: "22:10",
+      symbol: "X"
+    }
+    if (e.target.innerHTML == "+") {
+      if (day == "monday") {
+        let service_monday_count = [...this.state.service_monday_count];
+        service_monday_count.push(temp);
+        this.setState({ service_monday_count });
+      } else if (day == "tuesday") {
+        let service_tuesday_count = [...this.state.service_tuesday_count];
+        service_tuesday_count.push(temp);
+        this.setState({ service_tuesday_count });
+      } else if (day == "wednesday") {
+        let service_wednesday_count = [...this.state.service_wednesday_count];
+        service_wednesday_count.push(temp);
+        this.setState({ service_wednesday_count });
+      } else if (day == "thursday") {
+        let service_thursday_count = [...this.state.service_thursday_count];
+        service_thursday_count.push(temp);
+        this.setState({ service_thursday_count });
+      } else if (day == "friday") {
+        let service_friday_count = [...this.state.service_friday_count];
+        service_friday_count.push(temp);
+        this.setState({ service_friday_count });
+      } else if (day == "saturday") {
+        let service_saturday_count = [...this.state.service_saturday_count];
+        service_saturday_count.push(temp);
+        this.setState({ service_saturday_count });
+      } else if (day == "sunday") {
+        let service_sunday_count = [...this.state.service_sunday_count];
+        service_sunday_count.push(temp);
+        this.setState({ service_sunday_count });
+      }
+    } else {
+      if (day == "monday") {
+        let service_monday_count = [...this.state.service_monday_count];
+        service_monday_count.map((item, index) => {
+          if (index == count_id) {
+            service_monday_count.splice(index, 1);
+          }
+        })
+        this.setState({ service_monday_count });
+      } else if (day == "tuesday") {
+        let service_tuesday_count = [...this.state.service_tuesday_count];
+        service_tuesday_count.map((item, index) => {
+          if (index == count_id) {
+            service_tuesday_count.splice(index, 1);
+          }
+        })
+        this.setState({ service_tuesday_count });
+      } else if (day == "wednesday") {
+        let service_wednesday_count = [...this.state.service_wednesday_count];
+        service_wednesday_count.map((item, index) => {
+          if (index == count_id) {
+            service_wednesday_count.splice(index, 1);
+          }
+        })
+        this.setState({ service_wednesday_count });
+      } else if (day == "thursday") {
+        let service_thursday_count = [...this.state.service_thursday_count];
+        service_thursday_count.map((item, index) => {
+          if (index == count_id) {
+            service_thursday_count.splice(index, 1);
+          }
+        })
+        this.setState({ service_thursday_count });
+      } else if (day == "friday") {
+        let service_friday_count = [...this.state.service_friday_count];
+        service_friday_count.map((item, index) => {
+          if (index == count_id) {
+            service_friday_count.splice(index, 1);
+          }
+        })
+        this.setState({ service_friday_count });
+      } else if (day == "saturday") {
+        let service_saturday_count = [...this.state.service_saturday_count];
+        service_saturday_count.map((item, index) => {
+          if (index == count_id) {
+            service_saturday_count.splice(index, 1);
+          }
+        })
+        this.setState({ service_saturday_count });
+      } else if (day == "sunday") {
+        let service_sunday_count = [...this.state.service_sunday_count];
+        service_sunday_count.map((item, index) => {
+          if (index == count_id) {
+            service_sunday_count.splice(index, 1);
+          }
+        })
+        this.setState({ service_sunday_count });
+      }
+    }
+  }
+
   food_upload(e) {
     var selectedFile = e.target.files[0];
     var reader = new FileReader();
@@ -1185,6 +1789,22 @@ export default class home extends Component {
     reader.readAsDataURL(selectedFile);
     this.setState({
       food_crop_popup: true
+    });
+  }
+  
+  service_upload(e) {
+    var selectedFile = e.target.files[0];
+    var reader = new FileReader();
+    // $('.image-preview img')[0].title = selectedFile.name;
+    reader.onload = (event) => {
+      // $('.image-preview img')[0].src = event.target.result;
+      this.setState({
+        service_source_image: event.target.result
+      })
+    };
+    reader.readAsDataURL(selectedFile);
+    this.setState({
+      service_crop_popup: true
     });
   }
 
@@ -1302,6 +1922,20 @@ export default class home extends Component {
     $('#food-icon')[0].src = reader.readAsDataURL(otp);
   };
 
+  handleServiceChange(otp) {
+    this.setState({
+      service_crop_popup: false
+    });
+    this.setState({ serviceCropUrl: otp });
+    var reader = new FileReader();
+    reader.onload = (event) => {
+      // $('.image-preview img')[0].src = event.target.result;
+      // this.setState({ src: event.target.result })
+      $('#service-icon')[0].src = event.target.result;
+    };
+    $('#service-icon')[0].src = reader.readAsDataURL(otp);
+  };
+
   open_menu(section, header_flag) {
     var menu_siblings = $('.' + section).siblings();
     menu_siblings.each(function () {
@@ -1352,7 +1986,7 @@ export default class home extends Component {
           nested
         >
           {close => (
-            <CropImage onOtpChange={this.handleChange} image_source={this.state.source_image} close_popup={close} crop_height={53}/>
+            <CropImage onOtpChange={this.handleChange} image_source={this.state.source_image} close_popup={close} crop_height={53} />
           )}
         </Popup>
         <Popup
@@ -1363,7 +1997,18 @@ export default class home extends Component {
           nested
         >
           {close => (
-            <CropImage onOtpChange={this.handleFoodChange} image_source={this.state.food_source_image} close_popup={close} crop_height={53}/>
+            <CropImage onOtpChange={this.handleFoodChange} image_source={this.state.food_source_image} close_popup={close} crop_height={53} />
+          )}
+        </Popup>
+        <Popup
+          open={this.state.service_crop_popup}
+          position="center center"
+          closeOnDocumentClick
+          modal
+          nested
+        >
+          {close => (
+            <CropImage onOtpChange={this.handleServiceChange} image_source={this.state.service_source_image} close_popup={close} crop_height={53} />
           )}
         </Popup>
         <div className="feeds sec active" id="feed-sec">
@@ -1631,11 +2276,11 @@ export default class home extends Component {
 
                       <div className="form-group">
                         <label>Cuisine Type <sup>*</sup></label>
-                        <SelectSearch options={this.state.options} labelField="username" searchable={true} searchBy="username" valueField="username" sortBy="username" color="green" placeholder="Select an option" onChange={(values) => this.setState({selected_recipe_cusine: values})} />
+                        <SelectSearch options={this.state.options} labelField="username" searchable={true} searchBy="username" valueField="username" sortBy="username" color="green" placeholder="Select an option" onChange={(values) => this.setState({ selected_recipe_cusine: values })} />
                       </div>
                       <div className="form-group">
                         <label>Diet Type</label>
-                        <SelectSearch options={this.state.diets} labelField="username" searchable={true} searchBy="username" valueField="username" sortBy="username" color="green" placeholder="Select an option" onChange={(values) => this.setState({selected_recipe_diet: values})}/>
+                        <SelectSearch options={this.state.diets} labelField="username" searchable={true} searchBy="username" valueField="username" sortBy="username" color="green" placeholder="Select an option" onChange={(values) => this.setState({ selected_recipe_diet: values })} />
                       </div>
                       <div className="form-group">
                         <label>Number of Servings <sup>*</sup></label>
@@ -1671,7 +2316,7 @@ export default class home extends Component {
                       </div>
                     </div>
                     <div className="popup-footer">
-                      <button className="footer-btn light" onClick={() => this.setState({isRecipePopup: false})}>Cancel</button>
+                      <button className="footer-btn light" onClick={() => this.setState({ isRecipePopup: false })}>Cancel</button>
                       <button className="footer-btn dark" onClick={this.add_recipe}>Post</button>
                     </div>
                   </div>
@@ -1770,18 +2415,17 @@ export default class home extends Component {
           </div>
         </div>
         <div className="food sec" id="food-sec">
-          {console.log(this, "from food")}
           {this.state.food.map((item) => {
             return (
               <div className="each_food">
                 <div className="primary-details">
                   <div className="l-div">
                     <div className="profile-img-container">
-                      <img src={item.chef.profile_image}></img>
+                      <img src={item.chef && item.chef.profile_image}></img>
                     </div>
                     <div className="user-detail-container">
-                      <h3>{item.chef.user_name}</h3>
-                      <h5>{item.chef.chef_details.position}</h5>
+                      <h3>{item.chef && item.chef.user_name}</h3>
+                      <h5>{item.chef && item.chef.chef_details.position}</h5>
                     </div>
                   </div>
                   <div style={{ paddingRight: "4px" }}>
@@ -1879,34 +2523,295 @@ export default class home extends Component {
                         <div class="image-upload">
                           <label for="file-input">
 
-                            <img src={ImageUploadIcon} id="food-icon"/>
+                            <img src={ImageUploadIcon} id="food-icon" />
                           </label>
-                          <input id="file-input" type="file" accept=".jpg,.png,.PNG,.jpeg" onChange={this.food_upload}/>
+                          <input id="file-input" type="file" accept=".jpg,.png,.PNG,.jpeg" onChange={this.food_upload} />
                         </div>
                       </div>
                       <div className="form-group">
                         <label>Food Item Name <sup>*</sup></label>
-                        <input placeholder="Enter Food title" type="text" id="food_item_name"/>
+                        <input placeholder="Enter Food title" type="text" id="food_item_name" />
                       </div>
                       <div className="form-group">
                         <label>Cuisine Type <sup>*</sup></label>
-                        <SelectSearch options={this.state.options} labelField="username" searchable={true} searchBy="username" valueField="username" sortBy="username" color="green" placeholder="Select an option" onChange={(values) => this.setState({selected_food_cusine: values})} />
+                        <SelectSearch options={this.state.options} labelField="username" searchable={true} searchBy="username" valueField="username" sortBy="username" color="green" placeholder="Select an option" onChange={(values) => this.setState({ selected_food_cusine: values })} />
                       </div>
                       <div className="form-group">
                         <label>Diet type</label>
-                        <SelectSearch options={this.state.diets} labelField="username" searchable={true} searchBy="username" valueField="username" sortBy="username" color="green" placeholder="Select an option" onChange={(values) => this.setState({selected_food_diet: values})}/>
+                        <SelectSearch options={this.state.diets} labelField="username" searchable={true} searchBy="username" valueField="username" sortBy="username" color="green" placeholder="Select an option" onChange={(values) => this.setState({ selected_food_diet: values })} />
                       </div>
                       <div className="form-group">
                         <label>Description & Ingredients</label>
                         <textarea id="food_description" placeholder="Write the description, Ingredients, portion size"></textarea>
                       </div>
-                      <div className="form-group">
-                        <label>Service Days and Hours</label>
-                        <div className="days_hours">
-                          Available days and hours
+                      <Popup
+                        trigger={<div className="form-group">
+                          <label>Service Days and Hours</label>
+                          <div className="days_hours">
+                            Available days and hours
                           <img src={RoleChangeIcon}></img>
-                        </div>
-                      </div>
+                          </div>
+                        </div>}
+                        position="center center"
+                        closeOnDocumentClick
+                        modal
+                        nested
+                      >
+                        {close => (
+                          <div className="timerange-popup">
+                            <div className="pop-up-heading">
+                              Select Hours
+                            </div>
+                            <div className="timeranges">
+                              <div className="timerange" id="monday">
+                                <div className="day">Monday</div>
+                                <Switch onChange={this.mondayHandleChange} checked={this.state.monday_checked} uncheckedIcon={false} checkedIcon={false} />
+                                <div className="multiple-ranges">
+                                  {this.state.monday_count.map((item, index) => {
+                                    return (
+                                      <div className="each-range" style={{ marginBottom: "5px" }}>
+                                        <TimePicker
+                                          onChange={value => this.get_time(value, "monday_count", index, "start_time")}
+                                          value={item.start_time}
+                                          isOpen={false}
+                                          className="custom-time-picker"
+                                          disableClock={true}
+                                          disabled={this.state.monday_disable}
+                                          // minuteAriaLabel="Minute"
+                                          clearIcon={null}
+                                        />
+                                        &nbsp;-&nbsp;
+                                        <TimePicker
+                                          onChange={value => this.get_time(value, "monday_count", index, "end_time")}
+                                          value={item.end_time}
+                                          isOpen={false}
+                                          className="custom-time-picker"
+                                          disableClock={true}
+                                          disabled={this.state.monday_disable}
+                                          // minuteAriaLabel="Minute"
+                                          clearIcon={null}
+                                        />
+                                        <span id={index} onClick={event => this.add_range(event, "monday")} className="symbol">{item.symbol}</span>
+                                        <div className="disable_span" style={{ right: this.state.monday_checked ? "0px" : "20px" }}></div>
+                                      </div>
+                                    )
+                                  })}
+                                </div>
+                              </div>
+                              <div className="timerange">
+                                <div className="day">Tuesday</div>
+                                <Switch onChange={this.tuesdayHandleChange} checked={this.state.tuesday_checked} uncheckedIcon={false} checkedIcon={false} />
+                                <div className="multiple-ranges">
+                                  {this.state.tuesday_count.map((item, index) => {
+                                    return (
+                                      <div className="each-range" style={{ marginBottom: "5px" }}>
+                                        <TimePicker
+                                          onChange={value => this.get_time(value, "tuesday_count", index, "start_time")}
+                                          value={item.start_time}
+                                          isOpen={false}
+                                          className="custom-time-picker"
+                                          disableClock={true}
+                                          disabled={this.state.tuesday_disable}
+                                          // minuteAriaLabel="Minute"
+                                          clearIcon={null}
+                                        />
+                                        &nbsp;-&nbsp;
+                                        <TimePicker
+                                          onChange={value => this.get_time(value, "tuesday_count", index, "end_time")}
+                                          value={item.end_time}
+                                          isOpen={false}
+                                          className="custom-time-picker"
+                                          disableClock={true}
+                                          disabled={this.state.tuesday_disable}
+                                          // minuteAriaLabel="Minute"
+                                          clearIcon={null}
+                                        />
+                                        <span id={index} onClick={event => this.add_range(event, "tuesday")} className="symbol">{item.symbol}</span>
+                                        <div className="disable_span" style={{ right: this.state.tuesday_checked ? "0px" : "20px" }}></div>
+                                      </div>
+                                    )
+                                  })}
+                                </div>
+                              </div>
+                              <div className="timerange">
+                                <div className="day">Wednesday</div>
+                                <Switch onChange={this.wednesdayHandleChange} checked={this.state.wednesday_checked} uncheckedIcon={false} checkedIcon={false} />
+                                <div className="multiple-ranges">
+                                  {this.state.wednesday_count.map((item, index) => {
+                                    return (
+                                      <div className="each-range" style={{ marginBottom: "5px" }}>
+                                        <TimePicker
+                                          onChange={value => this.get_time(value, "wednesday_count", index, "start_time")}
+                                          value={item.start_time}
+                                          isOpen={false}
+                                          className="custom-time-picker"
+                                          disableClock={true}
+                                          disabled={this.state.wednesday_disable}
+                                          // minuteAriaLabel="Minute"
+                                          clearIcon={null}
+                                        />
+                                        &nbsp;-&nbsp;
+                                        <TimePicker
+                                          onChange={value => this.get_time(value, "wednesday_count", index, "end_time")}
+                                          value={item.end_time}
+                                          isOpen={false}
+                                          className="custom-time-picker"
+                                          disableClock={true}
+                                          disabled={this.state.wednesday_disable}
+                                          // minuteAriaLabel="Minute"
+                                          clearIcon={null}
+                                        />
+                                        <span id={index} onClick={event => this.add_range(event, "wednesday")} className="symbol">{item.symbol}</span>
+                                        <div className="disable_span" style={{ right: this.state.wednesday_checked ? "0px" : "20px" }}></div>
+                                      </div>
+                                    )
+                                  })}
+                                </div>
+                              </div>
+                              <div className="timerange">
+                                <div className="day">Thursday</div>
+                                <Switch onChange={this.thursdayHandleChange} checked={this.state.thursday_checked} uncheckedIcon={false} checkedIcon={false} />
+                                <div className="multiple-ranges">
+                                  {this.state.thursday_count.map((item, index) => {
+                                    return (
+                                      <div className="each-range" style={{ marginBottom: "5px" }}>
+                                        <TimePicker
+                                          onChange={value => this.get_time(value, "thursday_count", index, "start_time")}
+                                          value={item.start_time}
+                                          isOpen={false}
+                                          className="custom-time-picker"
+                                          disableClock={true}
+                                          disabled={this.state.thursday_disable}
+                                          // minuteAriaLabel="Minute"
+                                          clearIcon={null}
+                                        />
+                                        &nbsp;-&nbsp;
+                                        <TimePicker
+                                          onChange={value => this.get_time(value, "thursday_count", index, "end_time")}
+                                          value={item.end_time}
+                                          isOpen={false}
+                                          className="custom-time-picker"
+                                          disableClock={true}
+                                          disabled={this.state.thursday_disable}
+                                          // minuteAriaLabel="Minute"
+                                          clearIcon={null}
+                                        />
+                                        <span id={index} onClick={event => this.add_range(event, "thursday")} className="symbol">{item.symbol}</span>
+                                        <div className="disable_span" style={{ right: this.state.thursday_checked ? "0px" : "20px" }}></div>
+                                      </div>
+                                    )
+                                  })}
+                                </div>
+                              </div>
+                              <div className="timerange">
+                                <div className="day">Friday</div>
+                                <Switch onChange={this.fridayHandleChange} checked={this.state.friday_checked} uncheckedIcon={false} checkedIcon={false} />
+                                <div className="multiple-ranges">
+                                  {this.state.friday_count.map((item, index) => {
+                                    return (
+                                      <div className="each-range" style={{ marginBottom: "5px" }}>
+                                        <TimePicker
+                                          onChange={value => this.get_time(value, "friday_count", index, "start_time")}
+                                          value={item.start_time}
+                                          isOpen={false}
+                                          className="custom-time-picker"
+                                          disableClock={true}
+                                          disabled={this.state.friday_disable}
+                                          // minuteAriaLabel="Minute"
+                                          clearIcon={null}
+                                        />
+                                        &nbsp;-&nbsp;
+                                        <TimePicker
+                                          onChange={value => this.get_time(value, "friday_count", index, "end_time")}
+                                          value={item.end_time}
+                                          isOpen={false}
+                                          className="custom-time-picker"
+                                          disableClock={true}
+                                          disabled={this.state.friday_disable}
+                                          // minuteAriaLabel="Minute"
+                                          clearIcon={null}
+                                        />
+                                        <span id={index} onClick={event => this.add_range(event, "friday")} className="symbol">{item.symbol}</span>
+                                        <div className="disable_span" style={{ right: this.state.friday_checked ? "0px" : "20px" }}></div>
+                                      </div>
+                                    )
+                                  })}
+                                </div>
+                              </div>
+                              <div className="timerange">
+                                <div className="day">Saturday</div>
+                                <Switch onChange={this.saturdayHandleChange} checked={this.state.saturday_checked} uncheckedIcon={false} checkedIcon={false} />
+                                <div className="multiple-ranges">
+                                  {this.state.saturday_count.map((item, index) => {
+                                    return (
+                                      <div className="each-range" style={{ marginBottom: "5px" }}>
+                                        <TimePicker
+                                          onChange={value => this.get_time(value, "saturday_count", index, "start_time")}
+                                          value={item.start_time}
+                                          isOpen={false}
+                                          className="custom-time-picker"
+                                          disableClock={true}
+                                          disabled={this.state.saturday_disable}
+                                          // minuteAriaLabel="Minute"
+                                          clearIcon={null}
+                                        />
+                                        &nbsp;-&nbsp;
+                                        <TimePicker
+                                          onChange={value => this.get_time(value, "saturday_count", index, "end_time")}
+                                          value={item.end_time}
+                                          isOpen={false}
+                                          className="custom-time-picker"
+                                          disableClock={true}
+                                          disabled={this.state.saturday_disable}
+                                          // minuteAriaLabel="Minute"
+                                          clearIcon={null}
+                                        />
+                                        <span id={index} onClick={event => this.add_range(event, "saturday")} className="symbol">{item.symbol}</span>
+                                        <div className="disable_span" style={{ right: this.state.saturday_checked ? "0px" : "20px" }}></div>
+                                      </div>
+                                    )
+                                  })}
+                                </div>
+                              </div>
+                              <div className="timerange">
+                                <div className="day">Sunday</div>
+                                <Switch onChange={this.sundayHandleChange} checked={this.state.sunday_checked} uncheckedIcon={false} checkedIcon={false} />
+                                <div className="multiple-ranges">
+                                  {this.state.sunday_count.map((item, index) => {
+                                    return (
+                                      <div className="each-range" style={{ marginBottom: "5px" }}>
+                                        <TimePicker
+                                          onChange={value => this.get_time(value, "sunday_count", index, "start_time")}
+                                          value={item.start_time}
+                                          isOpen={false}
+                                          className="custom-time-picker"
+                                          disableClock={true}
+                                          disabled={this.state.sunday_disable}
+                                          // minuteAriaLabel="Minute"
+                                          clearIcon={null}
+                                        />
+                                        &nbsp;-&nbsp;
+                                        <TimePicker
+                                          onChange={value => this.get_time(value, "sunday_count", index, "end_time")}
+                                          value={item.end_time}
+                                          isOpen={false}
+                                          className="custom-time-picker"
+                                          disableClock={true}
+                                          disabled={this.state.sunday_disable}
+                                          // minuteAriaLabel="Minute"
+                                          clearIcon={null}
+                                        />
+                                        <span id={index} onClick={event => this.add_range(event, "sunday")} className="symbol">{item.symbol}</span>
+                                        <div className="disable_span" style={{ right: this.state.sunday_checked ? "0px" : "20px" }}></div>
+                                      </div>
+                                    )
+                                  })}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </Popup>
                       <div className="form-group">
                         <label>Price <sup>*</sup></label>
                         <div className="price-details">
@@ -1919,35 +2824,35 @@ export default class home extends Component {
                         <ul className="food-radio-group">
                           <li>
                             <div>
-                              <input type="checkbox" name="level" />
+                              <input type="checkbox" name="level" value="Pick Up" />
                               <span className="label">Pick Up/Takeaway</span>
                             </div>
                           </li>
                           <li>
                             <div>
-                              <input type="checkbox" name="level" />
+                              <input type="checkbox" value="Delivery" name="level" onClick={this.enable_field} />
                               <span>Delivery</span>
                             </div>
                             <div>
                               <span className="label">Fee: {this.state.current_chef.chef && this.state.current_chef.chef.chef_details.currency}</span>
-                              <input type="number" className="form-control money-field" placeholder="Enter delivery fee"/>
+                              <input type="number" id="delivery_fee" className="form-control money-field" placeholder="Enter delivery fee" disabled />
                             </div>
                           </li>
                           <li>
                             <div>
-                              <input type="checkbox" name="level" />
+                              <input type="checkbox" value="Shipping" name="level" onClick={this.enable_field} />
                               <span>Shipping</span>
                             </div>
                             <div>
                               <span className="label">Fee: {this.state.current_chef.chef && this.state.current_chef.chef.chef_details.currency}</span>
-                              <input type="number" className="form-control money-field" placeholder="Enter shipping fee"/>
+                              <input type="number" id="shipping_fee" className="form-control money-field" placeholder="Enter shipping fee" disabled />
                             </div>
                           </li>
                         </ul>
                       </div>
                     </div>
                     <div className="popup-footer">
-                      <button className="footer-btn light" onClick={() => this.setState({isFoodPopup: false})}>Cancel</button>
+                      <button className="footer-btn light" onClick={() => this.setState({ isFoodPopup: false })}>Cancel</button>
                       <button className="footer-btn dark" onClick={this.add_food}>Post</button>
                     </div>
                   </div>
@@ -1963,11 +2868,11 @@ export default class home extends Component {
                 <div className="primary-details">
                   <div className="l-div">
                     <div className="profile-img-container">
-                      <img src={item.chef.profile_image}></img>
+                      <img src={item.chef && item.chef.profile_image}></img>
                     </div>
                     <div className="user-detail-container">
-                      <h3>{item.chef.user_name}</h3>
-                      <h5>{item.chef.chef_details.position}</h5>
+                      <h3>{item.chef && item.chef.user_name}</h3>
+                      <h5>{item.chef && item.chef.chef_details.position}</h5>
                     </div>
                   </div>
                   <div style={{ paddingRight: "4px" }}>
@@ -2034,7 +2939,7 @@ export default class home extends Component {
               overlayClassName="some-custom-overlay-class"
               isOpen={this.state.isServicePopup}
               from={"bottom"}
-              title="Create a Food for sale"
+              title="Create a Service for sale"
               subtitle=""
               width="100%"
               onRequestClose={() => {
@@ -2057,32 +2962,298 @@ export default class home extends Component {
                       <div className="form-group height img-field">
                         <div class="image-upload">
                           <label for="file-input">
-
-                            <img src={ImageUploadIcon} />
+                            <img src={ImageUploadIcon} id="service-icon" />
                           </label>
-                          <input id="file-input" type="file" />
+                          <input id="file-input" type="file" accept=".jpg,.png,.PNG,.jpeg" onChange={this.service_upload}/>
                         </div>
                       </div>
                       <div className="form-group">
-                        <label>Service type <sup>*</sup></label>
-                        <SelectSearch options={this.state.options} labelField="username" searchable={true} searchBy="username" />
+                        <label>Service type</label>
+                        <SelectSearch options={service_type} labelField="username" searchable={true} searchBy="username" valueField="username" sortBy="username" color="green" placeholder="Select a service type" onChange={(values) => this.setState({ selected_service_type: values })} />
                       </div>
                       <div className="form-group">
                         <label>Full Description about service</label>
-                        <input placeholder="Write the description, Ingredients, portion size" className="description-field" type="textarea" />
+                        <textarea id="service_description" placeholder="Write about what is included in the service you will be providing"></textarea>
                       </div>
+                      <Popup
+                        trigger={<div className="form-group">
+                          <label>Service Days and Hours</label>
+                          <div className="days_hours">
+                            Available days and hours
+                          <img src={RoleChangeIcon}></img>
+                          </div>
+                        </div>}
+                        position="center center"
+                        closeOnDocumentClick
+                        modal
+                        nested
+                      >
+                        {close => (
+                          <div className="timerange-popup">
+                            <div className="pop-up-heading">
+                              Select Hours
+                            </div>
+                            <div className="timeranges">
+                              <div className="timerange" id="monday">
+                                <div className="day">Monday</div>
+                                <Switch onChange={this.mondayServiceHandleChange} checked={this.state.service_monday_checked} uncheckedIcon={false} checkedIcon={false} />
+                                <div className="multiple-ranges">
+                                  {this.state.service_monday_count.map((item, index) => {
+                                    return (
+                                      <div className="each-range" style={{ marginBottom: "5px" }}>
+                                        <TimePicker
+                                          onChange={value => this.get_service_time(value, "monday_count", index, "start_time")}
+                                          value={item.start_time}
+                                          isOpen={false}
+                                          className="custom-time-picker"
+                                          disableClock={true}
+                                          disabled={this.state.service_monday_disable}
+                                          // minuteAriaLabel="Minute"
+                                          clearIcon={null}
+                                        />
+                                        &nbsp;-&nbsp;
+                                        <TimePicker
+                                          onChange={value => this.get_service_time(value, "monday_count", index, "end_time")}
+                                          value={item.end_time}
+                                          isOpen={false}
+                                          className="custom-time-picker"
+                                          disableClock={true}
+                                          disabled={this.state.service_monday_disable}
+                                          // minuteAriaLabel="Minute"
+                                          clearIcon={null}
+                                        />
+                                        <span id={index} onClick={event => this.add_service_range(event, "monday")} className="symbol">{item.symbol}</span>
+                                        <div className="disable_span" style={{ right: this.state.service_monday_checked ? "0px" : "20px" }}></div>
+                                      </div>
+                                    )
+                                  })}
+                                </div>
+                              </div>
+                              <div className="timerange">
+                                <div className="day">Tuesday</div>
+                                <Switch onChange={this.tuesdayServiceHandleChange} checked={this.state.service_tuesday_checked} uncheckedIcon={false} checkedIcon={false} />
+                                <div className="multiple-ranges">
+                                  {this.state.service_tuesday_count.map((item, index) => {
+                                    return (
+                                      <div className="each-range" style={{ marginBottom: "5px" }}>
+                                        <TimePicker
+                                          onChange={value => this.get_service_time(value, "tuesday_count", index, "start_time")}
+                                          value={item.start_time}
+                                          isOpen={false}
+                                          className="custom-time-picker"
+                                          disableClock={true}
+                                          disabled={this.state.service_tuesday_disable}
+                                          // minuteAriaLabel="Minute"
+                                          clearIcon={null}
+                                        />
+                                        &nbsp;-&nbsp;
+                                        <TimePicker
+                                          onChange={value => this.get_service_time(value, "tuesday_count", index, "end_time")}
+                                          value={item.end_time}
+                                          isOpen={false}
+                                          className="custom-time-picker"
+                                          disableClock={true}
+                                          disabled={this.state.service_tuesday_disable}
+                                          // minuteAriaLabel="Minute"
+                                          clearIcon={null}
+                                        />
+                                        <span id={index} onClick={event => this.add_service_range(event, "tuesday")} className="symbol">{item.symbol}</span>
+                                        <div className="disable_span" style={{ right: this.state.service_tuesday_checked ? "0px" : "20px" }}></div>
+                                      </div>
+                                    )
+                                  })}
+                                </div>
+                              </div>
+                              <div className="timerange">
+                                <div className="day">Wednesday</div>
+                                <Switch onChange={this.wednesdayServiceHandleChange} checked={this.state.service_wednesday_checked} uncheckedIcon={false} checkedIcon={false} />
+                                <div className="multiple-ranges">
+                                  {this.state.service_wednesday_count.map((item, index) => {
+                                    return (
+                                      <div className="each-range" style={{ marginBottom: "5px" }}>
+                                        <TimePicker
+                                          onChange={value => this.get_service_time(value, "wednesday_count", index, "start_time")}
+                                          value={item.start_time}
+                                          isOpen={false}
+                                          className="custom-time-picker"
+                                          disableClock={true}
+                                          disabled={this.state.service_wednesday_disable}
+                                          // minuteAriaLabel="Minute"
+                                          clearIcon={null}
+                                        />
+                                        &nbsp;-&nbsp;
+                                        <TimePicker
+                                          onChange={value => this.get_service_time(value, "wednesday_count", index, "end_time")}
+                                          value={item.end_time}
+                                          isOpen={false}
+                                          className="custom-time-picker"
+                                          disableClock={true}
+                                          disabled={this.state.service_wednesday_disable}
+                                          // minuteAriaLabel="Minute"
+                                          clearIcon={null}
+                                        />
+                                        <span id={index} onClick={event => this.add_service_range(event, "wednesday")} className="symbol">{item.symbol}</span>
+                                        <div className="disable_span" style={{ right: this.state.service_wednesday_checked ? "0px" : "20px" }}></div>
+                                      </div>
+                                    )
+                                  })}
+                                </div>
+                              </div>
+                              <div className="timerange">
+                                <div className="day">Thursday</div>
+                                <Switch onChange={this.thursdayServiceHandleChange} checked={this.state.service_thursday_checked} uncheckedIcon={false} checkedIcon={false} />
+                                <div className="multiple-ranges">
+                                  {this.state.service_thursday_count.map((item, index) => {
+                                    return (
+                                      <div className="each-range" style={{ marginBottom: "5px" }}>
+                                        <TimePicker
+                                          onChange={value => this.get_service_time(value, "thursday_count", index, "start_time")}
+                                          value={item.start_time}
+                                          isOpen={false}
+                                          className="custom-time-picker"
+                                          disableClock={true}
+                                          disabled={this.state.service_thursday_disable}
+                                          // minuteAriaLabel="Minute"
+                                          clearIcon={null}
+                                        />
+                                        &nbsp;-&nbsp;
+                                        <TimePicker
+                                          onChange={value => this.get_service_time(value, "thursday_count", index, "end_time")}
+                                          value={item.end_time}
+                                          isOpen={false}
+                                          className="custom-time-picker"
+                                          disableClock={true}
+                                          disabled={this.state.service_thursday_disable}
+                                          // minuteAriaLabel="Minute"
+                                          clearIcon={null}
+                                        />
+                                        <span id={index} onClick={event => this.add_service_range(event, "thursday")} className="symbol">{item.symbol}</span>
+                                        <div className="disable_span" style={{ right: this.state.service_thursday_checked ? "0px" : "20px" }}></div>
+                                      </div>
+                                    )
+                                  })}
+                                </div>
+                              </div>
+                              <div className="timerange">
+                                <div className="day">Friday</div>
+                                <Switch onChange={this.fridayServiceHandleChange} checked={this.state.service_friday_checked} uncheckedIcon={false} checkedIcon={false} />
+                                <div className="multiple-ranges">
+                                  {this.state.service_friday_count.map((item, index) => {
+                                    return (
+                                      <div className="each-range" style={{ marginBottom: "5px" }}>
+                                        <TimePicker
+                                          onChange={value => this.get_service_time(value, "friday_count", index, "start_time")}
+                                          value={item.start_time}
+                                          isOpen={false}
+                                          className="custom-time-picker"
+                                          disableClock={true}
+                                          disabled={this.state.service_friday_disable}
+                                          // minuteAriaLabel="Minute"
+                                          clearIcon={null}
+                                        />
+                                        &nbsp;-&nbsp;
+                                        <TimePicker
+                                          onChange={value => this.get_service_time(value, "friday_count", index, "end_time")}
+                                          value={item.end_time}
+                                          isOpen={false}
+                                          className="custom-time-picker"
+                                          disableClock={true}
+                                          disabled={this.state.service_friday_disable}
+                                          // minuteAriaLabel="Minute"
+                                          clearIcon={null}
+                                        />
+                                        <span id={index} onClick={event => this.add_service_range(event, "friday")} className="symbol">{item.symbol}</span>
+                                        <div className="disable_span" style={{ right: this.state.service_friday_checked ? "0px" : "20px" }}></div>
+                                      </div>
+                                    )
+                                  })}
+                                </div>
+                              </div>
+                              <div className="timerange">
+                                <div className="day">Saturday</div>
+                                <Switch onChange={this.saturdayServiceHandleChange} checked={this.state.service_saturday_checked} uncheckedIcon={false} checkedIcon={false} />
+                                <div className="multiple-ranges">
+                                  {this.state.service_saturday_count.map((item, index) => {
+                                    return (
+                                      <div className="each-range" style={{ marginBottom: "5px" }}>
+                                        <TimePicker
+                                          onChange={value => this.get_service_time(value, "saturday_count", index, "start_time")}
+                                          value={item.start_time}
+                                          isOpen={false}
+                                          className="custom-time-picker"
+                                          disableClock={true}
+                                          disabled={this.state.service_saturday_disable}
+                                          // minuteAriaLabel="Minute"
+                                          clearIcon={null}
+                                        />
+                                        &nbsp;-&nbsp;
+                                        <TimePicker
+                                          onChange={value => this.get_service_time(value, "saturday_count", index, "end_time")}
+                                          value={item.end_time}
+                                          isOpen={false}
+                                          className="custom-time-picker"
+                                          disableClock={true}
+                                          disabled={this.state.service_saturday_disable}
+                                          // minuteAriaLabel="Minute"
+                                          clearIcon={null}
+                                        />
+                                        <span id={index} onClick={event => this.add_service_range(event, "saturday")} className="symbol">{item.symbol}</span>
+                                        <div className="disable_span" style={{ right: this.state.service_saturday_checked ? "0px" : "20px" }}></div>
+                                      </div>
+                                    )
+                                  })}
+                                </div>
+                              </div>
+                              <div className="timerange">
+                                <div className="day">Sunday</div>
+                                <Switch onChange={this.sundayServiceHandleChange} checked={this.state.service_sunday_checked} uncheckedIcon={false} checkedIcon={false} />
+                                <div className="multiple-ranges">
+                                  {this.state.service_sunday_count.map((item, index) => {
+                                    return (
+                                      <div className="each-range" style={{ marginBottom: "5px" }}>
+                                        <TimePicker
+                                          onChange={value => this.get_service_time(value, "sunday_count", index, "start_time")}
+                                          value={item.start_time}
+                                          isOpen={false}
+                                          className="custom-time-picker"
+                                          disableClock={true}
+                                          disabled={this.state.service_sunday_disable}
+                                          // minuteAriaLabel="Minute"
+                                          clearIcon={null}
+                                        />
+                                        &nbsp;-&nbsp;
+                                        <TimePicker
+                                          onChange={value => this.get_service_time(value, "sunday_count", index, "end_time")}
+                                          value={item.end_time}
+                                          isOpen={false}
+                                          className="custom-time-picker"
+                                          disableClock={true}
+                                          disabled={this.state.service_sunday_disable}
+                                          // minuteAriaLabel="Minute"
+                                          clearIcon={null}
+                                        />
+                                        <span id={index} onClick={event => this.add_service_range(event, "sunday")} className="symbol">{item.symbol}</span>
+                                        <div className="disable_span" style={{ right: this.state.service_sunday_checked ? "0px" : "20px" }}></div>
+                                      </div>
+                                    )
+                                  })}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </Popup>
                       <div className="form-group">
-                        <label>Service Days and Hours</label>
-                        <SelectSearch options={this.state.options} labelField="username" searchable={true} searchBy="username" />
-                      </div>
-                      <div className="form-group">
-                        <label>Price <sup>*</sup></label>
-                        <input placeholder="Enter Food title" type="number" />
+                        <label>Price</label>
+                        <div className="price-details">
+                          <div>$</div>
+                          <input type="number" id="service_price" className="field" placeholder="Enter Price"></input>
+                        </div>
                       </div>
                     </div>
                     <div className="popup-footer">
-                      <button className="footer-btn light">Cancel</button>
-                      <button className="footer-btn dark">Post</button>
+                      <button className="footer-btn light" onClick={() => this.setState({ isServicePopup: false })}>Cancel</button>
+                      <button className="footer-btn dark" onClick={this.add_service}>Post</button>
                     </div>
                   </div>
                 </div>
