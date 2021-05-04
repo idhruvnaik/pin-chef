@@ -1,4 +1,4 @@
-const config = [
+const cusines = [
     {
         username: 'Afghani'
     },
@@ -1024,4 +1024,4 @@ const countryarray = [
     },
 ];
 
-export default {config, number, diet, countryarray};
+export default {cusines, number, diet, countryarray};

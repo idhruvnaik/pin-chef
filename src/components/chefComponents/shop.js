@@ -10,6 +10,10 @@ import RefreshIcon from "../../assets/png_icons/refresh-icon.png";
 import RightArrowIcon from "../../assets/png_icons/right-arrow-icon.png";
 import DownArrowIcon from "../../assets/png_icons/down-arrow-icon.png";
 import CopyIcon from "../../assets/png_icons/copy-icon.png";
+import ChefMasterClassFilter from './chefMasterClassFilters';
+import ReactDOM, { render } from 'react-dom';
+import { Provider } from "react-redux";
+import configureStore from "../../store";
 
 import $ from 'jquery';
 
@@ -94,6 +98,22 @@ export default class home extends Component {
             $("#" + element + "-sec").show();
             $('.nav-active').removeClass('nav-active');
             e.target.classList.add('nav-active');
+            if (element == "food"){
+                ReactDOM.render(
+                    <Provider store={configureStore}>
+                        <ChefMasterClassFilter/>
+                    </Provider>, document.getElementById('filter-div'));
+            } else if (element == "service"){
+                ReactDOM.render(
+                    <Provider store={configureStore}>
+                        <ChefMasterClassFilter/>
+                    </Provider>, document.getElementById('filter-div'));
+            } else if (element == "e-master-class"){
+                ReactDOM.render(
+                    <Provider store={configureStore}>
+                        <ChefMasterClassFilter/>
+                    </Provider>, document.getElementById('filter-div'));
+            }
         }
 
     }

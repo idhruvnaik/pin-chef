@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import ReactStars from "react-rating-stars-component";
 import ReactDOM, { render } from 'react-dom';
 import { Provider } from "react-redux";
-import Comments from "./comments"
+import Comments from "./comments";
 import configureStore from "../store";
+import RecipeFilter from './recipeFilters';
+import FeedFilter from './feedFilters';
+import MasterClassFilter from './masterClassFilters';
 
 import NoFeeds from '../assets/svg/NoFeedPost';
 import NoRecipes from '../assets/svg/NoRecipesPosts';
@@ -74,6 +77,22 @@ export default class home extends Component {
             $("#" + element + "-sec").show();
             $('.nav-active').removeClass('nav-active');
             e.target.classList.add('nav-active');
+            if (element == "recipe"){
+                ReactDOM.render(
+                    <Provider store={configureStore}>
+                        <RecipeFilter/>
+                    </Provider>, document.getElementById('filter-div'));
+            } else if (element == "feed"){
+                ReactDOM.render(
+                    <Provider store={configureStore}>
+                        <FeedFilter/>
+                    </Provider>, document.getElementById('filter-div'));
+            } else if(element == "e-master-class"){
+                ReactDOM.render(
+                    <Provider store={configureStore}>
+                        <MasterClassFilter/>
+                    </Provider>, document.getElementById('filter-div'));
+            }
         }
 
     }
@@ -313,13 +332,13 @@ export default class home extends Component {
         var date2 = new Date();
         var diffInMs = Math.abs(date2 - date1);
         if ((diffInMs / 1000) < 60) {
-            return (diffInMs / 1000).toFixed(2) + " seconds ago ";
+            return (diffInMs / 1000).toFixed(0) + " seconds ago ";
         } else if ((diffInMs / (1000 * 60)) < 60) {
-            return (diffInMs / (1000 * 60)).toFixed(1) + " mins ago";
+            return (diffInMs / (1000 * 60)).toFixed(0) + " mins ago";
         } else if ((diffInMs / (1000 * 60 * 60)) < 24) {
-            return (diffInMs / (1000 * 60 * 60)).toFixed(1) + " hours ago";
+            return (diffInMs / (1000 * 60 * 60)).toFixed(0) + " hours ago";
         } else {
-            return (diffInMs / (1000 * 60 * 60 * 24)).toFixed(1) + " days ago";
+            return (diffInMs / (1000 * 60 * 60 * 24)).toFixed(0) + " days ago";
         }
     }
 

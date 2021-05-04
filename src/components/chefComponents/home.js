@@ -13,6 +13,11 @@ import 'react-image-crop/dist/ReactCrop.css';
 import SelectSearch from "react-dropdown-select";
 import CropImage from '../cropImages';
 import Switch from "react-switch";
+import RecipeFilter from '../recipeFilters';
+import FeedFilter from '../feedFilters';
+import MasterClassFilter from '../masterClassFilters';
+import FoodFilter from '../foodFilters';
+import ServiceFilter from '../serviceFilters';
 
 import NoFeeds from '../../assets/svg/NoFeedPost';
 import NoPostsByChef from '../../assets/svg/NoPostsByChef'
@@ -730,6 +735,32 @@ export default class home extends Component {
       $("#" + element + "-sec").show();
       $(".nav-active").removeClass("nav-active");
       e.target.classList.add("nav-active");
+      if (element == "recipe") {
+        ReactDOM.render(
+          <Provider store={configureStore}>
+            <RecipeFilter />
+          </Provider>, document.getElementById('filter-div'));
+      } else if (element == "feed") {
+        ReactDOM.render(
+          <Provider store={configureStore}>
+            <FeedFilter />
+          </Provider>, document.getElementById('filter-div'));
+      } else if (element == "e-master-class") {
+        ReactDOM.render(
+          <Provider store={configureStore}>
+            <MasterClassFilter />
+          </Provider>, document.getElementById('filter-div'));
+      } else if (element == "food") {
+        ReactDOM.render(
+          <Provider store={configureStore}>
+            <FoodFilter />
+          </Provider>, document.getElementById('filter-div'));
+      } else if (element == "service") {
+        ReactDOM.render(
+          <Provider store={configureStore}>
+            <ServiceFilter />
+          </Provider>, document.getElementById('filter-div'));
+      }
     };
 
     this.active_posts = (e) => {
@@ -800,12 +831,12 @@ export default class home extends Component {
       value: false
     };
     facility.map((index, item) => {
-      if(item.value == "Pick Up"){
+      if (item.value == "Pick Up") {
         pick_up = true;
-      } else if (item.value == "Delivery" && item.disabled == false){
+      } else if (item.value == "Delivery" && item.disabled == false) {
         delivery.value = true;
         delivery.fee = $('#delivery_fee')[0].value;
-      } else if (item.value == "Shipping" && item.disabled == false){
+      } else if (item.value == "Shipping" && item.disabled == false) {
         shipping.value = true;
         shipping.fee = $('#shipping_fee')[0].value;
       }
@@ -887,7 +918,7 @@ export default class home extends Component {
     }
   }
 
-  async add_service(){
+  async add_service() {
     var sh = [];
     if (!this.state.service_monday_disable) {
       var temp = this.state.service_monday_count;
@@ -1791,7 +1822,7 @@ export default class home extends Component {
       food_crop_popup: true
     });
   }
-  
+
   service_upload(e) {
     var selectedFile = e.target.files[0];
     var reader = new FileReader();
@@ -2964,7 +2995,7 @@ export default class home extends Component {
                           <label for="file-input">
                             <img src={ImageUploadIcon} id="service-icon" />
                           </label>
-                          <input id="file-input" type="file" accept=".jpg,.png,.PNG,.jpeg" onChange={this.service_upload}/>
+                          <input id="file-input" type="file" accept=".jpg,.png,.PNG,.jpeg" onChange={this.service_upload} />
                         </div>
                       </div>
                       <div className="form-group">

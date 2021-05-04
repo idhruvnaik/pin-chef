@@ -48,7 +48,7 @@ export default class settings extends Component {
 
         this.state = {
             checked: false,
-            user_details: null
+            user_details: null,
         };
         this.handleChange = this.handleChange.bind(this);
         this.logout = this.logout.bind(this);
@@ -166,12 +166,12 @@ export default class settings extends Component {
                     <div className="primary-details">
                         <div className="l-div">
                             <div className="profile-img-container">
-                                <img src={this.state.user && this.state.user.chef.profile_image ? this.state.user.chef.profile_image : null}></img>
-                                <h1 style={{ display: this.state.user && this.state.user.chef.profile_image ? "none" : "block" }}>{this.state.user && this.state.user.chef.user_name[0]}</h1>
+                                <img src={this.state.user && this.state.user.chef && this.state.user.chef.profile_image ? this.state.user.chef && this.state.user.chef.profile_image : null}></img>
+                                <h1 style={{ display: this.state.user && this.state.user.chef && this.state.user.chef.profile_image ? "none" : "block" }}>{this.state.user && this.state.user.chef && this.state.user.chef.user_name[0]}</h1>
                             </div>
                             <div className="user-detail-container">
-                                <h3>{this.state.user && this.state.user.chef.user_name}</h3>
-                                <h5>{this.state.user && this.state.user.chef.name}</h5>
+                                <h3>{this.state.user && this.state.user.chef && this.state.user.chef.user_name}</h3>
+                                <h5>{this.state.user && this.state.user.chef && this.state.user.chef.name}</h5>
                             </div>
                         </div>
                         <div style={{ paddingRight: "4px", marginTop: "20px" }}>
@@ -412,7 +412,7 @@ export default class settings extends Component {
                                 <img src={LargeName}></img>
                             </div>
                             <div className="menu_name">
-                                <h3 autoCapitalize="words">{this.state.user && this.state.user.chef.user_name}</h3>
+                                <h3 autoCapitalize="words">{this.state.user && this.state.user.chef && this.state.user.chef.user_name}</h3>
                                 {/* <input type="text" value={this.state.user && this.state.user.chef.user_name}></input> */}
                             </div>
                         </div>
@@ -425,7 +425,7 @@ export default class settings extends Component {
                                 <img src={LargePhone}></img>
                             </div>
                             <div className="menu_name">
-                                <h3>{this.state.user && this.state.user.chef.mobile}</h3>
+                                <h3>{this.state.user && this.state.user.chef && this.state.user.chef.mobile}</h3>
                             </div>
                         </div>
                         <div className="other_things">
@@ -437,7 +437,7 @@ export default class settings extends Component {
                                 <img src={LargeEmailSettings}></img>
                             </div>
                             <div className="menu_name">
-                                <h3>{this.state.user && this.state.user.chef.email}</h3>
+                                <h3>{this.state.user && this.state.user.chef && this.state.user.chef.email}</h3>
                             </div>
                         </div>
                         <div className="other_things">
@@ -449,7 +449,7 @@ export default class settings extends Component {
                                 <img src={LargeLocationSettings}></img>
                             </div>
                             <div className="menu_name">
-                                <h3>{this.state.user && this.state.user.chef.chef_details.location}</h3>
+                                <h3>{this.state.user && this.state.user.chef && this.state.user.chef.chef_details.location}</h3>
                             </div>
                         </div>
                         <div className="other_things">

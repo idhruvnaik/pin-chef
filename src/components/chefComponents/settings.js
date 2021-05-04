@@ -179,12 +179,12 @@ export default class settings extends Component {
                     <div className="primary-details">
                         <div className="l-div">
                             <div className="profile-img-container">
-                                <img src={this.state.user && this.state.user.chef.profile_image ? this.state.user.chef.profile_image : null}></img>
-                                <h1 style={{ display: this.state.user && this.state.user.chef.profile_image ? "none" : "block" }}>{this.state.user && this.state.user.chef.name[0]}</h1>
+                                <img src={this.state.user && this.state.user.chef && this.state.user.chef.profile_image ? this.state.user.chef.profile_image : null}></img>
+                                <h1 style={{ display: this.state.user && this.state.user.chef && this.state.user.chef.profile_image ? "none" : "block" }}>{this.state.user && this.state.user.chef && this.state.user.chef.name[0]}</h1>
                             </div>
                             <div className="user-detail-container">
-                                <h3>{this.state.user && this.state.user.chef.name}</h3>
-                                <h5>{this.state.user && this.state.user.chef.user_name}</h5>
+                                <h3>{this.state.user && this.state.user.chef && this.state.user.chef.name}</h3>
+                                <h5>{this.state.user && this.state.user.chef && this.state.user.chef.user_name}</h5>
                             </div>
                         </div>
                         <div style={{ paddingRight: "4px", marginTop: "20px" }}>
@@ -443,11 +443,11 @@ export default class settings extends Component {
                     </div>
                     <div className="cover-photo">
                         <div className="banner">
-                            <img src={this.state.user && this.state.user.chef.banner_image ? this.state.user.chef.banner_image : DefaultCover}></img>
+                            <img src={this.state.user && this.state.user.chef && this.state.user.chef.banner_image ? this.state.user.chef.banner_image : DefaultCover}></img>
                         </div>
                         <div className="chef-images">
                             <div className="desktop-icon">
-                                <img src={this.state.user && this.state.user.chef.profile_image}></img>
+                                <img src={this.state.user && this.state.user.chef && this.state.user.chef.profile_image}></img>
                             </div>
                             <div>
                                 <img src={EditBannerImage} style={{ cursor: "pointer" }}></img>
@@ -460,7 +460,7 @@ export default class settings extends Component {
                                 <img src={LargeName}></img>
                             </div>
                             <div className="menu_name">
-                                <h3>{this.state.user && this.state.user.chef.name}</h3>
+                                <h3>{this.state.user && this.state.user.chef && this.state.user.chef.name}</h3>
                             </div>
                         </div>
                         <div className="other_things">
@@ -472,7 +472,7 @@ export default class settings extends Component {
                                 <img src={LargeName}></img>
                             </div>
                             <div className="menu_name">
-                                <h3>{this.state.user && this.state.user.chef.user_name}</h3>
+                                <h3>{this.state.user && this.state.user.chef && this.state.user.chef.user_name}</h3>
                             </div>
                         </div>
                         <div className="other_things">
@@ -484,7 +484,7 @@ export default class settings extends Component {
                                 <img src={LargePhone}></img>
                             </div>
                             <div className="menu_name">
-                                <h3>{this.state.user && this.state.user.chef.mobile}</h3>
+                                <h3>{this.state.user && this.state.user.chef && this.state.user.chef.mobile}</h3>
                             </div>
                         </div>
                         <div className="other_things">
@@ -496,7 +496,7 @@ export default class settings extends Component {
                                 <img src={LargeEmailSettings}></img>
                             </div>
                             <div className="menu_name">
-                                <h3>{this.state.user && this.state.user.chef.email}</h3>
+                                <h3>{this.state.user && this.state.user.chef && this.state.user.chef.email}</h3>
                             </div>
                         </div>
                         <div className="other_things">
@@ -508,7 +508,7 @@ export default class settings extends Component {
                                 <img src={LargeLocationSettings}></img>
                             </div>
                             <div className="menu_name">
-                                <h3>{this.state.user && this.state.user.chef.chef_details.location}</h3>
+                                <h3>{this.state.user && this.state.user.chef && this.state.user.chef.chef_details.location}</h3>
                             </div>
                         </div>
                         <div className="other_things">
@@ -621,11 +621,11 @@ export default class settings extends Component {
                             <div className="primary-details">
                                 <div className="individual-details">
                                     <div className="input-name">Name & Last Name &nbsp;<span>*</span></div>
-                                    <input id="first_name" type="text" className="field" placeholder="Real name and last name" autoCapitalize="words" value={this.state.user && this.state.user.chef.name}></input>
+                                    <input id="first_name" type="text" className="field" placeholder="Real name and last name" autoCapitalize="words" value={this.state.user && this.state.user.chef && this.state.user.chef.name}></input>
                                 </div>
                                 <div className="individual-details">
                                     <div className="input-name">User ID-Nickname</div>
-                                    <input type="text" id="user_id" className="field" placeholder="ex: JohnDoe23" value={this.state.user && this.state.user.chef.user_name}></input>
+                                    <input type="text" id="user_id" className="field" placeholder="ex: JohnDoe23" value={this.state.user && this.state.user.chef && this.state.user.chef.user_name}></input>
                                 </div>
                             </div>
                         </div>
@@ -636,7 +636,7 @@ export default class settings extends Component {
                                 placeholder="XXX XXX XXXX"
                                 // countryCodeEditable={false}
                                 // enableSearch={true}
-                                value={this.state.user && this.state.user.chef.mobile}
+                                value={this.state.user && this.state.user.chef && this.state.user.chef.mobile}
                                 onChange={phone => this.setState({ contr: phone })}
                             />
                         </div>
@@ -654,15 +654,15 @@ export default class settings extends Component {
                         </div>
                         <div className="individual-details">
                             <div className="input-name">Gender</div>
-                            <input id="gender" type="text" className="field" placeholder="ex. Female, Male, etc." value={this.state.user && this.state.user.chef.chef_details.gender}></input>
+                            <input id="gender" type="text" className="field" placeholder="ex. Female, Male, etc." value={this.state.user && this.state.user.chef && this.state.user.chef.chef_details.gender}></input>
                         </div>
                         <div className="individual-details">
                             <div className="input-name">Position &nbsp;<span>*</span></div>
-                            <input id="position" type="text" className="field" placeholder="ex: Head Chef, Pastry Chef, Home Chef, etc." value={this.state.user && this.state.user.chef.chef_details.position}></input>
+                            <input id="position" type="text" className="field" placeholder="ex: Head Chef, Pastry Chef, Home Chef, etc." value={this.state.user && this.state.user.chef && this.state.user.chef.chef_details.position}></input>
                         </div>
                         <div className="individual-details">
                             <div className="input-name">Languages</div>
-                            <input type="text" id="languages" className="field" placeholder="ex: English, Spanish, etc." value={this.state.user && this.state.user.chef.chef_details.languages.join(", ")}></input>
+                            <input type="text" id="languages" className="field" placeholder="ex: English, Spanish, etc." value={this.state.user && this.state.user.chef && this.state.user.chef.chef_details.languages.join(", ")}></input>
                         </div>
                         <div className="individual-details">
                             <div className="input-name">Cuisine Specialties &nbsp;<span>*</span></div>
@@ -675,12 +675,12 @@ export default class settings extends Component {
                         </div>
                         <div className="individual-details long-input" style={{ marginTop: "5px" }}>
                             <div className="input-name">Short Ad Intro</div>
-                            <textarea id="short_intro" maxlength="300" placeholder="ex: English, Spanish, etc." onKeyUp={this.show_words_count} value={this.state.user && this.state.user.chef.chef_details.sort_intro}></textarea>
-                            <p>Word Count: <span class="word_count">{this.state.user && this.state.user.chef.chef_details.sort_intro.length }</span>/300</p>
+                            <textarea id="short_intro" maxlength="300" placeholder="ex: English, Spanish, etc." onKeyUp={this.show_words_count} value={this.state.user && this.state.user.chef && this.state.user.chef.chef_details.sort_intro}></textarea>
+                            <p>Word Count: <span class="word_count">{this.state.user && this.state.user.chef && this.state.user.chef.chef_details.sort_intro.length }</span>/300</p>
                         </div>
                         <div className="individual-details long-input">
                             <div className="input-name">Full Background Info</div>
-                            <textarea id="full_info" placeholder="ex: English, Spanish, etc." value={this.state.user && this.state.user.chef.chef_details.background_info}></textarea>
+                            <textarea id="full_info" placeholder="ex: English, Spanish, etc." value={this.state.user && this.state.user.chef && this.state.user.chef.chef_details.background_info}></textarea>
                         </div>
                         {/* <div className="individual-details location">
                             <div className="input-name">Address/Location &nbsp;<span>*</span></div>
@@ -998,22 +998,22 @@ export default class settings extends Component {
                             <div className="input-name">Minimum purchase Service total amount</div>
                             <div className="price-details">
                                 <div>$</div>
-                                <input type="number" id="min-price" className="field" placeholder="Enter min. price" value={this.state.user && this.state.user.chef.chef_details.min_purchase_amt}></input>
+                                <input type="number" id="min-price" className="field" placeholder="Enter min. price" value={this.state.user && this.state.user.chef && this.state.user.chef.chef_details.min_purchase_amt}></input>
                             </div>
                         </div>
                         <div className="individual-details">
                             <div className="input-name">Service Price Range &nbsp;<span>*</span></div>
                             <div className="price-range">
                                 <div>$</div>
-                                <input id="min-price" style={{ borderRadius: "0px" }} className="field" type="number" placeholder="Enter min. price" value={this.state.user && this.state.user.chef.chef_details.service_price_range.min}></input>
-                                <input id="max-price" type="number" className="field" placeholder="Enter max. price" value={this.state.user && this.state.user.chef.chef_details.service_price_range.max}></input>
+                                <input id="min-price" style={{ borderRadius: "0px" }} className="field" type="number" placeholder="Enter min. price" value={this.state.user && this.state.user.chef && this.state.user.chef.chef_details.service_price_range.min}></input>
+                                <input id="max-price" type="number" className="field" placeholder="Enter max. price" value={this.state.user && this.state.user.chef && this.state.user.chef.chef_details.service_price_range.max}></input>
                             </div>
                         </div>
                         <div className="individual-details">
                             <div className="input-name">Hourly rate</div>
                             <div className="price-details">
                                 <div>$</div>
-                                <input id="hourly-rate" type="number" className="field" placeholder="Enter price" value={this.state.user && this.state.user.chef.chef_details.hourly_rate}></input>
+                                <input id="hourly-rate" type="number" className="field" placeholder="Enter price" value={this.state.user && this.state.user.chef && this.state.user.chef.chef_details.hourly_rate}></input>
                             </div>
                         </div>
                         <div className="payment">
@@ -1028,19 +1028,19 @@ export default class settings extends Component {
                             </div>
                             <div className="flex-c">
                                 <div>
-                                    <input id="payment" type="checkbox" name="Payments" className="" value="Stripe" checked={this.state.user && this.state.user.chef.chef_details.payment.includes("Stripe") ? true: false}></input>
+                                    <input id="payment" type="checkbox" name="Payments" className="" value="Stripe" checked={this.state.user && this.state.user.chef && this.state.user.chef.chef_details.payment.includes("Stripe") ? true: false}></input>
                                     <span>Stripe</span>
                                 </div>
                                 <div>
-                                    <input id="payment" type="checkbox" name="Payments" className="" value="Paypal" checked={this.state.user && this.state.user.chef.chef_details.payment.includes("Paypal") ? true: false}></input>
+                                    <input id="payment" type="checkbox" name="Payments" className="" value="Paypal" checked={this.state.user && this.state.user.chef && this.state.user.chef.chef_details.payment.includes("Paypal") ? true: false}></input>
                                     <span>Paypal</span>
                                 </div>
                                 <div>
-                                    <input id="payment" type="checkbox" name="Payments" className="" value="Cash on Delivery" checked={this.state.user && this.state.user.chef.chef_details.payment.includes("Cash on Delivery") ? true: false}></input>
+                                    <input id="payment" type="checkbox" name="Payments" className="" value="Cash on Delivery" checked={this.state.user && this.state.user.chef && this.state.user.chef.chef_details.payment.includes("Cash on Delivery") ? true: false}></input>
                                     <span>Cash on Delivery</span>
                                 </div>
                                 <div>
-                                    <input id="payment" type="checkbox" name="Payments" className="" value="Credit Card on Delivery" checked={this.state.user && this.state.user.chef.chef_details.payment.includes("Credit Card on Delivery") ? true: false}></input>
+                                    <input id="payment" type="checkbox" name="Payments" className="" value="Credit Card on Delivery" checked={this.state.user && this.state.user.chef && this.state.user.chef.chef_details.payment.includes("Credit Card on Delivery") ? true: false}></input>
                                     <span>Credit Card on Delivery</span>
                                 </div>
                             </div>

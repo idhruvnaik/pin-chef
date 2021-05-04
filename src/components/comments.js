@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import PostMenu from '../assets/png_icons/Post menu icon@2x.png';
+import { NotificationContainer, NotificationManager } from 'react-notifications';
 import LeftBack from '../assets/png_icons/Green back arrow.png';
 import ReplyComment from '../assets/svg/reply_comment.svg';
 import FullHeartComment from '../assets/svg/full-heart-comment.svg'
@@ -50,13 +51,13 @@ export default class Comments extends Component {
     var date2 = new Date();
     var diffInMs = Math.abs(date2 - date1);
     if ((diffInMs / 1000) < 60) {
-      return (diffInMs / 1000).toFixed(2) + " seconds ago ";
+      return (diffInMs / 1000).toFixed(0) + " seconds ago ";
     } else if ((diffInMs / (1000 * 60)) < 60) {
-      return (diffInMs / (1000 * 60)).toFixed(1) + " mins ago";
+      return (diffInMs / (1000 * 60)).toFixed(0) + " mins ago";
     } else if ((diffInMs / (1000 * 60 * 60)) < 24) {
-      return (diffInMs / (1000 * 60 * 60)).toFixed(1) + " hours ago";
+      return (diffInMs / (1000 * 60 * 60)).toFixed(0) + " hours ago";
     } else {
-      return (diffInMs / (1000 * 60 * 60 * 24)).toFixed(1) + " days ago";
+      return (diffInMs / (1000 * 60 * 60 * 24)).toFixed(0) + " days ago";
     }
   }
 
@@ -69,22 +70,26 @@ export default class Comments extends Component {
 
   async add_comment(e) {
     var comment = $('.comment-content')[0].value;
-    let result = await this.props.addCommentToPost(e.target.id, this.user_id, comment, this.token);
-    if (result.status && result.status == false) {
-      console.log(result.message);
-    } else {
-      let comments = await this.props.getCommentsByPostID(e.target.id, this.user_id, this.token);
-      if (comments.status && comments.status == false) {
-        console.log(comments.message);
+    if (comment.length > 0){
+      let result = await this.props.addCommentToPost(e.target.id, this.user_id, comment, this.token);
+      if (result.status && result.status == false) {
+        console.log(result.message);
       } else {
-        comments.map((item) => {
-          item.createdAt = this.showTime(item.createdAt);
-        })
-        this.setState({
-          comments: comments
-        })
-        $('.comment-content')[0].value = null;
+        let comments = await this.props.getCommentsByPostID(e.target.id, this.user_id, this.token);
+        if (comments.status && comments.status == false) {
+          console.log(comments.message);
+        } else {
+          comments.map((item) => {
+            item.createdAt = this.showTime(item.createdAt);
+          })
+          this.setState({
+            comments: comments
+          })
+          $('.comment-content')[0].value = null;
+        }
       }
+    } else{
+      NotificationManager.error('Empty comments are not allowed.', 'ERROR', 3000);
     }
   }
 
@@ -221,6 +226,7 @@ export default class Comments extends Component {
             <img src={AddComment} id={this.props.comment._id} onClick={this.add_comment}></img>
           </div>
         </div>
+        <NotificationContainer />
       </div>
     );
   }

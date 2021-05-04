@@ -7,7 +7,9 @@ import { addTokenToState } from '../../services/apiOperations';
 import { connect } from "react-redux";
 import {reactLocalStorage} from 'reactjs-localstorage';
 
-import Ads from './advertises'
+import Ads from './advertises';
+import FeedFilter from '../feedFilters';
+import ChefMasterClassFilter from './chefMasterClassFilters'
 import FilterDiv from './filter'
 import HomeSection from './home';
 import ChefSection from './chef';
@@ -135,6 +137,10 @@ class ChefComponents extends React.Component {
                 <Provider store={configureStore}>
                     <HomeSection {...this.state}/>
                 </Provider>, document.getElementById('menu-bar'));
+            ReactDOM.render(
+                <Provider store={configureStore}>
+                    <FeedFilter/>
+                </Provider>, document.getElementById('filter-div'));
         }else if(element == 'chef'){
             ReactDOM.render(
                 <Provider store={configureStore}>
@@ -145,6 +151,10 @@ class ChefComponents extends React.Component {
                 <Provider store={configureStore}>
                     <ShopSection {...this.state}/>
                 </Provider>, document.getElementById('menu-bar'));
+            ReactDOM.render(
+                <Provider store={configureStore}>
+                    <ChefMasterClassFilter/>
+                </Provider>, document.getElementById('filter-div'));
         }else if(element == 'star'){
             ReactDOM.render(
                 <Provider store={configureStore}>
@@ -186,7 +196,9 @@ class ChefComponents extends React.Component {
                 </div>
                 
                 <div className="user-pallet">
-                    <FilterDiv />
+                    <div className="filter-div" id="filter-div">
+                        <FeedFilter />
+                    </div>
                     <div className="menu-bar" id="menu-bar">
                         <HomeSection {...this.state}/>
                     </div>

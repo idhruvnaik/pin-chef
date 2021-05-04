@@ -849,6 +849,18 @@
         }
       }
     }
+    .filter-div {
+      label{
+        font-family: custom-fonts-bold;
+      }
+      ul{
+        font-family: custom-fonts;
+      }
+      .input-range {
+        margin-bottom: 20px;
+        margin-top: 10px;
+      }
+    }
   }
 }
 #popup-root{

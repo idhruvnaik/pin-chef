@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import ReactStars from "react-rating-stars-component";
+import ReactDOM, { render } from 'react-dom';
+import { Provider } from "react-redux";
+import configureStore from "../store";
 import UserPhoto from '../assets/images/photo2.png';
 import FollowersIcon from '../assets/png_icons/followers icon.png'
 import { addTokenToState, getAllChef, getAllFollowedChef, followChef, unfollowChef, getAllPostsByChefID } from '../services/apiOperations';
@@ -7,9 +10,11 @@ import { connect } from "react-redux";
 // import { useHistory  } from 'react-router-dom';
 
 import LocationIcon from '../assets/svg/Location.svg';
-import ExpandNotification from '../assets/svg/Profile Back btn.svg'
-import expandIcon from '../assets/svg/Icon ionic-ios-arrow-back.svg'
-import LeftBack from '../assets/png_icons/Green back arrow.png'
+import ExpandNotification from '../assets/svg/Profile Back btn.svg';
+import expandIcon from '../assets/svg/Icon ionic-ios-arrow-back.svg';
+import LeftBack from '../assets/png_icons/Green back arrow.png';
+import AllChefFilter from './allChefFilters';
+import FollowedChefFilter from './followedChefFilters';
 
 import $ from 'jquery';
 
@@ -39,6 +44,17 @@ class chef extends React.Component {
             $("#" + element + "-sec").show();
             $('.nav-active').removeClass('nav-active');
             e.target.classList.add('nav-active');
+            if (element == "all-chef"){
+                ReactDOM.render(
+                    <Provider store={configureStore}>
+                        <AllChefFilter/>
+                    </Provider>, document.getElementById('filter-div'));
+            } else if (element == "following-chef"){
+                ReactDOM.render(
+                    <Provider store={configureStore}>
+                        <FollowedChefFilter/>
+                    </Provider>, document.getElementById('filter-div'));
+            }
         }
 
         this.active_section_from_profile = (e) => {

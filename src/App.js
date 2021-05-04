@@ -13,6 +13,7 @@ import ChefProfile from './components/chefComponents/chefProfile'
 import GetLocation from './components/getLocation'
 import CustomOnboarding from './components/custom-onboarding'
 import CropImage from './components/cropImages'
+import Terms from './components/termsPollicy'
 import $ from 'jquery';
 // import CommonComponents from './components/commonComponents'
 
@@ -45,6 +46,7 @@ function App() {
               <Route path='/User/ResetPassword' component={ResetPassword} />
               <Route path='/User/ForgotPassword' component={ForgotPassword} />
               <Route path='/Location' component={GetLocation} />
+              <Route path='/terms-policy' component={Terms} />
               <Route path='/User' component={UserReg} />
               <Route path='/Homepage' component={UserFeeds} />
               <Route path='/CustomOnboard' component={CustomOnboarding} />

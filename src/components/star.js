@@ -596,11 +596,11 @@ export default class home extends Component {
                 <div className="primary-details">
                   <div className="l-div">
                     <div className="profile-img-container">
-                      <img src={item.chef.profile_image}></img>
+                      <img src={item.chef && item.chef.profile_image}></img>
                     </div>
                     <div className="user-detail-container">
-                      <h3>{item.chef.user_name}</h3>
-                      <h5>{item.chef.chef_details.position}</h5>
+                      <h3>{item.chef && item.chef.user_name}</h3>
+                      <h5>{item.chef && item.chef.chef_details.position}</h5>
                     </div>
                   </div>
                   <div style={{ paddingRight: "4px" }}>

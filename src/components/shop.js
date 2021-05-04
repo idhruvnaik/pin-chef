@@ -3,6 +3,8 @@ import ReactStars from "react-rating-stars-component";
 import ReactDOM, { render } from 'react-dom';
 import { Provider } from "react-redux";
 import configureStore from "../store";
+import FoodFilter from './foodFilters';
+import ServiceFilter from './serviceFilters';
 import { getAllChef, getAllFood, getAllServices, likeFood, unlikeFood, likeService, unlikeService, AddItemToCart, getItemFromCart } from '../services/apiOperations';
 
 import PostMenu from '../assets/png_icons/Post menu icon@2x.png';
@@ -58,6 +60,17 @@ export default class home extends Component {
             $("#" + element + "-sec").show();
             $('.nav-active').removeClass('nav-active');
             e.target.classList.add('nav-active');
+            if (element == "food"){
+                ReactDOM.render(
+                    <Provider store={configureStore}>
+                        <FoodFilter/>
+                    </Provider>, document.getElementById('filter-div'));
+            } else if (element == "service"){
+                ReactDOM.render(
+                    <Provider store={configureStore}>
+                        <ServiceFilter/>
+                    </Provider>, document.getElementById('filter-div'));
+            }
         }
 
     }
@@ -336,11 +349,11 @@ export default class home extends Component {
                                 <div className="primary-details">
                                     <div className="l-div">
                                         <div className="profile-img-container">
-                                            <img src={item.chef.profile_image}></img>
+                                            <img src={item.chef && item.chef.profile_image}></img>
                                         </div>
                                         <div className="user-detail-container">
-                                            <h3>{item.chef.user_name}</h3>
-                                            <h5>{item.chef.chef_details.position}</h5>
+                                            <h3>{item.chef && item.chef.user_name}</h3>
+                                            <h5>{item.chef && item.chef.chef_details.position}</h5>
                                         </div>
                                     </div>
                                     <div style={{ paddingRight: "4px" }}>
@@ -409,11 +422,11 @@ export default class home extends Component {
                                 <div className="primary-details">
                                     <div className="l-div">
                                         <div className="profile-img-container">
-                                            <img src={item.chef.profile_image}></img>
+                                            <img src={item.chef && item.chef.profile_image}></img>
                                         </div>
                                         <div className="user-detail-container">
-                                            <h3>{item.chef.user_name}</h3>
-                                            <h5>{item.chef.chef_details.position}</h5>
+                                            <h3>{item.chef && item.chef.user_name}</h3>
+                                            <h5>{item.chef && item.chef.chef_details.position}</h5>
                                         </div>
                                     </div>
                                     <div style={{ paddingRight: "4px" }}>

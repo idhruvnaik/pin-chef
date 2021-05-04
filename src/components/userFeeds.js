@@ -7,8 +7,10 @@ import { addTokenToState, getAllChef } from '../services/apiOperations';
 import { connect } from "react-redux";
 import {reactLocalStorage} from 'reactjs-localstorage';
 
-import Ads from './advertises'
-import FilterDiv from './filter'
+import Ads from './advertises';
+import FeedFilter from './feedFilters';
+import AllChefFilter from './allChefFilters';
+import FoodFilter from './foodFilters';
 import HomeSection from './home';
 import ChefSection from './chef';
 import ShopSection from './shop';
@@ -122,16 +124,28 @@ class UserFeeds extends React.Component {
                 <Provider store={configureStore}>
                     <HomeSection {...this.state}/>
                 </Provider>, document.getElementById('menu-bar'));
+            ReactDOM.render(
+                <Provider store={configureStore}>
+                    <FeedFilter/>
+                </Provider>, document.getElementById('filter-div'));
         }else if(element == 'chef'){
             ReactDOM.render(
                 <Provider store={configureStore}>
                     <ChefSection {...this.state}/>
                 </Provider>, document.getElementById('menu-bar'));
+            ReactDOM.render(
+                <Provider store={configureStore}>
+                    <AllChefFilter/>
+                </Provider>, document.getElementById('filter-div'));         
         }else if(element == 'shop'){
             ReactDOM.render(
                 <Provider store={configureStore}>
                     <ShopSection {...this.state}/>
                 </Provider>, document.getElementById('menu-bar'));
+            ReactDOM.render(
+                <Provider store={configureStore}>
+                    <FoodFilter/>
+                </Provider>, document.getElementById('filter-div'));
         }else if(element == 'star'){
             ReactDOM.render(
                 <Provider store={configureStore}>
@@ -203,7 +217,9 @@ class UserFeeds extends React.Component {
                 </div>
                 
                 <div className="user-pallet">
-                    <FilterDiv />
+                    <div className="filter-div" id="filter-div">
+                        <FeedFilter />
+                    </div>
                     <div className="menu-bar" id="menu-bar">
                         <HomeSection {...this.state}/>
                     </div>
