@@ -450,7 +450,12 @@ export default class settings extends Component {
                                 <img src={this.state.user && this.state.user.chef && this.state.user.chef.profile_image}></img>
                             </div>
                             <div>
-                                <img src={EditBannerImage} style={{ cursor: "pointer" }}></img>
+                                <div class="image-upload">
+                                    <label for="file-input">
+                                        <img src={EditBannerImage} style={{ cursor: "pointer" }}></img>
+                                    </label>
+                                    <input id="file-input" type="file" accept=".jpg,.png,.PNG,.jpeg" style={{ display: "none" }} onChange={this.get_profile_img} className="upload" />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -649,7 +654,7 @@ export default class settings extends Component {
                                 clearIcon={null}
                                 disableCalendar={true}
                                 required={true}
-                                // maxDate={new Date(new Date().getTime() - 60 * 60 * 24 * 365 * 13 * 1000)}
+                            // maxDate={new Date(new Date().getTime() - 60 * 60 * 24 * 365 * 13 * 1000)}
                             />
                         </div>
                         <div className="individual-details">
@@ -668,7 +673,7 @@ export default class settings extends Component {
                             <div className="input-name">Cuisine Specialties &nbsp;<span>*</span></div>
                             <SelectSearch values={this.state.selected_cusine} keepSelectedInList={true} options={this.state.options} multi={true} labelField="username" valueField="username" sortBy="username" color="green" searchable={true} searchBy="username" placeholder="Select" onChange={(values) => this.add_cusine(values)} />
                         </div>
-                            Cuisine not in list? <u style={{ fontFamily: "custom-fonts-bold" }} >Add Cuisine</u> <span id="addCusine" style={{ color: "#469A09", fontSize: "18pt", fontFamily: "custom-fonts-bold", cursor: "pointer" }} onClick={this.open_custom_cusine}>+</span>
+                        Cuisine not in list? <u style={{ fontFamily: "custom-fonts-bold" }} >Add Cuisine</u> <span id="addCusine" style={{ color: "#469A09", fontSize: "18pt", fontFamily: "custom-fonts-bold", cursor: "pointer" }} onClick={this.open_custom_cusine}>+</span>
                         <div className="add-cusine">
                             <input id="new_cusine" type="text" placeholder="Write cuisine name"></input>
                             <img src={AddCusine} onClick={this.add_new_cusine}></img>
@@ -676,7 +681,7 @@ export default class settings extends Component {
                         <div className="individual-details long-input" style={{ marginTop: "5px" }}>
                             <div className="input-name">Short Ad Intro</div>
                             <textarea id="short_intro" maxlength="300" placeholder="ex: English, Spanish, etc." onKeyUp={this.show_words_count} value={this.state.user && this.state.user.chef && this.state.user.chef.chef_details.sort_intro}></textarea>
-                            <p>Word Count: <span class="word_count">{this.state.user && this.state.user.chef && this.state.user.chef.chef_details.sort_intro.length }</span>/300</p>
+                            <p>Word Count: <span class="word_count">{this.state.user && this.state.user.chef && this.state.user.chef.chef_details.sort_intro.length}</span>/300</p>
                         </div>
                         <div className="individual-details long-input">
                             <div className="input-name">Full Background Info</div>
@@ -1028,19 +1033,19 @@ export default class settings extends Component {
                             </div>
                             <div className="flex-c">
                                 <div>
-                                    <input id="payment" type="checkbox" name="Payments" className="" value="Stripe" checked={this.state.user && this.state.user.chef && this.state.user.chef.chef_details.payment.includes("Stripe") ? true: false}></input>
+                                    <input id="payment" type="checkbox" name="Payments" className="" value="Stripe" checked={this.state.user && this.state.user.chef && this.state.user.chef.chef_details.payment.includes("Stripe") ? true : false}></input>
                                     <span>Stripe</span>
                                 </div>
                                 <div>
-                                    <input id="payment" type="checkbox" name="Payments" className="" value="Paypal" checked={this.state.user && this.state.user.chef && this.state.user.chef.chef_details.payment.includes("Paypal") ? true: false}></input>
+                                    <input id="payment" type="checkbox" name="Payments" className="" value="Paypal" checked={this.state.user && this.state.user.chef && this.state.user.chef.chef_details.payment.includes("Paypal") ? true : false}></input>
                                     <span>Paypal</span>
                                 </div>
                                 <div>
-                                    <input id="payment" type="checkbox" name="Payments" className="" value="Cash on Delivery" checked={this.state.user && this.state.user.chef && this.state.user.chef.chef_details.payment.includes("Cash on Delivery") ? true: false}></input>
+                                    <input id="payment" type="checkbox" name="Payments" className="" value="Cash on Delivery" checked={this.state.user && this.state.user.chef && this.state.user.chef.chef_details.payment.includes("Cash on Delivery") ? true : false}></input>
                                     <span>Cash on Delivery</span>
                                 </div>
                                 <div>
-                                    <input id="payment" type="checkbox" name="Payments" className="" value="Credit Card on Delivery" checked={this.state.user && this.state.user.chef && this.state.user.chef.chef_details.payment.includes("Credit Card on Delivery") ? true: false}></input>
+                                    <input id="payment" type="checkbox" name="Payments" className="" value="Credit Card on Delivery" checked={this.state.user && this.state.user.chef && this.state.user.chef.chef_details.payment.includes("Credit Card on Delivery") ? true : false}></input>
                                     <span>Credit Card on Delivery</span>
                                 </div>
                             </div>
