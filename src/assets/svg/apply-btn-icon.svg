@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="146" height="51" viewBox="0 0 146 51">
+  <defs>
+    <filter id="Button_background" x="0" y="0" width="146" height="51" filterUnits="userSpaceOnUse">
+      <feOffset dx="1" dy="2" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="1" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Save_btn" data-name="Save btn" transform="translate(-198 -238)">
+    <g transform="matrix(1, 0, 0, 1, 198, 238)" filter="url(#Button_background)">
+      <path id="Button_background-2" data-name="Button background" d="M22,0H140a0,0,0,0,1,0,0V28a17,17,0,0,1-17,17H23A23,23,0,0,1,0,22v0A22,22,0,0,1,22,0Z" transform="translate(2 1)" fill="#5b5353"/>
+    </g>
+    <text id="Apply" transform="translate(270 269)" fill="#fff" font-size="20" font-family="Montserrat-Bold, Montserrat" font-weight="700"><tspan x="-30.45" y="0">Apply</tspan></text>
+  </g>
+</svg>

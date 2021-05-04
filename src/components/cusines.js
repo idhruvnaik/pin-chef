@@ -3,6 +3,9 @@ import React, { Component } from 'react';
 import './form.scss';
 import './cusines.scss';
 
+import CancelIcon from '../assets/svg/cancel-icon.svg';
+import ApplyBtnIcon from '../assets/svg/apply-btn-icon.svg';
+
 const cusines = [
     {
         username: 'Afghani'
@@ -399,15 +402,24 @@ export default class Cusines extends Component {
     render() {
         return (
             <div className="all_cusines" style={{ boxShadow: "0 1px 3px rgb(0 0 0 / 50%)" }}>
-                <ul>
-                    {this.state.cusines.map((item) => {
-                        return (
-                            <li><input type="checkbox" name="cusines" />
-                                <span>{item.username}</span>
-                            </li>
-                        )
-                    })}
-                </ul>
+                <div className="cuisine-header">
+                    <img src={CancelIcon}></img>
+                    <h4>Cuisines</h4>
+                </div>
+                <div className="cuisine-body">
+                    <ul>
+                        {this.state.cusines.map((item) => {
+                            return (
+                                <li><input type="checkbox" name="cusines" />
+                                    <span>{item.username}</span>
+                                </li>
+                            )
+                        })}
+                    </ul>
+                </div>
+                <div className="cuisine-footer">
+                        <img src={ApplyBtnIcon}></img>
+                </div>
             </div>
         );
     }

@@ -57,7 +57,7 @@ export default function AllChefFilter() {
                             nested
                         >
                             {close => (
-                                <div className="filter">
+                                <div className="filter" style={{ display: "flex", justifyContent: "center", alignItems: "center"}}>
                                     <Cusines />
                                 </div>
                             )}
