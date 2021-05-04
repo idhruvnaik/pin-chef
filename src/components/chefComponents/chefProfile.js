@@ -1567,7 +1567,7 @@ class ChefProfile extends React.Component {
                                 <div className="input-name">Address/Location &nbsp;<span>*</span></div>
                                 <GooglePlacesAutocomplete
                                     placeholder="Country, city, state or zip code"
-                                    apiKey="AIzaSyAahUdhCQxOBWBibQf7UV5BFUC7VQWJ4Ys"
+                                    apiKey=""
                                     selectProps={{
                                         onChange: this.set_location,
                                     }}
