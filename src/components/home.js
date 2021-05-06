@@ -50,6 +50,7 @@ export default class home extends Component {
         this.makeTimer = this.makeTimer.bind(this);
         this.open_comments = this.open_comments.bind(this);
         this.setPopUp = this.setPopUp.bind(this);
+        this.recipe_cusines = this.recipe_cusines.bind(this);
         this.render = this.render.bind(this);
         this.state = {
             token: this.props.token,
@@ -80,7 +81,7 @@ export default class home extends Component {
             if (element == "recipe"){
                 ReactDOM.render(
                     <Provider store={configureStore}>
-                        <RecipeFilter/>
+                        <RecipeFilter get_cusines={this.recipe_cusines}/>
                     </Provider>, document.getElementById('filter-div'));
             } else if (element == "feed"){
                 ReactDOM.render(
@@ -108,6 +109,10 @@ export default class home extends Component {
         } else {
             return [];
         }
+    }
+
+    recipe_cusines(cusines){
+        console.log(cusines, "from home");
     }
 
     async initialize_feeds() {

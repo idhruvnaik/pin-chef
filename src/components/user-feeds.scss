@@ -859,6 +859,31 @@
       .input-range {
         margin-bottom: 20px;
         margin-top: 10px;
+        .input-range__track--background{
+          max-width: 90%;
+          .input-range__track--active{
+            background: #BF2604;
+          }
+          .input-range__slider-container{
+            .input-range__slider{
+              background: #BF2604;
+              border: 1px solid #BF2604;
+            }
+          }
+        }
+      }
+      .all-diet{
+        ul{
+          max-height: 145px;
+          overflow: hidden;
+        }
+        .more-diets{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer;
+          font-family: custom-fonts;
+        }
       }
     }
   }

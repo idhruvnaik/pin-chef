@@ -137,6 +137,7 @@ class ChefComponents extends React.Component {
                 <Provider store={configureStore}>
                     <HomeSection {...this.state}/>
                 </Provider>, document.getElementById('menu-bar'));
+            $('#filter-div').css("visibility", "visible");
             ReactDOM.render(
                 <Provider store={configureStore}>
                     <FeedFilter/>
@@ -146,11 +147,14 @@ class ChefComponents extends React.Component {
                 <Provider store={configureStore}>
                     <ChefSection {...this.state}/>
                 </Provider>, document.getElementById('menu-bar'));
+                $('#filter-div').css("visibility", "hidden");
+                $('input[type="radio"]').hide();
         }else if(element == 'shop'){
             ReactDOM.render(
                 <Provider store={configureStore}>
                     <ShopSection {...this.state}/>
                 </Provider>, document.getElementById('menu-bar'));
+            $('#filter-div').css("visibility", "visible");
             ReactDOM.render(
                 <Provider store={configureStore}>
                     <ChefMasterClassFilter/>
@@ -160,11 +164,15 @@ class ChefComponents extends React.Component {
                 <Provider store={configureStore}>
                     <StarSection {...this.state}/>
                 </Provider>, document.getElementById('menu-bar'));
+                $('#filter-div').css("visibility", "hidden");
+                $('input[type="radio"]').hide();
         } else{
             ReactDOM.render(
                 <Provider store={configureStore}>
                     <SettingsSection {...this.state}/>
                 </Provider>, document.getElementById('menu-bar'));
+                $('#filter-div').css("visibility", "hidden");
+                $('input[type="radio"]').hide();
         }
     }
 

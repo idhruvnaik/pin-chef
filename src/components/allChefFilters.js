@@ -7,9 +7,20 @@ import Cusines from './cusines';
 import MoreCusine from '../assets/svg/more-cusines.svg';
 import Popup from 'reactjs-popup';
 
-import './form.scss'
+import './form.scss';
+import $ from "jquery";
 
 export default function AllChefFilter() {
+
+    function show_diets(){
+        if($('.more-diets span')[0].innerHTML == "more..."){
+            $('.all-diet ul').css("max-height", "fit-content");
+            $('.more-diets span')[0].innerHTML = "less";
+        } else{
+            $('.all-diet ul').css("max-height", "145px");
+            $('.more-diets span')[0].innerHTML = "more...";
+        }
+    }
 
     return (
         <div className="filter-page all-chefs-filter">
@@ -57,14 +68,14 @@ export default function AllChefFilter() {
                             nested
                         >
                             {close => (
-                                <div className="filter" style={{ display: "flex", justifyContent: "center", alignItems: "center"}}>
-                                    <Cusines />
+                                <div className="filter" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                    <Cusines close_pop_up={close} />
                                 </div>
                             )}
                         </Popup>
                     </ul>
                 </div>
-                <div className="radio-group">
+                <div className="radio-group all-diet">
                     <label>Diets</label>
                     <ul>
                         <li><input type="radio" name="cookingTime" />
@@ -95,6 +106,12 @@ export default function AllChefFilter() {
                             <span>Organic</span>
                         </li>
                     </ul>
+                    <div className="more-diets" onClick={show_diets}>
+                        <img src={MoreCusine}></img>
+                        <div style={{ opacity: "0.6" }}>
+                            <span>more...</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

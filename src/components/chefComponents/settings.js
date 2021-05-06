@@ -39,6 +39,7 @@ import PhoneInput from 'react-phone-input-2';
 import TermsLogo from '../../assets/png_icons/terms and privacy bullet icon@2x.png';
 import DefaultCover from '../../assets/png_icons/Chef_Default_Cover.png';
 import Home from './home';
+import CropImage from '../cropImages';
 
 import Switch from "react-switch";
 import SelectSearch from "react-dropdown-select";
@@ -62,11 +63,16 @@ export default class settings extends Component {
 
         this.state = {
             checked: false,
-            user_details: null
+            user_details: null,
+            banner_crop_popup: false,
+            banner_source_image: null,
+            bannerCropUrl: {}
         };
         this.handleChange = this.handleChange.bind(this);
+        this.handleServiceChange = this.handleServiceChange.bind(this);
         this.logout = this.logout.bind(this);
         this.getUserData = this.getUserData.bind(this);
+        this.service_upload = this.service_upload.bind(this);
         this.token = this.props.token;
         this.user_id = this.props.user_id;
 
@@ -168,12 +174,53 @@ export default class settings extends Component {
         this.getUserData();
     }
 
+    service_upload(e) {
+        var selectedFile = e.target.files[0];
+        var reader = new FileReader();
+        // $('.image-preview img')[0].title = selectedFile.name;
+        reader.onload = (event) => {
+          // $('.image-preview img')[0].src = event.target.result;
+          this.setState({
+            banner_source_image: event.target.result
+          })
+        };
+        reader.readAsDataURL(selectedFile);
+        this.setState({
+            banner_crop_popup: true
+        });
+    }
+
+    handleServiceChange(otp) {
+        this.setState({
+          banner_crop_popup: false
+        });
+        this.setState({ bannerCropUrl: otp });
+        var reader = new FileReader();
+        reader.onload = (event) => {
+          // $('.image-preview img')[0].src = event.target.result;
+          // this.setState({ src: event.target.result })
+          $('#banner-icon')[0].src = event.target.result;
+        };
+        $('#banner-icon')[0].src = reader.readAsDataURL(otp);
+    };
+
     render() {
         return (
             <div className="settings-content" id="settings-sec">
                 {/* <ul className="switch-content">
                     <li onClick={this.active} className="nav-active" id="food">MY PROFILE</li>
                 </ul> */}
+                <Popup
+                    open={this.state.banner_crop_popup}
+                    position="center center"
+                    closeOnDocumentClick
+                    modal
+                    nested
+                >
+                    {close => (
+                        <CropImage onOtpChange={this.handleServiceChange} image_source={this.state.banner_source_image} close_popup={close} crop_height={51} />
+                    )}
+                </Popup>
                 <div className="profile">
                     {console.log(this.state, "from setting")}
                     <div className="primary-details">
@@ -443,7 +490,7 @@ export default class settings extends Component {
                     </div>
                     <div className="cover-photo">
                         <div className="banner">
-                            <img src={this.state.user && this.state.user.chef && this.state.user.chef.banner_image ? this.state.user.chef.banner_image : DefaultCover}></img>
+                            <img src={this.state.user && this.state.user.chef && this.state.user.chef.banner_image ? this.state.user.chef.banner_image : DefaultCover} id="banner-icon"></img>
                         </div>
                         <div className="chef-images">
                             <div className="desktop-icon">
@@ -454,7 +501,7 @@ export default class settings extends Component {
                                     <label for="file-input">
                                         <img src={EditBannerImage} style={{ cursor: "pointer" }}></img>
                                     </label>
-                                    <input id="file-input" type="file" accept=".jpg,.png,.PNG,.jpeg" style={{ display: "none" }} onChange={this.get_profile_img} className="upload" />
+                                    <input id="file-input" type="file" accept=".jpg,.png,.PNG,.jpeg" style={{ display: "none" }} onChange={this.service_upload} className="upload" />
                                 </div>
                             </div>
                         </div>
@@ -617,7 +664,7 @@ export default class settings extends Component {
                                     <label for="file-input">
                                         <img src={ProfileImage}></img>
                                     </label>
-                                    <input id="file-input" type="file" accept=".jpg,.png,.PNG,.jpeg" onChange={this.get_profile_img} className="upload" />
+                                    <input id="file-input" type="file" accept=".jpg,.png,.PNG,.jpeg" className="upload" />
                                 </div>
                                 <div className="delete_photo">
                                     <img src={null} onClick={this.delete_profile_img}></img>

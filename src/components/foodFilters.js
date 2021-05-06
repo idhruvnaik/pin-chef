@@ -8,8 +8,9 @@ import Masterdate from '../assets/svg/master-dates.svg';
 import Cusines from './cusines';
 import MoreCusine from '../assets/svg/more-cusines.svg';
 
-import './form.scss'
+import './form.scss';
 import 'react-input-range/lib/css/index.css';
+import $ from "jquery";
 
 export default class FoodFilter extends Component {
 
@@ -17,7 +18,7 @@ export default class FoodFilter extends Component {
         super(props);
         this.update_feed_ranges = this.update_feed_ranges.bind(this);
         this.state = {
-            value: { min: 2, max: 60 },
+            value: { min: 8, max: 65 },
             selectionRange: [{
                 startDate: null,
                 endDate: null,
@@ -38,6 +39,16 @@ export default class FoodFilter extends Component {
         this.setState({ start_date: ranges.selection.startDate.toLocaleDateString() });
         this.setState({ end_date: ranges.selection.endDate.toLocaleDateString() });
         this.setState({ selectionRange: temp });
+    }
+
+    show_diets(){
+        if($('.more-diets span')[0].innerHTML == "more..."){
+            $('.all-diet ul').css("max-height", "fit-content");
+            $('.more-diets span')[0].innerHTML = "less";
+        } else{
+            $('.all-diet ul').css("max-height", "145px");
+            $('.more-diets span')[0].innerHTML = "more...";
+        }
     }
 
     render() {
@@ -103,13 +114,13 @@ export default class FoodFilter extends Component {
                             >
                                 {close => (
                                     <div className="filter">
-                                        <Cusines />
+                                        <Cusines close_pop_up={close}/>
                                     </div>
                                 )}
                             </Popup>
                         </ul>
                     </div>
-                    <div className="radio-group">
+                    <div className="radio-group all-diet">
                         <label>Diets</label>
                         <ul>
                             <li><input type="radio" name="cookingTime" />
@@ -127,7 +138,25 @@ export default class FoodFilter extends Component {
                             <li><input type="radio" name="cookingTime" />
                                 <span>Kosher</span>
                             </li>
+                            <li><input type="radio" name="cookingTime" />
+                                <span>Nut Free</span>
+                            </li>
+                            <li><input type="radio" name="cookingTime" />
+                                <span>Shellfish Free</span>
+                            </li>
+                            <li><input type="radio" name="cookingTime" />
+                                <span>Dairy Free</span>
+                            </li>
+                            <li><input type="radio" name="cookingTime" />
+                                <span>Organic</span>
+                            </li>
                         </ul>
+                        <div className="more-diets" onClick={this.show_diets}>
+                            <img src={MoreCusine}></img>
+                            <div style={{ opacity: "0.6" }}>
+                                <span>more...</span>
+                            </div>
+                        </div>
                     </div>
                     <div className="filter-container">
                         <Popup
@@ -146,6 +175,7 @@ export default class FoodFilter extends Component {
                                         editableDateInputs={true}
                                         onChange={item => this.update_feed_ranges(item)}
                                         ranges={this.state.selectionRange}
+                                        rangeColors={["#FFD54F"]}
                                     // dayDisplayFormat="d"
                                     // weekdayDisplayFormat="E"
                                     />

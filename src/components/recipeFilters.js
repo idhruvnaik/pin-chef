@@ -8,13 +8,30 @@ import InputRange from 'react-input-range';
 
 import './form.scss'
 import 'react-input-range/lib/css/index.css';
+import $ from "jquery";
 
 export default class RecipeFilter extends Component {
 
     constructor(props) {
         super(props);
+        this.apply_filters = this.apply_filters.bind(this);
+        this.show_diets = this.show_diets.bind(this);
         this.state = {
             value: { min: 2, max: 10 },
+        }
+    }
+
+    apply_filters(selected_cusines) {
+        this.props.get_cusines(selected_cusines);
+    }
+
+    show_diets(){
+        if($('.more-diets span')[0].innerHTML == "more..."){
+            $('.all-diet ul').css("max-height", "fit-content");
+            $('.more-diets span')[0].innerHTML = "less";
+        } else{
+            $('.all-diet ul').css("max-height", "145px");
+            $('.more-diets span')[0].innerHTML = "more...";
         }
     }
 
@@ -74,7 +91,7 @@ export default class RecipeFilter extends Component {
                     <div className="radio-group">
                         <label>Cusines</label>
                         <ul>
-                            <li><input type="radio" name="cusines" />
+                            <li><input type="radio" name="cusines" value="European" />
                                 <span>European</span>
                             </li>
                             <li><input type="radio" name="cusines" />
@@ -107,13 +124,13 @@ export default class RecipeFilter extends Component {
                             >
                                 {close => (
                                     <div className="filter">
-                                        <Cusines />
+                                        <Cusines close_pop_up={close} onCusineChange={this.apply_filters} />
                                     </div>
                                 )}
                             </Popup>
                         </ul>
                     </div>
-                    <div className="radio-group">
+                    <div className="radio-group all-diet">
                         <label>Diets</label>
                         <ul>
                             <li><input type="radio" name="cookingTime" />
@@ -131,7 +148,25 @@ export default class RecipeFilter extends Component {
                             <li><input type="radio" name="cookingTime" />
                                 <span>Kosher</span>
                             </li>
+                            <li><input type="radio" name="cookingTime" />
+                                <span>Nut Free</span>
+                            </li>
+                            <li><input type="radio" name="cookingTime" />
+                                <span>Shellfish Free</span>
+                            </li>
+                            <li><input type="radio" name="cookingTime" />
+                                <span>Dairy Free</span>
+                            </li>
+                            <li><input type="radio" name="cookingTime" />
+                                <span>Organic</span>
+                            </li>
                         </ul>
+                        <div className="more-diets" onClick={this.show_diets}>
+                            <img src={MoreCusine}></img>
+                            <div style={{ opacity: "0.6" }}>
+                                <span>more...</span>
+                            </div>
+                        </div>
                     </div>
                     <div className="radio-group">
                         <label>Serving Size</label>

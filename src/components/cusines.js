@@ -5,6 +5,7 @@ import './cusines.scss';
 
 import CancelIcon from '../assets/svg/cancel-icon.svg';
 import ApplyBtnIcon from '../assets/svg/apply-btn-icon.svg';
+import $ from 'jquery';
 
 const cusines = [
     {
@@ -393,24 +394,36 @@ export default class Cusines extends Component {
 
     constructor(props) {
         super(props);
+        this.extract_selected_cusines = this.extract_selected_cusines.bind(this);
         this.state = {
             cusines: cusines
         }
+        this.handleChange = selected_cusines => {
+            this.props.onCusineChange(selected_cusines);
+        };
 
+    }
+
+    extract_selected_cusines(){
+        var selected_cusines = [];
+        $('input[name="cusines"]:checked').map((index, item) => {
+            selected_cusines.push(item.value);
+        })
+        this.handleChange(selected_cusines);
     }
 
     render() {
         return (
             <div className="all_cusines" style={{ boxShadow: "0 1px 3px rgb(0 0 0 / 50%)" }}>
                 <div className="cuisine-header">
-                    <img src={CancelIcon}></img>
+                    <img src={CancelIcon} onClick={this.props.close_pop_up}></img>
                     <h4>Cuisines</h4>
                 </div>
                 <div className="cuisine-body">
                     <ul>
                         {this.state.cusines.map((item) => {
                             return (
-                                <li><input type="checkbox" name="cusines" />
+                                <li><input type="checkbox" name="cusines" value={item.username}/>
                                     <span>{item.username}</span>
                                 </li>
                             )
@@ -418,7 +431,7 @@ export default class Cusines extends Component {
                     </ul>
                 </div>
                 <div className="cuisine-footer">
-                        <img src={ApplyBtnIcon}></img>
+                    <img src={ApplyBtnIcon} onClick={this.extract_selected_cusines}></img>
                 </div>
             </div>
         );

@@ -78,6 +78,7 @@ export default class FeedFilter extends Component {
                                         editableDateInputs={true}
                                         onChange={item => this.update_feed_ranges(item)}
                                         ranges={this.state.selectionRange}
+                                        rangeColors={["#FFD54F"]}
                                     // dayDisplayFormat="d"
                                     // weekdayDisplayFormat="E"
                                     />

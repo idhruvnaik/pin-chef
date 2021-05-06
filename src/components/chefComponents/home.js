@@ -563,6 +563,7 @@ export default class home extends Component {
     this.add_service = this.add_service.bind(this);
     this.service_upload = this.service_upload.bind(this);
     this.handleServiceChange = this.handleServiceChange.bind(this);
+    this.recipe_cusines = this.recipe_cusines.bind(this);
     this.state = {
       source_image: null,
       food_source_image: null,
@@ -738,7 +739,7 @@ export default class home extends Component {
       if (element == "recipe") {
         ReactDOM.render(
           <Provider store={configureStore}>
-            <RecipeFilter />
+            <RecipeFilter get_cusines={this.recipe_cusines}/>
           </Provider>, document.getElementById('filter-div'));
       } else if (element == "feed") {
         ReactDOM.render(
@@ -979,6 +980,10 @@ export default class home extends Component {
 
   onImageLoaded(image) {
     this.imageRef = image;
+  }
+
+  recipe_cusines(cusines){
+    console.log(cusines, "from home");
   }
 
   enable_field(e) {
